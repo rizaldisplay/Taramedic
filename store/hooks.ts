@@ -1,0 +1,7 @@
+import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from 'react-redux';
+import type { RootState, AppDispatch, AppStore } from './index';
+
+// Custom Hooks untuk menggantikan useDispatch, useSelector, dan useStore standar
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppStore = () => useStore<AppStore>();
