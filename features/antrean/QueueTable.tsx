@@ -1,15 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, SlidersHorizontal, ChevronDown, Volume2, Clock } from 'lucide-react';
+import { Search, SlidersHorizontal, ChevronDown, Volume2, Clock, ChevronLeft, ChevronRight  } from 'lucide-react';
 
 // --- Sub-components Internal ---
 const TabButton = ({ label, count, active, onClick }: { label: string, count: number, active: boolean, onClick: () => void }) => (
-  <button 
+  <button
     onClick={onClick}
-    className={`px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
-      active ? 'border-emerald-500 text-emerald-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
-    }`}
+    className={`px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${active ? 'border-emerald-500 text-emerald-700' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+      }`}
   >
     {label} <span className={`ml-1 px-1.5 py-0.5 rounded-md text-[10px] ${active ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}`}>{count}</span>
   </button>
@@ -81,9 +80,28 @@ export const QueueTable = () => {
           <tbody className="divide-y divide-slate-100">
             <TableRow no="A013" name="Rizka Amalia" gender="Perempuan" age="8 thn" rm="RM-000036" insurance="BPJS" status="Dipanggil" time="08:05 WIB" wait="-" active />
             <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
+            <TableRow no="A014" name="Fathan Alfarizi" gender="Laki-laki" age="6 thn" rm="RM-000037" insurance="BPJS" status="Menunggu" time="08:07 WIB" wait="± 12 menit" />
             {/* Tambahkan row lainnya di sini saat integrasi API */}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination Footer */}
+      <div className="p-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-500">
+        <div>Menampilkan 1 - 6 dari 18 data</div>
+        <div className="flex items-center gap-1">
+          <button className="p-1.5 rounded-md border border-slate-200 text-slate-400 hover:bg-slate-50"><ChevronLeft className="w-4 h-4" /></button>
+          <button className="w-8 h-8 rounded-md bg-emerald-500 text-white font-medium flex items-center justify-center">1</button>
+          <button className="w-8 h-8 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center">2</button>
+          <button className="w-8 h-8 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center">3</button>
+          <button className="p-1.5 rounded-md border border-slate-200 text-slate-400 hover:bg-slate-50"><ChevronRight className="w-4 h-4" /></button>
+        </div>
       </div>
     </div>
   );

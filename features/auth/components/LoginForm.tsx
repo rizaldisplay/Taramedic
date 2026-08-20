@@ -33,7 +33,11 @@ export default function LoginForm() {
   return (
     <div className="w-full max-w-[480px] rounded-[2rem] bg-white p-8 sm:p-10 shadow-2xl shadow-cyan-900/10 border border-slate-100 flex flex-col justify-between relative overflow-hidden">
       {/* Aksen Garis Atas */}
-      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-cyan-400 to-blue-600"></div>
+      <div className="card-logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z" fill="#fff" />
+        </svg>
+      </div>
 
       <div>
         {/* Logo Mobile / Top Section */}
