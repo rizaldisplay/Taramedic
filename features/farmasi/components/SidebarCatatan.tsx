@@ -26,6 +26,10 @@ interface AlergiDipandu {
   onLihatRiwayat?: () => void;
 }
 
+import PenerimaObatComponent from "./PenerimaObat";
+import CatatanEdukasiComponent from "./CatatanEdukasi";
+import RingkasanSerahObatComponent from "./RingkasanSerahObat";
+
 export default function SidebarCatatan({ internalNote, setInternalNote }: { internalNote: string; setInternalNote: React.Dispatch<React.SetStateAction<string>> }) {
   const [internalNotes, setInternalNotes] = useState<InternalNote[]>([]);
   const [internalNoteDraft, setInternalNoteDraft] = useState("");
@@ -168,7 +172,13 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
         </button>
       </div>
 
-      {/* */}
+      {/** Penerima Obat */}
+        <PenerimaObatComponent />
+      {/** Catatan Edukasi */}
+        <CatatanEdukasiComponent />
+      {/** Ringkasan Serah Obat */}
+        <RingkasanSerahObatComponent />
+      {/* Alergi Yang Dipandu */}
       <div className="w-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       {/* Header */}
       <div className="mb-4 flex items-center gap-2">
