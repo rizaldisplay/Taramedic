@@ -76,7 +76,7 @@ function DetailModal({ isOpen, onClose, data }: DetailModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto">
+    <div className="flex w-full flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="bg-white rounded-2xl w-full max-w-4xl shadow-2xl overflow-hidden my-auto border border-slate-100 transition-all transform animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Header */}

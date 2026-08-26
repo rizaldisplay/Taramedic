@@ -19,7 +19,9 @@ export default function RingkasanFarmasiPage() {
                 Mengambil 8 bagian dari 12 kolom (LG) atau 9 bagian (XL)
             ========================================= */}
             <div className="lg:col-span-8 flex flex-col gap-5">
-            <ResepElektronik/>
+              <div className="grid grid-cols-1 gap-6 xl:grid-cols-1">
+                <ResepElektronik/>
+              </div>       
             </div>
 
             <SidebarCatatan
