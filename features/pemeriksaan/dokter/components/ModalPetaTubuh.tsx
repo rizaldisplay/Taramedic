@@ -17,8 +17,8 @@ interface BodyMarker {
   title: string;
   time: string;
   author: 'Perawat' | 'Dokter';
-  x: number; // Persentase posisi X (0-100)
-  y: number; // Persentase posisi Y (0-100)
+  x: number; // Persentase posisi X (0-100) dari keseluruhan gambar
+  y: number; // Persentase posisi Y (0-100) dari keseluruhan gambar
   view: 'depan' | 'belakang';
 }
 
@@ -28,39 +28,39 @@ interface ModalPetaTubuhProps {
 }
 
 export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps) {
-  // Mode marker aktif untuk menambah titik baru
+  // Mode marker aktif untuk menambah titik baru atau menghapus
   const [activeTool, setActiveTool] = useState<MarkerCategory | 'hapus'>('Keluhan');
 
-  // Initial Mock Data penanda tubuh sesuai gambar
+  // Initial Mock Data disesuaikan dengan gambar referensi
   const [markers, setMarkers] = useState<BodyMarker[]>([
     {
-      id: '1',
+      id: 'mock-1',
       category: 'Keluhan',
       title: 'Nyeri kepala',
       time: '08:20 WIB',
       author: 'Perawat',
-      x: 43.5,
-      y: 11,
+      x: 25, // Posisi kepala tampak depan (kiri)
+      y: 15,
       view: 'depan',
     },
     {
-      id: '2',
+      id: 'mock-2',
       category: 'Temuan Perawat',
       title: 'Nyeri tekan ringan di abdomen bawah',
       time: '08:25 WIB',
       author: 'Perawat',
-      x: 43.5,
-      y: 45,
+      x: 25, // Posisi perut bawah tampak depan (kiri)
+      y: 48,
       view: 'depan',
     },
     {
-      id: '3',
+      id: 'mock-3',
       category: 'Temuan Dokter',
       title: 'Tidak ada ruam pada kulit',
       time: '08:45 WIB',
       author: 'Dokter',
-      x: 50.5,
-      y: 28,
+      x: 75, // Posisi punggung tengah tampak belakang (kanan)
+      y: 38,
       view: 'belakang',
     },
   ]);
@@ -75,7 +75,6 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
           bgBadge: 'bg-red-50/80 text-red-600 border-red-100',
           dotBg: 'bg-red-500',
           pingBg: 'bg-red-400',
-          borderActive: 'border-red-500 bg-red-50/30 text-red-600',
           pinColor: 'border-red-500 bg-red-50 text-red-600',
         };
       case 'Temuan Perawat':
@@ -83,7 +82,6 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
           bgBadge: 'bg-amber-50/80 text-amber-600 border-amber-100',
           dotBg: 'bg-amber-500',
           pingBg: 'bg-amber-400',
-          borderActive: 'border-amber-500 bg-amber-50/30 text-amber-600',
           pinColor: 'border-amber-500 bg-amber-50 text-amber-600',
         };
       case 'Temuan Dokter':
@@ -91,26 +89,35 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
           bgBadge: 'bg-purple-50/80 text-purple-600 border-purple-100',
           dotBg: 'bg-purple-600',
           pingBg: 'bg-purple-400',
-          borderActive: 'border-purple-600 bg-purple-50/30 text-purple-600',
           pinColor: 'border-purple-600 bg-purple-50 text-purple-600',
         };
     }
   };
 
-  // Handler Klik Canvas Tubuh (Menambah Point)
-  const handleCanvasClick = (e: React.MouseEvent<HTMLDivElement>, view: 'depan' | 'belakang') => {
+  // Handler Klik Canvas Tubuh PNG (Menambah Point)
+  const handleCanvasClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (activeTool === 'hapus') return;
 
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const rawX = ((e.clientX - rect.left) / rect.width) * 100;
+    const rawY = ((e.clientY - rect.top) / rect.height) * 100;
+    
+    // Clamp memastikan titik tidak melebihi 0 - 100
+    const x = Math.min(100, Math.max(0, Math.round(rawX)));
+    const y = Math.min(100, Math.max(0, Math.round(rawY)));
+
+    // Asumsi: Gambar setengah kiri adalah depan, setengah kanan adalah belakang
+    const view = x < 50 ? 'depan' : 'belakang';
+    
+    // Waktu realtime saat titik ditambahkan
+    const currentTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
 
     const newMarker: BodyMarker = {
       id: Date.now().toString(),
-      category: activeTool,
+      category: activeTool as MarkerCategory,
       title: `Temuan Baru (${view === 'depan' ? 'Depan' : 'Belakang'})`,
-      time: '08:50 WIB',
-      author: 'Dokter',
+      time: currentTime,
+      author: activeTool === 'Temuan Perawat' ? 'Perawat' : 'Dokter',
       x: Number(x.toFixed(1)),
       y: Number(y.toFixed(1)),
       view,
@@ -121,8 +128,8 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
 
   // Hapus Satu Marker
   const handleRemoveMarker = (id: string, e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setMarkers(markers.filter((m) => m.id !== id));
+    e?.stopPropagation(); // Cegah propagasi agar tidak memicu handleCanvasClick
+    setMarkers((prev) => prev.filter((m) => m.id !== id));
   };
 
   // Hapus Semua Marker
@@ -131,7 +138,7 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-xs p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 overflow-y-auto">
       {/* Container Modal */}
       <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-200">
         
@@ -190,7 +197,7 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
                   return (
                     <div
                       key={item.id}
-                      className={`border rounded-xl p-3 bg-white relative transition-all shadow-2xs ${theme.bgBadge}`}
+                      className={`border rounded-xl p-3 bg-white relative transition-all shadow-sm ${theme.bgBadge}`}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-2">
@@ -200,6 +207,7 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
                         <button
                           onClick={(e) => handleRemoveMarker(item.id, e)}
                           className="text-gray-400 hover:text-red-500 transition-colors p-0.5"
+                          title="Hapus"
                         >
                           <MoreVertical size={14} />
                         </button>
@@ -233,117 +241,57 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
             </button>
           </div>
 
+          {/* KOLOM 2: ANATOMI TUBUH DENGAN PNG (7/12) */}
+          <div className="lg:col-span-7 flex flex-col items-center justify-center bg-white min-h-[460px]">
+            <div
+              onClick={handleCanvasClick}
+              className={`relative w-full max-w-[550px] aspect-[3/2] bg-white border border-gray-100 rounded-2xl flex items-center justify-center overflow-hidden transition-all group ${
+                activeTool === 'hapus' ? 'cursor-default' : 'cursor-crosshair hover:border-blue-300'
+              }`}
+            >
+              {/* Gambar Model Tubuh PNG */}
+              <img
+                src="/images/Model%20Tubuh.png"
+                alt="Peta Tubuh"
+                className="w-full h-full object-contain pointer-events-none opacity-90"
+              />
 
-          {/* KOLOM 2: ANATOMI TUBUH (7/12) */}
-          <div className="lg:col-span-7 grid grid-cols-2 gap-4 items-center justify-items-center bg-white min-h-[460px]">
-            
-            {/* TAMPAK DEPAN */}
-            <div className="flex flex-col items-center w-full">
-              <h4 className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">
-                TAMPAK DEPAN
-              </h4>
-              
-              <div
-                onClick={(e) => handleCanvasClick(e, 'depan')}
-                className="relative w-full max-w-[210px] h-[400px] cursor-crosshair flex items-center justify-center group"
-              >
-                {/* SVG Outline Body Front */}
-                <svg viewBox="0 0 200 450" className="w-full h-full stroke-gray-300 fill-none stroke-[1.5] group-hover:stroke-gray-400 transition-colors">
-                  {/* Head */}
-                  <ellipse cx="100" cy="45" rx="22" ry="28" />
-                  {/* Neck */}
-                  <path d="M90 70 L90 85 M110 70 L110 85" />
-                  {/* Shoulders & Torso */}
-                  <path d="M90 85 Q60 90 48 115 L42 180 L35 250 L28 290 L40 292 L48 240 L55 180 L60 170 L60 260 L68 285 L65 410 L85 410 L95 280 L100 260 L105 280 L115 410 L135 410 L132 285 L140 260 L140 170 L145 180 L152 240 L160 292 L172 290 L165 250 L158 180 L152 115 Q140 90 110 85" />
-                  {/* Chest & Abdomen Lines */}
-                  <path d="M75 140 Q100 150 125 140" strokeDasharray="2 2" />
-                  <circle cx="100" cy="225" r="3" className="stroke-gray-300 fill-gray-300" />
-                  {/* Face details */}
-                  <circle cx="92" cy="42" r="1.5" className="fill-gray-300 stroke-none" />
-                  <circle cx="108" cy="42" r="1.5" className="fill-gray-300 stroke-none" />
-                  <path d="M96 55 Q100 58 104 55" />
-                </svg>
-
-                {/* Markers Overlay Depan */}
-                {markers
-                  .filter((m) => m.view === 'depan')
-                  .map((m) => {
-                    const theme = getCategoryTheme(m.category);
-                    return (
-                      <div
-                        key={m.id}
-                        style={{ left: `${m.x}%`, top: `${m.y}%` }}
-                        onClick={(e) => {
-                          if (activeTool === 'hapus') {
-                            handleRemoveMarker(m.id, e);
-                          }
-                        }}
-                        className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/pin"
-                      >
-                        <span className={`relative flex h-5 w-5 items-center justify-center`}>
-                          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-40 ${theme.pingBg}`} />
-                          <span className={`relative inline-flex rounded-full h-4 w-4 border-2 ${theme.pinColor} items-center justify-center`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
-                          </span>
-                        </span>
-                      </div>
-                    );
-                  })}
-              </div>
+              {/* Pin Markers Render */}
+              {markers.map((m) => {
+                const theme = getCategoryTheme(m.category);
+                return (
+                  <div
+                    key={m.id}
+                    style={{ left: `${m.x}%`, top: `${m.y}%` }}
+                    onClick={(e) => {
+                      if (activeTool === 'hapus') {
+                        handleRemoveMarker(m.id, e);
+                      }
+                    }}
+                    className={`absolute -translate-x-1/2 -translate-y-1/2 z-20 group/pin transition-transform ${
+                      activeTool === 'hapus' ? 'cursor-pointer hover:scale-125' : 'pointer-events-none'
+                    }`}
+                  >
+                    <span className="relative flex h-6 w-6 items-center justify-center">
+                      <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-40 ${theme.pingBg}`} />
+                      <span className={`relative inline-flex rounded-full h-4 w-4 border-2 ${theme.pinColor} items-center justify-center shadow-sm`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
+                      </span>
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
-            {/* TAMPAK BELAKANG */}
-            <div className="flex flex-col items-center w-full">
-              <h4 className="text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-2">
-                TAMPAK BELAKANG
-              </h4>
-
-              <div
-                onClick={(e) => handleCanvasClick(e, 'belakang')}
-                className="relative w-full max-w-[210px] h-[400px] cursor-crosshair flex items-center justify-center group"
-              >
-                {/* SVG Outline Body Back */}
-                <svg viewBox="0 0 200 450" className="w-full h-full stroke-gray-300 fill-none stroke-[1.5] group-hover:stroke-gray-400 transition-colors">
-                  {/* Head Back */}
-                  <ellipse cx="100" cy="45" rx="22" ry="28" />
-                  {/* Neck */}
-                  <path d="M90 70 L90 85 M110 70 L110 85" />
-                  {/* Shoulders & Torso */}
-                  <path d="M90 85 Q60 90 48 115 L42 180 L35 250 L28 290 L40 292 L48 240 L55 180 L60 170 L60 250 L68 285 L65 410 L85 410 L95 285 L100 260 L105 285 L115 410 L135 410 L132 285 L140 250 L140 170 L145 180 L152 240 L160 292 L172 290 L165 250 L158 180 L152 115 Q140 90 110 85" />
-                  {/* Spine Line */}
-                  <path d="M100 85 L100 240" strokeDasharray="3 3" />
-                  {/* Shoulder blades */}
-                  <path d="M80 120 Q70 140 85 160 M120 120 Q130 140 115 160" />
-                </svg>
-
-                {/* Markers Overlay Belakang */}
-                {markers
-                  .filter((m) => m.view === 'belakang')
-                  .map((m) => {
-                    const theme = getCategoryTheme(m.category);
-                    return (
-                      <div
-                        key={m.id}
-                        style={{ left: `${m.x}%`, top: `${m.y}%` }}
-                        onClick={(e) => {
-                          if (activeTool === 'hapus') {
-                            handleRemoveMarker(m.id, e);
-                          }
-                        }}
-                        className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20 group/pin"
-                      >
-                        <span className={`relative flex h-5 w-5 items-center justify-center`}>
-                          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-40 ${theme.pingBg}`} />
-                          <span className={`relative inline-flex rounded-full h-4 w-4 border-2 ${theme.pinColor} items-center justify-center`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
-                          </span>
-                        </span>
-                      </div>
-                    );
-                  })}
-              </div>
+            {/* Label Tampak Depan dan Belakang di bawah gambar */}
+            <div className="mt-4 flex w-full max-w-[550px] justify-around">
+              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                Tampak Depan
+              </span>
+              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">
+                Tampak Belakang
+              </span>
             </div>
-
           </div>
 
 
@@ -355,8 +303,8 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
               onClick={() => setActiveTool('Keluhan')}
               className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all cursor-pointer ${
                 activeTool === 'Keluhan'
-                  ? 'border-red-500 bg-red-50/40 text-red-600 shadow-xs'
-                  : 'border-gray-200/80 bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'border-red-500 bg-red-50/40 text-red-600 shadow-sm'
+                  : 'border-gray-100 bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
               <Target size={22} className={activeTool === 'Keluhan' ? 'text-red-500' : 'text-red-400'} />
@@ -368,8 +316,8 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
               onClick={() => setActiveTool('Temuan Perawat')}
               className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all cursor-pointer ${
                 activeTool === 'Temuan Perawat'
-                  ? 'border-amber-500 bg-amber-50/40 text-amber-600 shadow-xs'
-                  : 'border-gray-200/80 bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'border-amber-500 bg-amber-50/40 text-amber-600 shadow-sm'
+                  : 'border-gray-100 bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
               <Target size={22} className={activeTool === 'Temuan Perawat' ? 'text-amber-500' : 'text-amber-400'} />
@@ -383,8 +331,8 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
               onClick={() => setActiveTool('Temuan Dokter')}
               className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all cursor-pointer ${
                 activeTool === 'Temuan Dokter'
-                  ? 'border-purple-600 bg-purple-50/40 text-purple-600 shadow-xs'
-                  : 'border-gray-200/80 bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'border-purple-600 bg-purple-50/40 text-purple-600 shadow-sm'
+                  : 'border-gray-100 bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
               <Target size={22} className={activeTool === 'Temuan Dokter' ? 'text-purple-600' : 'text-purple-400'} />
@@ -398,8 +346,8 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
               onClick={() => setActiveTool('hapus')}
               className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all cursor-pointer ${
                 activeTool === 'hapus'
-                  ? 'border-slate-600 bg-slate-100 text-slate-800 shadow-xs'
-                  : 'border-gray-200/80 bg-white text-gray-600 hover:bg-gray-50'
+                  ? 'border-slate-600 bg-slate-100 text-slate-800 shadow-sm'
+                  : 'border-gray-100 bg-white text-gray-600 hover:bg-gray-50'
               }`}
             >
               <Trash2 size={22} className="text-gray-500" />
@@ -421,10 +369,10 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
         </div>
 
         {/* Footer Modal */}
-        <div className="flex justify-end px-6 py-3.5 border-t border-gray-100 bg-slate-50/50">
+        <div className="flex justify-end px-6 py-3.5 border-t border-gray-100 bg-white">
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-bold rounded-xl shadow-2xs transition-colors cursor-pointer"
+            className="px-6 py-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 text-xs font-bold rounded-xl shadow-sm transition-colors cursor-pointer"
           >
             Tutup
           </button>

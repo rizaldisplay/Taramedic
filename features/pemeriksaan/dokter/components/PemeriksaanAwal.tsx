@@ -14,7 +14,11 @@ import {
   Eye
 } from 'lucide-react';
 
-export default function PemeriksaanAwal() {
+interface PemeriksaanAwalProps {
+  onOpenDetailClick?: () => void;
+}
+
+export default function PemeriksaanAwal({ onOpenDetailClick }: PemeriksaanAwalProps) {
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm w-full font-sans">
       {/* Header Section */}
@@ -156,7 +160,7 @@ export default function PemeriksaanAwal() {
 
       {/* Footer Section */}
       <div className="px-5 py-4 border-t border-gray-100">
-        <button className="flex items-center gap-2 text-sm text-blue-600 font-semibold hover:text-blue-700 transition-colors cursor-pointer">
+        <button onClick={onOpenDetailClick} className="flex items-center gap-2 text-sm text-blue-600 font-semibold hover:text-blue-700 transition-colors cursor-pointer">
           <Eye className="w-4 h-4" />
           Lihat detail pemeriksaan awal
         </button>

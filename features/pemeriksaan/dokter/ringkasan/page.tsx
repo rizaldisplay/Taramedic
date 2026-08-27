@@ -10,9 +10,29 @@ import AlergiPeringatan from "@/features/pemeriksaan/dokter/components/AlergiPer
 import DokumenTerkait from "@/features/pemeriksaan/dokter/components/DokumenTerkait";
 import SidebarCatatan from "@/features/pemeriksaan/dokter/components/SidebarCatatan";
 import FooterTombol from "@/features/pemeriksaan/dokter/components/FooterTombol";
+import ModalDetailPemeriksaanAwal from "../components/ModalDetailPemeriksaanAwal";
+import ModalPetaTubuh from "../components/ModalPetaTubuh";
 
 export default function InitialExaminationPage() {
   const [internalNote, setInternalNote] = useState("");
+  const [isModalPemeriksaan, setIsModalPemeriksaan] = useState<boolean>(false);
+  const [isModalPetaTubuh, setIsModalPetaTubuh] = useState<boolean>(false);
+
+  const handleOpenModalPemeriksaan = () => {
+    setIsModalPemeriksaan(true);
+  }
+
+  const handleCloseModalPemeriksaan = () => {
+    setIsModalPemeriksaan(false);
+  };
+
+  const handleOpenModalPetaTubuh = () => {
+    setIsModalPetaTubuh(true);
+  }
+
+  const handleCloseModalPetaTubuh = () => {
+    setIsModalPetaTubuh(false);
+  };
 
   return (
     <div className="bg-white border-b rounded-xl border-slate-200 overflow-hidden">
@@ -35,7 +55,7 @@ export default function InitialExaminationPage() {
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
               {/* Mengambil 7 atau 8 kolom dari 12 */}
               <div className="xl:col-span-8">
-                <PemeriksaanAwal />
+                <PemeriksaanAwal onOpenDetailClick={handleOpenModalPemeriksaan} />
               </div>
               {/* Mengambil sisa 4 atau 5 kolom */}
               <div className="xl:col-span-4">
@@ -64,6 +84,18 @@ export default function InitialExaminationPage() {
 
         {/* Footer Buttons */}
         <FooterTombol />
+
+        <ModalDetailPemeriksaanAwal
+          isOpen={isModalPemeriksaan} // 👈 Mengontrol modal terbuka / tertutup
+          onClose={handleCloseModalPemeriksaan}
+          onOpenPetaTubuhClick={handleOpenModalPetaTubuh}
+         />
+
+         <ModalPetaTubuh 
+          isOpen={isModalPetaTubuh} // 👈 Mengontrol modal terbuka / tertutup
+          onClose={handleCloseModalPetaTubuh}
+         />
+         
       </div>
     </div>
   );

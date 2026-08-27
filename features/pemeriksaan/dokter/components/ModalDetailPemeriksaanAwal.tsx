@@ -27,9 +27,10 @@ import {
 interface ModalDetailPemeriksaanProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenPetaTubuhClick?: () => void;
 }
 
-export default function ModalDetailPemeriksaanAwal({ isOpen, onClose }: ModalDetailPemeriksaanProps) {
+export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPetaTubuhClick }: ModalDetailPemeriksaanProps) {
   if (!isOpen) return null;
 
   return (
@@ -326,7 +327,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose }: ModalDet
                 </div>
 
                 <div className="pt-2 text-center">
-                  <button className="px-3 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100/70 border border-blue-100 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer">
+                  <button onClick={onOpenPetaTubuhClick} className="px-3 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100/70 border border-blue-100 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer">
                     <MapPin size={13} />
                     <span>Lihat peta tubuh</span>
                   </button>
