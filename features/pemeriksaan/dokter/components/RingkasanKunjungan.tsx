@@ -16,7 +16,7 @@ import {
 
 export default function SummaryTab() {
   return (
-    <div className="p-6 bg-slate-50 min-h-screen text-slate-800 font-sans space-y-6">
+    <div className="min-h-screen text-slate-800 font-sans space-y-6">
       
       {/* Header Ringkasan Kunjungan */}
       <div>
