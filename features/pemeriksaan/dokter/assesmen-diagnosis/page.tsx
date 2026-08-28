@@ -7,9 +7,19 @@ import Asesmen from "@/features/pemeriksaan/dokter/components/Asesmen";
 import Diagnosis from "@/features/pemeriksaan/dokter/components/Diagnosis";
 import SidebarCatatan from "@/features/pemeriksaan/dokter/components/SidebarCatatan";
 import FooterTombol from "@/features/pemeriksaan/dokter/components/FooterTombol";
+import ModalTambahDiagnosisSekunder from "../components/ModalTambahDiagnosisSekunder";
 
 export default function InitialExaminationPage() {
   const [internalNote, setInternalNote] = useState("");
+  const [isModalTambahDiagnosisSekunder, setIsModalTambahDiagnosisSekunder] = useState<boolean>(false);
+
+  const handleOpenModalTambahDiagnosisSekunder = () => {
+    setIsModalTambahDiagnosisSekunder(true);
+  }
+
+  const handleCloseModalTambahDiagnosisSekunder = () => {
+    setIsModalTambahDiagnosisSekunder(false);
+  }
 
   return (
     <div className="bg-white border-b rounded-xl border-slate-200 overflow-hidden">
@@ -25,7 +35,7 @@ export default function InitialExaminationPage() {
 
             {/* BARIS 2: Pemeriksaan Awal (Lebar) & Status Pelayanan (Lebih Kecil) */}
             <div className="grid grid-cols-1 gap-6">
-                <Diagnosis/>
+                <Diagnosis onOpenDiagnosisSekunderClick={handleOpenModalTambahDiagnosisSekunder} />
             </div>
           </div>
           
@@ -39,6 +49,11 @@ export default function InitialExaminationPage() {
 
         {/* Footer Buttons */}
         <FooterTombol />
+
+        <ModalTambahDiagnosisSekunder
+          isOpen={isModalTambahDiagnosisSekunder} // 👈 Mengontrol modal terbuka / tertutup
+          onClose={handleCloseModalTambahDiagnosisSekunder}
+        />
       </div>
     </div>
   );

@@ -6,9 +6,19 @@ import React, { useState } from "react";
 import PemeriksaanAwalPenunjang from "@/features/pemeriksaan/dokter/components/PemeriksaanPenunjang";
 import SidebarCatatan from "@/features/pemeriksaan/dokter/components/SidebarCatatan";
 import FooterTombol from "@/features/pemeriksaan/dokter/components/FooterTombol";
+import ModalMintaPemeriksaanPenunjang from "../components/ModalPemeriksaanPenunjang";
 
 export default function InitialExaminationPage() {
   const [internalNote, setInternalNote] = useState("");
+  const [isModalMintaPemeriksaan, setIsModalTambahMintaPemeriksaan] = useState<boolean>(false);
+  
+  const handleOpenModalMintaPemeriksaan = () => {
+    setIsModalTambahMintaPemeriksaan(true);
+  }
+
+  const handleCloseModalMintaPemeriksaan = () => {
+    setIsModalTambahMintaPemeriksaan(false);
+  }
 
   return (
     <div className="bg-white border-b rounded-xl border-slate-200 overflow-hidden">
@@ -19,7 +29,9 @@ export default function InitialExaminationPage() {
           <div className="lg:col-span-8 flex flex-col gap-5">
             {/* BARIS 1: Pemeriksaan Awal (Lebar) & Status Pelayanan (Lebih Kecil) */}
             <div className="grid grid-cols-1 gap-6">
-              <PemeriksaanAwalPenunjang />
+              <PemeriksaanAwalPenunjang 
+                onOpenPenunjangClick = {handleOpenModalMintaPemeriksaan}
+              />
             </div>
           </div>
 
@@ -32,6 +44,11 @@ export default function InitialExaminationPage() {
 
         {/* Footer Buttons */}
         <FooterTombol />
+
+        <ModalMintaPemeriksaanPenunjang 
+          isOpen={isModalMintaPemeriksaan} // 👈 Mengontrol modal terbuka / tertutup
+          onClose={handleCloseModalMintaPemeriksaan}
+        />
       </div>
     </div>
   );

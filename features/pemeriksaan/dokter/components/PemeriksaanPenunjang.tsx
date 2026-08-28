@@ -14,7 +14,11 @@ interface PermintaanItem {
   status: string;
 }
 
-export default function PenunjangComponent() {
+interface PenunjangProps {
+  onOpenPenunjangClick?: () => void;
+}
+
+export default function PenunjangComponent({ onOpenPenunjangClick }: PenunjangProps) {
   const [activeTab, setActiveTab] = useState<'aktif' | 'hasil'>('aktif');
 
   const dataPermintaan: PermintaanItem[] = [
@@ -77,6 +81,7 @@ export default function PenunjangComponent() {
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <button 
             type="button"
+            onClick={onOpenPenunjangClick}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 text-xs font-semibold hover:bg-blue-100/70 transition-all cursor-pointer"
           >
             <Plus size={14} />

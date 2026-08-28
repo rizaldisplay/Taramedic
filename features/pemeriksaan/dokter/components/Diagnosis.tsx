@@ -18,7 +18,11 @@ interface DiagnosaItem {
   status: string;
 }
 
-export default function DiagnosisComponent() {
+interface DiagnosisSekunderProps {
+  onOpenDiagnosisSekunderClick?: () => void;
+}
+
+export default function DiagnosisComponent({ onOpenDiagnosisSekunderClick }: DiagnosisSekunderProps) {
   // State untuk data diagnosa sekunder (bisa dimanipulasi dengan form/modal nantinya)
   const [diagnosaSekunder, setDiagnosaSekunder] = useState<DiagnosaItem[]>([
     { id: 1, code: 'R50.9', desc: 'Demam, tidak spesifik', snomed: '386661006', tipe: 'Akut', status: 'Ditetapkan' },
@@ -168,7 +172,7 @@ export default function DiagnosisComponent() {
         <div>
           <button 
             type="button"
-            onClick={handleTambahDiagnosa}
+            onClick={onOpenDiagnosisSekunderClick}
             className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 mt-1 px-1 py-1 cursor-pointer transition-colors"
           >
             <Plus size={14} />

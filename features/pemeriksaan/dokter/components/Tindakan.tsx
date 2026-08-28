@@ -31,6 +31,10 @@ interface RencanaItem {
   waktuTindakLanjut: string;
 }
 
+interface TambahTindakanProps {
+  onOpenTambahTindakanClick?: () => void;
+}
+
 export default function TindakanDanRencanaComponent() {
   const dataTindakan: TindakanItem[] = [
     {
