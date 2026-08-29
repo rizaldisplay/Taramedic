@@ -53,8 +53,8 @@ export default function CatatanEdukasiComponent({
     <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs flex flex-col gap-4 font-sans">
       
       {/* Header Section Sidebar */}
-      <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase border-b border-slate-100 pb-3">
-        <BookOpen className="w-4 h-4 text-blue-600 shrink-0" />
+      <div className="flex items-center gap-2 text-cyan-600 font-bold text-xs uppercase border-b border-slate-100 pb-3">
+        <BookOpen className="w-4 h-4 text-cyan-600 shrink-0" />
         <span>CATATAN EDUKASI</span>
       </div>
 
@@ -103,7 +103,7 @@ export default function CatatanEdukasiComponent({
               placeholder="Tulis catatan edukasi tambahan..."
               rows={3}
               maxLength={500}
-              className="w-full text-xs p-3 border border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none resize-none placeholder:text-slate-400 bg-white leading-relaxed text-slate-800 font-medium"
+              className="w-full text-xs p-3 border border-slate-200 rounded-xl focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none resize-none placeholder:text-slate-400 bg-white leading-relaxed text-slate-800 font-medium"
             />
             <span className="absolute bottom-2.5 right-3 text-[10px] text-slate-400 font-mono font-medium">
               {catatan.length} / 500

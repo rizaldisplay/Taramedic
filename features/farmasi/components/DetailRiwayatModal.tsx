@@ -322,7 +322,7 @@ export default function DetailRiwayatResepModal({
                             <button
                               type="button"
                               onClick={() => onLihatKomposisi && onLihatKomposisi(item.no)}
-                              className="text-blue-600 hover:text-blue-700 text-[11px] font-semibold text-left mt-0.5 transition-colors cursor-pointer w-fit"
+                              className="text-cyan-600 hover:text-cyan-700 text-[11px] font-semibold text-left mt-0.5 transition-colors cursor-pointer w-fit"
                             >
                               Lihat Komposisi
                             </button>
@@ -362,7 +362,7 @@ export default function DetailRiwayatResepModal({
               <button
                 type="button"
                 onClick={onCetakBukti}
-                className="w-full sm:w-auto px-4 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-blue-600 font-semibold text-xs rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-4 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-cyan-600 font-semibold text-xs rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Printer className="w-4 h-4" />
                 <span>Lihat / Cetak Bukti Serah Obat</span>

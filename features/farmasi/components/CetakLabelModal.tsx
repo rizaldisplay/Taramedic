@@ -163,8 +163,8 @@ export default function CetakLabelModal({
         {/* Modal Body */}
         <div className="p-6 flex flex-col gap-5 max-h-[82vh] overflow-y-auto bg-slate-50/30">
           {/* Info Banner */}
-          <div className="bg-blue-50/60 border border-blue-100/80 rounded-xl p-3 flex items-center gap-2.5 text-blue-700 text-xs">
-            <Info className="w-4 h-4 text-blue-600 shrink-0" />
+          <div className="bg-cyan-50/60 border border-cyan-100/80 rounded-xl p-3 flex items-center gap-2.5 text-cyan-700 text-xs">
+            <Info className="w-4 h-4 text-cyan-600 shrink-0" />
             <span>
               Pilih obat untuk dicetak labelnya. Label akan dicetak sesuai
               format standar.
@@ -180,7 +180,7 @@ export default function CetakLabelModal({
                   onClick={() => setActiveTab("Non-Racikan")}
                   className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                     activeTab === "Non-Racikan"
-                      ? "text-blue-600 border-b-2 border-blue-600 rounded-b-none bg-blue-50/40"
+                      ? "text-cyan-600 border-b-2 border-cyan-600 rounded-b-none bg-cyan-50/40"
                       : "text-slate-500 hover:text-slate-800"
                   }`}
                 >
@@ -190,7 +190,7 @@ export default function CetakLabelModal({
                   onClick={() => setActiveTab("Racikan")}
                   className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                     activeTab === "Racikan"
-                      ? "text-blue-600 border-b-2 border-blue-600 rounded-b-none bg-blue-50/40"
+                      ? "text-cyan-600 border-b-2 border-cyan-600 rounded-b-none bg-cyan-50/40"
                       : "text-slate-500 hover:text-slate-800"
                   }`}
                 >
@@ -214,7 +214,7 @@ export default function CetakLabelModal({
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleSelectItem(item.id)}
-                          className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer shrink-0"
+                          className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 cursor-pointer shrink-0"
                         />
                         <span
                           className="text-xs font-bold text-slate-800 truncate"
@@ -229,8 +229,8 @@ export default function CetakLabelModal({
                         <div>
                           {/* 1. Header Label */}
                           <div className="flex justify-between items-center border-b border-slate-100 pb-1.5 mb-2">
-                            <div className="flex items-center gap-1 text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">
-                              <span className="text-blue-500">✦</span> TARAMEDIC
+                            <div className="flex items-center gap-1 text-[10px] font-extrabold text-cyan-600 uppercase tracking-wider">
+                              <span className="text-cyan-500">✦</span> TARAMEDIC
                             </div>
                             <span className="text-[9px] font-mono text-slate-400 uppercase">
                               ETIKET APOTEK
@@ -314,12 +314,12 @@ export default function CetakLabelModal({
 
               {/* Bottom Checkbox Pilih Semua */}
               <div className="pt-2">
-                <label className="flex items-center gap-2 cursor-pointer select-none text-xs font-semibold text-blue-600 hover:text-blue-700 w-fit">
+                <label className="flex items-center gap-2 cursor-pointer select-none text-xs font-semibold text-cyan-600 hover:text-cyan-700 w-fit">
                   <input
                     type="checkbox"
                     checked={isAllSelected}
                     onChange={toggleSelectAll}
-                    className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300"
+                    className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300"
                   />
                   <span>Pilih Semua</span>
                 </label>
@@ -341,7 +341,7 @@ export default function CetakLabelModal({
                   <select
                     value={ukuranKertas}
                     onChange={(e) => setUkuranKertas(e.target.value)}
-                    className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-blue-500 bg-white"
+                    className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-cyan-500 bg-white"
                   >
                     <option>Label 4 x 6 cm (2 Kolom)</option>
                     <option>Label 5 x 7 cm (1 Kolom)</option>
@@ -383,7 +383,7 @@ export default function CetakLabelModal({
                   <select
                     value={printer}
                     onChange={(e) => setPrinter(e.target.value)}
-                    className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-blue-500 bg-white"
+                    className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-cyan-500 bg-white"
                   >
                     <option>Zebra ZD420 (Label)</option>
                     <option>EPSON TM-T82 (Receipt)</option>
@@ -403,7 +403,7 @@ export default function CetakLabelModal({
                         name="jenisLabel"
                         checked={jenisLabel === "Standar"}
                         onChange={() => setJenisLabel("Standar")}
-                        className="text-blue-600 focus:ring-blue-500"
+                        className="text-cyan-600 focus:ring-cyan-500"
                       />
                       <span>Label Obat Standar</span>
                     </label>
@@ -413,7 +413,7 @@ export default function CetakLabelModal({
                         name="jenisLabel"
                         checked={jenisLabel === "Besar"}
                         onChange={() => setJenisLabel("Besar")}
-                        className="text-blue-600 focus:ring-blue-500"
+                        className="text-cyan-600 focus:ring-cyan-500"
                       />
                       <span>Label Obat Besar</span>
                     </label>
@@ -432,7 +432,7 @@ export default function CetakLabelModal({
                         name="urutanCetak"
                         checked={urutanCetak === "Sesuai Urutan Obat"}
                         onChange={() => setUrutanCetak("Sesuai Urutan Obat")}
-                        className="text-blue-600 focus:ring-blue-500"
+                        className="text-cyan-600 focus:ring-cyan-500"
                       />
                       <span>Sesuai Urutan Obat</span>
                     </label>
@@ -444,7 +444,7 @@ export default function CetakLabelModal({
                         onChange={() =>
                           setUrutanCetak("Berdasarkan Jenis (Kelompok)")
                         }
-                        className="text-blue-600 focus:ring-blue-500"
+                        className="text-cyan-600 focus:ring-cyan-500"
                       />
                       <span>Berdasarkan Jenis (Kelompok)</span>
                     </label>
@@ -475,7 +475,7 @@ export default function CetakLabelModal({
                 <button
                   onClick={handlePrintSubmit}
                   disabled={selectedIds.length === 0}
-                  className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-semibold text-xs rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 bg-cyan-600 hover:bg-cyan-700 disabled:bg-slate-300 text-white font-semibold text-xs rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Cetak Label ({selectedIds.length})</span>

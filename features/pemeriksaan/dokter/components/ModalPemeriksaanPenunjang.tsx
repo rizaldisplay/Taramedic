@@ -117,7 +117,7 @@ export default function ModalMintaPemeriksaanPenunjang({
               
               {/* 1. Jenis Pemeriksaan */}
               <div className="space-y-2">
-                <h3 className="text-xs font-bold text-blue-600">
+                <h3 className="text-xs font-bold text-cyan-600">
                   1. Jenis Pemeriksaan
                 </h3>
 
@@ -128,7 +128,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                     <select
                       value={kategori}
                       onChange={(e) => setKategori(e.target.value)}
-                      className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                      className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                     >
                       <option value="Laboratorium">Laboratorium</option>
                       <option value="Radiologi">Radiologi</option>
@@ -149,7 +149,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                           setSelectedPemeriksaan([...selectedPemeriksaan, e.target.value]);
                         }
                       }}
-                      className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-400 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                      className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-medium text-gray-400 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                     >
                       <option value="" disabled>Cari atau pilih pemeriksaan...</option>
                       <option value="Darah Lengkap (DL)">Darah Lengkap (DL)</option>
@@ -165,13 +165,13 @@ export default function ModalMintaPemeriksaanPenunjang({
                     {selectedPemeriksaan.map((item) => (
                       <span
                         key={item}
-                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded-lg border border-blue-100/70"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-cyan-50 text-cyan-600 text-xs font-semibold rounded-lg border border-cyan-100/70"
                       >
                         {item}
                         <button
                           type="button"
                           onClick={() => handleRemovePemeriksaan(item)}
-                          className="hover:text-blue-800 transition-colors cursor-pointer"
+                          className="hover:text-cyan-800 transition-colors cursor-pointer"
                         >
                           <X size={12} />
                         </button>
@@ -183,7 +183,7 @@ export default function ModalMintaPemeriksaanPenunjang({
 
               {/* 2. Prioritas */}
               <div className="space-y-2">
-                <h3 className="text-xs font-bold text-blue-600">
+                <h3 className="text-xs font-bold text-cyan-600">
                   2. Prioritas
                 </h3>
 
@@ -193,13 +193,13 @@ export default function ModalMintaPemeriksaanPenunjang({
                     onClick={() => setPrioritas('Rutin')}
                     className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer ${
                       prioritas === 'Rutin'
-                        ? 'border-blue-500 bg-blue-50/40 text-blue-900'
+                        ? 'border-cyan-500 bg-cyan-50/40 text-cyan-900'
                         : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       {prioritas === 'Rutin' ? (
-                        <CheckCircle2 size={16} className="text-blue-600 fill-blue-600 stroke-white" />
+                        <CheckCircle2 size={16} className="text-cyan-600 fill-cyan-600 stroke-white" />
                       ) : (
                         <Circle size={16} className="text-gray-300" />
                       )}
@@ -213,13 +213,13 @@ export default function ModalMintaPemeriksaanPenunjang({
                     onClick={() => setPrioritas('Segera')}
                     className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer ${
                       prioritas === 'Segera'
-                        ? 'border-blue-500 bg-blue-50/40 text-blue-900'
+                        ? 'border-cyan-500 bg-cyan-50/40 text-cyan-900'
                         : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       {prioritas === 'Segera' ? (
-                        <CheckCircle2 size={16} className="text-blue-600 fill-blue-600 stroke-white" />
+                        <CheckCircle2 size={16} className="text-cyan-600 fill-cyan-600 stroke-white" />
                       ) : (
                         <Circle size={16} className="text-gray-300" />
                       )}
@@ -233,13 +233,13 @@ export default function ModalMintaPemeriksaanPenunjang({
                     onClick={() => setPrioritas('Stat')}
                     className={`flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer ${
                       prioritas === 'Stat'
-                        ? 'border-blue-500 bg-blue-50/40 text-blue-900'
+                        ? 'border-cyan-500 bg-cyan-50/40 text-cyan-900'
                         : 'border-gray-200 bg-white text-gray-700 hover:bg-gray-50'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       {prioritas === 'Stat' ? (
-                        <CheckCircle2 size={16} className="text-blue-600 fill-blue-600 stroke-white" />
+                        <CheckCircle2 size={16} className="text-cyan-600 fill-cyan-600 stroke-white" />
                       ) : (
                         <Circle size={16} className="text-gray-300" />
                       )}
@@ -252,7 +252,7 @@ export default function ModalMintaPemeriksaanPenunjang({
 
               {/* 3. Diagnosa / Indikasi Klinis */}
               <div className="space-y-1.5">
-                <h3 className="text-xs font-bold text-blue-600">
+                <h3 className="text-xs font-bold text-cyan-600">
                   3. Diagnosa / Indikasi Klinis
                 </h3>
                 <div className="relative">
@@ -260,7 +260,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                     value={diagnosaIndikasi}
                     onChange={(e) => setDiagnosaIndikasi(e.target.value)}
                     maxLength={500}
-                    className="w-full border border-blue-200 rounded-xl p-3 text-xs font-medium text-blue-900 bg-blue-50/30 focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[75px] resize-none"
+                    className="w-full border border-cyan-200 rounded-xl p-3 text-xs font-medium text-cyan-900 bg-cyan-50/30 focus:outline-none focus:ring-1 focus:ring-cyan-500 min-h-[75px] resize-none"
                   />
                   <div className="text-right text-[10px] text-gray-400 font-medium mt-0.5">
                     {diagnosaIndikasi.length} / 500
@@ -270,7 +270,7 @@ export default function ModalMintaPemeriksaanPenunjang({
 
               {/* 4. Instruksi Tambahan (Opsional) */}
               <div className="space-y-1.5">
-                <h3 className="text-xs font-bold text-blue-600">
+                <h3 className="text-xs font-bold text-cyan-600">
                   4. Instruksi Tambahan <span className="font-normal text-gray-400">(Opsional)</span>
                 </h3>
                 <div className="relative">
@@ -279,7 +279,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                     onChange={(e) => setInstruksiTambahan(e.target.value)}
                     maxLength={300}
                     placeholder="Contoh: Puasa 8-12 jam sebelum pengambilan darah,"
-                    className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[75px] resize-none placeholder:text-gray-400"
+                    className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 min-h-[75px] resize-none placeholder:text-gray-400"
                   />
                   <div className="text-right text-[10px] text-gray-400 font-medium mt-0.5">
                     {instruksiTambahan.length} / 300
@@ -296,7 +296,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                 
                 {/* 5. Tanggal & Waktu Permintaan */}
                 <div className="space-y-2">
-                  <h3 className="text-xs font-bold text-blue-600">
+                  <h3 className="text-xs font-bold text-cyan-600">
                     5. Tanggal & Waktu Permintaan
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -307,7 +307,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                           type="text"
                           value={tanggal}
                           onChange={(e) => setTanggal(e.target.value)}
-                          className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                         />
                         <Calendar size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                       </div>
@@ -320,7 +320,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                           type="text"
                           value={waktu}
                           onChange={(e) => setWaktu(e.target.value)}
-                          className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                         />
                         <Clock size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                       </div>
@@ -330,7 +330,7 @@ export default function ModalMintaPemeriksaanPenunjang({
 
                 {/* 6. Lokasi / Unit Tujuan */}
                 <div className="space-y-2">
-                  <h3 className="text-xs font-bold text-blue-600">
+                  <h3 className="text-xs font-bold text-cyan-600">
                     6. Lokasi / Unit Tujuan
                   </h3>
 
@@ -340,7 +340,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                       <select
                         value={lokasi}
                         onChange={(e) => setLokasi(e.target.value)}
-                        className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                        className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                       >
                         <option value="Laboratorium Klinik">Laboratorium Klinik</option>
                         <option value="Radiologi Sentral">Radiologi Sentral</option>
@@ -355,7 +355,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                       <select
                         value={unitRuang}
                         onChange={(e) => setUnitRuang(e.target.value)}
-                        className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                        className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                       >
                         <option value="Laboratorium Utama">Laboratorium Utama</option>
                         <option value="Laboratorium Cito">Laboratorium Cito</option>
@@ -367,7 +367,7 @@ export default function ModalMintaPemeriksaanPenunjang({
 
                 {/* 7. Sampel */}
                 <div className="space-y-2">
-                  <h3 className="text-xs font-bold text-blue-600">
+                  <h3 className="text-xs font-bold text-cyan-600">
                     7. Sampel
                   </h3>
 
@@ -377,7 +377,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                       <select
                         value={jenisSampel}
                         onChange={(e) => setJenisSampel(e.target.value)}
-                        className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                        className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                       >
                         <option value="Darah Vena">Darah Vena</option>
                         <option value="Darah Kapiler">Darah Kapiler</option>
@@ -398,7 +398,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                         onChange={(e) => setKeteranganSampel(e.target.value)}
                         maxLength={100}
                         placeholder="Contoh: EDTA 2 ml"
-                        className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[75px] resize-none placeholder:text-gray-400"
+                        className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 min-h-[75px] resize-none placeholder:text-gray-400"
                       />
                       <div className="text-right text-[10px] text-gray-400 font-medium mt-0.5">
                         {keteranganSampel.length} / 100
@@ -420,7 +420,7 @@ export default function ModalMintaPemeriksaanPenunjang({
                 </button>
                 <button
                   type="submit"
-                  className="flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+                  className="flex items-center justify-center gap-2 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
                 >
                   <Send size={14} />
                   <span>Kirim Permintaan</span>

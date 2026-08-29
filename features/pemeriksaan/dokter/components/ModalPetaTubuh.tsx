@@ -157,9 +157,9 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
 
         {/* Info Banner Top */}
         <div className="px-6 pt-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-xl bg-blue-50/60 border border-blue-100 text-xs text-blue-900">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 rounded-xl bg-cyan-50/60 border border-cyan-100 text-xs text-cyan-900">
             <div className="flex items-center gap-2 font-medium">
-              <Info size={15} className="text-blue-600 shrink-0" />
+              <Info size={15} className="text-cyan-600 shrink-0" />
               <span>Klik pada bagian tubuh untuk menandai lokasi keluhan atau temuan.</span>
             </div>
 
@@ -246,7 +246,7 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
             <div
               onClick={handleCanvasClick}
               className={`relative w-full max-w-[550px] aspect-[3/2] bg-white border border-gray-100 rounded-2xl flex items-center justify-center overflow-hidden transition-all group ${
-                activeTool === 'hapus' ? 'cursor-default' : 'cursor-crosshair hover:border-blue-300'
+                activeTool === 'hapus' ? 'cursor-default' : 'cursor-crosshair hover:border-cyan-300'
               }`}
             >
               {/* Gambar Model Tubuh PNG */}
@@ -360,8 +360,8 @@ export default function ModalPetaTubuh({ isOpen, onClose }: ModalPetaTubuhProps)
 
         {/* Info Banner Bottom (Regulasi SATUSEHAT) */}
         <div className="px-6 pb-4">
-          <div className="flex items-start gap-2 p-3 rounded-xl bg-blue-50/40 border border-blue-100/60 text-[11px] text-blue-900 leading-relaxed">
-            <Info size={14} className="text-blue-500 shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2 p-3 rounded-xl bg-cyan-50/40 border border-cyan-100/60 text-[11px] text-cyan-900 leading-relaxed">
+            <Info size={14} className="text-cyan-500 shrink-0 mt-0.5" />
             <span>
               <strong>Catatan:</strong> Peta tubuh merupakan bagian dari dokumentasi pemeriksaan fisik. Data ini akan tersimpan dalam rekam medis sesuai Permenkes No. 24 Tahun 2022 dan terintegrasi dengan SATUSEHAT.
             </span>

@@ -55,11 +55,11 @@ export default function DispensingRacikanComponent({
   };
 
   return (
-    <div className="w-full max-w-5xl bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
+    <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
       
       {/* Section Header */}
       <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
-        <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+        <div className="w-6 h-6 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
           B
         </div>
         <h3 className="font-bold text-slate-800 text-xs tracking-wider uppercase">
@@ -95,7 +95,7 @@ export default function DispensingRacikanComponent({
                     <span className="font-bold text-slate-800">{item.namaRacikan}</span>
                     <button
                       onClick={() => onLihatKomposisi && onLihatKomposisi(item.no)}
-                      className="text-blue-600 hover:text-blue-700 text-[11px] font-semibold text-left mt-0.5 transition-colors cursor-pointer w-fit"
+                      className="text-cyan-600 hover:text-cyan-700 text-[11px] font-semibold text-left mt-0.5 transition-colors cursor-pointer w-fit"
                     >
                       Lihat Komposisi
                     </button>

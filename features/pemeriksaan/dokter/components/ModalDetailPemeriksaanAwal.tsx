@@ -57,17 +57,17 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
           {/* Top Metadata Banner */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             {/* Banner Kiri - Info Pencatat */}
-            <div className="flex flex-wrap items-center gap-3 px-3.5 py-2 rounded-xl bg-blue-50/60 border border-blue-100 text-xs text-blue-900">
-              <div className="flex items-center gap-1.5 font-semibold text-blue-600">
+            <div className="flex flex-wrap items-center gap-3 px-3.5 py-2 rounded-xl bg-cyan-50/60 border border-cyan-100 text-xs text-cyan-900">
+              <div className="flex items-center gap-1.5 font-semibold text-cyan-600">
                 <FileText size={14} />
                 <span>Data dicatat oleh Perawat</span>
               </div>
-              <span className="text-blue-300">&bull;</span>
+              <span className="text-cyan-300">&bull;</span>
               <div className="flex items-center gap-1.5 font-medium text-slate-700">
                 <User size={14} className="text-slate-400" />
                 <span>Ns. Siti Rahma, A.Md.Kep</span>
               </div>
-              <span className="text-blue-300">&bull;</span>
+              <span className="text-cyan-300">&bull;</span>
               <div className="flex items-center gap-1.5 font-medium text-slate-700">
                 <Clock size={14} className="text-slate-400" />
                 <span>08:25 WIB, 16 Agustus 2026</span>
@@ -75,8 +75,8 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
             </div>
 
             {/* Banner Kanan - Info Disclaimer */}
-            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50/40 border border-blue-100/60 text-[11px] text-blue-800">
-              <Info size={14} className="text-blue-500 shrink-0" />
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-50/40 border border-cyan-100/60 text-[11px] text-cyan-800">
+              <Info size={14} className="text-cyan-500 shrink-0" />
               <span>Data ini bersifat informatif. Dokter dapat melakukan pemeriksaan ulang bila diperlukan.</span>
             </div>
           </div>
@@ -86,7 +86,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
             
             {/* A. KELUHAN & RIWAYAT */}
             <div className="border border-gray-200/80 rounded-xl p-4 bg-white space-y-3">
-              <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide flex items-center gap-1">
+              <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wide flex items-center gap-1">
                 A. KELUHAN & RIWAYAT
               </h3>
               
@@ -143,7 +143,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
 
             {/* B. TANDA VITAL */}
             <div className="border border-gray-200/80 rounded-xl p-4 bg-white space-y-3">
-              <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide">
+              <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wide">
                 B. TANDA VITAL <span className="text-gray-400 font-normal lowercase">(08:25 WIB)</span>
               </h3>
 
@@ -208,7 +208,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
 
             {/* C. KEADAAN UMUM */}
             <div className="border border-gray-200/80 rounded-xl p-4 bg-white space-y-3">
-              <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide">
+              <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wide">
                 C. KEADAAN UMUM
               </h3>
 
@@ -240,10 +240,10 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
                   <div className="relative w-full">
                     {/* Track Line */}
                     <div className="h-1 bg-gray-200 rounded-full w-full" />
-                    <div className="h-1 bg-blue-500 rounded-full absolute top-0 left-0 w-[20%]" />
+                    <div className="h-1 bg-cyan-500 rounded-full absolute top-0 left-0 w-[20%]" />
                     
                     {/* Circle Handle */}
-                    <div className="w-4 h-4 bg-blue-600 border-2 border-white rounded-full shadow-md absolute top-1/2 -translate-y-1/2 left-[20%] -ml-2 cursor-pointer" />
+                    <div className="w-4 h-4 bg-cyan-600 border-2 border-white rounded-full shadow-md absolute top-1/2 -translate-y-1/2 left-[20%] -ml-2 cursor-pointer" />
                     
                     {/* Ticks */}
                     <div className="flex justify-between text-[9px] text-gray-400 mt-2 font-medium">
@@ -265,7 +265,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
 
             {/* D. PEMERIKSAAN FISIK SINGKAT */}
             <div className="border border-gray-200/80 rounded-xl p-4 bg-white space-y-3">
-              <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide">
+              <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wide">
                 D. PEMERIKSAAN FISIK SINGKAT
               </h3>
 
@@ -327,7 +327,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
                 </div>
 
                 <div className="pt-2 text-center">
-                  <button onClick={onOpenPetaTubuhClick} className="px-3 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100/70 border border-blue-100 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer">
+                  <button onClick={onOpenPetaTubuhClick} className="px-3 py-1 bg-cyan-50 text-cyan-600 hover:bg-cyan-100/70 border border-cyan-100 rounded-lg text-xs font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer">
                     <MapPin size={13} />
                     <span>Lihat peta tubuh</span>
                   </button>
@@ -337,7 +337,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
 
             {/* E. SKRINING / RISIKO */}
             <div className="border border-gray-200/80 rounded-xl p-4 bg-white space-y-3">
-              <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide">
+              <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wide">
                 E. SKRINING / RISIKO
               </h3>
 
@@ -389,7 +389,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
             {/* F. CATATAN PERAWAT */}
             <div className="border border-gray-200/80 rounded-xl p-4 bg-white space-y-3 flex flex-col justify-between">
               <div>
-                <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-3">
+                <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wide mb-3">
                   F. CATATAN PERAWAT
                 </h3>
 
@@ -410,7 +410,7 @@ export default function ModalDetailPemeriksaanAwal({ isOpen, onClose, onOpenPeta
         <div className="flex justify-end px-6 py-3.5 border-t border-gray-100 bg-slate-50/50">
           <button
             onClick={onClose}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors cursor-pointer"
+            className="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white text-xs font-semibold rounded-xl shadow-xs transition-colors cursor-pointer"
           >
             Tutup
           </button>

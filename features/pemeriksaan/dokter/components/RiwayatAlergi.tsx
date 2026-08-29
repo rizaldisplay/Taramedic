@@ -6,8 +6,8 @@ export default function RiwayatAlergi() {
     <div className="w-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       {/* Header Section */}
       <div className="flex items-center gap-2">
-        <Sparkles className="w-4 h-4 text-blue-600" />
-        <h3 className="text-sm font-bold text-blue-600 tracking-wide uppercase">
+        <Sparkles className="w-4 h-4 text-cyan-600" />
+        <h3 className="text-sm font-bold text-cyan-600 tracking-wide uppercase">
           Riwayat Alergi
         </h3>
       </div>
@@ -42,7 +42,7 @@ export default function RiwayatAlergi() {
             </button>
             
             {/* Tombol Koreksi / Tambah */}
-            <button className="flex-1 flex items-center justify-center gap-2 w-full py-2 px-4 text-sm font-semibold text-blue-600 bg-white border border-blue-500 rounded-lg hover:bg-blue-50 transition-colors">
+            <button className="flex-1 flex items-center justify-center gap-2 w-full py-2 px-4 text-sm font-semibold text-cyan-600 bg-white border border-cyan-500 rounded-lg hover:bg-cyan-50 transition-colors">
               <Pencil className="w-4 h-4" />
               Koreksi / Tambah
             </button>

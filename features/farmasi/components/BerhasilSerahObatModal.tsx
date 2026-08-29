@@ -70,13 +70,13 @@ export default function BerhasilSerahObatModal({
           <div className="relative flex items-center justify-center mt-2">
             
             {/* Element Dekoratif Confetti Kecil */}
-            <div className="absolute -top-1 -left-8 text-blue-400 opacity-70 text-xs">✦</div>
+            <div className="absolute -top-1 -left-8 text-cyan-400 opacity-70 text-xs">✦</div>
             <div className="absolute top-4 -left-12 text-emerald-400 opacity-80 text-xs font-bold rotate-45">■</div>
             <div className="absolute -bottom-1 -left-6 text-sky-400 opacity-70 text-xs">◆</div>
             
             <div className="absolute -top-2 -right-8 text-indigo-400 opacity-70 text-xs">◆</div>
             <div className="absolute top-3 -right-12 text-emerald-500 opacity-80 text-xs">✦</div>
-            <div className="absolute -bottom-1 -right-6 text-blue-400 opacity-70 text-xs">●</div>
+            <div className="absolute -bottom-1 -right-6 text-cyan-400 opacity-70 text-xs">●</div>
 
             {/* Circle Badge Hijau Utama */}
             <div className="w-20 h-20 rounded-full bg-emerald-100/70 border-4 border-emerald-50 flex items-center justify-center shadow-xs">
@@ -150,9 +150,9 @@ export default function BerhasilSerahObatModal({
             <button
               type="button"
               onClick={onCetakBukti}
-              className="w-full py-2.5 px-4 border border-blue-200 bg-white hover:bg-blue-50/50 text-blue-600 font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 px-4 border border-cyan-200 bg-white hover:bg-cyan-50/50 text-cyan-600 font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Printer className="w-4 h-4 text-blue-600" />
+              <Printer className="w-4 h-4 text-cyan-600" />
               <span>Cetak Bukti Serah Obat</span>
             </button>
 
@@ -160,7 +160,7 @@ export default function BerhasilSerahObatModal({
             <button
               type="button"
               onClick={handleSelesai}
-              className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-2.5 px-4 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white font-bold text-xs sm:text-sm rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2 cursor-pointer"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Selesai</span>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';
@@ -17,12 +18,12 @@ const TabButton = ({ label, count, active, onClick }: { label: string, count: nu
 const TableRow = ({ no, name, gender, age, rm, insurance, status, time, wait, active = false }: any) => {
   const isDipanggil = status === 'Dipanggil';
   return (
-    <tr className={`hover:bg-slate-50 transition-colors ${active ? 'bg-blue-50/30' : ''}`}>
+    <tr className={`hover:bg-slate-50 transition-colors ${active ? 'bg-cyan-50/30' : ''}`}>
       <td className="px-6 py-4">
-        <div className={`font-semibold rounded-md inline-block px-2 py-1 text-xs border ${active ? 'border-blue-300 text-blue-700' : 'border-amber-200 text-amber-600'}`}>{no}</div>
+        <div className={`font-semibold rounded-md inline-block px-2 py-1 text-xs border ${active ? 'border-cyan-300 text-cyan-700' : 'border-amber-200 text-amber-600'}`}>{no}</div>
       </td>
       <td className="px-6 py-4">
-        <div className="font-semibold text-slate-900 text-sm">{name} <span className={gender === 'Perempuan' ? 'text-pink-500' : 'text-blue-500'}>{gender === 'Perempuan' ? '♀' : '♂'}</span></div>
+        <div className="font-semibold text-slate-900 text-sm">{name} <span className={gender === 'Perempuan' ? 'text-pink-500' : 'text-cyan-500'}>{gender === 'Perempuan' ? '♀' : '♂'}</span></div>
         <div className="text-xs text-slate-500">{rm}</div>
       </td>
       <td className="px-6 py-4">
@@ -30,7 +31,7 @@ const TableRow = ({ no, name, gender, age, rm, insurance, status, time, wait, ac
         <div className={`text-xs font-medium ${insurance.includes('BPJS') ? 'text-emerald-600' : 'text-amber-600'}`}>{insurance}</div>
       </td>
       <td className="px-6 py-4 text-center">
-        <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${isDipanggil ? 'bg-blue-50 text-blue-700 border-blue-200' : 'bg-amber-50 text-amber-700 border-amber-200'}`}>
+        <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${isDipanggil ? 'bg-cyan-50 text-cyan-700 border-cyan-200' : 'bg-amber-50 text-amber-700 border-amber-200'}`}>
           {isDipanggil ? <Volume2 className="w-3 h-3 mr-1.5" /> : <Clock className="w-3 h-3 mr-1.5" />}
           {status}
         </div>

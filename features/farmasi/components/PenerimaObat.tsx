@@ -92,8 +92,8 @@ export default function PenerimaObatComponent({
     <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs flex flex-col gap-4 font-sans">
       
       {/* Header Section Sidebar */}
-      <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase border-b border-slate-100 pb-3">
-        <UserCheck className="w-4 h-4 text-blue-600 shrink-0" />
+      <div className="flex items-center gap-2 text-cyan-600 font-bold text-xs uppercase border-b border-slate-100 pb-3">
+        <UserCheck className="w-4 h-4 text-cyan-600 shrink-0" />
         <span>PENERIMA OBAT</span>
       </div>
 
@@ -111,7 +111,7 @@ export default function PenerimaObatComponent({
                 name="jenisPenerima"
                 checked={jenisPenerima === 'Pasien'}
                 onChange={() => setJenisPenerima('Pasien')}
-                className="text-blue-600 focus:ring-blue-500 cursor-pointer"
+                className="text-cyan-600 focus:ring-cyan-500 cursor-pointer"
               />
               <span className="text-slate-700 font-medium">Pasien</span>
             </label>
@@ -122,7 +122,7 @@ export default function PenerimaObatComponent({
                 name="jenisPenerima"
                 checked={jenisPenerima === 'Orang tua / Wali'}
                 onChange={() => setJenisPenerima('Orang tua / Wali')}
-                className="text-blue-600 focus:ring-blue-500 cursor-pointer"
+                className="text-cyan-600 focus:ring-cyan-500 cursor-pointer"
               />
               <span className="text-slate-700 font-medium">Orang tua / Wali</span>
             </label>
@@ -133,7 +133,7 @@ export default function PenerimaObatComponent({
                 name="jenisPenerima"
                 checked={jenisPenerima === 'Pendamping'}
                 onChange={() => setJenisPenerima('Pendamping')}
-                className="text-blue-600 focus:ring-blue-500 cursor-pointer"
+                className="text-cyan-600 focus:ring-cyan-500 cursor-pointer"
               />
               <span className="text-slate-700 font-medium">Pendamping</span>
             </label>
@@ -151,7 +151,7 @@ export default function PenerimaObatComponent({
               value={nama}
               onChange={(e) => setNama(e.target.value)}
               placeholder="Nama penerima..."
-              className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 bg-white"
+              className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 bg-white"
             />
           </div>
 
@@ -164,7 +164,7 @@ export default function PenerimaObatComponent({
               value={hubungan}
               onChange={(e) => setHubungan(e.target.value)}
               placeholder="e.g. Ibu Kandung"
-              className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 bg-white"
+              className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 bg-white"
             />
           </div>
         </div>
@@ -179,7 +179,7 @@ export default function PenerimaObatComponent({
             value={noIdentitasKtp}
             onChange={(e) => setNoIdentitasKtp(e.target.value)}
             placeholder="32750..."
-            className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 font-mono outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 bg-white"
+            className="w-full p-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 font-mono outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 bg-white"
           />
         </div>
 

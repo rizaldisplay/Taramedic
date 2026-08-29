@@ -46,7 +46,7 @@ export default function AnamnesisDokterTab() {
         <div className="flex items-center gap-4 text-xs text-slate-500 bg-white p-2.5 rounded-lg border border-slate-200">
           <span className="font-medium text-slate-700">Sumber Data:</span>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-blue-600"></span>
+            <span className="w-2 h-2 rounded-full bg-cyan-600"></span>
             <span>Diisi / Diperbarui Dokter</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -60,7 +60,7 @@ export default function AnamnesisDokterTab() {
       <div className="space-y-4">
         {/* 1. Keluhan Utama */}
         <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-          <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
             <HelpCircle className="w-4 h-4" />
             <span>Keluhan Utama</span>
           </div>
@@ -85,7 +85,7 @@ export default function AnamnesisDokterTab() {
                 maxLength={1000}
                 rows={2}
                 placeholder="Tuliskan anamnesis dokter mengenai keluhan utama pasien..."
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none placeholder:text-slate-300"
+                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none placeholder:text-slate-300"
               />
               <span className="absolute bottom-2 right-3 text-[10px] text-slate-400">
                 {keluhanUtama.length}/1000
@@ -96,7 +96,7 @@ export default function AnamnesisDokterTab() {
 
         {/* 2. Keluhan Penyerta */}
         <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-          <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
             <PlusCircle className="w-4 h-4" />
             <span>Keluhan Penyerta</span>
           </div>
@@ -119,7 +119,7 @@ export default function AnamnesisDokterTab() {
                 maxLength={1000}
                 rows={2}
                 placeholder="Tuliskan keluhan penyerta yang ditemukan dokter..."
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none placeholder:text-slate-300"
+                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none placeholder:text-slate-300"
               />
               <span className="absolute bottom-2 right-3 text-[10px] text-slate-400">
                 {keluhanPenyerta.length}/1000
@@ -132,7 +132,7 @@ export default function AnamnesisDokterTab() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Riwayat Penyakit Dahulu */}
           <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-            <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
               <History className="w-4 h-4" />
               <span>Riwayat Penyakit Dahulu</span>
             </div>
@@ -162,7 +162,7 @@ export default function AnamnesisDokterTab() {
                   maxLength={1000}
                   rows={2}
                   placeholder="Tambah atau jelaskan riwayat penyakit dahulu..."
-                  className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none placeholder:text-slate-300"
+                  className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none placeholder:text-slate-300"
                 />
                 <span className="absolute bottom-2 right-3 text-[10px] text-slate-400">
                   {riwayatPenyakitDahulu.length}/1000
@@ -173,7 +173,7 @@ export default function AnamnesisDokterTab() {
 
           {/* Riwayat Alergi */}
           <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-            <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
               <ShieldAlert className="w-4 h-4" />
               <span>Riwayat Alergi</span>
             </div>
@@ -199,7 +199,7 @@ export default function AnamnesisDokterTab() {
                   <Check className="w-3.5 h-3.5" />
                   Konfirmasi (Sesuai)
                 </button>
-                <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-slate-200 text-blue-600 rounded-lg text-xs font-medium hover:bg-slate-50 transition-colors">
+                <button className="w-full flex items-center justify-center gap-1.5 px-3 py-2 bg-white border border-slate-200 text-cyan-600 rounded-lg text-xs font-medium hover:bg-slate-50 transition-colors">
                   <Pencil className="w-3.5 h-3.5" />
                   Koreksi / Tambah
                 </button>
@@ -212,7 +212,7 @@ export default function AnamnesisDokterTab() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Riwayat Pengobatan */}
           <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-            <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
               <Pill className="w-4 h-4" />
               <span>Riwayat Pengobatan</span>
             </div>
@@ -235,7 +235,7 @@ export default function AnamnesisDokterTab() {
                   maxLength={1000}
                   rows={2}
                   placeholder="Tuliskan riwayat pengobatan sebelumnya..."
-                  className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none placeholder:text-slate-300"
+                  className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none placeholder:text-slate-300"
                 />
                 <span className="absolute bottom-2 right-3 text-[10px] text-slate-400">
                   {riwayatPengobatan.length}/1000
@@ -246,7 +246,7 @@ export default function AnamnesisDokterTab() {
 
           {/* Riwayat Penyakit Keluarga */}
           <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-            <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
               <Users className="w-4 h-4" />
               <span>Riwayat Penyakit Keluarga</span>
             </div>
@@ -269,7 +269,7 @@ export default function AnamnesisDokterTab() {
                   maxLength={5000}
                   rows={2}
                   placeholder="Tuliskan riwayat penyakit keluarga..."
-                  className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none placeholder:text-slate-300"
+                  className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none placeholder:text-slate-300"
                 />
                 <span className="absolute bottom-2 right-3 text-[10px] text-slate-400">
                   {riwayatPenyakitKeluarga.length}/5000
@@ -281,7 +281,7 @@ export default function AnamnesisDokterTab() {
 
         {/* 7. Riwayat Sosial */}
         <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-3">
-          <div className="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-cyan-600 font-semibold text-xs uppercase tracking-wider">
             <UserCheck className="w-4 h-4" />
             <span>Riwayat Sosial</span>
           </div>
@@ -294,7 +294,7 @@ export default function AnamnesisDokterTab() {
               <select
                 value={kebiasaanMerokok}
                 onChange={(e) => setKebiasaanMerokok(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
               >
                 <option value="Tidak merokok">Tidak merokok</option>
                 <option value="Perokok aktif">Perokok aktif</option>
@@ -309,7 +309,7 @@ export default function AnamnesisDokterTab() {
               <select
                 value={kebiasaanAlkohol}
                 onChange={(e) => setKebiasaanAlkohol(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
               >
                 <option value="Tidak">Tidak</option>
                 <option value="Ya">Ya</option>
@@ -324,7 +324,7 @@ export default function AnamnesisDokterTab() {
               <select
                 value={aktivitasFisik}
                 onChange={(e) => setAktivitasFisik(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
               >
                 <option value="Aktivitas ringan">Aktivitas ringan</option>
                 <option value="Sedang">Sedang</option>
@@ -342,7 +342,7 @@ export default function AnamnesisDokterTab() {
                 onChange={(e) => setKeteranganLainSosial(e.target.value)}
                 maxLength={1000}
                 placeholder="Tuliskan keterangan tambahan riwayat sosial pasien..."
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-slate-300 pr-12"
+                className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 placeholder:text-slate-300 pr-12"
               />
               <span className="absolute right-3 bottom-2.5 text-[10px] text-slate-400">
                 {keteranganLainSosial.length}/1000
@@ -370,7 +370,7 @@ export default function AnamnesisDokterTab() {
             <Trash2 className="w-3.5 h-3.5" />
             Batalkan Kunjungan
           </button>
-          <button className="flex items-center gap-1.5 px-5 py-2 bg-blue-600 text-white rounded-lg text-xs font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+          <button className="flex items-center gap-1.5 px-5 py-2 bg-cyan-600 text-white rounded-lg text-xs font-semibold hover:bg-cyan-700 transition-colors shadow-sm">
             Lanjut ke Pemeriksaan
             <ArrowRight className="w-3.5 h-3.5" />
           </button>

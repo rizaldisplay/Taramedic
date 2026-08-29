@@ -115,7 +115,7 @@ export default function DoctorDashboard() {
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
           
           {/* Welcome Banner */}
-          <div className="bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl p-6 text-white mb-6 shadow-sm">
+          <div className="bg-gradient-to-r from-cyan-600 to-cyan-600 rounded-2xl p-6 text-white mb-6 shadow-sm">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
                 <h1 className="text-2xl font-bold">Selamat Pagi, dr. Andi! 👋</h1>
@@ -134,7 +134,7 @@ export default function DoctorDashboard() {
                 <p className="text-xs font-semibold text-slate-400 uppercase">Total Antrean Hari Ini</p>
                 <h3 className="text-2xl font-bold text-slate-800 mt-1">14 Pasien</h3>
               </div>
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center">
                 <Users className="w-6 h-6" />
               </div>
             </div>
@@ -202,7 +202,7 @@ export default function DoctorDashboard() {
                     <tr className="hover:bg-slate-50/50">
                       <td className="py-3 px-6 font-semibold text-slate-800">A-010</td>
                       <td className="py-3 px-6 font-medium text-slate-800">Muhammad Al Fatih</td>
-                      <td className="py-3 px-6"><span className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium">BPJS</span></td>
+                      <td className="py-3 px-6"><span className="text-xs bg-cyan-50 text-cyan-700 px-2.5 py-1 rounded-full font-medium">BPJS</span></td>
                       <td className="py-3 px-6"><span className="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Sedang Diperiksa</span></td>
                       <td className="py-3 px-6 text-right">
                         <button className="text-cyan-600 hover:text-cyan-700 font-medium text-xs bg-cyan-50 px-3 py-1.5 rounded-lg transition-colors">Buka EMR</button>
@@ -220,7 +220,7 @@ export default function DoctorDashboard() {
                     <tr className="hover:bg-slate-50/50">
                       <td className="py-3 px-6 font-semibold text-slate-800">A-012</td>
                       <td className="py-3 px-6 font-medium text-slate-800">Keanu Reeves Wijaya</td>
-                      <td className="py-3 px-6"><span className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium">BPJS</span></td>
+                      <td className="py-3 px-6"><span className="text-xs bg-cyan-50 text-cyan-700 px-2.5 py-1 rounded-full font-medium">BPJS</span></td>
                       <td className="py-3 px-6"><span className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium">Dalam Antrean</span></td>
                       <td className="py-3 px-6 text-right">
                         <button className="text-slate-400 font-medium text-xs bg-slate-50 px-3 py-1.5 rounded-lg cursor-not-allowed" disabled>Menunggu</button>

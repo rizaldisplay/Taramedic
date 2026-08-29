@@ -22,13 +22,13 @@ export const ActionPanel = () => {
   return (
     <div className="w-[340px] flex-shrink-0 space-y-4">
       {/* Active Call Card */}
-      <div className="bg-white rounded-xl border border-blue-200 shadow-sm overflow-hidden relative">
-        <div className="h-1 bg-blue-500 w-full absolute top-0 left-0"></div>
+      <div className="bg-white rounded-xl border border-cyan-200 shadow-sm overflow-hidden relative">
+        <div className="h-1 bg-cyan-500 w-full absolute top-0 left-0"></div>
         <div className="p-5 pt-6">
-          <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">SEDANG DIPANGGIL</div>
+          <div className="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-1">SEDANG DIPANGGIL</div>
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h3 className="text-4xl font-bold text-blue-600 mb-2">A013</h3>
+              <h3 className="text-4xl font-bold text-cyan-600 mb-2">A013</h3>
               <h4 className="text-lg font-bold text-slate-900">Rizka Amalia <span className="text-pink-500 font-normal">♀</span></h4>
               <p className="text-xs text-slate-500 mt-1">RM-000036 • Perempuan, 8 thn</p>
             </div>
@@ -37,9 +37,9 @@ export const ActionPanel = () => {
             </div>
           </div>
           
-          <div className="bg-blue-50/50 rounded-lg p-3 border border-blue-100 mb-5 text-sm">
+          <div className="bg-cyan-50/50 rounded-lg p-3 border border-cyan-100 mb-5 text-sm">
             <div className="flex justify-between items-center mb-1">
-              <div className="flex items-center text-blue-700 font-medium">
+              <div className="flex items-center text-cyan-700 font-medium">
                 <Volume2 className="w-4 h-4 mr-2" /> Panggilan ke-1
               </div>
             </div>

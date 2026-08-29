@@ -192,11 +192,11 @@ export default function ModalTambahObatNonRacikan({
                   placeholder="Cari nama obat / KFA / generik / brand..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full border border-gray-200 rounded-xl px-4 py-2 pr-10 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 placeholder:text-gray-400 font-medium"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-2 pr-10 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 placeholder:text-gray-400 font-medium"
                 />
                 <Search
                   size={15}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-blue-600 pointer-events-none"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-cyan-600 pointer-events-none"
                 />
               </div>
 
@@ -210,7 +210,7 @@ export default function ModalTambahObatNonRacikan({
                       onClick={() => setActiveTab(tab)}
                       className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                         activeTab === tab
-                          ? 'bg-blue-50 text-blue-600 border border-blue-100'
+                          ? 'bg-cyan-50 text-cyan-600 border border-cyan-100'
                           : 'bg-white text-gray-500 hover:bg-gray-50 border border-gray-200'
                       }`}
                     >
@@ -238,13 +238,13 @@ export default function ModalTambahObatNonRacikan({
                       onClick={() => handleSelectObat(item)}
                       className={`p-3.5 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? 'border-blue-500 bg-blue-50/40 shadow-2xs'
+                          ? 'border-cyan-500 bg-cyan-50/40 shadow-2xs'
                           : 'border-gray-200 bg-white hover:bg-slate-50/50'
                       }`}
                     >
                       <div className="flex items-start gap-3 min-w-0">
                         {isSelected ? (
-                          <CheckCircle2 size={18} className="text-blue-600 fill-blue-600 stroke-white shrink-0 mt-0.5" />
+                          <CheckCircle2 size={18} className="text-cyan-600 fill-cyan-600 stroke-white shrink-0 mt-0.5" />
                         ) : (
                           <Circle size={18} className="text-gray-300 shrink-0 mt-0.5" />
                         )}
@@ -287,8 +287,8 @@ export default function ModalTambahObatNonRacikan({
               </h3>
 
               {/* Alert Info Master Data */}
-              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50/60 border border-blue-100 text-[11px] text-blue-800 font-medium">
-                <Info size={14} className="text-blue-500 shrink-0" />
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-50/60 border border-cyan-100 text-[11px] text-cyan-800 font-medium">
+                <Info size={14} className="text-cyan-500 shrink-0" />
                 <span>Informasi obat akan mengisi otomatis sesuai data master.</span>
               </div>
 
@@ -358,7 +358,7 @@ export default function ModalTambahObatNonRacikan({
                       type="text"
                       value={dosisJumlah}
                       onChange={(e) => setDosisJumlah(e.target.value)}
-                      className="w-full border border-gray-200 border-r-0 rounded-l-xl px-3 py-2 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full border border-gray-200 border-r-0 rounded-l-xl px-3 py-2 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                     />
                     <div className="relative shrink-0">
                       <select
@@ -384,7 +384,7 @@ export default function ModalTambahObatNonRacikan({
                     <select
                       value={frekuensi}
                       onChange={(e) => setFrekuensi(e.target.value)}
-                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                     >
                       <option value="3 × sehari">3 × sehari</option>
                       <option value="2 × sehari">2 × sehari</option>
@@ -404,7 +404,7 @@ export default function ModalTambahObatNonRacikan({
                     <select
                       value={rute}
                       onChange={(e) => setRute(e.target.value)}
-                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                     >
                       <option value="Oral">Oral</option>
                       <option value="Injeksi IV">Injeksi IV</option>
@@ -427,7 +427,7 @@ export default function ModalTambahObatNonRacikan({
                     type="text"
                     value={jumlah}
                     onChange={(e) => setJumlah(e.target.value)}
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                   />
                 </div>
 
@@ -440,7 +440,7 @@ export default function ModalTambahObatNonRacikan({
                     <select
                       value={satuan}
                       onChange={(e) => setSatuan(e.target.value)}
-                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                     >
                       <option value="Tablet">Tablet</option>
                       <option value="Kapsul">Kapsul</option>
@@ -460,7 +460,7 @@ export default function ModalTambahObatNonRacikan({
                     <select
                       value={aturanPakai}
                       onChange={(e) => setAturanPakai(e.target.value)}
-                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                      className="w-full appearance-none border border-gray-200 rounded-xl px-3 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                     >
                       <option value="Sesudah makan">Sesudah makan</option>
                       <option value="Sebelum makan">Sebelum makan</option>
@@ -483,7 +483,7 @@ export default function ModalTambahObatNonRacikan({
                     onChange={(e) => setCatatan(e.target.value)}
                     maxLength={200}
                     placeholder="Contoh: Bila perlu, diminum setelah makan"
-                    className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 min-h-[75px] resize-none placeholder:text-gray-400"
+                    className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 min-h-[75px] resize-none placeholder:text-gray-400"
                   />
                   <div className="text-right text-[10px] text-gray-400 font-medium mt-0.5">
                     {catatan.length} / 200
@@ -492,9 +492,9 @@ export default function ModalTambahObatNonRacikan({
               </div>
 
               {/* Bottom Banner Info Sumber Resep */}
-              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50/50 border border-blue-100/60 text-[11px] text-gray-600 font-medium">
-                <Info size={14} className="text-blue-500 shrink-0" />
-                <span>Sumber Resep: <strong className="text-blue-600 font-bold">E-Resep Dokter</strong></span>
+              <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-50/50 border border-cyan-100/60 text-[11px] text-gray-600 font-medium">
+                <Info size={14} className="text-cyan-500 shrink-0" />
+                <span>Sumber Resep: <strong className="text-cyan-600 font-bold">E-Resep Dokter</strong></span>
               </div>
 
             </div>
@@ -512,7 +512,7 @@ export default function ModalTambahObatNonRacikan({
             </button>
             <button
               type="submit"
-              className="flex items-center justify-center gap-1.5 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="flex items-center justify-center gap-1.5 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               <Plus size={15} />
               <span>Tambah Obat</span>

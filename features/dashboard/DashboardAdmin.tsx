@@ -134,7 +134,7 @@ export default function AdminDashboard() {
                 <p className="text-xs font-semibold text-slate-400 uppercase">Total Kunjungan Hari Ini</p>
                 <h3 className="text-2xl font-bold text-slate-800 mt-1">128 Pasien</h3>
               </div>
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center">
                 <Users className="w-6 h-6" />
               </div>
             </div>

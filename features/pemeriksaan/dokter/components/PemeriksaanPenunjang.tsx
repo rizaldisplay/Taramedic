@@ -82,7 +82,7 @@ export default function PenunjangComponent({ onOpenPenunjangClick }: PenunjangPr
           <button 
             type="button"
             onClick={onOpenPenunjangClick}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 text-xs font-semibold hover:bg-blue-100/70 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 text-xs font-semibold hover:bg-cyan-100/70 transition-all cursor-pointer"
           >
             <Plus size={14} />
             <span>Minta Pemeriksaan</span>
@@ -104,7 +104,7 @@ export default function PenunjangComponent({ onOpenPenunjangClick }: PenunjangPr
           onClick={() => setActiveTab('aktif')}
           className={`pb-2.5 px-1 text-xs font-bold border-b-2 transition-colors cursor-pointer mr-6 ${
             activeTab === 'aktif'
-              ? 'border-blue-600 text-blue-600'
+              ? 'border-cyan-600 text-cyan-600'
               : 'border-transparent text-gray-500 hover:text-gray-700'
           }`}
         >
@@ -114,7 +114,7 @@ export default function PenunjangComponent({ onOpenPenunjangClick }: PenunjangPr
           onClick={() => setActiveTab('hasil')}
           className={`pb-2.5 px-1 text-xs font-bold border-b-2 transition-colors cursor-pointer ${
             activeTab === 'hasil'
-              ? 'border-blue-600 text-blue-600'
+              ? 'border-cyan-600 text-cyan-600'
               : 'border-transparent text-gray-500 hover:text-gray-700'
           }`}
         >
@@ -186,7 +186,7 @@ export default function PenunjangComponent({ onOpenPenunjangClick }: PenunjangPr
                       <div className="flex items-center justify-center gap-2">
                         <button 
                           type="button"
-                          className="text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
+                          className="text-xs font-semibold text-cyan-600 hover:text-cyan-700 transition-colors cursor-pointer"
                         >
                           Lihat Detail
                         </button>

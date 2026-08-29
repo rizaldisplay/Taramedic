@@ -21,10 +21,10 @@ export default function CatatanDokter({ data = defaultData }: DoctorNoteProps) {
     <div className="w-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       {/* Header */}
       <div className="mb-5 flex items-center gap-3">
-        <div className="flex h-6 w-6 items-center justify-center rounded bg-blue-600 text-xs font-bold text-white">
+        <div className="flex h-6 w-6 items-center justify-center rounded bg-cyan-600 text-xs font-bold text-white">
           D
         </div>
-        <h2 className="text-sm font-bold uppercase tracking-wide text-blue-700">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-cyan-700">
           CATATAN DOKTER
         </h2>
       </div>

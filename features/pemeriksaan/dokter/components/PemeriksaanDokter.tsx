@@ -41,13 +41,13 @@ export default function PemeriksaanDokter() {
       {/* Header Section */}
       <div className="flex items-center justify-between p-4 border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white rounded text-xs font-bold shadow-sm">
+          <div className="flex items-center justify-center w-5 h-5 bg-cyan-600 text-white rounded text-xs font-bold shadow-sm">
             B
           </div>
           <h2 className="text-[13px] font-bold text-slate-800 uppercase tracking-wide">
             Pemeriksaan Dokter
           </h2>
-          <span className="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded font-semibold border border-blue-100">
+          <span className="bg-cyan-50 text-cyan-600 text-[10px] px-2 py-0.5 rounded font-semibold border border-cyan-100">
             Input Dokter
           </span>
         </div>
@@ -74,11 +74,11 @@ export default function PemeriksaanDokter() {
                 onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center gap-2.5 px-4 py-2 text-[13px] font-medium transition-colors
                   ${isActive 
-                    ? 'bg-blue-50/50 text-blue-700 border-l-[3px] border-blue-600' 
+                    ? 'bg-cyan-50/50 text-cyan-700 border-l-[3px] border-cyan-600' 
                     : 'text-gray-600 hover:bg-gray-50 border-l-[3px] border-transparent'
                   }`}
               >
-                <Icon size={16} className={isActive ? 'text-blue-600' : 'text-gray-400'} />
+                <Icon size={16} className={isActive ? 'text-cyan-600' : 'text-gray-400'} />
                 {item.label}
               </button>
             );
@@ -101,7 +101,7 @@ export default function PemeriksaanDokter() {
                 <div className="flex flex-col gap-1">
                   <label className="text-[11px] text-gray-500 font-semibold">Status Gizi</label>
                   <div className="relative">
-                    <select className="w-full appearance-none border border-gray-200 rounded-md px-2.5 py-1.5 pr-7 text-[13px] text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all cursor-pointer">
+                    <select className="w-full appearance-none border border-gray-200 rounded-md px-2.5 py-1.5 pr-7 text-[13px] text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all cursor-pointer">
                       <option>Normal</option>
                       <option>Kurang</option>
                       <option>Berlebih</option>
@@ -113,7 +113,7 @@ export default function PemeriksaanDokter() {
                 <div className="flex flex-col gap-1">
                   <label className="text-[11px] text-gray-500 font-semibold">Kesadaran</label>
                   <div className="relative">
-                    <select className="w-full appearance-none border border-gray-200 rounded-md px-2.5 py-1.5 pr-7 text-[13px] text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all cursor-pointer">
+                    <select className="w-full appearance-none border border-gray-200 rounded-md px-2.5 py-1.5 pr-7 text-[13px] text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all cursor-pointer">
                       <option>Compos Mentis</option>
                       <option>Apatis</option>
                       <option>Delirium</option>
@@ -125,7 +125,7 @@ export default function PemeriksaanDokter() {
                 <div className="flex flex-col gap-1">
                   <label className="text-[11px] text-gray-500 font-semibold">Keadaan Umum</label>
                   <div className="relative">
-                    <select className="w-full appearance-none border border-gray-200 rounded-md px-2.5 py-1.5 pr-7 text-[13px] text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all cursor-pointer">
+                    <select className="w-full appearance-none border border-gray-200 rounded-md px-2.5 py-1.5 pr-7 text-[13px] text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all cursor-pointer">
                       <option>Baik</option>
                       <option>Sedang</option>
                       <option>Buruk</option>
@@ -136,7 +136,7 @@ export default function PemeriksaanDokter() {
 
                 <div className="flex flex-col gap-1">
                   <label className="text-[11px] text-gray-500 font-semibold truncate">Tingkat Nyeri (NRS 0-10)</label>
-                  <div className="flex items-center border border-gray-200 rounded-md px-1 py-0.5 focus-within:ring-1 focus-within:ring-blue-500 focus-within:border-blue-500 transition-all bg-white">
+                  <div className="flex items-center border border-gray-200 rounded-md px-1 py-0.5 focus-within:ring-1 focus-within:ring-cyan-500 focus-within:border-cyan-500 transition-all bg-white">
                     <input 
                       type="number" 
                       defaultValue={2} 
@@ -157,7 +157,7 @@ export default function PemeriksaanDokter() {
                 <label className="text-[11px] text-gray-500 font-semibold">Postur / Sikap</label>
                 <div className="relative">
                   <textarea 
-                    className="w-full border border-gray-200 rounded-md p-2 text-[13px] text-gray-800 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[70px] resize-y"
+                    className="w-full border border-gray-200 rounded-md p-2 text-[13px] text-gray-800 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all min-h-[70px] resize-y"
                     defaultValue="Pasien tampak sadar, kooperatif, tidak tampak distress."
                   />
                   <div className="absolute bottom-2 right-2 text-[10px] text-gray-400 font-medium bg-white px-1">
@@ -172,7 +172,7 @@ export default function PemeriksaanDokter() {
                 
                 <div className="grid grid-cols-2 lg:grid-cols-5 gap-2">
                   {/* Kotak Input TD */}
-                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all cursor-text">
+                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition-all cursor-text">
                     <p className="text-[10px] text-gray-500 mb-1 font-medium">TD</p>
                     <div className="flex items-baseline justify-between gap-1">
                       <input type="text" defaultValue="118/78" className="w-14 font-bold text-[13px] text-gray-900 outline-none bg-transparent p-0" />
@@ -181,7 +181,7 @@ export default function PemeriksaanDokter() {
                   </div>
 
                   {/* Kotak Input Nadi */}
-                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all cursor-text">
+                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition-all cursor-text">
                     <p className="text-[10px] text-gray-500 mb-1 font-medium">Nadi</p>
                     <div className="flex items-baseline justify-between gap-1">
                       <input type="text" defaultValue="88" className="w-10 font-bold text-[13px] text-gray-900 outline-none bg-transparent p-0" />
@@ -190,7 +190,7 @@ export default function PemeriksaanDokter() {
                   </div>
 
                   {/* Kotak Input Respirasi */}
-                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all cursor-text">
+                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition-all cursor-text">
                     <p className="text-[10px] text-gray-500 mb-1 font-medium">Respirasi</p>
                     <div className="flex items-baseline justify-between gap-1">
                       <input type="text" defaultValue="20" className="w-10 font-bold text-[13px] text-gray-900 outline-none bg-transparent p-0" />
@@ -199,7 +199,7 @@ export default function PemeriksaanDokter() {
                   </div>
 
                   {/* Kotak Input Suhu */}
-                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all cursor-text">
+                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition-all cursor-text">
                     <p className="text-[10px] text-gray-500 mb-1 font-medium">Suhu</p>
                     <div className="flex items-baseline justify-between gap-1">
                       <input type="text" defaultValue="36.6" className="w-10 font-bold text-[13px] text-gray-900 outline-none bg-transparent p-0" />
@@ -208,7 +208,7 @@ export default function PemeriksaanDokter() {
                   </div>
 
                   {/* Kotak Input SpO2 */}
-                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 transition-all cursor-text">
+                  <div className="border border-gray-200 rounded-md p-2 bg-white focus-within:border-cyan-500 focus-within:ring-1 focus-within:ring-cyan-500 transition-all cursor-text">
                     <p className="text-[10px] text-gray-500 mb-1 font-medium">SpO2</p>
                     <div className="flex items-baseline justify-between gap-1">
                       <input type="text" defaultValue="98" className="w-10 font-bold text-[13px] text-gray-900 outline-none bg-transparent p-0" />
@@ -218,7 +218,7 @@ export default function PemeriksaanDokter() {
                 </div>
 
                 <div className="flex items-center gap-1.5 mt-1">
-                  <input type="checkbox" id="no-measure" className="w-3.5 h-3.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer" />
+                  <input type="checkbox" id="no-measure" className="w-3.5 h-3.5 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500 cursor-pointer" />
                   <label htmlFor="no-measure" className="text-[12px] text-gray-600 cursor-pointer select-none">
                     Vital sign tidak diukur ulang
                   </label>

@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 // Sesuaikan path import ini dengan lokasi file slice kamu dan store kamu
 import { logoutUser } from '@/features/auth/authSlice'; 
-import { AppDispatch } from '@/store'; // (Opsional) Jika kamu mengatur tipe dispatch di store
+import { AppDispatch } from '@/store'; 
 
 import {
   ClipboardList,
@@ -18,29 +18,99 @@ import {
   Database,
   Settings,
   LogOut,
-  X
+  X,
+  ChevronDown
 } from 'lucide-react';
 
-interface NavItemProps {
-  icon: React.ElementType;
+interface SubNavItem {
   label: string;
   active?: boolean;
   onClick?: () => void;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ icon: Icon, label, active = false, onClick }) => (
-  <div
-    onClick={onClick}
-    className={`flex items-center px-4 py-2.5 rounded-lg cursor-pointer transition-colors mx-2 ${
-      active 
-        ? 'bg-cyan-50 text-cyan-700 font-medium' 
-        : 'text-slate-600 hover:bg-slate-50'
-    }`}
-  >
-    <Icon className={`w-5 h-5 mr-3 ${active ? 'text-cyan-600' : 'text-slate-400'}`} />
-    <span className="text-sm">{label}</span>
-  </div>
-);
+interface NavItemProps {
+  icon: React.ElementType;
+  label: string;
+  active?: boolean;
+  defaultOpen?: boolean;
+  onClick?: () => void;
+  subItems?: SubNavItem[];
+}
+
+const NavItem: React.FC<NavItemProps> = ({ 
+  icon: Icon, 
+  label, 
+  active = false, 
+  defaultOpen = false,
+  onClick, 
+  subItems 
+}) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const hasSubItems = subItems && subItems.length > 0;
+
+  const handleParentClick = () => {
+    if (hasSubItems) {
+      setIsOpen(!isOpen);
+    }
+    if (onClick && !hasSubItems) {
+      onClick();
+    }
+  };
+
+  return (
+    <div className="flex flex-col mb-1">
+      {/* Menu Utama */}
+      <div
+        onClick={handleParentClick}
+        className={`flex items-center justify-between px-4 py-2.5 rounded-lg cursor-pointer transition-colors mx-2 ${
+          active && !hasSubItems
+            ? 'bg-cyan-50 text-cyan-700 font-medium' 
+            : 'text-slate-600 hover:bg-slate-50'
+        }`}
+      >
+        <div className="flex items-center">
+          <Icon className={`w-5 h-5 mr-3 ${active && !hasSubItems ? 'text-cyan-600' : 'text-slate-400'}`} />
+          <span className={`text-sm ${active && hasSubItems ? 'font-medium text-slate-800' : ''}`}>
+            {label}
+          </span>
+        </div>
+        
+        {/* Indikator Dropdown jika ada sub menu */}
+        {hasSubItems && (
+          <ChevronDown 
+            className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          />
+        )}
+      </div>
+
+      {/* Sub Menu */}
+      {hasSubItems && (
+        <div 
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? 'max-h-40 opacity-100 mt-1' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="flex flex-col gap-1 mx-2">
+            {subItems.map((sub, index) => (
+              <div
+                key={index}
+                onClick={sub.onClick}
+                className={`flex items-center pl-11 pr-4 py-2 rounded-lg cursor-pointer transition-colors ${
+                  sub.active 
+                    ? 'bg-cyan-50 text-cyan-700 font-medium' 
+                    : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
+                }`}
+              >
+                <div className={`w-1.5 h-1.5 rounded-full mr-2.5 ${sub.active ? 'bg-cyan-500' : 'bg-slate-300'}`} />
+                <span className="text-sm">{sub.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -54,21 +124,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
   const handleLogout = async () => {
     try {
       console.log('Mengeksekusi proses logout...');
-      // Memanggil thunk logoutUser dari Redux
       await dispatch(logoutUser()).unwrap(); 
-      
-      // Redirect ke halaman login setelah state dan cookie dibersihkan
       router.push('/login');
     } catch (error) {
       console.error('Gagal melakukan logout:', error);
-      // Fallback: Tetap arahkan ke login dan bersihkan state meskipun API gagal
       router.push('/login');
     }
   };
 
   return (
     <>
-      {/* Backdrop / Overlay gelap untuk mode Mobile saat drawer terbuka */}
       {isOpen && (
         <div 
           onClick={onClose} 
@@ -76,7 +141,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         />
       )}
 
-      {/* Konten Utama Sidebar (Drawer di Mobile, Sticky di Desktop) */}
       <aside 
         className={`
           fixed lg:static inset-y-0 left-0 z-50
@@ -86,9 +150,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}
       >
-        <div>
-          {/* Header Logo & Tombol Close (Khusus Drawer Mobile) */}
-          <div className="h-16 flex items-center justify-between px-6 border-b border-slate-100">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="h-16 flex items-center justify-between px-6 border-b border-slate-100 sticky top-0 bg-white z-10">
             <img
               src="/logo/06%20Taramedic%20Logo%20-%20Biru%20Full%20Horizontal.png"
               alt="Logo Taramedic"
@@ -102,26 +165,46 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
             </button>
           </div>
 
-          {/* Menu Navigasi Utama (Otomatis menutup drawer saat menu diklik di mobile) */}
           <nav className="p-4 space-y-1">
-            <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3">EMR</div>
+            <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3">Menu Utama</div>
             <NavItem icon={LayoutDashboard} label="Dashboard" onClick={onClose} />
-            <NavItem icon={ClipboardList} label="Antrean Poli" active onClick={onClose} />
-            <NavItem icon={Activity} label="Pemeriksaan" onClick={onClose} />
+            
+            {/* Menu Antrean dengan Sub Menu */}
+            <NavItem 
+              icon={ClipboardList} 
+              label="Antrean" 
+              active={true}
+              defaultOpen={true}
+              subItems={[
+                { label: 'Poli', active: true, onClick: onClose },
+                { label: 'Farmasi', active: false, onClick: onClose },
+                { label: 'Kasir', active: false, onClick: onClose }
+              ]}
+            />
+            
+            <NavItem 
+              icon={Activity} 
+              label="EMR" 
+              active={false}
+              defaultOpen={true}
+              subItems={[
+                { label: 'Perawat', active: true, onClick: onClose },
+                { label: 'Dokter', active: false, onClick: onClose }
+              ]}
+            />
+
             <NavItem icon={Users} label="Pasien" onClick={onClose} />
             <NavItem icon={Pill} label="Farmasi" onClick={onClose} />
             <NavItem icon={Calculator} label="Kasir" onClick={onClose} />
             <NavItem icon={FileText} label="Laporan" onClick={onClose} />
 
-            {/* Grouping Sistem */}
             <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3 mt-6">Sistem</div>
             <NavItem icon={Database} label="Masterdata" onClick={onClose} />
             <NavItem icon={Settings} label="Settings" onClick={onClose} />
           </nav>
         </div>
 
-        {/* Bagian Bawah Sidebar (Logout & Footer) */}
-        <div className="pb-4">
+        <div className="pb-4 shrink-0 bg-white">
           <div className="mb-4">
             <div
               onClick={handleLogout}

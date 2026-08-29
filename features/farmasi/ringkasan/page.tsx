@@ -8,7 +8,7 @@ import InformasiKlinis from "@/features/farmasi/components/InformasiKlinis";
 import CatatanDokter from "@/features/farmasi/components/CatatanDokter";
 import PerhatianFarmasi from "@/features/farmasi/components/PerhatianFarmasi";
 import SidebarCatatan from "@/features/farmasi/components/SidebarCatatan";
-import FooterTombol from "@/features/pemeriksaan/perawat/components/FooterTombol";
+import FooterTombol from "@/features/farmasi/components/FooterTombol";
 
 export default function RingkasanFarmasiPage() {
   const [internalNote, setInternalNote] = useState("");
@@ -22,7 +22,7 @@ export default function RingkasanFarmasiPage() {
               KOLOM KIRI (KONTEN UTAMA)
               Mengambil 8 bagian dari 12 kolom (LG) atau 9 bagian (XL)
           ========================================= */}
-          <div className="lg:col-span-8 flex flex-col gap-5">
+          <div className="lg:col-span-9 flex flex-col gap-5">
             {/* Baris 1: Informasi Kunjungan Utama [A] & Ringkasan Resep [B] */}
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
               <InformasiKunjungan />
@@ -41,14 +41,16 @@ export default function RingkasanFarmasiPage() {
             </div>
           </div>
 
-          <SidebarCatatan
-            internalNote={internalNote}
-            setInternalNote={setInternalNote}
-          />
+          <div className="lg:col-span-3 flex flex-col gap-6 sticky top-6">
+            <SidebarCatatan
+              internalNote={internalNote}
+              setInternalNote={setInternalNote}
+            />
+          </div>
         </div>
 
         {/* Footer Buttons */}
-        <FooterTombol />
+        <FooterTombol textButton={"Lanjutkan Ke Resep"} textSubButton={""} cetakObat={false} />
       </div>
     </div>
   );

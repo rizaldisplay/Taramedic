@@ -115,11 +115,11 @@ export default function DispensingNonRacikanComponent({
   };
 
   return (
-    <div className="w-full max-w-5xl bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
+    <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
       
       {/* Section Header */}
       <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
-        <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+        <div className="w-6 h-6 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
           A
         </div>
         <h3 className="font-bold text-slate-800 text-xs tracking-wider uppercase">
@@ -214,14 +214,14 @@ export default function DispensingNonRacikanComponent({
                   {/* Row Detail Ekspedisi & Informasi Obat */}
                   {isExpanded && (
                     <tr>
-                      <td colSpan={9} className="p-0 bg-blue-50/20">
+                      <td colSpan={9} className="p-0 bg-cyan-50/20">
                         <div className="p-4 pl-10 border-t border-b border-slate-100 flex flex-col gap-3">
                           
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                             
                             {/* Panel 1: Informasi Produk */}
                             <div className="flex flex-col gap-1.5 border-r border-slate-200/60 pr-4">
-                              <span className="text-xs font-bold text-blue-600 tracking-tight">
+                              <span className="text-xs font-bold text-cyan-600 tracking-tight">
                                 Informasi Produk
                               </span>
                               <div className="grid grid-cols-3 gap-1 text-[11px] mt-1">
@@ -241,7 +241,7 @@ export default function DispensingNonRacikanComponent({
 
                             {/* Panel 2: Batch / ED */}
                             <div className="flex flex-col gap-1.5 border-r border-slate-200/60 pr-4">
-                              <span className="text-xs font-bold text-blue-600 tracking-tight">
+                              <span className="text-xs font-bold text-cyan-600 tracking-tight">
                                 Batch / ED
                               </span>
                               <div className="grid grid-cols-3 gap-1 text-[11px] mt-1">
@@ -258,12 +258,12 @@ export default function DispensingNonRacikanComponent({
 
                             {/* Panel 3: Lokasi Penyimpanan */}
                             <div className="flex flex-col gap-1.5">
-                              <span className="text-xs font-bold text-blue-600 tracking-tight">
+                              <span className="text-xs font-bold text-cyan-600 tracking-tight">
                                 Lokasi Penyimpanan
                               </span>
                               <div className="flex flex-col gap-1 text-[11px] mt-1">
                                 <span className="font-semibold text-slate-800">{item.detail.lokasiGudang}</span>
-                                <span className="font-bold text-blue-700 bg-blue-100/60 px-2.5 py-1 rounded border border-blue-200/60 w-fit mt-1">
+                                <span className="font-bold text-cyan-700 bg-cyan-100/60 px-2.5 py-1 rounded border border-cyan-200/60 w-fit mt-1">
                                   {item.detail.lokasiRak}
                                 </span>
                               </div>
@@ -272,7 +272,7 @@ export default function DispensingNonRacikanComponent({
                           </div>
 
                           <div className="flex justify-end pt-1">
-                            <button className="text-blue-600 hover:text-blue-700 text-[11px] font-semibold flex items-center gap-1 transition-colors">
+                            <button className="text-cyan-600 hover:text-cyan-700 text-[11px] font-semibold flex items-center gap-1 transition-colors">
                               <Eye className="w-3.5 h-3.5" />
                               Lihat Detail &gt;
                             </button>

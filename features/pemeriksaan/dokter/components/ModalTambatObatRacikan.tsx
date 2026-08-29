@@ -221,10 +221,10 @@ export default function ModalTambahRacikan({
                 {/* Section A: Informasi Racikan */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-blue-600 text-white font-bold text-[11px] flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-md bg-cyan-600 text-white font-bold text-[11px] flex items-center justify-center">
                       A
                     </span>
-                    <h3 className="text-xs font-bold text-blue-600">
+                    <h3 className="text-xs font-bold text-cyan-600">
                       Informasi Racikan
                     </h3>
                   </div>
@@ -237,7 +237,7 @@ export default function ModalTambahRacikan({
                         type="text"
                         value={namaRacikan}
                         onChange={(e) => setNamaRacikan(e.target.value)}
-                        className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                       />
                       <span className="text-[10px] text-gray-400 block">Label dapat diubah sesuai kebutuhan.</span>
                     </div>
@@ -248,7 +248,7 @@ export default function ModalTambahRacikan({
                         <select
                           value={bentukSediaan}
                           onChange={(e) => setBentukSediaan(e.target.value)}
-                          className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                          className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2 pr-7 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                         >
                           <option value="Puyer">Puyer</option>
                           <option value="Kapsul">Kapsul</option>
@@ -298,7 +298,7 @@ export default function ModalTambahRacikan({
                         <select
                           value={aturanPakai}
                           onChange={(e) => setAturanPakai(e.target.value)}
-                          className="w-full appearance-none border border-gray-200 rounded-xl px-2.5 py-2 pr-6 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                          className="w-full appearance-none border border-gray-200 rounded-xl px-2.5 py-2 pr-6 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                         >
                           <option value="Sesudah makan">Sesudah makan</option>
                           <option value="Sebelum makan">Sebelum makan</option>
@@ -313,7 +313,7 @@ export default function ModalTambahRacikan({
                         <select
                           value={frekuensi}
                           onChange={(e) => setFrekuensi(e.target.value)}
-                          className="w-full appearance-none border border-gray-200 rounded-xl px-2.5 py-2 pr-6 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                          className="w-full appearance-none border border-gray-200 rounded-xl px-2.5 py-2 pr-6 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                         >
                           <option value="3 × sehari">3 × sehari</option>
                           <option value="2 × sehari">2 × sehari</option>
@@ -328,7 +328,7 @@ export default function ModalTambahRacikan({
                         <select
                           value={rute}
                           onChange={(e) => setRute(e.target.value)}
-                          className="w-full appearance-none border border-gray-200 rounded-xl px-2.5 py-2 pr-6 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                          className="w-full appearance-none border border-gray-200 rounded-xl px-2.5 py-2 pr-6 text-xs font-semibold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                         >
                           <option value="Oral">Oral</option>
                           <option value="Topikal">Topikal</option>
@@ -342,10 +342,10 @@ export default function ModalTambahRacikan({
                 {/* Section B: Komposisi Bahan Tabel */}
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-blue-600 text-white font-bold text-[11px] flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-md bg-cyan-600 text-white font-bold text-[11px] flex items-center justify-center">
                       B
                     </span>
-                    <h3 className="text-xs font-bold text-blue-600">
+                    <h3 className="text-xs font-bold text-cyan-600">
                       Komposisi ({komposisiList.length} bahan)
                     </h3>
                   </div>
@@ -425,7 +425,7 @@ export default function ModalTambahRacikan({
                   <button
                     type="button"
                     onClick={() => setIsPanelBahanOpen(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-blue-200 text-blue-600 hover:bg-blue-50 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-cyan-200 text-cyan-600 hover:bg-cyan-50 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
                   >
                     <Plus size={14} />
                     <span>Tambah Bahan</span>
@@ -436,7 +436,7 @@ export default function ModalTambahRacikan({
 
               {/* Footnote SATUSEHAT */}
               <div className="flex items-center gap-2 pt-3 border-t border-gray-100 text-[11px] text-gray-400 font-medium">
-                <Info size={14} className="text-blue-500 shrink-0" />
+                <Info size={14} className="text-cyan-500 shrink-0" />
                 <span>Racikan akan disimpan sebagai resep obat racikan (MedicationRequest) sesuai standar Kemenkes dan SATUSEHAT.</span>
               </div>
             </div>
@@ -448,14 +448,14 @@ export default function ModalTambahRacikan({
               {/* STATE 1: PANEL TERKUNCI (Gambar 01) */}
               {!isPanelBahanOpen ? (
                 <div className="h-full flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-gray-200/80 rounded-2xl bg-white/60">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-4 shadow-2xs">
+                  <div className="w-16 h-16 rounded-2xl bg-cyan-50 border border-cyan-100 flex items-center justify-center text-cyan-600 mb-4 shadow-2xs">
                     <Lock size={26} strokeWidth={1.75} />
                   </div>
                   <h4 className="text-xs font-bold text-slate-800 mb-1">
                     Panel terkunci
                   </h4>
                   <p className="text-[11px] text-gray-400 max-w-[210px] leading-relaxed">
-                    Klik tombol <strong className="text-blue-600 font-semibold">"Tambah Bahan"</strong> untuk memilih bahan racikan dari master KFA.
+                    Klik tombol <strong className="text-cyan-600 font-semibold">"Tambah Bahan"</strong> untuk memilih bahan racikan dari master KFA.
                   </p>
                 </div>
               ) : (
@@ -479,8 +479,8 @@ export default function ModalTambahRacikan({
                     </div>
 
                     {/* Alert Banner KFA System */}
-                    <div className="flex items-start gap-2 p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-[11px] text-blue-800 font-medium leading-relaxed">
-                      <Info size={14} className="text-blue-500 shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-2 p-3 rounded-xl bg-cyan-50/70 border border-cyan-100 text-[11px] text-cyan-800 font-medium leading-relaxed">
+                      <Info size={14} className="text-cyan-500 shrink-0 mt-0.5" />
                       <span>Pilih produk obat. Sistem akan mengambil zat aktif (ingredient) sesuai data KFA untuk keperluan resep racikan.</span>
                     </div>
 
@@ -491,7 +491,7 @@ export default function ModalTambahRacikan({
                         placeholder="Cari nama obat, zat aktif, atau kode KFA..."
                         value={searchKFAQuery}
                         onChange={(e) => setSearchKFAQuery(e.target.value)}
-                        className="w-full border border-gray-200 rounded-xl px-4 py-2 pr-9 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium placeholder:text-gray-400"
+                        className="w-full border border-gray-200 rounded-xl px-4 py-2 pr-9 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 font-medium placeholder:text-gray-400"
                       />
                       <Search size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                     </div>
@@ -543,12 +543,12 @@ export default function ModalTambahRacikan({
                               onClick={() => setSelectedKFABahan(item)}
                               className={`p-3 rounded-xl border transition-all cursor-pointer flex items-start gap-2.5 ${
                                 isSelected
-                                  ? 'border-blue-500 bg-blue-50/40 shadow-2xs'
+                                  ? 'border-cyan-500 bg-cyan-50/40 shadow-2xs'
                                   : 'border-gray-200 bg-white hover:bg-slate-50'
                               }`}
                             >
                               {isSelected ? (
-                                <CheckCircle2 size={16} className="text-blue-600 fill-blue-600 stroke-white shrink-0 mt-0.5" />
+                                <CheckCircle2 size={16} className="text-cyan-600 fill-cyan-600 stroke-white shrink-0 mt-0.5" />
                               ) : (
                                 <Circle size={16} className="text-gray-300 shrink-0 mt-0.5" />
                               )}
@@ -577,7 +577,7 @@ export default function ModalTambahRacikan({
                     <button
                       type="button"
                       onClick={handleAddBahanToTable}
-                      className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-2xs transition-colors cursor-pointer"
+                      className="w-full py-2.5 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white text-xs font-bold rounded-xl shadow-2xs transition-colors cursor-pointer"
                     >
                       Tambah Bahan
                     </button>
@@ -600,7 +600,7 @@ export default function ModalTambahRacikan({
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               Simpan Racikan
             </button>

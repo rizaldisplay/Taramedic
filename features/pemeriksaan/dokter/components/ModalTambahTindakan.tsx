@@ -132,7 +132,7 @@ export default function ModalTambahTindakan({
                   setIsSearching(true);
                   if (selectedTindakan) setSelectedTindakan(null);
                 }}
-                className="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-10 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all placeholder:text-gray-400 font-medium"
+                className="w-full border border-gray-200 rounded-xl px-4 py-2.5 pr-10 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all placeholder:text-gray-400 font-medium"
               />
               <Search
                 size={16}
@@ -154,9 +154,9 @@ export default function ModalTambahTindakan({
                         key={item.code}
                         type="button"
                         onClick={() => handleSelectTindakan(item)}
-                        className="w-full text-left px-4 py-2.5 hover:bg-blue-50/50 transition-colors flex items-center justify-between text-xs cursor-pointer"
+                        className="w-full text-left px-4 py-2.5 hover:bg-cyan-50/50 transition-colors flex items-center justify-between text-xs cursor-pointer"
                       >
-                        <span className="font-bold text-blue-600 w-16">{item.code}</span>
+                        <span className="font-bold text-cyan-600 w-16">{item.code}</span>
                         <span className="text-gray-700 font-medium flex-1 truncate ml-2">{item.name}</span>
                       </button>
                     ))
@@ -177,9 +177,9 @@ export default function ModalTambahTindakan({
             </label>
 
             {selectedTindakan ? (
-              <div className="border border-blue-200 bg-blue-50/40 rounded-xl p-3.5 flex items-center justify-between">
+              <div className="border border-cyan-200 bg-cyan-50/40 rounded-xl p-3.5 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <span className="bg-blue-600 text-white font-bold text-[11px] px-2 py-0.5 rounded">
+                  <span className="bg-cyan-600 text-white font-bold text-[11px] px-2 py-0.5 rounded">
                     {selectedTindakan.code}
                   </span>
                   <span className="text-xs font-bold text-gray-800">
@@ -232,7 +232,7 @@ export default function ModalTambahTindakan({
                 type="text"
                 value={pelaksana}
                 onChange={(e) => setPelaksana(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="w-full border border-gray-200 rounded-xl px-3.5 py-2 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
               />
             </div>
 
@@ -248,7 +248,7 @@ export default function ModalTambahTindakan({
                     type="text"
                     value={tanggal}
                     onChange={(e) => setTanggal(e.target.value)}
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 pr-7 text-[11px] font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 pr-7 text-[11px] font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                   />
                   <Calendar size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                 </div>
@@ -259,7 +259,7 @@ export default function ModalTambahTindakan({
                     type="text"
                     value={waktu}
                     onChange={(e) => setWaktu(e.target.value)}
-                    className="w-full border border-gray-200 rounded-xl px-3 py-2 pr-7 text-[11px] font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full border border-gray-200 rounded-xl px-3 py-2 pr-7 text-[11px] font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500"
                   />
                   <Clock size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                 </div>
@@ -279,7 +279,7 @@ export default function ModalTambahTindakan({
                 onChange={(e) => setKeterangan(e.target.value)}
                 maxLength={255}
                 placeholder="Tambahkan keterangan jika diperlukan"
-                className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[90px] resize-none placeholder:text-gray-400"
+                className="w-full border border-gray-200 rounded-xl p-3 text-xs font-medium text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all min-h-[90px] resize-none placeholder:text-gray-400"
               />
               <div className="absolute bottom-2.5 right-3 text-[10px] text-gray-400 font-medium bg-white px-1">
                 {keterangan.length} / 255
@@ -301,8 +301,8 @@ export default function ModalTambahTindakan({
               disabled={!selectedTindakan}
               className={`px-5 py-2.5 text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer ${
                 selectedTindakan
-                  ? 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white'
-                  : 'bg-blue-600 opacity-90 text-white cursor-pointer'
+                  ? 'bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white'
+                  : 'bg-cyan-600 opacity-90 text-white cursor-pointer'
               }`}
             >
               Simpan Tindakan

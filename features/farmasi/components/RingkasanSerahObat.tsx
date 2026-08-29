@@ -34,8 +34,8 @@ export default function RingkasanSerahObatComponent({
     <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs flex flex-col gap-3.5 font-sans">
       
       {/* Header Section Sidebar */}
-      <div className="flex items-center gap-2 text-blue-600 font-bold text-xs uppercase border-b border-slate-100 pb-3">
-        <ClipboardList className="w-4 h-4 text-blue-600 shrink-0" />
+      <div className="flex items-center gap-2 text-cyan-600 font-bold text-xs uppercase border-b border-slate-100 pb-3">
+        <ClipboardList className="w-4 h-4 text-cyan-600 shrink-0" />
         <span>RINGKASAN SERAH OBAT</span>
       </div>
 
@@ -63,7 +63,7 @@ export default function RingkasanSerahObatComponent({
         {/* Total Jumlah Obat (Tablet/Bungkus) */}
         <div className="flex justify-between items-center">
           <span className="text-slate-500 font-medium">Total Jumlah Obat</span>
-          <span className="font-extrabold text-blue-600 text-sm bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-md">
+          <span className="font-extrabold text-cyan-600 text-sm bg-cyan-50 border border-cyan-100 px-2 py-0.5 rounded-md">
             {summary.totalJumlahObat}
           </span>
         </div>

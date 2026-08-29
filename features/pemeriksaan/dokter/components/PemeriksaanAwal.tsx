@@ -24,8 +24,8 @@ export default function PemeriksaanAwal({ onOpenDetailClick }: PemeriksaanAwalPr
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 border-b border-gray-100 gap-2 sm:gap-0">
         <div className="flex items-center gap-2.5">
-          <UserRound className="w-5 h-5 text-blue-600" />
-          <h2 className="text-sm font-bold text-blue-600 tracking-wide uppercase">
+          <UserRound className="w-5 h-5 text-cyan-600" />
+          <h2 className="text-sm font-bold text-cyan-600 tracking-wide uppercase">
             Pemeriksaan Awal{' '}
             <span className="text-gray-400 font-normal capitalize normal-case">
               (Data dari Perawat)
@@ -160,7 +160,7 @@ export default function PemeriksaanAwal({ onOpenDetailClick }: PemeriksaanAwalPr
 
       {/* Footer Section */}
       <div className="px-5 py-4 border-t border-gray-100">
-        <button onClick={onOpenDetailClick} className="flex items-center gap-2 text-sm text-blue-600 font-semibold hover:text-blue-700 transition-colors cursor-pointer">
+        <button onClick={onOpenDetailClick} className="flex items-center gap-2 text-sm text-cyan-600 font-semibold hover:text-cyan-700 transition-colors cursor-pointer">
           <Eye className="w-4 h-4" />
           Lihat detail pemeriksaan awal
         </button>

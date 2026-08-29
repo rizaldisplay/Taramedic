@@ -158,8 +158,8 @@ export default function ModalTambahDiagnosisSekunder({
                 }}
                 className={`w-full border rounded-xl px-4 py-2.5 pr-20 text-xs text-gray-800 bg-white transition-all placeholder:text-gray-400 focus:outline-none ${
                   isSearching && searchQuery.trim().length > 0
-                    ? 'border-2 border-blue-500 font-semibold'
-                    : 'border-gray-200 focus:ring-1 focus:ring-blue-500 focus:border-blue-500'
+                    ? 'border-2 border-cyan-500 font-semibold'
+                    : 'border-gray-200 focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500'
                 }`}
               />
 
@@ -196,17 +196,17 @@ export default function ModalTambahDiagnosisSekunder({
                           key={item.code}
                           type="button"
                           onClick={() => handleSelectICD(item)}
-                          className="w-full text-left px-4 py-2.5 hover:bg-blue-50/50 transition-colors flex items-center justify-between text-xs cursor-pointer group"
+                          className="w-full text-left px-4 py-2.5 hover:bg-cyan-50/50 transition-colors flex items-center justify-between text-xs cursor-pointer group"
                         >
                           <div className="flex items-center gap-3 min-w-0 pr-2">
-                            <span className="font-bold text-blue-600 w-14 shrink-0">
+                            <span className="font-bold text-cyan-600 w-14 shrink-0">
                               {item.code}
                             </span>
-                            <span className="text-gray-700 font-medium truncate group-hover:text-blue-900">
+                            <span className="text-gray-700 font-medium truncate group-hover:text-cyan-900">
                               {item.name}
                             </span>
                           </div>
-                          <span className="bg-blue-50 text-blue-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-blue-100 shrink-0">
+                          <span className="bg-cyan-50 text-cyan-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-cyan-100 shrink-0">
                             ICD-10
                           </span>
                         </button>
@@ -221,7 +221,7 @@ export default function ModalTambahDiagnosisSekunder({
                   <div className="p-3 border-t border-gray-100 bg-white">
                     <button
                       type="button"
-                      className="text-xs font-bold text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      className="text-xs font-bold text-cyan-600 hover:text-cyan-700 transition-colors cursor-pointer"
                     >
                       Lihat semua hasil untuk "{searchQuery}"
                     </button>
@@ -251,7 +251,7 @@ export default function ModalTambahDiagnosisSekunder({
                       <span className="text-xs text-gray-700 font-medium truncate" title={item.name}>
                         {item.name}
                       </span>
-                      <span className="bg-blue-50 text-blue-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-blue-100/60 shrink-0">
+                      <span className="bg-cyan-50 text-cyan-600 text-[10px] font-bold px-1.5 py-0.5 rounded border border-cyan-100/60 shrink-0">
                         ICD-10
                       </span>
                     </div>
@@ -290,7 +290,7 @@ export default function ModalTambahDiagnosisSekunder({
             ) : (
               /* State 2: Empty State (Gambar 01) */
               <div className="border border-gray-100 rounded-xl p-6 bg-slate-50/30 flex flex-col items-center justify-center min-h-[140px]">
-                <div className="w-16 h-16 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-center justify-center mb-3 text-blue-400">
+                <div className="w-16 h-16 rounded-2xl bg-cyan-50/60 border border-cyan-100 flex items-center justify-center mb-3 text-cyan-400">
                   <FileSearch size={28} strokeWidth={1.5} />
                 </div>
                 <p className="text-xs font-semibold text-slate-800">
@@ -310,7 +310,7 @@ export default function ModalTambahDiagnosisSekunder({
                 <select
                   value={defaultTipe}
                   onChange={(e) => setDefaultTipe(e.target.value as 'Akut' | 'Kronis')}
-                  className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2.5 pr-8 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                  className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2.5 pr-8 text-xs font-bold text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                 >
                   <option value="Akut">Akut</option>
                   <option value="Kronis">Kronis</option>
@@ -330,7 +330,7 @@ export default function ModalTambahDiagnosisSekunder({
                 <select
                   value={defaultStatus}
                   onChange={(e) => setDefaultStatus(e.target.value as 'Ditetapkan' | 'Menunggu')}
-                  className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2.5 pr-8 text-xs font-bold text-emerald-600 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                  className="w-full appearance-none border border-gray-200 rounded-xl px-3.5 py-2.5 pr-8 text-xs font-bold text-emerald-600 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 cursor-pointer"
                 >
                   <option value="Ditetapkan">Ditetapkan</option>
                   <option value="Menunggu">Menunggu</option>
@@ -354,7 +354,7 @@ export default function ModalTambahDiagnosisSekunder({
                 onChange={(e) => setDeskripsi(e.target.value)}
                 maxLength={255}
                 placeholder="Tambahkan deskripsi jika diperlukan"
-                className="w-full border border-gray-200 rounded-xl p-3 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all min-h-[85px] resize-none placeholder:text-gray-400"
+                className="w-full border border-gray-200 rounded-xl p-3 text-xs text-gray-800 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 transition-all min-h-[85px] resize-none placeholder:text-gray-400"
               />
               <div className="absolute bottom-2.5 right-3 text-[10px] text-gray-400 font-medium bg-white px-1">
                 {deskripsi.length} / 255
@@ -376,8 +376,8 @@ export default function ModalTambahDiagnosisSekunder({
               disabled={selectedDiagnoses.length === 0}
               className={`px-5 py-2.5 text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer ${
                 selectedDiagnoses.length > 0
-                  ? 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white'
-                  : 'bg-blue-300 text-white cursor-not-allowed'
+                  ? 'bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white'
+                  : 'bg-cyan-300 text-white cursor-not-allowed'
               }`}
             >
               Tambah Diagnosis

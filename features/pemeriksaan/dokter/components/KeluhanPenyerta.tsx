@@ -16,8 +16,8 @@ export default function KeluhanUtama() {
     <div className="w-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       {/* Header Section */}
       <div className="flex items-center gap-2">
-        <Info className="w-4 h-4 text-blue-600" />
-        <h3 className="text-sm font-bold text-blue-600 tracking-wide uppercase">
+        <Info className="w-4 h-4 text-cyan-600" />
+        <h3 className="text-sm font-bold text-cyan-600 tracking-wide uppercase">
           Keluhan Penyerta
         </h3>
       </div>
@@ -47,7 +47,7 @@ export default function KeluhanUtama() {
               value={catatanDokter}
               onChange={handleInputChange}
               placeholder="Tuliskan keluhan penyerta yang ditemukan dokter"
-              className="w-full h-full min-h-[90px] border border-gray-200 rounded-lg p-3.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none transition-shadow"
+              className="w-full h-full min-h-[90px] border border-gray-200 rounded-lg p-3.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 resize-none transition-shadow"
             />
             {/* Character Counter */}
             <div className="absolute bottom-2.5 right-3 text-[10px] font-medium text-gray-400 bg-white px-1">

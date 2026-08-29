@@ -6,8 +6,8 @@ export default function AlergiPeringatan() {
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5 w-full font-sans flex flex-col justify-between h-full">
       {/* Header */}
       <div className="flex items-center gap-2.5 mb-6">
-        <ClipboardList className="w-5 h-5 text-blue-600" />
-        <h2 className="text-sm font-bold text-blue-600 tracking-wide uppercase">
+        <ClipboardList className="w-5 h-5 text-cyan-600" />
+        <h2 className="text-sm font-bold text-cyan-600 tracking-wide uppercase">
           Alergi & Peringatan
         </h2>
       </div>
@@ -24,7 +24,7 @@ export default function AlergiPeringatan() {
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-2 shrink-0">
-          <button className="px-5 py-1.5 text-xs font-semibold text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50 transition-colors w-[100px] text-center">
+          <button className="px-5 py-1.5 text-xs font-semibold text-cyan-600 bg-white border border-cyan-600 rounded-md hover:bg-cyan-50 transition-colors w-[100px] text-center">
             Konfirmasi
           </button>
           <button className="px-5 py-1.5 text-xs font-semibold text-gray-600 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors w-[100px] text-center">

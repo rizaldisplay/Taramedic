@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';
@@ -24,7 +25,7 @@ const TableRow = ({ no, name, gender, age, rm, poli, billingNo, price, penjamin,
 
   switch (status) {
     case 'Dipanggil':
-      statusStyle = "bg-blue-50 text-blue-600 border-blue-200";
+      statusStyle = "bg-cyan-50 text-cyan-600 border-cyan-200";
       StatusIcon = Volume2;
       break;
     case 'Menunggu':
@@ -42,11 +43,11 @@ const TableRow = ({ no, name, gender, age, rm, poli, billingNo, price, penjamin,
   }
 
   return (
-    <tr className={`hover:bg-slate-50 transition-colors ${active ? 'bg-blue-50/30' : ''}`}>
+    <tr className={`hover:bg-slate-50 transition-colors ${active ? 'bg-cyan-50/30' : ''}`}>
       {/* No. Antrean */}
       <td className="px-6 py-4">
         <div className={`font-bold rounded-lg inline-flex items-center justify-center px-3 py-2 text-sm border ${
-          status === 'Dipanggil' ? 'border-blue-200 text-blue-600 bg-blue-50' : 
+          status === 'Dipanggil' ? 'border-cyan-200 text-cyan-600 bg-cyan-50' : 
           status === 'Menunggu' ? 'border-amber-200 text-amber-600 bg-amber-50' : 
           status === 'Dilayani' ? 'border-purple-200 text-purple-600 bg-purple-50' :
           'border-emerald-200 text-emerald-600 bg-emerald-50'
@@ -59,7 +60,7 @@ const TableRow = ({ no, name, gender, age, rm, poli, billingNo, price, penjamin,
       <td className="px-6 py-4">
         <div className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
           {name} 
-          <span className={gender === 'Perempuan' ? 'text-pink-500 text-base font-normal' : 'text-blue-500 text-base font-normal'}>
+          <span className={gender === 'Perempuan' ? 'text-pink-500 text-base font-normal' : 'text-cyan-500 text-base font-normal'}>
             {gender === 'Perempuan' ? '♀' : '♂'}
           </span>
         </div>
@@ -69,7 +70,7 @@ const TableRow = ({ no, name, gender, age, rm, poli, billingNo, price, penjamin,
       {/* Info Pasien */}
       <td className="px-6 py-4">
         <div className="text-xs text-slate-700 font-medium">{gender}, {age}</div>
-        <div className="text-xs font-semibold text-blue-600 mt-0.5">{poli}</div>
+        <div className="text-xs font-semibold text-cyan-600 mt-0.5">{poli}</div>
       </td>
 
       {/* Billing */}

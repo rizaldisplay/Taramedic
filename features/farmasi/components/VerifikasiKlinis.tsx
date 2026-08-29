@@ -83,12 +83,12 @@ export default function VerifikasiKlinis({
   };
 
   return (
-    <div className="w-full max-w-5xl bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
+    <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
       
       {/* Header Section C */}
       <div className="flex items-center justify-between border-b border-slate-100 pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+          <div className="w-6 h-6 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
             C
           </div>
           <h3 className="font-bold text-slate-800 text-xs tracking-wider uppercase">
@@ -97,7 +97,7 @@ export default function VerifikasiKlinis({
         </div>
 
         <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
-          <ShieldAlert className="w-3.5 h-3.5 text-blue-600" />
+          <ShieldAlert className="w-3.5 h-3.5 text-cyan-600" />
           <span>8 Poin Keamanan Terverifikasi</span>
         </div>
       </div>

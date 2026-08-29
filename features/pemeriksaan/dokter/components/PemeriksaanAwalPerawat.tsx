@@ -35,7 +35,7 @@ export default function PemeriksaanAwalPerawat({ data }: PemeriksaanAwalPerawatP
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           {/* Badge 'A' */}
-          <div className="flex items-center justify-center w-6 h-6 bg-blue-600 text-white rounded text-sm font-bold">
+          <div className="flex items-center justify-center w-6 h-6 bg-cyan-600 text-white rounded text-sm font-bold">
             A
           </div>
           

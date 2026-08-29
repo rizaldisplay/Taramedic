@@ -17,53 +17,53 @@ export default function FooterTombol({
   onLanjutPemeriksaan,
 }: FooterTombolProps) {
   return (
-    <footer className="fixed bottom-0 right-0 left-0 md:left-64 bg-white/95 backdrop-blur-sm border-t border-slate-200 px-4 py-3 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-all duration-300">
-      <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div className="fixed bottom-0 right-0 left-0 lg:left-64 bg-white border-t border-slate-200 p-3 sm:p-4 z-40 shadow-lg transition-all duration-300 font-sans">
+      <div className="max-w-[1440px] mx-auto flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
         
         {/* Tombol Sekunder (Kiri: Simpan Draft & Reset) */}
-        <div className="flex items-center gap-2 w-full sm:w-auto">
+        <div className="flex flex-col-reverse sm:flex-row items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
           <button
             type="button"
             onClick={onSimpanDraft}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 active:bg-slate-100 transition-all shadow-2xs cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-bold hover:bg-slate-50 active:bg-slate-100 transition-colors shadow-xs cursor-pointer"
           >
-            <FileText className="w-3.5 h-3.5 text-slate-500" />
+            <FileText className="w-4 h-4 text-slate-500" />
             <span>Simpan Draft</span>
           </button>
 
           <button
             type="button"
             onClick={onReset}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 active:bg-slate-100 transition-all shadow-2xs cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-taramedic-200 bg-taramedic-50/60 text-taramedic-700 text-xs font-bold hover:bg-taramedic-100/70 active:bg-taramedic-200/60 transition-colors shadow-xs cursor-pointer"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+            <RotateCcw className="w-4 h-4 text-taramedic" />
             <span>Reset Perubahan</span>
           </button>
         </div>
 
-        {/* Tombol Aksi Utama (Kanan: Batalkan & Lanjut) */}
-        <div className="flex items-center gap-2 w-full sm:w-auto">
+        {/* Tombol Aksi Utama (Kanan: Batalkan & Lanjut - Bersisian Horizontal) */}
+        <div className="flex flex-row items-center gap-2.5 w-full sm:w-auto">
           <button
             type="button"
             onClick={onBatalkanKunjungan}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg border border-red-200 bg-red-50/50 text-red-700 text-xs font-semibold hover:bg-red-100/70 active:bg-red-200/50 transition-all shadow-2xs cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg border border-rose-200 bg-rose-50/60 text-rose-700 text-xs font-bold hover:bg-rose-100/70 active:bg-rose-200/50 transition-all shadow-xs cursor-pointer"
           >
-            <Trash2 className="w-3.5 h-3.5 text-red-600" />
+            <Trash2 className="w-4 h-4 text-rose-600" />
             <span>Batalkan Kunjungan</span>
           </button>
 
           <button
             type="button"
             onClick={onLanjutPemeriksaan}
-            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-semibold transition-all shadow-sm cursor-pointer"
+            className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-taramedic hover:bg-taramedic-600 active:bg-taramedic-700 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
           >
-            <Stethoscope className="w-3.5 h-3.5" />
+            <Stethoscope className="w-4 h-4" />
             <span>Lanjut Pemeriksaan</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
       </div>
-    </footer>
+    </div>
   );
 }

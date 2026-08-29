@@ -38,8 +38,8 @@ export default function DokumenTerkait() {
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5 w-full font-sans flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center gap-2.5 mb-4">
-        <FileText className="w-5 h-5 text-blue-600" />
-        <h2 className="text-sm font-bold text-blue-600 tracking-wide uppercase">
+        <FileText className="w-5 h-5 text-cyan-600" />
+        <h2 className="text-sm font-bold text-cyan-600 tracking-wide uppercase">
           Dokumen Terkait
         </h2>
       </div>
@@ -59,7 +59,7 @@ export default function DokumenTerkait() {
             {/* Label Format */}
             <div className="flex justify-center">
               {doc.type ? (
-                <span className="bg-blue-50 text-blue-600 text-[10px] font-bold px-2 py-0.5 rounded">
+                <span className="bg-cyan-50 text-cyan-600 text-[10px] font-bold px-2 py-0.5 rounded">
                   {doc.type}
                 </span>
               ) : (
@@ -79,7 +79,7 @@ export default function DokumenTerkait() {
 
             {/* Tombol Download */}
             <button 
-              className="flex justify-end text-blue-600 hover:text-blue-800 transition-colors"
+              className="flex justify-end text-cyan-600 hover:text-cyan-800 transition-colors"
               title={`Unduh ${doc.name}`}
             >
               <Download className="w-4 h-4" />
@@ -90,7 +90,7 @@ export default function DokumenTerkait() {
 
       {/* Footer Action */}
       <div className="mt-auto pt-1">
-        <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm text-blue-600 font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all w-max">
+        <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm text-cyan-600 font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all w-max">
           <Folder className="w-4 h-4" />
           Lihat Semua Dokumen
         </button>

@@ -152,8 +152,8 @@ export default function CetakBuktiSerahObatModal({
         <div className="p-6 flex flex-col gap-5 max-h-[82vh] overflow-y-auto bg-slate-50/30">
           
           {/* Info Banner */}
-          <div className="bg-blue-50/70 border border-blue-100 rounded-xl p-3 flex items-center gap-2.5 text-blue-700 text-xs font-medium">
-            <Info className="w-4 h-4 text-blue-600 shrink-0" />
+          <div className="bg-cyan-50/70 border border-cyan-100 rounded-xl p-3 flex items-center gap-2.5 text-cyan-700 text-xs font-medium">
+            <Info className="w-4 h-4 text-cyan-600 shrink-0" />
             <span>Preview bukti serah obat. Pastikan data sudah benar sebelum dicetak.</span>
           </div>
 
@@ -164,11 +164,11 @@ export default function CetakBuktiSerahObatModal({
             <div className="flex justify-between items-center border-b border-slate-100 pb-4">
               {/* Branding Logo */}
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-xs">
+                <div className="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center font-bold text-base shadow-xs">
                   ✦
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-extrabold text-blue-600 tracking-wider text-sm">TARAMEDIC</span>
+                  <span className="font-extrabold text-cyan-600 tracking-wider text-sm">TARAMEDIC</span>
                   <span className="text-[10px] text-slate-400 font-medium">Excellent Medical Partner</span>
                 </div>
               </div>
@@ -375,9 +375,9 @@ export default function CetakBuktiSerahObatModal({
               <button
                 type="button"
                 onClick={handlePrint}
-                className="w-full sm:w-auto px-5 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-blue-600 font-bold text-xs rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-5 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-cyan-600 font-bold text-xs rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Printer className="w-4 h-4 text-blue-600" />
+                <Printer className="w-4 h-4 text-cyan-600" />
                 <span>Cetak</span>
               </button>
 
@@ -385,9 +385,9 @@ export default function CetakBuktiSerahObatModal({
               <button
                 type="button"
                 onClick={onDownloadPdf}
-                className="w-full sm:w-auto px-5 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-blue-600 font-bold text-xs rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-5 py-2.5 border border-slate-200 bg-white hover:bg-slate-50 text-cyan-600 font-bold text-xs rounded-xl transition-colors shadow-2xs flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Download className="w-4 h-4 text-blue-600" />
+                <Download className="w-4 h-4 text-cyan-600" />
                 <span>Download PDF</span>
               </button>
             </div>
@@ -396,7 +396,7 @@ export default function CetakBuktiSerahObatModal({
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-32 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-xs rounded-xl transition-colors shadow-xs cursor-pointer"
+              className="w-full sm:w-32 py-2.5 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white font-bold text-xs rounded-xl transition-colors shadow-xs cursor-pointer"
             >
               Tutup
             </button>

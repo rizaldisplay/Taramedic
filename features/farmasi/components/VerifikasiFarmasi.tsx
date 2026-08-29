@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CheckCircle2, ChevronDown, ChevronUp, Pill, FlaskConical } from 'lucide-react';
+import { CheckCircle2, ChevronDown, ChevronUp, FlaskConical } from 'lucide-react';
 
 // --- Types & Interfaces ---
 export interface KomposisiBahan {
@@ -121,11 +121,12 @@ export default function VerifikasiFarmasi({ items }: VerifikasiFarmasiProps) {
   const dataList = items || defaultItems;
 
   return (
-    <div className="w-full max-w-5xl bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-4 font-sans">
+    // Menghapus max-w-5xl agar memenuhi lebar porsi layout utama
+    <div className="w-full bg-white border border-slate-200 rounded-xl p-5 shadow-xs flex flex-col gap-4 font-sans">
       
       {/* Header Section B */}
       <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
-        <div className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+        <div className="w-6 h-6 rounded-full bg-taramedic text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
           B
         </div>
         <h3 className="font-bold text-slate-800 text-xs tracking-wider uppercase">
@@ -134,7 +135,7 @@ export default function VerifikasiFarmasi({ items }: VerifikasiFarmasiProps) {
       </div>
 
       {/* Table Item Obat */}
-      <div className="overflow-x-auto rounded-xl border border-slate-200/80">
+      <div className="overflow-x-auto rounded-xl border border-slate-200/80 w-full">
         <table className="w-full text-left text-xs">
           <thead className="bg-slate-50/80 text-slate-600 font-semibold border-b border-slate-200/80">
             <tr>
@@ -186,7 +187,7 @@ export default function VerifikasiFarmasi({ items }: VerifikasiFarmasiProps) {
                     {item.komposisi && (
                       <button
                         onClick={() => toggleRacikan(item.no)}
-                        className="p-1 hover:bg-slate-100 rounded text-blue-600 transition-colors cursor-pointer"
+                        className="p-1 hover:bg-slate-100 rounded text-taramedic transition-colors cursor-pointer"
                         title="Tampilkan detail komposisi"
                       >
                         {expandedRacikan[item.no] ? (
@@ -202,14 +203,14 @@ export default function VerifikasiFarmasi({ items }: VerifikasiFarmasiProps) {
                 {/* Collapsible Nested Table untuk Komposisi Racikan */}
                 {item.komposisi && expandedRacikan[item.no] && (
                   <tr>
-                    <td colSpan={12} className="p-0 bg-blue-50/20">
+                    <td colSpan={12} className="p-0 bg-taramedic-50/30">
                       <div className="p-3 pl-8 border-t border-b border-slate-200/60">
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600 mb-2">
-                          <FlaskConical className="w-3.5 h-3.5" />
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-taramedic-700 mb-2">
+                          <FlaskConical className="w-3.5 h-3.5 text-taramedic" />
                           <span>Komposisi {item.namaObat}</span>
                         </div>
 
-                        <div className="overflow-x-auto rounded-lg border border-slate-200/70 bg-white">
+                        <div className="overflow-x-auto rounded-lg border border-slate-200/70 bg-white w-full">
                           <table className="w-full text-left text-xs">
                             <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-100">
                               <tr>

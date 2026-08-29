@@ -47,7 +47,7 @@ export default function DiagnosisComponent({ onOpenDiagnosisSekunderClick }: Dia
       {/* Header Diagnosis */}
       <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-5">
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white rounded text-xs font-bold shadow-sm">
+          <div className="flex items-center justify-center w-5 h-5 bg-cyan-600 text-white rounded text-xs font-bold shadow-sm">
             <FileText size={12} />
           </div>
           <h2 className="text-[13px] font-bold text-slate-800 uppercase tracking-wide">
@@ -83,14 +83,14 @@ export default function DiagnosisComponent({ onOpenDiagnosisSekunderClick }: Dia
                 <td className="p-2.5 text-center text-gray-500">1</td>
                 <td className="p-2.5">
                   <div className="flex items-center justify-between border border-gray-200 rounded-md px-2 py-1.5 bg-white">
-                    <span className="font-semibold text-blue-600">A09.0</span>
+                    <span className="font-semibold text-cyan-600">A09.0</span>
                     <Search size={14} className="text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" />
                   </div>
                 </td>
                 <td className="p-2.5 text-gray-700 font-medium">Gastroenteritis dan kolitis infeksius, tidak spesifik</td>
                 <td className="p-2.5 text-gray-600">22298006</td>
                 <td className="p-2.5">
-                  <select className="w-full border border-gray-200 rounded-md px-2 py-1.5 bg-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500">
+                  <select className="w-full border border-gray-200 rounded-md px-2 py-1.5 bg-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
                     <option>Akut</option>
                     <option>Kronis</option>
                   </select>
@@ -139,14 +139,14 @@ export default function DiagnosisComponent({ onOpenDiagnosisSekunderClick }: Dia
                   <td className="p-2.5 text-center text-gray-500">{index + 1}</td>
                   <td className="p-2.5">
                     <div className="flex items-center justify-between border border-gray-200 rounded-md px-2 py-1.5 bg-white">
-                      <span className="font-semibold text-blue-600">{item.code || '-'}</span>
+                      <span className="font-semibold text-cyan-600">{item.code || '-'}</span>
                       <Search size={14} className="text-gray-400 cursor-pointer hover:text-gray-600 transition-colors" />
                     </div>
                   </td>
                   <td className="p-2.5 text-gray-700 font-medium">{item.desc}</td>
                   <td className="p-2.5 text-gray-600">{item.snomed || '-'}</td>
                   <td className="p-2.5">
-                    <select defaultValue={item.tipe} className="w-full border border-gray-200 rounded-md px-2 py-1.5 bg-white text-xs focus:outline-none focus:ring-1 focus:ring-blue-500">
+                    <select defaultValue={item.tipe} className="w-full border border-gray-200 rounded-md px-2 py-1.5 bg-white text-xs focus:outline-none focus:ring-1 focus:ring-cyan-500">
                       <option>Akut</option>
                       <option>Kronis</option>
                     </select>
@@ -173,7 +173,7 @@ export default function DiagnosisComponent({ onOpenDiagnosisSekunderClick }: Dia
           <button 
             type="button"
             onClick={onOpenDiagnosisSekunderClick}
-            className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 mt-1 px-1 py-1 cursor-pointer transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold text-cyan-600 hover:text-cyan-700 mt-1 px-1 py-1 cursor-pointer transition-colors"
           >
             <Plus size={14} />
             <span>Tambah Diagnosis Sekunder</span>

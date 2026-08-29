@@ -7,11 +7,11 @@ export const AntreanHeader = () => {
   return (
     <div className="flex justify-between items-end mb-6">
       <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-1">Antrean Poli</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-1">Antrean Farmasi</h2>
         <div className="flex items-center text-sm text-slate-600">
-          <span className="font-semibold text-slate-800 mr-2">Poli Anak</span>
+          <span className="font-semibold text-slate-800 mr-2">Farmasi Rawat Jalan</span>
           <span className="mr-2">•</span>
-          <span>dr. Bima, Sp.A</span>
+          <span>Apoteker: Siti Rahma, A.Md.Kep</span>
           <ChevronDown className="w-4 h-4 ml-1 text-slate-400" />
         </div>
       </div>

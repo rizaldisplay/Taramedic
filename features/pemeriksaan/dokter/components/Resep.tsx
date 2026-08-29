@@ -158,20 +158,20 @@ export default function ResepElektronikComponent() {
       <div className="flex flex-col gap-3 mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white rounded text-xs font-bold shadow-sm">
+            <div className="flex items-center justify-center w-5 h-5 bg-cyan-600 text-white rounded text-xs font-bold shadow-sm">
               A
             </div>
             <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
               NON-RACIKAN
             </h3>
-            <span className="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-semibold border border-blue-100">
+            <span className="bg-cyan-50 text-cyan-600 text-[10px] px-2 py-0.5 rounded-full font-semibold border border-cyan-100">
               {nonRacikan.length} item
             </span>
           </div>
 
           <button 
             type="button"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-blue-200 bg-white text-blue-600 text-xs font-semibold hover:bg-blue-50 transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-cyan-200 bg-white text-cyan-600 text-xs font-semibold hover:bg-cyan-50 transition-all cursor-pointer shadow-2xs"
           >
             <Plus size={14} />
             <span>Tambah Obat</span>
@@ -200,7 +200,7 @@ export default function ResepElektronikComponent() {
                   <td className="p-2.5 text-center text-gray-500 font-medium">{item.id}</td>
                   <td className="p-2.5">
                     <div className="flex items-center gap-2">
-                      <div className="p-1.5 bg-blue-50 text-blue-600 rounded-md">
+                      <div className="p-1.5 bg-cyan-50 text-cyan-600 rounded-md">
                         <Pill size={14} />
                       </div>
                       <div>
@@ -223,7 +223,7 @@ export default function ResepElektronikComponent() {
                   </td>
                   <td className="p-2.5 text-center">
                     <div className="flex items-center justify-center gap-1.5">
-                      <button type="button" className="text-gray-400 hover:text-blue-600 cursor-pointer p-0.5">
+                      <button type="button" className="text-gray-400 hover:text-cyan-600 cursor-pointer p-0.5">
                         <Pencil size={13} />
                       </button>
                       <button type="button" className="text-gray-400 hover:text-red-600 cursor-pointer p-0.5">
@@ -243,20 +243,20 @@ export default function ResepElektronikComponent() {
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white rounded text-xs font-bold shadow-sm">
+            <div className="flex items-center justify-center w-5 h-5 bg-cyan-600 text-white rounded text-xs font-bold shadow-sm">
               B
             </div>
             <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wide">
               RACIKAN
             </h3>
-            <span className="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-semibold border border-blue-100">
+            <span className="bg-cyan-50 text-cyan-600 text-[10px] px-2 py-0.5 rounded-full font-semibold border border-cyan-100">
               {racikan.length} item
             </span>
           </div>
 
           <button 
             type="button"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-blue-200 bg-white text-blue-600 text-xs font-semibold hover:bg-blue-50 transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-cyan-200 bg-white text-cyan-600 text-xs font-semibold hover:bg-cyan-50 transition-all cursor-pointer shadow-2xs"
           >
             <Plus size={14} />
             <span>Tambah Racikan</span>
@@ -293,7 +293,7 @@ export default function ResepElektronikComponent() {
                 <span className="bg-sky-50 text-sky-600 border border-sky-100 text-[10px] px-2 py-0.5 rounded font-semibold">
                   {item.status}
                 </span>
-                <button type="button" className="text-gray-400 hover:text-blue-600 cursor-pointer p-1">
+                <button type="button" className="text-gray-400 hover:text-cyan-600 cursor-pointer p-1">
                   <Pencil size={14} />
                 </button>
                 <button type="button" className="text-gray-400 hover:text-red-600 cursor-pointer p-1">

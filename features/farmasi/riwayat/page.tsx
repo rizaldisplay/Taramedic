@@ -50,31 +50,20 @@ export default function RingkasanFarmasiPage() {
             KOLOM KIRI (KONTEN UTAMA)
             Mengambil 8 bagian dari 12 kolom (LG) atau 9 bagian (XL)
         ========================================= */}
-          <div className="lg:col-span-8 flex flex-col gap-5">
+          <div className="lg:col-span-9 flex flex-col gap-5">
             {/* Baris 1: Informasi Kunjungan Utama [A] & Ringkasan Resep [B] */}
             <div className="grid grid-cols-1 gap-6 xl:grid-cols-1">
               <Riwayat />
             </div>
           </div>
 
-          <SidebarCatatan
-            internalNote={internalNote}
-            setInternalNote={setInternalNote}
-          />
+          <div className="lg:col-span-3 flex flex-col gap-6 sticky top-6">
+            <SidebarCatatan
+              internalNote={internalNote}
+              setInternalNote={setInternalNote}
+            />
+          </div>
         </div>
-
-        {/* Footer Buttons */}
-        <FooterTombol
-          onSimpanDraft={handleSimpanDraft}
-          onCetakLabel={handleOpenPrintModal} // 👈 Menghubungkan klik ke Modal
-          onKirimDokter={handleKirimDokter}
-        />
-
-        <CetakLabelModal
-          isOpen={isPrintModalOpen} // 👈 Mengontrol modal terbuka / tertutup
-          onClose={handleClosePrintModal}
-          onPrint={handleExecutePrint}
-        />
       </div>
     </div>
   );

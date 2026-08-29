@@ -108,13 +108,13 @@ export default function PharmacyDashboard() {
         <main className="flex-1 overflow-y-auto p-4 md:p-8">
           
           {/* Welcome Banner */}
-          <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-6 text-white mb-6 shadow-sm">
+          <div className="bg-gradient-to-r from-cyan-600 to-cyan-600 rounded-2xl p-6 text-white mb-6 shadow-sm">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
                 <h1 className="text-2xl font-bold">Halo, Apoteker Fauzan! 👋</h1>
-                <p className="text-blue-100 text-sm mt-1">Ada 5 resep elektronik baru dari dokter yang belum diproses dan 2 item obat menipis.</p>
+                <p className="text-cyan-100 text-sm mt-1">Ada 5 resep elektronik baru dari dokter yang belum diproses dan 2 item obat menipis.</p>
               </div>
-              <button className="bg-white text-blue-700 font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm hover:bg-blue-50 transition-colors">
+              <button className="bg-white text-cyan-700 font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm hover:bg-cyan-50 transition-colors">
                 Proses Antrean Resep
               </button>
             </div>
@@ -127,7 +127,7 @@ export default function PharmacyDashboard() {
                 <p className="text-xs font-semibold text-slate-400 uppercase">Resep Masuk</p>
                 <h3 className="text-2xl font-bold text-slate-800 mt-1">19 Resep</h3>
               </div>
-              <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center">
                 <Pill className="w-6 h-6" />
               </div>
             </div>
@@ -198,16 +198,16 @@ export default function PharmacyDashboard() {
                       <td className="py-3 px-6 text-slate-600">dr. Andi Pratama, Sp.A</td>
                       <td className="py-3 px-6"><span className="text-xs bg-amber-50 text-amber-700 px-2.5 py-1 rounded-full font-medium">Sedang Diracik</span></td>
                       <td className="py-3 px-6 text-right">
-                        <button className="text-blue-700 hover:text-blue-800 font-medium text-xs bg-blue-50 px-3 py-1.5 rounded-lg transition-colors">Selesaikan</button>
+                        <button className="text-cyan-700 hover:text-cyan-800 font-medium text-xs bg-cyan-50 px-3 py-1.5 rounded-lg transition-colors">Selesaikan</button>
                       </td>
                     </tr>
                     <tr className="hover:bg-slate-50/50">
                       <td className="py-3 px-6 font-semibold text-slate-800">RSP-8822</td>
                       <td className="py-3 px-6 font-medium text-slate-800">Nayla Putri Az-Zahra</td>
                       <td className="py-3 px-6 text-slate-600">dr. Andi Pratama, Sp.A</td>
-                      <td className="py-3 px-6"><span className="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium">Resep Masuk</span></td>
+                      <td className="py-3 px-6"><span className="text-xs bg-cyan-50 text-cyan-700 px-2.5 py-1 rounded-full font-medium">Resep Masuk</span></td>
                       <td className="py-3 px-6 text-right">
-                        <button className="text-blue-700 hover:text-blue-800 font-medium text-xs bg-blue-50 px-3 py-1.5 rounded-lg transition-colors">Mulai Racik</button>
+                        <button className="text-cyan-700 hover:text-cyan-800 font-medium text-xs bg-cyan-50 px-3 py-1.5 rounded-lg transition-colors">Mulai Racik</button>
                       </td>
                     </tr>
                     <tr className="hover:bg-slate-50/50">

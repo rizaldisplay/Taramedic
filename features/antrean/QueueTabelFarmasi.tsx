@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useState } from 'react';
@@ -23,7 +24,7 @@ const TableRow = ({ no, name, gender, age, rm, insurance, poli, resepItems, rese
 
   switch (status) {
     case 'Dipanggil':
-      statusStyle = "bg-blue-50 text-blue-700 border-blue-200";
+      statusStyle = "bg-cyan-50 text-cyan-700 border-cyan-200";
       StatusIcon = Volume2;
       break;
     case 'Menunggu':
@@ -41,10 +42,10 @@ const TableRow = ({ no, name, gender, age, rm, insurance, poli, resepItems, rese
   }
 
   return (
-    <tr className={`hover:bg-slate-50 transition-colors ${active ? 'bg-blue-50/20' : ''}`}>
+    <tr className={`hover:bg-slate-50 transition-colors ${active ? 'bg-cyan-50/20' : ''}`}>
       <td className="px-6 py-4">
         <div className={`font-semibold rounded-md inline-block px-2 py-1 text-xs border ${
-          status === 'Dipanggil' ? 'border-blue-300 text-blue-700 bg-blue-50' : 
+          status === 'Dipanggil' ? 'border-cyan-300 text-cyan-700 bg-cyan-50' : 
           status === 'Menunggu' ? 'border-amber-200 text-amber-600 bg-amber-50' : 
           status === 'Dilayani' ? 'border-purple-200 text-purple-600 bg-purple-50' :
           'border-emerald-200 text-emerald-600 bg-emerald-50'
@@ -53,7 +54,7 @@ const TableRow = ({ no, name, gender, age, rm, insurance, poli, resepItems, rese
       <td className="px-6 py-4">
         <div className="font-semibold text-slate-900 text-sm flex items-center gap-1">
           {name} 
-          <span className={gender === 'Perempuan' ? 'text-pink-500 text-lg leading-none' : 'text-blue-500 text-lg leading-none'}>
+          <span className={gender === 'Perempuan' ? 'text-pink-500 text-lg leading-none' : 'text-cyan-500 text-lg leading-none'}>
             {gender === 'Perempuan' ? '♀' : '♂'}
           </span>
         </div>

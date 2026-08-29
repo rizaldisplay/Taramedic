@@ -77,7 +77,7 @@ export default function RencanaPenatalaksanaanComponent() {
       {/* Header Section */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white rounded text-xs font-bold shadow-sm">
+          <div className="flex items-center justify-center w-5 h-5 bg-cyan-600 text-white rounded text-xs font-bold shadow-sm">
             B
           </div>
           <div>
@@ -90,7 +90,7 @@ export default function RencanaPenatalaksanaanComponent() {
 
         <button 
           type="button"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-blue-200 bg-white text-blue-600 text-xs font-semibold hover:bg-blue-50 transition-all cursor-pointer shadow-2xs"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-cyan-200 bg-white text-cyan-600 text-xs font-semibold hover:bg-cyan-50 transition-all cursor-pointer shadow-2xs"
         >
           <Plus size={14} />
           <span>Tambah Rencana</span>
@@ -115,7 +115,7 @@ export default function RencanaPenatalaksanaanComponent() {
                 <tr key={item.id} className="hover:bg-slate-50/50 transition-colors">
                   <td className="p-2.5 font-semibold text-gray-800">
                     <div className="flex items-center gap-2">
-                      <Icon size={14} className="text-blue-600 shrink-0" />
+                      <Icon size={14} className="text-cyan-600 shrink-0" />
                       <span>{item.aspek}</span>
                     </div>
                   </td>

@@ -110,7 +110,7 @@ export default function RiwayatComponent({
   const [itemsPerPage, setItemsPerPage] = useState<number>(5);
 
   return (
-    <div className="w-full max-w-5xl bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-5 font-sans">
+    <div className="w-full bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs flex flex-col gap-5 font-sans">
       
       {/* Section Header */}
       <div className="flex flex-col gap-1 border-b border-slate-100 pb-3">
@@ -156,7 +156,7 @@ export default function RiwayatComponent({
                   <div className="flex flex-col gap-1 items-start">
                     <span className="font-bold text-slate-800">{item.noResep}</span>
                     {item.isKunjunganSaatIni && (
-                      <span className="bg-blue-50 text-blue-600 border border-blue-100 px-2 py-0.5 rounded-md text-[10px] font-bold">
+                      <span className="bg-cyan-50 text-cyan-600 border border-cyan-100 px-2 py-0.5 rounded-md text-[10px] font-bold">
                         Kunjungan Saat Ini
                       </span>
                     )}
@@ -193,7 +193,7 @@ export default function RiwayatComponent({
                   <button
                     type="button"
                     onClick={() => onLihatDetail && onLihatDetail(item)}
-                    className="px-3 py-1.5 border border-slate-200 bg-white hover:bg-slate-50 text-blue-600 hover:text-blue-700 font-semibold text-xs rounded-lg transition-colors inline-flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                    className="px-3 py-1.5 border border-slate-200 bg-white hover:bg-slate-50 text-cyan-600 hover:text-cyan-700 font-semibold text-xs rounded-lg transition-colors inline-flex items-center gap-1.5 shadow-2xs cursor-pointer"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>Lihat Detail</span>
@@ -235,7 +235,7 @@ export default function RiwayatComponent({
             {/* Page Buttons */}
             <button
               type="button"
-              className="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center shadow-2xs"
+              className="w-7 h-7 rounded-lg bg-cyan-600 text-white font-bold text-xs flex items-center justify-center shadow-2xs"
             >
               1
             </button>
@@ -271,7 +271,7 @@ export default function RiwayatComponent({
             <select
               value={itemsPerPage}
               onChange={(e) => setItemsPerPage(Number(e.target.value))}
-              className="p-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 outline-none focus:border-blue-500 bg-white cursor-pointer"
+              className="p-1.5 border border-slate-200 rounded-lg text-xs font-semibold text-slate-700 outline-none focus:border-cyan-500 bg-white cursor-pointer"
             >
               <option value={5}>5 / halaman</option>
               <option value={10}>10 / halaman</option>

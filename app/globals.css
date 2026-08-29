@@ -64,6 +64,19 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Mendefinisikan warna kustom Taramedic */
+  --color-taramedic: #12A4D9;
+  --color-taramedic-50: #E6F6FB;
+  --color-taramedic-100: #CFF0F8;
+  --color-taramedic-200: #9CE0F1;
+  --color-taramedic-300: #6AD1E9;
+  --color-taramedic-400: #38C1E2;
+  --color-taramedic-500: #12A4D9;
+  --color-taramedic-600: #0E83AE;
+  --color-taramedic-700: #0A6282;
+  --color-taramedic-800: #074157;
+  --color-taramedic-900: #03212B;
 }
 
 /* LIGHT MODE */

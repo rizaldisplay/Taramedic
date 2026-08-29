@@ -48,10 +48,10 @@ export default function StatusPelayanan() {
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm w-full p-5 font-sans h-full">
       {/* Header */}
       <div className="flex items-center gap-2.5 mb-6">
-        <div className="bg-blue-600 p-1 rounded">
+        <div className="bg-cyan-600 p-1 rounded">
           <FileText className="w-4 h-4 text-white" />
         </div>
-        <h2 className="text-sm font-bold text-blue-600 tracking-wide uppercase">
+        <h2 className="text-sm font-bold text-cyan-600 tracking-wide uppercase">
           Status Pelayanan
         </h2>
       </div>
@@ -73,7 +73,7 @@ export default function StatusPelayanan() {
                 )}
                 
                 {item.status === 'active' && (
-                  <div className="w-5 h-5 bg-blue-600 rounded-full ring-4 ring-white shadow-sm"></div>
+                  <div className="w-5 h-5 bg-cyan-600 rounded-full ring-4 ring-white shadow-sm"></div>
                 )}
                 
                 {item.status === 'pending' && (
@@ -86,7 +86,7 @@ export default function StatusPelayanan() {
                 <p
                   className={`text-sm font-semibold mb-0.5 ${
                     item.status === 'active'
-                      ? 'text-blue-600'
+                      ? 'text-cyan-600'
                       : 'text-gray-800'
                   }`}
                 >

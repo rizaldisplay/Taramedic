@@ -28,12 +28,12 @@ export const ActionPanel = () => {
         <div className="w-[340px] flex-shrink-0 space-y-4">
             {/* Active Call Card */}
             <div className="bg-white rounded-xl border border-blue-200 shadow-sm overflow-hidden relative">
-                <div className="h-1 bg-blue-500 w-full absolute top-0 left-0"></div>
+                <div className="h-1 bg-taramedic-500 w-full absolute top-0 left-0"></div>
                 <div className="p-5 pt-6">
-                    <div className="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-2">SEDANG DIPANGGIL</div>
+                    <div className="text-[11px] font-bold text-cyan-600 uppercase tracking-wider mb-2">SEDANG DIPANGGIL</div>
                     <div className="flex justify-between items-start mb-5">
                         <div>
-                            <h3 className="text-4xl font-bold text-blue-600 mb-1">A013</h3>
+                            <h3 className="text-4xl font-bold text-cyan-600 mb-1">A013</h3>
                             <h4 className="text-[17px] font-bold text-slate-900 flex items-center gap-1 mb-1">
                                 Rizka Amalia <span className="text-pink-500 font-normal text-xl leading-none">♀</span>
                             </h4>
@@ -49,7 +49,7 @@ export const ActionPanel = () => {
 
                     {/* Resep Info Block */}
                     <div className="mb-5">
-                        <div className="text-sm font-semibold text-blue-700 mb-3">Resep #RX-20260816-013</div>
+                        <div className="text-sm font-semibold text-cyan-700 mb-3">Resep #RX-20260816-013</div>
                         <div className="flex items-center justify-between text-[13px] text-slate-600 mb-2">
                             <div className="flex items-center gap-2">
                                 <ClipboardList className="w-4 h-4 text-slate-400" /> 3 item obat
@@ -61,8 +61,8 @@ export const ActionPanel = () => {
                         <div className="text-[13px] text-slate-500">Masuk: 08:05 WIB</div>
                     </div>
 
-                    <div className="bg-blue-50/70 rounded-lg p-2.5 border border-blue-100 mb-5 flex justify-center items-center">
-                        <div className="flex items-center text-blue-700 font-medium text-sm">
+                    <div className="bg-cyan-50/70 rounded-lg p-2.5 border border-cyan-100 mb-5 flex justify-center items-center">
+                        <div className="flex items-center text-cyan-700 font-medium text-sm">
                             <Volume2 className="w-4 h-4 mr-2" /> Panggilan ke-1
                         </div>
                     </div>
@@ -100,7 +100,7 @@ export const ActionPanel = () => {
                         </div>
                         <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5 leading-none">
                             Fathan Alfarizi
-                            <span className="text-blue-500 font-normal text-base">♂</span>
+                            <span className="text-cyan-500 font-normal text-base">♂</span>
                         </div>
                     </div>
 

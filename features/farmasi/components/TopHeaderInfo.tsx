@@ -20,7 +20,7 @@ export default function TopHeaderInfo({ activeTab, onTabChange }: TopHeaderProps
           {/* Left Section: Avatar & Detail Pasien */}
           <div className="flex items-start sm:items-center gap-3 sm:gap-4">
             {/* Avatar Circle */}
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 text-white font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-sm mt-1 sm:mt-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-cyan-600 text-white font-bold text-sm sm:text-base flex items-center justify-center shrink-0 shadow-sm mt-1 sm:mt-0">
               RA
             </div>
 
@@ -109,12 +109,12 @@ export default function TopHeaderInfo({ activeTab, onTabChange }: TopHeaderProps
               // Gunakan onTabChange dari props saat diklik
               onClick={() => onTabChange(tab)}
               className={`py-3 text-[11px] sm:text-xs font-semibold relative transition-colors whitespace-nowrap ${
-                isActive ? 'text-blue-600 font-bold' : 'text-slate-500 hover:text-slate-800'
+                isActive ? 'text-cyan-600 font-bold' : 'text-slate-500 hover:text-slate-800'
               }`}
             >
               {tab}
               {isActive && (
-                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-blue-600 rounded-t-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-cyan-600 rounded-t-full" />
               )}
             </button>
           );

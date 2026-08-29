@@ -88,12 +88,12 @@ export default function TabCPPT() {
   // Helper untuk styling badge role
   const getRoleBadgeStyle = (role: Role) => {
     return role === 'Perawat'
-      ? 'bg-blue-50 text-blue-600 border-blue-100'
+      ? 'bg-cyan-50 text-cyan-600 border-cyan-100'
       : 'bg-emerald-50 text-emerald-600 border-emerald-100';
   };
 
   const getTimelineDotStyle = (role: Role) => {
-    return role === 'Perawat' ? 'bg-blue-600' : 'bg-emerald-600';
+    return role === 'Perawat' ? 'bg-cyan-600' : 'bg-emerald-600';
   };
 
   // Helper untuk merender isi SOAP (teks biasa atau list)
@@ -132,7 +132,7 @@ export default function TabCPPT() {
             Dokumentasi perkembangan kondisi dan rencana pelayanan pasien pada kunjungan ini.
           </p>
         </div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 text-xs font-semibold hover:bg-blue-100/70 transition-all cursor-pointer">
+        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 text-xs font-semibold hover:bg-cyan-100/70 transition-all cursor-pointer">
           <Plus size={14} />
           <span>Tambah Entri</span>
         </button>
@@ -168,7 +168,7 @@ export default function TabCPPT() {
                 
                 {/* Action Buttons */}
                 <div className="absolute top-3 right-3 flex items-center gap-1">
-                  <button className="p-1 text-gray-400 hover:text-blue-600 hover:bg-gray-100 rounded transition-colors cursor-pointer">
+                  <button className="p-1 text-gray-400 hover:text-cyan-600 hover:bg-gray-100 rounded transition-colors cursor-pointer">
                     <Pencil size={14} />
                   </button>
                   <button className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded transition-colors cursor-pointer">
@@ -180,7 +180,7 @@ export default function TabCPPT() {
                 <div className="space-y-2.5 pr-14 text-[12px] text-gray-700">
                   {/* Subjektif */}
                   <div className="flex flex-col sm:flex-row items-start gap-2 sm:gap-3">
-                    <div className="w-fit sm:w-28 flex-shrink-0 bg-blue-50 text-blue-600 border border-blue-100 px-2 py-0.5 rounded font-bold text-[10px] text-center">
+                    <div className="w-fit sm:w-28 flex-shrink-0 bg-cyan-50 text-cyan-600 border border-cyan-100 px-2 py-0.5 rounded font-bold text-[10px] text-center">
                       S (Subjektif)
                     </div>
                     <div className="flex-1 text-gray-800">{renderSOAPContent(entry.soap.s)}</div>

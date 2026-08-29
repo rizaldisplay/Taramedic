@@ -82,7 +82,7 @@ export default function TindakanDanRencanaComponent() {
         <div className="mt-5 pt-4 border-t border-gray-100">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">
-              <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-white rounded text-xs font-bold shadow-sm">
+              <div className="flex items-center justify-center w-5 h-5 bg-cyan-600 text-white rounded text-xs font-bold shadow-sm">
                 A
               </div>
               <div>
@@ -95,7 +95,7 @@ export default function TindakanDanRencanaComponent() {
 
             <button 
               type="button"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-blue-200 bg-white text-blue-600 text-xs font-semibold hover:bg-blue-50 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-cyan-200 bg-white text-cyan-600 text-xs font-semibold hover:bg-cyan-50 transition-all cursor-pointer"
             >
               <Plus size={14} />
               <span>Tambah Tindakan</span>

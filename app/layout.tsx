@@ -6,7 +6,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Sistem Manajemen Klinik',
+  title: 'Taramedic | Sistem Manajemen Klinik',
   description: 'Aplikasi Manajemen Klinik Taramedic',
 };
 

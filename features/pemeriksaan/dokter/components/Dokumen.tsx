@@ -152,7 +152,7 @@ export default function DocumentTabContent() {
       case 'Dokter':
         return 'bg-emerald-50 text-emerald-600 border-emerald-100';
       case 'Perawat':
-        return 'bg-blue-50 text-blue-600 border-blue-100';
+        return 'bg-cyan-50 text-cyan-600 border-cyan-100';
       case 'Laboratorium':
         return 'bg-purple-50 text-purple-600 border-purple-100';
       case 'Radiologi':
@@ -206,7 +206,7 @@ export default function DocumentTabContent() {
               placeholder="Cari dokumen..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-3 pr-8 py-1.5 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full pl-3 pr-8 py-1.5 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan-500"
             />
             <Search className="w-3.5 h-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400" />
           </div>
@@ -221,7 +221,7 @@ export default function DocumentTabContent() {
 
           <button
             type="button"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-2xs transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold rounded-lg shadow-2xs transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Unggah Dokumen</span>
@@ -238,7 +238,7 @@ export default function DocumentTabContent() {
             onClick={() => setActiveTab(tab)}
             className={`pb-2.5 px-0.5 font-bold transition-colors whitespace-nowrap cursor-pointer border-b-2 ${
               activeTab === tab
-                ? 'border-blue-600 text-blue-600'
+                ? 'border-cyan-600 text-cyan-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
@@ -300,10 +300,10 @@ export default function DocumentTabContent() {
                   {/* Aksi Button */}
                   <td className="p-3 text-center">
                     <div className="flex items-center justify-center gap-1.5 text-gray-400">
-                      <button type="button" className="p-1 hover:text-blue-600 transition-colors cursor-pointer" title="Lihat Dokumen">
+                      <button type="button" className="p-1 hover:text-cyan-600 transition-colors cursor-pointer" title="Lihat Dokumen">
                         <Eye size={14} />
                       </button>
-                      <button type="button" className="p-1 hover:text-blue-600 transition-colors cursor-pointer" title="Unduh Dokumen">
+                      <button type="button" className="p-1 hover:text-cyan-600 transition-colors cursor-pointer" title="Unduh Dokumen">
                         <Download size={14} />
                       </button>
                       <button type="button" className="p-1 hover:text-gray-600 transition-colors cursor-pointer">
@@ -332,7 +332,7 @@ export default function DocumentTabContent() {
           <div className="flex items-center gap-1 text-gray-600">
             <button type="button" disabled className="px-2 py-1 border border-gray-200 rounded text-gray-300 disabled:opacity-50">&laquo;</button>
             <button type="button" disabled className="px-2 py-1 border border-gray-200 rounded text-gray-300 disabled:opacity-50">&lt;</button>
-            <span className="px-2.5 py-1 bg-blue-600 text-white rounded font-bold text-xs">1</span>
+            <span className="px-2.5 py-1 bg-cyan-600 text-white rounded font-bold text-xs">1</span>
             <button type="button" disabled className="px-2 py-1 border border-gray-200 rounded text-gray-300 disabled:opacity-50">&gt;</button>
             <button type="button" disabled className="px-2 py-1 border border-gray-200 rounded text-gray-300 disabled:opacity-50">&raquo;</button>
           </div>
@@ -369,7 +369,7 @@ export function SidebarDokumenKanan() {
     <div className="space-y-4 w-full">
       {/* 1. Card Informasi Kunjungan */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-gray-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+        <div className="flex items-center gap-2 pb-2 border-b border-gray-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
           <FileText className="w-4 h-4" />
           <span>INFORMASI KUNJUNGAN</span>
         </div>
@@ -401,7 +401,7 @@ export function SidebarDokumenKanan() {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-400">Status Terakhir</span>
-            <span className="px-2 py-0.5 bg-blue-50 text-blue-600 font-semibold text-[10px] rounded border border-blue-100">
+            <span className="px-2 py-0.5 bg-cyan-50 text-cyan-600 font-semibold text-[10px] rounded border border-cyan-100">
               Pemeriksaan Dokter
             </span>
           </div>
@@ -414,7 +414,7 @@ export function SidebarDokumenKanan() {
 
       {/* 2. Card Catatan Dokter (Internal) */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-gray-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+        <div className="flex items-center gap-2 pb-2 border-b border-gray-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
           <FileText className="w-4 h-4" />
           <span>CATATAN DOKTER (Internal)</span>
         </div>
@@ -425,7 +425,7 @@ export function SidebarDokumenKanan() {
             onChange={(e) => setInternalNoteDraft(e.target.value)}
             maxLength={500}
             placeholder="Tulis catatan resep (tidak tampil di farmasi)..."
-            className="w-full h-20 p-2 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
+            className="w-full h-20 p-2 text-xs bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-cyan-500 resize-none"
           />
           <div className="text-right text-[10px] text-gray-400">
             {internalNoteDraft.length}/500
@@ -435,7 +435,7 @@ export function SidebarDokumenKanan() {
         <button
           type="button"
           disabled={!internalNoteDraft.trim()}
-          className="w-full flex items-center justify-center gap-1 py-1.5 px-3 border border-blue-200 text-blue-600 font-semibold text-xs rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full flex items-center justify-center gap-1 py-1.5 px-3 border border-cyan-200 text-cyan-600 font-semibold text-xs rounded-lg hover:bg-cyan-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Tambah Catatan</span>
@@ -444,7 +444,7 @@ export function SidebarDokumenKanan() {
 
       {/* 3. Card Riwayat Dokumen */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-gray-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+        <div className="flex items-center gap-2 pb-2 border-b border-gray-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
           <FileText className="w-4 h-4" />
           <span>RIWAYAT DOKUMEN</span>
         </div>
@@ -459,7 +459,7 @@ export function SidebarDokumenKanan() {
           ))}
         </div>
 
-        <button type="button" className="w-full flex items-center justify-center gap-1 pt-1 text-xs font-semibold text-blue-600 hover:text-blue-700 cursor-pointer">
+        <button type="button" className="w-full flex items-center justify-center gap-1 pt-1 text-xs font-semibold text-cyan-600 hover:text-cyan-700 cursor-pointer">
           <span>Lihat Semua Riwayat</span>
           <ExternalLink size={12} />
         </button>
