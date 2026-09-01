@@ -193,7 +193,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
               ]}
             />
 
-            <NavItem icon={Users} label="Pasien" onClick={onClose} />
+            <NavItem icon={Users} label="Pendaftaran" onClick={onClose} />
             <NavItem icon={Pill} label="Farmasi" onClick={onClose} />
             <NavItem icon={Calculator} label="Kasir" onClick={onClose} />
             <NavItem icon={FileText} label="Laporan" onClick={onClose} />

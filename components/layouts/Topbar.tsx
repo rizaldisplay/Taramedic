@@ -77,7 +77,7 @@ export const Topbar: React.FC<TopbarProps> = ({
           <span className="text-emerald-700 font-medium text-xs">Tersinkronisasi</span>
         </div>
 
-        <div className="hidden xl:flex items-center text-slate-500 text-sm flex-shrink-0 w-[280px]">
+        <div className="hidden xl:flex items-center text-slate-500 text-sm flex-shrink-0 w-[300px]">
           <Clock className="w-4 h-4 mr-2" />
           {currentTime ? formatDateTime(currentTime) : 'Memuat waktu...'}
         </div>
