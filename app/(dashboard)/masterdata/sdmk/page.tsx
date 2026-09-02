@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import SDMK from '@/features/masterdata/SDMK/page';
+import SDMK from '@/features/masterdata/sdmk/page';
 import TopHeader from '@/features/pemeriksaan/perawat/components/TopHeaderInfo';
 
 export default function PemeriksaanPage() {

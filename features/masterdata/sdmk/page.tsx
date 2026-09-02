@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import DaftarSDMK from "@/features/masterdata/components/DaftarSDMK";
 import DetailSDMK from "@/features/masterdata/components/DetailSDMK";
 
-import SidebarCatatan from "@/features/kasir/components/SidebarCatatan";
 import FooterTombol from "@/features/kasir/components/FooterTombol";
 
 export default function RingkasanFarmasiPage() {
