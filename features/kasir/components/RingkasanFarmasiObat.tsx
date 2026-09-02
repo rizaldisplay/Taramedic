@@ -64,7 +64,7 @@ export default function PharmacyServicesTable({
       <div className="flex items-center justify-between p-4 bg-white border-b border-slate-100">
         <div className="flex items-center gap-3">
           {/* Badge B Icon */}
-          <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs">
+          <div className="w-6 h-6 bg-cyan-600 rounded flex items-center justify-center text-white font-bold text-xs">
             B
           </div>
           <h3 className="font-bold text-slate-800 text-xs tracking-wider uppercase">
@@ -116,7 +116,7 @@ export default function PharmacyServicesTable({
         </div>
         <button
           onClick={onViewDetail}
-          className="flex items-center gap-1.5 text-blue-600 hover:text-blue-700 font-medium text-xs transition-colors self-end sm:self-auto"
+          className="flex items-center gap-1.5 text-cyan-600 hover:text-cyan-700 font-medium text-xs transition-colors self-end sm:self-auto"
         >
           <ExternalLink className="w-3.5 h-3.5" />
           <span>Lihat Detail Farmasi</span>

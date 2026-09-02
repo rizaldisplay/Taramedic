@@ -43,7 +43,7 @@ export default function CatatanPembayaran({
             value={note}
             onChange={handleChange}
             placeholder="Tulis catatan pembayaran..."
-            className="w-full p-3 text-[13px] text-slate-800 placeholder:text-slate-400 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none transition-all"
+            className="w-full p-3 text-[13px] text-slate-800 placeholder:text-slate-400 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 resize-none transition-all"
           />
           
           {/* Character Count Indicator */}

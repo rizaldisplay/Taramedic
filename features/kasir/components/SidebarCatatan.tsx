@@ -42,7 +42,7 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
     <div className="lg:col-span-4 flex flex-col gap-5 sticky top-6">
       {/* Card Informasi Kunjungan */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+        <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
           <FileText className="w-4 h-4" />
           Informasi Kunjungan
         </div>
@@ -88,7 +88,7 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
             <span className="text-slate-400 flex items-center gap-1.5">
               <Info className="w-3.5 h-3.5" /> Status Terakhir
             </span>
-            <span className="px-2 py-0.5 bg-blue-50 text-blue-600 font-medium text-[11px] rounded-md">
+            <span className="px-2 py-0.5 bg-cyan-50 text-cyan-600 font-medium text-[11px] rounded-md">
               Pemeriksaan Perawat
             </span>
           </div>
@@ -105,7 +105,7 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
 
       {/* Card Catatan Internal */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
-        <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+        <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
           <FileText className="w-4 h-4" />
           Catatan Internal
         </div>
@@ -142,7 +142,7 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
             onChange={(e) => setInternalNoteDraft(e.target.value)}
             maxLength={500}
             placeholder="Tulis catatan internal (tidak tampil di resume medis)"
-            className="w-full h-24 p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none"
+            className="w-full h-24 p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 resize-none"
           />
           <div className="text-right text-[10px] text-slate-400">
             {internalNoteDraft.length}/500
@@ -153,7 +153,7 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
           type="button"
           onClick={handleAddInternalNote}
           disabled={!internalNoteDraft.trim()}
-          className="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-blue-200 text-blue-600 font-semibold text-xs rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
+          className="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-cyan-200 text-cyan-600 font-semibold text-xs rounded-lg hover:bg-cyan-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
         >
           <Plus className="w-3.5 h-3.5" />
           Tambah Catatan

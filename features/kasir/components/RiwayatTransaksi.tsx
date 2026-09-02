@@ -106,13 +106,13 @@ export default function RiwayatTransaksi() {
   const getJenisBadge = (jenis: TransaksiItem["jenisTransaksi"]) => {
     switch (jenis) {
       case "Pembayaran":
-        return "bg-blue-50 text-blue-600";
+        return "bg-cyan-50 text-cyan-600";
       case "Invoice":
         return "bg-slate-100 text-slate-600";
       case "Klaim BPJS":
         return "bg-sky-50 text-sky-600";
       case "Billing":
-        return "bg-blue-50/80 text-blue-500";
+        return "bg-cyan-50/80 text-cyan-500";
       case "Registrasi":
         return "bg-emerald-50 text-emerald-600";
       default:
@@ -155,7 +155,7 @@ export default function RiwayatTransaksi() {
           <input
             type="text"
             placeholder="Cari no. transaksi, jenis transaksi, atau keterangan..."
-            className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-lg text-[12px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+            className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-lg text-[12px] text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
           />
         </div>
 
@@ -205,7 +205,7 @@ export default function RiwayatTransaksi() {
                   key={row.no}
                   onClick={() => setSelectedNoTransaksi(row.noTransaksi)}
                   className={`cursor-pointer transition-colors ${
-                    isSelected ? "bg-blue-50/30" : "hover:bg-slate-50/60"
+                    isSelected ? "bg-cyan-50/30" : "hover:bg-slate-50/60"
                   }`}
                 >
                   <td className="py-3 px-3 text-center text-slate-500 font-medium">
@@ -262,7 +262,7 @@ export default function RiwayatTransaksi() {
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <button className="w-7 h-7 bg-blue-600 text-white font-medium rounded flex items-center justify-center">
+            <button className="w-7 h-7 bg-cyan-600 text-white font-medium rounded flex items-center justify-center">
               1
             </button>
             <button
@@ -358,8 +358,8 @@ export default function RiwayatTransaksi() {
         </div>
 
         {/* SATUSEHAT Integration Banner Note */}
-        <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3 flex items-start gap-2.5 text-[11px] text-slate-600 mt-4">
-          <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+        <div className="bg-cyan-50/50 border border-cyan-100 rounded-lg p-3 flex items-start gap-2.5 text-[11px] text-slate-600 mt-4">
+          <Info className="w-4 h-4 text-cyan-600 shrink-0 mt-0.5" />
           <span>
             Seluruh data transaksi tersinkronisasi dan terintegrasi dengan SATUSEHAT sesuai resource: Encounter, Procedure, MedicationRequest, MedicationDispense, Coverage, Claim, Payment. Sesuai Permenkes No. 24 Tahun 2022 tentang Rekam Medis Pasal 42-46 terkait keamanan, kerahasiaan, dan ketersediaan data.
           </span>

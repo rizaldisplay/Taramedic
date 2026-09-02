@@ -79,7 +79,7 @@ export default function MorseFallScale() {
       {/* Header Section */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <span className="flex items-center justify-center w-5 h-5 rounded bg-blue-600 text-white font-bold text-[11px]">
+          <span className="flex items-center justify-center w-5 h-5 rounded bg-cyan-600 text-white font-bold text-[11px]">
             1
           </span>
           <h3 className="font-bold text-slate-800 text-xs tracking-wide uppercase">
@@ -116,7 +116,7 @@ export default function MorseFallScale() {
                 name="riwayatJatuh"
                 value={formData.riwayatJatuh}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={25}>Ya</option>
@@ -132,7 +132,7 @@ export default function MorseFallScale() {
                 name="diagnosisSekunder"
                 value={formData.diagnosisSekunder}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={15}>Ya</option>
@@ -148,7 +148,7 @@ export default function MorseFallScale() {
                 name="alatBantuBerjalan"
                 value={formData.alatBantuBerjalan}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={15}>Tongkat / Alat Penopang</option>
@@ -165,7 +165,7 @@ export default function MorseFallScale() {
                 name="terpasangInfus"
                 value={formData.terpasangInfus}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={20}>Ya</option>
@@ -181,7 +181,7 @@ export default function MorseFallScale() {
                 name="gayaBerjalan"
                 value={formData.gayaBerjalan}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Normal / Bed rest</option>
                 <option value={10}>Lemah</option>
@@ -198,7 +198,7 @@ export default function MorseFallScale() {
                 name="statusMental"
                 value={formData.statusMental}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Orientasi baik</option>
                 <option value={15}>Lupa keterbatasan</option>
@@ -238,7 +238,7 @@ export default function MorseFallScale() {
                   value={formData.rekomendasiCustom}
                   onChange={handleChange}
                   placeholder={riskAssessment.defaultRecommendation}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white pr-14"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white pr-14"
                 />
                 <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-mono">
                   {formData.rekomendasiCustom.length} / 300

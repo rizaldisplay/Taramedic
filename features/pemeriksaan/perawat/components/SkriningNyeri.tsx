@@ -69,7 +69,7 @@ export default function SkriningNyeri() {
       {/* Header Section */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <span className="flex items-center justify-center w-5 h-5 rounded bg-blue-600 text-white font-bold text-[11px]">
+          <span className="flex items-center justify-center w-5 h-5 rounded bg-cyan-600 text-white font-bold text-[11px]">
             3
           </span>
           <h3 className="font-bold text-slate-800 text-xs tracking-wide uppercase">
@@ -103,7 +103,7 @@ export default function SkriningNyeri() {
                 <label className="text-[11px] font-semibold text-slate-600">
                   Skala Nyeri (NRS 0–10)
                 </label>
-                <span className="text-xs font-bold text-blue-600">
+                <span className="text-xs font-bold text-cyan-600">
                   Nilai: {formData.skalaNyeri}
                 </span>
               </div>
@@ -117,7 +117,7 @@ export default function SkriningNyeri() {
                   step="1"
                   value={formData.skalaNyeri}
                   onChange={handleChange}
-                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
                 />
                 {/* Tanda Angka Slider */}
                 <div className="flex justify-between text-[10px] text-slate-400 font-medium px-0.5 mt-1">
@@ -142,7 +142,7 @@ export default function SkriningNyeri() {
                   name="karakterNyeri"
                   value={formData.karakterNyeri}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
                 >
                   <option value="Tidak ada">Tidak ada</option>
                   <option value="Nyeri ringan">Nyeri ringan</option>
@@ -161,7 +161,7 @@ export default function SkriningNyeri() {
                   name="lokasiNyeri"
                   value={formData.lokasiNyeri}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
                 >
                   <option value="Tidak ada">Tidak ada</option>
                   <option value="Abdomen kanan bawah">Abdomen kanan bawah</option>
@@ -182,7 +182,7 @@ export default function SkriningNyeri() {
                   name="sifatNyeri"
                   value={formData.sifatNyeri}
                   onChange={handleChange}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
                 >
                   <option value="Tidak ada">Tidak ada</option>
                   <option value="Menekan">Menekan</option>
@@ -207,7 +207,7 @@ export default function SkriningNyeri() {
                 value={formData.rekomendasiCustom}
                 onChange={handleChange}
                 placeholder={painAssessment.defaultRecommendation}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white pr-14"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white pr-14"
               />
               <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-mono">
                 {formData.rekomendasiCustom.length} / 300

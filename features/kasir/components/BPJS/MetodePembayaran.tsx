@@ -29,7 +29,7 @@ function PaymentOptionCard({
       disabled={disabled}
       className={`w-full text-left p-4 rounded-xl border transition-all flex items-start justify-between gap-3 ${
         selected
-          ? "border-blue-600 bg-blue-50/40 shadow-sm"
+          ? "border-cyan-600 bg-cyan-50/40 shadow-sm"
           : "border-slate-200 bg-slate-50/50 opacity-60 cursor-not-allowed"
       }`}
     >
@@ -37,7 +37,7 @@ function PaymentOptionCard({
         <div
           className={`p-2.5 rounded-lg border ${
             selected
-              ? "bg-white border-blue-200 text-blue-600"
+              ? "bg-white border-cyan-200 text-cyan-600"
               : "bg-white border-slate-200 text-slate-400"
           }`}
         >
@@ -56,7 +56,7 @@ function PaymentOptionCard({
       </div>
 
       {selected && (
-        <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center shrink-0 mt-1">
+        <div className="w-5 h-5 rounded-full bg-cyan-600 text-white flex items-center justify-center shrink-0 mt-1">
           <Check className="w-3.5 h-3.5 stroke-[3]" />
         </div>
       )}

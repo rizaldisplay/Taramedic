@@ -18,13 +18,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     if (currentPath.includes('/farmasi')) {
       return { moduleName: 'Dashboard', pageName: 'Farmasi' };
     }
-    if (currentPath.includes('/emr/pasien')) {
-      return { moduleName: 'EMR', pageName: 'Data Pasien' };
+    if (currentPath.includes('/emr/perawat')) {
+      return { moduleName: 'EMR', pageName: 'Perawat' };
     }
-    if (currentPath.includes('/pos/kasir')) {
-      return { moduleName: 'POS UMKM', pageName: 'Kasir & Transaksi' };
+    if (currentPath.includes('/emr/dokter')) {
+      return { moduleName: 'EMR', pageName: 'Dokter' };
     }
-    if (currentPath.includes('/pos/inventaris')) {
+    if (currentPath.includes('/kasir')) {
+      return { moduleName: 'Dashboard', pageName: 'Kasir & Transaksi' };
+    }
+    if (currentPath.includes('/masterdata/inventaris')) {
       return { moduleName: 'ERP', pageName: 'Manajemen Stok' };
     }
 

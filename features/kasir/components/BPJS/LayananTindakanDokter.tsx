@@ -65,7 +65,7 @@ export default function DoctorServicesTable() {
       {/* Table Header Section */}
       <div className="flex items-center justify-between p-4 border-b border-slate-100 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs">
+          <div className="w-7 h-7 bg-cyan-600 rounded flex items-center justify-center text-white font-bold text-xs">
             A
           </div>
           <h3 className="font-bold text-slate-800 text-sm tracking-wide uppercase">
@@ -100,7 +100,7 @@ export default function DoctorServicesTable() {
                 <td className="py-3.5 px-4 text-center text-slate-500">{index + 1}</td>
                 <td className="py-3.5 px-4 font-semibold text-slate-800">{item.itemName}</td>
                 <td className="py-3.5 px-4">
-                  <span className="bg-blue-50 text-blue-600 text-[11px] font-bold px-2 py-0.5 rounded">
+                  <span className="bg-cyan-50 text-cyan-600 text-[11px] font-bold px-2 py-0.5 rounded">
                     {item.code}
                   </span>
                 </td>

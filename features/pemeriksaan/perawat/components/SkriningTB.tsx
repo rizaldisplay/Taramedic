@@ -72,7 +72,7 @@ export default function SkriningTB() {
       {/* Header Section */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <span className="flex items-center justify-center w-5 h-5 rounded bg-blue-600 text-white font-bold text-[11px]">
+          <span className="flex items-center justify-center w-5 h-5 rounded bg-cyan-600 text-white font-bold text-[11px]">
             4
           </span>
           <h3 className="font-bold text-slate-800 text-xs tracking-wide uppercase">
@@ -109,7 +109,7 @@ export default function SkriningTB() {
                 name="batuk2Minggu"
                 value={formData.batuk2Minggu}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={1}>Ya</option>
@@ -125,7 +125,7 @@ export default function SkriningTB() {
                 name="demamLama"
                 value={formData.demamLama}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={1}>Ya</option>
@@ -141,7 +141,7 @@ export default function SkriningTB() {
                 name="bbTurunTanpaSebab"
                 value={formData.bbTurunTanpaSebab}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={1}>Ya</option>
@@ -157,7 +157,7 @@ export default function SkriningTB() {
                 name="kontakTB"
                 value={formData.kontakTb}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={1}>Ya</option>
@@ -173,7 +173,7 @@ export default function SkriningTB() {
                 name="keringatMalam"
                 value={formData.keringatMalam}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={0}>Tidak</option>
                 <option value={1}>Ya</option>
@@ -210,7 +210,7 @@ export default function SkriningTB() {
                   value={formData.rekomendasiCustom}
                   onChange={handleChange}
                   placeholder={tbResult.defaultRecommendation}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white pr-14"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white pr-14"
                 />
                 <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-mono">
                   {formData.rekomendasiCustom.length} / 300

@@ -58,7 +58,7 @@ interface DocumentTabContentProps {
 
 // ---------- Konstanta & helper ----------
 const CATEGORY_STYLES: Record<DocumentCategory, string> = {
-  'Hasil Lab': 'bg-blue-100 text-blue-600',
+  'Hasil Lab': 'bg-cyan-100 text-cyan-600',
   'Foto Klinis': 'bg-emerald-100 text-emerald-600',
   Skrining: 'bg-purple-100 text-purple-600',
   Administrasi: 'bg-amber-100 text-amber-600',
@@ -324,7 +324,7 @@ export default function DocumentTabContent({
               <button
                 type="button"
                 onClick={() => onCreateDocument?.()}
-                className="flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white text-blue-600 hover:bg-blue-50/50 font-semibold text-xs rounded-lg border border-blue-200 transition-colors"
+                className="flex items-center justify-center gap-1.5 px-3.5 py-2 bg-white text-cyan-600 hover:bg-cyan-50/50 font-semibold text-xs rounded-lg border border-cyan-200 transition-colors"
               >
                 <FilePlus className="w-4 h-4" />
                 Buat Dokumen Baru
@@ -338,7 +338,7 @@ export default function DocumentTabContent({
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
               className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center transition-colors cursor-pointer group ${
-                isDragging ? 'border-blue-500 bg-blue-50/60' : 'border-slate-200 hover:border-blue-400/60 bg-slate-50/30'
+                isDragging ? 'border-cyan-500 bg-cyan-50/60' : 'border-slate-200 hover:border-cyan-400/60 bg-slate-50/30'
               }`}
             >
               <input
@@ -349,7 +349,7 @@ export default function DocumentTabContent({
                 onChange={handleFileInputChange}
                 className="hidden"
               />
-              <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <div className="w-12 h-12 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
                 <UploadCloud className="w-6 h-6" />
               </div>
               <p className="text-xs font-bold text-slate-800">Seret & lepas file di sini</p>
@@ -360,7 +360,7 @@ export default function DocumentTabContent({
                   e.stopPropagation(); // hindari trigger ganda karena parent div juga punya onClick
                   fileInputRef.current?.click();
                 }}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-lg shadow-xs transition-colors mb-3"
+                className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold text-xs rounded-lg shadow-xs transition-colors mb-3"
               >
                 Pilih File untuk Diunggah
               </button>
@@ -394,7 +394,7 @@ export default function DocumentTabContent({
                       setSearchQuery(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                    className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500"
                   />
                 </div>
 
@@ -421,7 +421,7 @@ export default function DocumentTabContent({
                             setCurrentPage(1);
                           }}
                           className={`w-full text-left px-3 py-1.5 hover:bg-slate-50 ${
-                            selectedCategory === 'Semua Kategori' ? 'text-blue-600 font-semibold' : 'text-slate-600'
+                            selectedCategory === 'Semua Kategori' ? 'text-cyan-600 font-semibold' : 'text-slate-600'
                           }`}
                         >
                           Semua Kategori
@@ -436,7 +436,7 @@ export default function DocumentTabContent({
                               setCurrentPage(1);
                             }}
                             className={`w-full text-left px-3 py-1.5 hover:bg-slate-50 ${
-                              selectedCategory === cat ? 'text-blue-600 font-semibold' : 'text-slate-600'
+                              selectedCategory === cat ? 'text-cyan-600 font-semibold' : 'text-slate-600'
                             }`}
                           >
                             {cat}
@@ -501,7 +501,7 @@ export default function DocumentTabContent({
                           <button
                             type="button"
                             onClick={() => handleDownloadDocument(doc)}
-                            className="p-1 hover:text-blue-600 transition-colors"
+                            className="p-1 hover:text-cyan-600 transition-colors"
                             title="Download"
                           >
                             <Download className="w-3.5 h-3.5" />
@@ -509,7 +509,7 @@ export default function DocumentTabContent({
                           <button
                             type="button"
                             onClick={() => handleViewDocument(doc)}
-                            className="p-1 hover:text-blue-600 transition-colors"
+                            className="p-1 hover:text-cyan-600 transition-colors"
                             title="Lihat"
                           >
                             <Eye className="w-3.5 h-3.5" />
@@ -558,7 +558,7 @@ export default function DocumentTabContent({
                 >
                   <ChevronLeft className="w-3.5 h-3.5" />
                 </button>
-                <span className="w-7 h-7 bg-blue-600 text-white font-semibold rounded-lg flex items-center justify-center">
+                <span className="w-7 h-7 bg-cyan-600 text-white font-semibold rounded-lg flex items-center justify-center">
                   {currentPage}
                 </span>
                 <button
@@ -584,7 +584,7 @@ export default function DocumentTabContent({
 
           {/* Card Informasi Kunjungan */}
           <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
               <FileText className="w-4 h-4" />
               Informasi Kunjungan
             </div>
@@ -630,7 +630,7 @@ export default function DocumentTabContent({
                 <span className="text-slate-400 flex items-center gap-1.5">
                   <Info className="w-3.5 h-3.5" /> Status Terakhir
                 </span>
-                <span className="px-2 py-0.5 bg-blue-50 text-blue-600 font-medium text-[11px] rounded-md">
+                <span className="px-2 py-0.5 bg-cyan-50 text-cyan-600 font-medium text-[11px] rounded-md">
                   Pemeriksaan Perawat
                 </span>
               </div>
@@ -645,7 +645,7 @@ export default function DocumentTabContent({
 
           {/* Card Catatan Internal */}
           <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-blue-600 font-bold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
               <FileText className="w-4 h-4" />
               Catatan Internal
             </div>
@@ -677,7 +677,7 @@ export default function DocumentTabContent({
                 onChange={(e) => setInternalNoteDraft(e.target.value)}
                 maxLength={500}
                 placeholder="Tulis catatan internal (tidak tampil di resume medis)"
-                className="w-full h-24 p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none"
+                className="w-full h-24 p-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 resize-none"
               />
               <div className="text-right text-[10px] text-slate-400">
                 {internalNoteDraft.length}/500
@@ -688,7 +688,7 @@ export default function DocumentTabContent({
               type="button"
               onClick={handleAddInternalNote}
               disabled={!internalNoteDraft.trim()}
-              className="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-blue-200 text-blue-600 font-semibold text-xs rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
+              className="w-full flex items-center justify-center gap-1.5 py-2 px-3 border border-cyan-200 text-cyan-600 font-semibold text-xs rounded-lg hover:bg-cyan-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white"
             >
               <Plus className="w-3.5 h-3.5" />
               Tambah Catatan

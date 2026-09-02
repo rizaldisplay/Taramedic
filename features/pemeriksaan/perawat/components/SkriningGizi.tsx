@@ -80,7 +80,7 @@ export default function MiniNutritionalAssessment() {
       {/* Header Section */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <span className="flex items-center justify-center w-5 h-5 rounded bg-blue-600 text-white font-bold text-[11px]">
+          <span className="flex items-center justify-center w-5 h-5 rounded bg-cyan-600 text-white font-bold text-[11px]">
             2
           </span>
           <h3 className="font-bold text-slate-800 text-xs tracking-wide uppercase">
@@ -117,7 +117,7 @@ export default function MiniNutritionalAssessment() {
                 name="asupanMakanan"
                 value={formData.asupanMakanan}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={2}>Tidak</option>
                 <option value={1}>Sedang</option>
@@ -134,7 +134,7 @@ export default function MiniNutritionalAssessment() {
                 name="penurunanBB"
                 value={formData.penurunanBB}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={3}>Tidak ada</option>
                 <option value={2}>1 - 3 kg</option>
@@ -152,7 +152,7 @@ export default function MiniNutritionalAssessment() {
                 name="mobilitas"
                 value={formData.mobilitas}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={2}>Normal / Bebas</option>
                 <option value={1}>Dapat bangun dari tempat tidur</option>
@@ -169,7 +169,7 @@ export default function MiniNutritionalAssessment() {
                 name="penyakitAkut"
                 value={formData.penyakitAkut}
                 onChange={handleChange}
-                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                className="w-full bg-slate-50 border border-slate-200 rounded-md px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
               >
                 <option value={2}>Tidak</option>
                 <option value={0}>Ya</option>
@@ -188,7 +188,7 @@ export default function MiniNutritionalAssessment() {
                   value={formData.bmiValueInput}
                   onChange={handleChange}
                   placeholder="18.5"
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md pl-2.5 pr-8 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md pl-2.5 pr-8 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white"
                 />
                 <span className="absolute right-2.5 text-[10px] text-slate-400 font-medium select-none">
                   kg/m²
@@ -229,7 +229,7 @@ export default function MiniNutritionalAssessment() {
                   value={formData.rekomendasiCustom}
                   onChange={handleChange}
                   placeholder={nutritionStatus.defaultRecommendation}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:bg-white pr-14"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-1.5 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white pr-14"
                 />
                 <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 font-mono">
                   {formData.rekomendasiCustom.length} / 300

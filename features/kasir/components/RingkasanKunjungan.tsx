@@ -83,7 +83,7 @@ export default function VisitSummaryCard({
           </div>
 
           <span className="text-slate-400">Sumber Data</span>
-          <span className="font-semibold text-blue-600">{dataSource}</span>
+          <span className="font-semibold text-cyan-600">{dataSource}</span>
         </div>
 
         {/* Stepper Flow Process (7 Cols) */}
@@ -97,7 +97,7 @@ export default function VisitSummaryCard({
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center border ${
                       step.isCompleted
-                        ? 'bg-blue-50 border-blue-200 text-blue-600'
+                        ? 'bg-cyan-50 border-cyan-200 text-cyan-600'
                         : 'bg-slate-50 border-slate-200 text-slate-400'
                     }`}
                   >
@@ -115,7 +115,7 @@ export default function VisitSummaryCard({
 
                   <span
                     className={`text-[10px] font-medium mt-1 ${
-                      step.isCompleted ? 'text-emerald-600' : 'text-blue-600'
+                      step.isCompleted ? 'text-emerald-600' : 'text-cyan-600'
                     }`}
                   >
                     {step.status}

@@ -88,12 +88,12 @@ export default function TabCPPT() {
   // Helper untuk styling badge role
   const getRoleBadgeStyle = (role: Role) => {
     return role === 'Perawat'
-      ? 'bg-blue-50 text-blue-600'
+      ? 'bg-cyan-50 text-cyan-600'
       : 'bg-green-50 text-green-600';
   };
 
   const getTimelineDotStyle = (role: Role) => {
-    return role === 'Perawat' ? 'bg-blue-600' : 'bg-green-600';
+    return role === 'Perawat' ? 'bg-cyan-600' : 'bg-green-600';
   };
 
   // Helper untuk merender isi SOAP (teks biasa atau list)
@@ -132,7 +132,7 @@ export default function TabCPPT() {
             Dokumentasi perkembangan kondisi dan rencana pelayanan pasien pada kunjungan ini.
           </p>
         </div>
-        <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-md text-sm font-medium hover:bg-blue-50 transition-colors whitespace-nowrap">
+        <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 border border-cyan-600 text-cyan-600 rounded-md text-sm font-medium hover:bg-cyan-50 transition-colors whitespace-nowrap">
           <Plus size={16} />
           Tambah Entri
         </button>
@@ -226,8 +226,8 @@ export default function TabCPPT() {
       </div>
 
       {/* Info Alert Footer */}
-      <div className="mt-6 flex items-start gap-3 p-3 sm:p-4 bg-blue-50/50 border border-blue-100 rounded-lg text-sm text-blue-700">
-        <Info size={20} className="flex-shrink-0 mt-0.5 text-blue-500" />
+      <div className="mt-6 flex items-start gap-3 p-3 sm:p-4 bg-cyan-50/50 border border-cyan-100 rounded-lg text-sm text-cyan-700">
+        <Info size={20} className="flex-shrink-0 mt-0.5 text-cyan-500" />
         <p className="text-xs sm:text-sm">CPPT akan berlanjut oleh tenaga kesehatan lain sesuai kewenangannya.</p>
       </div>
 

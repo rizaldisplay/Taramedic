@@ -95,7 +95,7 @@ export default function PemeriksaanPetaTubuh() {
       {/* Header Bagian G */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-600 text-white font-bold text-xs">
+          <span className="flex items-center justify-center w-6 h-6 rounded-md bg-cyan-600 text-white font-bold text-xs">
             G
           </span>
           <h2 className="text-sm font-bold tracking-wider text-gray-800 uppercase">
@@ -124,7 +124,7 @@ export default function PemeriksaanPetaTubuh() {
                   onClick={() => setActiveTool(tool)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
                     isActive
-                      ? `${color.bg} ${color.border} ${color.text} ring-2 ring-blue-100 shadow-xs`
+                      ? `${color.bg} ${color.border} ${color.text} ring-2 ring-cyan-100 shadow-xs`
                       : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
                   }`}
                 >
@@ -162,7 +162,7 @@ export default function PemeriksaanPetaTubuh() {
                       onClick={() => setSelectedMarkerId(marker.id)}
                       className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold border cursor-pointer transition-all ${
                         isSelected
-                          ? 'bg-blue-50 border-blue-500 text-blue-700 shadow-2xs'
+                          ? 'bg-cyan-50 border-cyan-500 text-cyan-700 shadow-2xs'
                           : `${color.bg} ${color.border} ${color.text}`
                       }`}
                     >
@@ -207,7 +207,7 @@ export default function PemeriksaanPetaTubuh() {
                     ? 'Tambah keterangan untuk titik terpilih...'
                     : 'Pilih salah satu titik pada daftar atau gambar terlebih dahulu'
                 }
-                className="w-full p-2.5 pr-16 bg-white border border-gray-300 rounded-lg text-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400"
+                className="w-full p-2.5 pr-16 bg-white border border-gray-300 rounded-lg text-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400"
               />
               <span className="absolute right-2.5 top-2.5 text-[10px] font-medium text-gray-400">
                 {noteValue.length} / 200
@@ -220,7 +220,7 @@ export default function PemeriksaanPetaTubuh() {
         <div className="lg:col-span-7 flex flex-col items-center justify-center">
           <div
             onClick={handleMapClick}
-            className="relative w-full max-w-[600px] aspect-[3/2] bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center cursor-crosshair overflow-hidden group hover:border-blue-300 transition-all"
+            className="relative w-full max-w-[600px] aspect-[3/2] bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-center cursor-crosshair overflow-hidden group hover:border-cyan-300 transition-all"
           >
             {/* Background Image (Model Tubuh.png) */}
             <img

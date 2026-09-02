@@ -69,7 +69,7 @@ export default function PharmacyItemsTable() {
       {/* Header Section */}
       <div className="flex items-center justify-between p-4 border-b border-slate-100 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs">
+          <div className="w-7 h-7 bg-cyan-600 rounded flex items-center justify-center text-white font-bold text-xs">
             B
           </div>
           <h3 className="font-bold text-slate-800 text-sm tracking-wide uppercase">

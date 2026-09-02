@@ -61,7 +61,7 @@ export default function BillingBreakdownHeader({
                 onClick={() => handleTabClick(tab.id)}
                 className={`group flex items-center gap-2 pb-3 text-[13px] font-medium transition-all border-b-2 -mb-[1px] ${
                   isActive
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-cyan-600 text-cyan-600'
                     : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'
                 }`}
               >
@@ -69,7 +69,7 @@ export default function BillingBreakdownHeader({
                 <span
                   className={`text-[10px] px-2 py-0.5 rounded-full font-semibold transition-colors ${
                     isActive
-                      ? 'bg-blue-50 text-blue-600'
+                      ? 'bg-cyan-50 text-cyan-600'
                       : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
                   }`}
                 >
@@ -83,7 +83,7 @@ export default function BillingBreakdownHeader({
         {/* Right Side: Group Action */}
         <button
           onClick={onToggleGroup}
-          className="group flex items-center gap-1.5 text-[13px] font-medium text-slate-500 hover:text-blue-600 transition-colors pb-3"
+          className="group flex items-center gap-1.5 text-[13px] font-medium text-slate-500 hover:text-cyan-600 transition-colors pb-3"
         >
           <SlidersHorizontal className="w-4 h-4 transition-transform group-hover:scale-110" />
           <span>Lihat Per Group</span>

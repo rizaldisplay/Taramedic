@@ -40,7 +40,7 @@ export default function PemeriksaanFisik({
     <div className="w-full max-w-5xl p-6 bg-white rounded-xl border border-gray-200 shadow-sm font-sans">
       {/* Header Bagian F */}
       <div className="flex items-center gap-3 mb-5">
-        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-600 text-white font-bold text-xs">
+        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-cyan-600 text-white font-bold text-xs">
           F
         </span>
         <h2 className="text-sm font-bold tracking-wider text-gray-800 uppercase flex items-center gap-2">
@@ -51,7 +51,7 @@ export default function PemeriksaanFisik({
       {/* Input Textarea Container */}
       <div className="flex flex-col gap-1.5">
         <label className="text-xs font-semibold text-gray-600 flex items-center gap-1.5">
-          <Stethoscope className="w-3.5 h-3.5 text-blue-500" />
+          <Stethoscope className="w-3.5 h-3.5 text-cyan-500" />
           Hasil Pemeriksaan Fisik
         </label>
 
@@ -61,7 +61,7 @@ export default function PemeriksaanFisik({
             value={currentText}
             onChange={handleChange}
             placeholder="Tuliskan hasil pemeriksaan fisik singkat pasien..."
-            className="w-full p-3 bg-white border border-gray-300 rounded-lg text-xs leading-relaxed text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-y transition-all"
+            className="w-full p-3 bg-white border border-gray-300 rounded-lg text-xs leading-relaxed text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 resize-y transition-all"
           />
 
           {/* Counter Karakter (158 / 1000) di pojok kanan bawah */}

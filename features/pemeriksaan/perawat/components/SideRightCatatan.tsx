@@ -14,7 +14,7 @@ export default function SideRightCatatan() {
 
       {/* Card 2: Catatan Internal */}
       <div className="w-full bg-white rounded-xl border border-gray-200 shadow-2xs p-5">
-        <h3 className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-cyan-600 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span>Catatan Internal</span>
         </h3>
 
@@ -24,7 +24,7 @@ export default function SideRightCatatan() {
             value={internalNote}
             onChange={(e) => setInternalNote(e.target.value.slice(0, 500))}
             placeholder="Tulis catatan internal (tidak tampil di resume medis)..."
-            className="w-full p-3 bg-gray-50/50 border border-gray-200 rounded-lg text-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full p-3 bg-gray-50/50 border border-gray-200 rounded-lg text-xs text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none"
           />
           <div className="text-right text-[10px] text-gray-400 font-medium">
             {internalNote.length} / 500
@@ -32,7 +32,7 @@ export default function SideRightCatatan() {
 
           <button
             type="button"
-            className="w-full py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold text-xs rounded-lg border border-blue-200 transition-all mt-1"
+            className="w-full py-2 bg-cyan-50 hover:bg-cyan-100 text-cyan-700 font-semibold text-xs rounded-lg border border-cyan-200 transition-all mt-1"
           >
             + Tambah Catatan
           </button>

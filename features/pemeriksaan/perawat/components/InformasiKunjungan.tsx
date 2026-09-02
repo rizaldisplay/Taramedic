@@ -46,8 +46,8 @@ export default function InformasiKunjungan({
     <div className="w-full max-w-sm bg-white rounded-xl border border-gray-200 shadow-sm p-5 font-sans">
       {/* Header Panel */}
       <div className="flex items-center gap-2 mb-4">
-        <CalendarX className="w-4 h-4 text-blue-600" />
-        <h2 className="text-xs font-bold tracking-wider text-blue-600 uppercase">
+        <CalendarX className="w-4 h-4 text-cyan-600" />
+        <h2 className="text-xs font-bold tracking-wider text-cyan-600 uppercase">
           Informasi Kunjungan
         </h2>
       </div>
@@ -117,7 +117,7 @@ export default function InformasiKunjungan({
             <Activity className="w-4 h-4 text-gray-400 shrink-0" />
             <span>Status Terakhir</span>
           </div>
-          <span className="px-2.5 py-1 bg-blue-50 text-blue-600 font-semibold text-[11px] rounded-md border border-blue-100">
+          <span className="px-2.5 py-1 bg-cyan-50 text-cyan-600 font-semibold text-[11px] rounded-md border border-cyan-100">
             {data.lastStatus}
           </span>
         </div>

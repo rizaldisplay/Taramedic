@@ -55,7 +55,7 @@ export default function DoctorServicesTable() {
       <div className="flex items-center justify-between p-4 bg-white border-b border-slate-100">
         <div className="flex items-center gap-3">
           {/* Badge A Icon */}
-          <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xs">
+          <div className="w-6 h-6 bg-cyan-600 rounded flex items-center justify-center text-white font-bold text-xs">
             A
           </div>
           <h3 className="font-bold text-slate-800 text-xs tracking-wider uppercase">
@@ -89,7 +89,7 @@ export default function DoctorServicesTable() {
                 <td className="py-3 px-4 text-center text-slate-400">{index + 1}</td>
                 <td className="py-3 px-4 font-semibold text-slate-800">{item.actionName}</td>
                 <td className="py-3 px-4">
-                  <span className="bg-blue-50 text-blue-600 text-[11px] font-bold px-2 py-0.5 rounded">
+                  <span className="bg-cyan-50 text-cyan-600 text-[11px] font-bold px-2 py-0.5 rounded">
                     {item.code}
                   </span>
                 </td>

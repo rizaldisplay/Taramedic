@@ -54,8 +54,8 @@ export default function BillingSummaryFooter({
       </div>
 
       {/* Info Regulation Notice (Right Side - 5 Cols) */}
-      <div className="md:col-span-5 bg-blue-50/50 rounded-lg border border-blue-100 p-4 flex items-start gap-3 text-slate-600">
-        <div className="p-1 rounded-full bg-blue-100 text-blue-600 shrink-0 mt-0.5">
+      <div className="md:col-span-5 bg-cyan-50/50 rounded-lg border border-cyan-100 p-4 flex items-start gap-3 text-slate-600">
+        <div className="p-1 rounded-full bg-cyan-100 text-cyan-600 shrink-0 mt-0.5">
           <Info className="w-4 h-4" />
         </div>
         <p className="text-xs leading-relaxed text-slate-600">

@@ -31,9 +31,9 @@ export default function FooterTombol({
           {/* Tombol Cetak Label Obat */}
           <button
             onClick={onCetakLabel}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl border border-blue-200 bg-blue-50/60 text-blue-700 text-xs sm:text-sm font-bold hover:bg-blue-100/70 active:bg-blue-200/60 transition-colors shadow-xs cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-xl border border-cyan-200 bg-cyan-50/60 text-cyan-700 text-xs sm:text-sm font-bold hover:bg-cyan-100/70 active:bg-cyan-200/60 transition-colors shadow-xs cursor-pointer"
           >
-            <Printer className="w-4 h-4 text-blue-600" />
+            <Printer className="w-4 h-4 text-cyan-600" />
             <span>Cetak Label Obat</span>
           </button>
         </div>
@@ -42,7 +42,7 @@ export default function FooterTombol({
         <div className="w-full sm:w-auto flex flex-col items-center sm:items-end">
           <button
             onClick={onKirimDokter}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 sm:py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs sm:text-sm font-bold transition-colors shadow-xs cursor-pointer"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 sm:py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white text-xs sm:text-sm font-bold transition-colors shadow-xs cursor-pointer"
           >
             <span>Serahkan Obat</span>
             <ArrowRight className="w-4 h-4" />

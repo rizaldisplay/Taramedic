@@ -40,7 +40,7 @@ export const ChiefComplaintForm: React.FC = () => {
     <div className="w-full max-w-5xl p-6 bg-white rounded-xl border border-gray-200 shadow-sm font-sans">
       {/* Header Bagian */}
       <div className="flex items-center gap-3 mb-5">
-        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-blue-600 text-white font-bold text-xs">
+        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-cyan-600 text-white font-bold text-xs">
           B
         </span>
         <h2 className="text-sm font-bold tracking-wider text-gray-800 uppercase">
@@ -54,7 +54,7 @@ export const ChiefComplaintForm: React.FC = () => {
           {/* TextArea Keluhan Utama (3/4 lebar) */}
           <div className="md:col-span-3 flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-gray-600 flex items-center gap-1.5">
-              <MessageSquare className="w-3.5 h-3.5 text-blue-500" />
+              <MessageSquare className="w-3.5 h-3.5 text-cyan-500" />
               Keluhan Utama
             </label>
             <textarea
@@ -63,14 +63,14 @@ export const ChiefComplaintForm: React.FC = () => {
               value={formData.complaint}
               onChange={handleInputChange}
               placeholder="Masukkan keluhan utama pasien..."
-              className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none transition-all"
+              className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 resize-none transition-all"
             />
           </div>
 
           {/* Input Lama Keluhan (1/4 lebar) */}
           <div className="md:col-span-1 flex flex-col gap-1.5">
             <label className="text-xs font-semibold text-gray-600 flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-blue-500" />
+              <Clock className="w-3.5 h-3.5 text-cyan-500" />
               Lama Keluhan
             </label>
             <input
@@ -79,7 +79,7 @@ export const ChiefComplaintForm: React.FC = () => {
               value={formData.duration}
               onChange={handleInputChange}
               placeholder="Contoh: 2 hari"
-              className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+              className="w-full p-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all"
             />
           </div>
         </div>
@@ -88,7 +88,7 @@ export const ChiefComplaintForm: React.FC = () => {
         <div className="flex flex-col gap-2 pt-2 border-t border-gray-100">
           <div className="flex items-center justify-between">
             <label className="text-xs font-semibold text-gray-600 flex items-center gap-1.5">
-              <Activity className="w-3.5 h-3.5 text-blue-500" />
+              <Activity className="w-3.5 h-3.5 text-cyan-500" />
               Skala Nyeri (NRS 0–10)
             </label>
           </div>
@@ -103,7 +103,7 @@ export const ChiefComplaintForm: React.FC = () => {
                 step="1"
                 value={formData.painScale}
                 onChange={handleSliderChange}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-cyan-600"
               />
               
               {/* Mark Teks Skala 0, 2, 4, 6, 8, 10 */}

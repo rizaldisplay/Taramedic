@@ -52,7 +52,7 @@ export default function ModalAjukanKoreksi({
           
           {/* SECTION 1: ALASAN KOREKSI */}
           <div className="space-y-3">
-            <h4 className="font-bold text-blue-600 text-[12px] tracking-wide uppercase">
+            <h4 className="font-bold text-cyan-600 text-[12px] tracking-wide uppercase">
               1. ALASAN KOREKSI
             </h4>
             
@@ -62,7 +62,7 @@ export default function ModalAjukanKoreksi({
                 <label className="text-slate-700 font-medium">
                   Pilih alasan koreksi <span className="text-red-500">*</span>
                 </label>
-                <select className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                <select className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500">
                   <option value="">Pilih alasan koreksi</option>
                   <option value="kesalahan_tarif">Kesalahan Tarif / Harga</option>
                   <option value="kesalahan_qty">Kesalahan Jumlah (Qty)</option>
@@ -101,7 +101,7 @@ export default function ModalAjukanKoreksi({
                     value={deskripsi}
                     onChange={(e) => setDeskripsi(e.target.value)}
                     placeholder="Jelaskan secara detail kesalahan dan koreksi yang diharapkan"
-                    className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none"
+                    className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 resize-none"
                   />
                   <span className="absolute bottom-2 right-2 text-[10px] text-slate-400">
                     {deskripsi.length} / 1000
@@ -112,7 +112,7 @@ export default function ModalAjukanKoreksi({
               {/* Prioritas */}
               <div className="space-y-1 md:col-span-1">
                 <label className="text-slate-700 font-medium">Prioritas</label>
-                <select className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                <select className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500">
                   <option value="normal">Normal</option>
                   <option value="tinggi">Tinggi (Urgent)</option>
                 </select>
@@ -122,7 +122,7 @@ export default function ModalAjukanKoreksi({
 
           {/* SECTION 2: ITEM YANG DIKOREKSI */}
           <div className="space-y-3">
-            <h4 className="font-bold text-blue-600 text-[12px] tracking-wide uppercase">
+            <h4 className="font-bold text-cyan-600 text-[12px] tracking-wide uppercase">
               2. ITEM YANG DIKOREKSI
             </h4>
 
@@ -134,7 +134,7 @@ export default function ModalAjukanKoreksi({
                   name="tipeKoreksi"
                   checked={tipeKoreksi === "item"}
                   onChange={() => setTipeKoreksi("item")}
-                  className="text-blue-600 focus:ring-blue-500"
+                  className="text-cyan-600 focus:ring-cyan-500"
                 />
                 <span>Koreksi Per Item</span>
               </label>
@@ -144,7 +144,7 @@ export default function ModalAjukanKoreksi({
                   name="tipeKoreksi"
                   checked={tipeKoreksi === "total"}
                   onChange={() => setTipeKoreksi("total")}
-                  className="text-blue-600 focus:ring-blue-500"
+                  className="text-cyan-600 focus:ring-cyan-500"
                 />
                 <span>Koreksi Total Tagihan</span>
               </label>
@@ -169,10 +169,10 @@ export default function ModalAjukanKoreksi({
                   {/* Row 1 */}
                   <tr>
                     <td className="py-2.5 px-3 text-center">
-                      <input type="checkbox" className="rounded text-blue-600 focus:ring-blue-500" />
+                      <input type="checkbox" className="rounded text-cyan-600 focus:ring-cyan-500" />
                     </td>
                     <td className="py-2.5 px-2">
-                      <span className="bg-blue-50 text-blue-600 font-medium px-2 py-0.5 rounded text-[10px]">
+                      <span className="bg-cyan-50 text-cyan-600 font-medium px-2 py-0.5 rounded text-[10px]">
                         Layanan
                       </span>
                     </td>
@@ -196,10 +196,10 @@ export default function ModalAjukanKoreksi({
                   {/* Row 2 */}
                   <tr>
                     <td className="py-2.5 px-3 text-center">
-                      <input type="checkbox" className="rounded text-blue-600 focus:ring-blue-500" />
+                      <input type="checkbox" className="rounded text-cyan-600 focus:ring-cyan-500" />
                     </td>
                     <td className="py-2.5 px-2">
-                      <span className="bg-blue-50 text-blue-600 font-medium px-2 py-0.5 rounded text-[10px]">
+                      <span className="bg-cyan-50 text-cyan-600 font-medium px-2 py-0.5 rounded text-[10px]">
                         Layanan
                       </span>
                     </td>
@@ -223,7 +223,7 @@ export default function ModalAjukanKoreksi({
                   {/* Row 3 */}
                   <tr>
                     <td className="py-2.5 px-3 text-center">
-                      <input type="checkbox" className="rounded text-blue-600 focus:ring-blue-500" />
+                      <input type="checkbox" className="rounded text-cyan-600 focus:ring-cyan-500" />
                     </td>
                     <td className="py-2.5 px-2">
                       <span className="bg-sky-50 text-sky-600 font-medium px-2 py-0.5 rounded text-[10px]">
@@ -251,7 +251,7 @@ export default function ModalAjukanKoreksi({
 
               {/* Add Item Button */}
               <div className="p-2 bg-slate-50/50 border-t border-slate-100">
-                <button className="flex items-center gap-1.5 text-blue-600 font-semibold hover:text-blue-700 transition-colors text-[11px]">
+                <button className="flex items-center gap-1.5 text-cyan-600 font-semibold hover:text-cyan-700 transition-colors text-[11px]">
                   <Plus className="w-3.5 h-3.5" />
                   <span>Tambah Item Lain (Jika Diperlukan)</span>
                 </button>
@@ -261,7 +261,7 @@ export default function ModalAjukanKoreksi({
 
           {/* SECTION 3: LAMPIRAN DOKUMEN (OPSIONAL) */}
           <div className="space-y-2">
-            <h4 className="font-bold text-blue-600 text-[12px] tracking-wide uppercase">
+            <h4 className="font-bold text-cyan-600 text-[12px] tracking-wide uppercase">
               3. LAMPIRAN DOKUMEN (OPSIONAL)
             </h4>
             <p className="text-slate-500 text-[11px]">
@@ -269,7 +269,7 @@ export default function ModalAjukanKoreksi({
             </p>
 
             <div className="border border-dashed border-slate-200 rounded-xl p-3 flex items-center justify-between">
-              <button className="flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
+              <button className="flex items-center gap-2 text-cyan-600 font-medium hover:text-cyan-700 transition-colors">
                 <Upload className="w-4 h-4" />
                 <span>Upload Dokumen</span>
               </button>
@@ -283,8 +283,8 @@ export default function ModalAjukanKoreksi({
           </div>
 
           {/* SATUSEHAT Compliance Note Banner */}
-          <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-3 flex items-start gap-2.5 text-slate-600 text-[11px]">
-            <Info className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+          <div className="bg-cyan-50/60 border border-cyan-100 rounded-xl p-3 flex items-start gap-2.5 text-slate-600 text-[11px]">
+            <Info className="w-4 h-4 text-cyan-600 shrink-0 mt-0.5" />
             <span>
               Pengajuan koreksi akan diverifikasi oleh petugas verifikator. Pastikan data yang diajukan sesuai dengan peraturan Kemenkes (Permenkes No. 24 Tahun 2022) dan ketentuan SATUSEHAT.
             </span>
@@ -304,7 +304,7 @@ export default function ModalAjukanKoreksi({
           </button>
           <button
             onClick={onSubmit}
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-sm transition-all text-[12px]"
+            className="px-5 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold rounded-lg shadow-sm transition-all text-[12px]"
           >
             Ajukan Koreksi
           </button>
