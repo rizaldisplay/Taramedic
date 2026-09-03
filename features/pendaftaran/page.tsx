@@ -5,6 +5,7 @@ import React from 'react';
 import QueueController from '@/features/pendaftaran/components/QueueController';
 import PatientSearch from '@/features/pendaftaran/components/CariPasien';
 import PatientRegistrationPanel from '@/features/pendaftaran/components/DataPasien';
+import EditPasienModal from '@/features/pendaftaran/components/EditPasienModal';
 
 export default function PendaftaranWorkspace() {
   return (

@@ -30,7 +30,7 @@ export default function RisikoSkriningPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* LEFT COLUMN: SKRINING FORMS (8 / 12 COLS) */}
-          <div className="lg:col-span-8 flex flex-col gap-5">
+          <div className="lg:col-span-9 flex flex-col gap-5">
             {/* CPPT FORM */}
             <CPPT />
           </div>

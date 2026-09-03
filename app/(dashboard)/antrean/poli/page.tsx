@@ -8,7 +8,11 @@ import { ActionPanel } from '@/features/antrean/ActionPanel';
 export default function AntreanPoliPage() {
   return (
     <DashboardLayout>
-      <AntreanHeader />
+      <AntreanHeader 
+        title="Antrean Poli"
+        subtitle="Poli Rawat Jalan"
+        staffName="Dokter: Dr. John Doe, Sp.M"
+      />
       <MetricCards />
       
       <div className="flex gap-6 items-start">

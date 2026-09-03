@@ -22,7 +22,7 @@ export const StepSuccess: React.FC<Props> = ({ status, penjamin, countdown, onDo
         <h2 className="text-lg font-semibold text-emerald-600 mb-1">Pendaftaran berhasil</h2>
         <p className="text-sm text-slate-500 mb-2">Nomor antrean Anda</p>
         
-        <div className="text-7xl font-black text-blue-600 tracking-tight mb-4 leading-none">
+        <div className="text-7xl font-black text-cyan-600 tracking-tight mb-4 leading-none">
           {queueCode}
         </div>
         
@@ -33,7 +33,7 @@ export const StepSuccess: React.FC<Props> = ({ status, penjamin, countdown, onDo
         </div>
 
         <div className="flex items-center gap-3 text-sm text-slate-600 bg-slate-50 px-4 py-3 rounded-xl">
-          <Monitor className="w-5 h-5 text-blue-500 flex-shrink-0" />
+          <Monitor className="w-5 h-5 text-cyan-500 flex-shrink-0" />
           <p className="text-left">Silakan menunggu nomor Anda dipanggil di layar antrean utama.</p>
         </div>
       </div>
@@ -51,9 +51,9 @@ export const StepSuccess: React.FC<Props> = ({ status, penjamin, countdown, onDo
           </button>
         </div>
 
-        <div className="flex items-center justify-center gap-2 text-xs text-slate-500 bg-blue-50/50 p-3 rounded-lg border border-blue-100">
-          <Clock className="w-4 h-4 text-blue-500" />
-          <span>Layar akan kembali ke halaman awal dalam <strong className="text-blue-600">{countdown} detik</strong>. Terima kasih.</span>
+        <div className="flex items-center justify-center gap-2 text-xs text-slate-500 bg-cyan-50/50 p-3 rounded-lg border border-cyan-100">
+          <Clock className="w-4 h-4 text-cyan-500" />
+          <span>Layar akan kembali ke halaman awal dalam <strong className="text-cyan-600">{countdown} detik</strong>. Terima kasih.</span>
         </div>
       </div>
     </div>

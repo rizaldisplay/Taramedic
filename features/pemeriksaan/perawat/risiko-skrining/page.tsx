@@ -33,7 +33,7 @@ export default function RisikoSkriningPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* LEFT COLUMN: SKRINING FORMS (8 / 12 COLS) */}
-          <div className="lg:col-span-8 space-y-4">
+          <div className="lg:col-span-9 space-y-4">
             {/* 1. Morse Fall Scale */}
             <MorseFallScale />
 

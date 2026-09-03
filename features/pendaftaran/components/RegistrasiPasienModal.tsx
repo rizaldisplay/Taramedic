@@ -47,15 +47,15 @@ export default function NewPatientRegistrationModal({ isOpen, onClose }: NewPati
                 <Label text="Jenis Identitas" required />
                 <div className="flex items-center gap-4 mt-2 h-10">
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="identitas" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                    <input type="radio" name="identitas" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                     NIK
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="identitas" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="identitas" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     Pasien Tanpa NIK
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="identitas" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="identitas" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     WNA
                   </label>
                 </div>
@@ -68,7 +68,7 @@ export default function NewPatientRegistrationModal({ isOpen, onClose }: NewPati
                   <input 
                     type="text" 
                     placeholder="Masukkan 16 digit NIK" 
-                    className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                    className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                   />
                   <button className="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
                     Cek NIK
@@ -90,7 +90,7 @@ export default function NewPatientRegistrationModal({ isOpen, onClose }: NewPati
                     <input 
                       type="text" 
                       placeholder="DD-MM-YYYY" 
-                      className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                      className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                       <Calendar size={16} />
@@ -104,11 +104,11 @@ export default function NewPatientRegistrationModal({ isOpen, onClose }: NewPati
                 <Label text="Jenis Kelamin" required />
                 <div className="flex items-center gap-6 mt-2 h-10">
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="gender" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="gender" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     Laki-laki
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="gender" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                    <input type="radio" name="gender" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                     Perempuan
                   </label>
                 </div>
@@ -182,10 +182,10 @@ export default function NewPatientRegistrationModal({ isOpen, onClose }: NewPati
           </button>
           
           <div className="flex gap-3">
-            <button className="px-6 py-2.5 border border-blue-600 rounded-lg text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-lg text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan Data Pasien
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 rounded-lg text-sm font-semibold text-white hover:bg-blue-700 transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 rounded-lg text-sm font-semibold text-white hover:bg-cyan-700 transition-colors flex items-center gap-2">
               Simpan & Daftarkan Berobat <ArrowRight size={16} />
             </button>
           </div>
@@ -200,7 +200,7 @@ export default function NewPatientRegistrationModal({ isOpen, onClose }: NewPati
 
 function SectionTitle({ title }: { title: string }) {
   return (
-    <h3 className="text-sm font-bold text-blue-700 border-l-2 border-red-500 pl-2">
+    <h3 className="text-sm font-bold text-cyan-700 border-l-2 border-red-500 pl-2">
       {title}
     </h3>
   );
@@ -228,7 +228,7 @@ function FormInput({ label, required, placeholder, type = "text" }: FormInputPro
       <input 
         type={type} 
         placeholder={placeholder} 
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
       />
     </div>
   );
@@ -246,7 +246,7 @@ function FormSelect({ label, required, placeholder }: FormSelectProps) {
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-500 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue=""
         >
           <option value="" disabled>{placeholder}</option>

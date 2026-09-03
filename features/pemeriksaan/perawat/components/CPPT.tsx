@@ -120,7 +120,7 @@ export default function TabCPPT() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-white p-4 sm:p-6 rounded-lg">
+    <div className="w-full mx-auto bg-white p-4 sm:p-6 rounded-lg">
       
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-6 sm:mb-8 border-b pb-4">

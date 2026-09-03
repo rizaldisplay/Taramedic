@@ -5,7 +5,7 @@ import DashboardLayout from '@/components/layouts/DashboardLayout';
 import PemeriksaanAwal from '@/features/pemeriksaan/perawat/pemeriksaan-awal/page';
 import RisikoSkriningPage from '@/features/pemeriksaan/perawat/risiko-skrining/page';
 import CPPTPage from '@/features/pemeriksaan/perawat/cppt/page';
-import DokumenPage from '@/features/pemeriksaan/perawat/components/Dokumen';
+import DokumenPage from '@/features/pemeriksaan/perawat/dokumen/page';
 import TopHeader from '@/features/pemeriksaan/perawat/components/TopHeaderInfo';
 
 export default function PemeriksaanPage() {

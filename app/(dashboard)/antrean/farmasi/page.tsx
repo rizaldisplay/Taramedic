@@ -8,7 +8,11 @@ import { ActionPanel } from '@/features/antrean/ActionPanelFarmasi';
 export default function AntreanPoliPage() {
   return (
     <DashboardLayout>
-      <AntreanHeader />
+      <AntreanHeader 
+        title="Antrean Farmasi"
+        subtitle="Farmasi Rawat Jalan"
+        staffName="Apoteker: Siti Nurhaliza, S.Farm"
+      />
       <MetricCards />
 
       <div className="flex gap-6 items-start">

@@ -76,7 +76,7 @@ export default function MiniNutritionalAssessment() {
   };
 
   return (
-    <div className="w-full max-w-5xl bg-white rounded-lg border border-slate-200 shadow-sm text-slate-800 text-xs">
+    <div className="w-full bg-white rounded-lg border border-slate-200 shadow-sm text-slate-800 text-xs">
       {/* Header Section */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
         <div className="flex items-center gap-2">

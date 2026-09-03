@@ -47,15 +47,15 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
                 <Label text="Jenis Identitas" required />
                 <div className="flex items-center gap-4 mt-2 h-10">
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="edit_identitas" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                    <input type="radio" name="edit_identitas" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                     NIK
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="edit_identitas" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="edit_identitas" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     Pasien Tanpa NIK
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="edit_identitas" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="edit_identitas" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     WNA
                   </label>
                 </div>
@@ -69,7 +69,7 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
                     <input 
                       type="text" 
                       defaultValue="3271123456789012"
-                      className="w-full border border-slate-300 rounded-lg pl-3 pr-24 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                      className="w-full border border-slate-300 rounded-lg pl-3 pr-24 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                     />
                     <div className="absolute inset-y-0 right-2 flex items-center pointer-events-none">
                       <span className="bg-green-50 text-green-600 text-[10px] font-bold px-2 py-1 rounded">Terverifikasi</span>
@@ -95,7 +95,7 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
                     <input 
                       type="text" 
                       defaultValue="02-03-2016" 
-                      className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                      className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                       <Calendar size={16} />
@@ -109,11 +109,11 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
                 <Label text="Jenis Kelamin" required />
                 <div className="flex items-center gap-6 mt-2 h-10">
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="edit_gender" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="edit_gender" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     Laki-laki
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="edit_gender" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                    <input type="radio" name="edit_gender" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                     Perempuan
                   </label>
                 </div>
@@ -181,9 +181,9 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
         <div className="p-6 pt-4 border-t border-slate-200 bg-white shrink-0 flex flex-col gap-4">
           
           {/* Info Alert */}
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 flex gap-3 items-start">
-            <Info size={18} className="text-blue-600 shrink-0 mt-0.5" />
-            <p className="text-xs text-blue-800 leading-relaxed">
+          <div className="bg-cyan-50 border border-cyan-100 rounded-lg p-3 flex gap-3 items-start">
+            <Info size={18} className="text-cyan-600 shrink-0 mt-0.5" />
+            <p className="text-xs text-cyan-800 leading-relaxed">
               Perubahan data NIK akan diverifikasi ke Dukcapil dan disinkronkan ke SATUSEHAT. <br/>
               Data yang tidak dapat diubah: No. RM (RM000036) dan Nomor IHS.
             </p>
@@ -199,10 +199,10 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
             </button>
             
             <div className="flex gap-3">
-              <button className="px-6 py-2.5 border border-blue-600 rounded-lg text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+              <button className="px-6 py-2.5 border border-cyan-600 rounded-lg text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
                 Simpan Perubahan
               </button>
-              <button className="px-6 py-2.5 bg-blue-600 rounded-lg text-sm font-semibold text-white hover:bg-blue-700 transition-colors flex items-center gap-2">
+              <button className="px-6 py-2.5 bg-cyan-600 rounded-lg text-sm font-semibold text-white hover:bg-cyan-700 transition-colors flex items-center gap-2">
                 Simpan & Daftarkan Berobat <ArrowRight size={16} />
               </button>
             </div>
@@ -218,7 +218,7 @@ export default function EditPatientModal({ isOpen, onClose }: EditPatientModalPr
 
 function SectionTitle({ title }: { title: string }) {
   return (
-    <h3 className="text-sm font-bold text-blue-700 border-l-2 border-red-500 pl-2">
+    <h3 className="text-sm font-bold text-cyan-700 border-l-2 border-red-500 pl-2">
       {title}
     </h3>
   );
@@ -248,7 +248,7 @@ function FormInput({ label, required, placeholder, defaultValue, type = "text" }
         type={type} 
         placeholder={placeholder}
         defaultValue={defaultValue}
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
       />
     </div>
   );
@@ -266,7 +266,7 @@ function FormSelect({ label, required, defaultValue }: FormSelectProps) {
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue}
         >
           {defaultValue && <option value={defaultValue}>{defaultValue}</option>}

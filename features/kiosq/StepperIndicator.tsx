@@ -13,15 +13,15 @@ export const StepperIndicator: React.FC<StepperIndicatorProps> = ({ step }) => {
       </div>
       
       <div className="flex justify-between gap-2 mb-2">
-        <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
-        <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
-        <div className={`h-1.5 flex-1 rounded-full ${step >= 3 ? 'bg-blue-600' : 'bg-slate-100'}`}></div>
+        <div className={`h-1.5 flex-1 rounded-full ${step >= 1 ? 'bg-cyan-600' : 'bg-slate-100'}`}></div>
+        <div className={`h-1.5 flex-1 rounded-full ${step >= 2 ? 'bg-cyan-600' : 'bg-slate-100'}`}></div>
+        <div className={`h-1.5 flex-1 rounded-full ${step >= 3 ? 'bg-cyan-600' : 'bg-slate-100'}`}></div>
       </div>
       
       <div className="flex justify-between text-[10px] font-medium px-1">
-        <span className={step >= 1 ? 'text-blue-600' : 'text-slate-400'}>1. Status Pasien</span>
-        <span className={step >= 2 ? 'text-blue-600' : 'text-slate-400'}>2. Penjamin</span>
-        <span className={step >= 3 ? 'text-blue-600' : 'text-slate-400'}>3. Nomor Antrean</span>
+        <span className={step >= 1 ? 'text-cyan-600' : 'text-slate-400'}>1. Status Pasien</span>
+        <span className={step >= 2 ? 'text-cyan-600' : 'text-slate-400'}>2. Penjamin</span>
+        <span className={step >= 3 ? 'text-cyan-600' : 'text-slate-400'}>3. Nomor Antrean</span>
       </div>
     </div>
   );

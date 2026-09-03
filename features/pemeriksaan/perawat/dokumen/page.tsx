@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Dokumen from '@/features/pemeriksaan/perawat/dokumen/page';
+import Dokumen from '@/features/pemeriksaan/perawat/components/Dokumen';
 import SidebarCatatan from '@/features/pemeriksaan/perawat/components/SidebarCatatan';
 import FooterTombol from '@/features/pemeriksaan/perawat/components/FooterTombol';
 
@@ -15,7 +15,7 @@ export default function DokumenPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* LEFT COLUMN: Main Form Examination (8 Cols) */}
-        <div className="lg:col-span-8 flex flex-col gap-5">
+        <div className="lg:col-span-9 flex flex-col gap-5">
           {/* Dokumen Form */}
           <Dokumen />
         </div>

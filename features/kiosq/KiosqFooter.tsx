@@ -8,7 +8,7 @@ export const KiosqFooter = () => {
         <Info className="w-4 h-4 text-slate-400" />
         <span>
           Tiket ini tidak menampilkan data pribadi.{' '}
-          <span className="text-blue-600 font-semibold cursor-pointer hover:underline">
+          <span className="text-cyan-600 font-semibold cursor-pointer hover:underline">
             Butuh bantuan? Hubungi petugas.
           </span>
         </span>

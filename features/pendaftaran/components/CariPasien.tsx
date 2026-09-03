@@ -90,8 +90,13 @@ const mockPatients: PatientData[] = [
   }
 ];
 
+import RegisterPasienModal from '@/features/pendaftaran/components/RegistrasiPasienModal';
+import DetailPasienModal from '@/features/pendaftaran/components/DetailPasienModal';
+
 export default function PatientSearch() {
   const [searchQuery, setSearchQuery] = useState('');
+    const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
+    const [isRegistrasiModalOpen, setIsRegistrasiModalOpen] = useState<boolean>(false);
 
   return (
     // Hapus bg-white, border, rounded, dan shadow. 
@@ -133,7 +138,7 @@ export default function PatientSearch() {
         {/* Action Buttons */}
         {/* Menggunakan grid agar tombol otomatis menyesuaikan lebar, bukan lebar tetap (w-64) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          <button className="flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left">
+          <button className="flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left" onClick={() => setIsRegistrasiModalOpen(true)}>
             <div className="text-green-500 bg-green-50 p-1.5 rounded-md flex-shrink-0">
               <Plus size={20} />
             </div>
@@ -213,7 +218,7 @@ export default function PatientSearch() {
                   </td>
                   <td className="px-4 py-4">
                     <div className="flex flex-col gap-1">
-                      <button className="flex items-center gap-1 text-cyan-600 hover:text-cyan-800 text-[11px] font-semibold">
+                      <button className="flex items-center gap-1 text-cyan-600 hover:text-cyan-800 text-[11px] font-semibold" onClick={() => setIsDetailModalOpen(true)}>
                         Lihat Data Lengkap <ExternalLink size={12} />
                       </button>
                       <button className={`text-[10px] text-left ${patient.isActive ? 'text-gray-400 cursor-not-allowed' : 'text-gray-500 hover:text-gray-700'}`}>
@@ -280,8 +285,17 @@ export default function PatientSearch() {
             </div>
           </div>
         </div>
-
       </section>
+
+      <DetailPasienModal
+        isOpen={isDetailModalOpen}
+        onClose={() => setIsDetailModalOpen(false)}
+      />
+
+      <RegisterPasienModal
+        isOpen={isRegistrasiModalOpen}
+        onClose={() => setIsRegistrasiModalOpen(false)}
+      />
     </div>
   );
 }

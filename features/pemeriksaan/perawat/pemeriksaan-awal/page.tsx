@@ -21,7 +21,7 @@ export default function InitialExaminationPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* LEFT COLUMN: Main Form Examination (8 Cols) */}
-        <div className="lg:col-span-8 flex flex-col gap-5">
+        <div className="lg:col-span-9 flex flex-col gap-5">
           {/* Section A: Tanda Vital */}
           <VitalSignsForm />
 

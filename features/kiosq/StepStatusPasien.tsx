@@ -17,10 +17,10 @@ export const StepStatusPasien: React.FC<Props> = ({ onSelect, selected }) => {
         <button 
           onClick={() => onSelect('Baru')}
           className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all h-[200px] ${
-            selected === 'Baru' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-blue-300 hover:bg-slate-50'
+            selected === 'Baru' ? 'border-cyan-600 bg-cyan-50/50' : 'border-slate-200 hover:border-cyan-300 hover:bg-slate-50'
           }`}
         >
-          <User className={`w-12 h-12 mb-4 ${selected === 'Baru' ? 'text-blue-600' : 'text-blue-500'}`} strokeWidth={1.5} />
+          <User className={`w-12 h-12 mb-4 ${selected === 'Baru' ? 'text-cyan-600' : 'text-cyan-500'}`} strokeWidth={1.5} />
           <h3 className="text-lg font-bold text-slate-900 mb-2">Pasien Baru</h3>
           <p className="text-xs text-slate-500">Belum pernah memiliki rekam medis di klinik ini</p>
         </button>
@@ -28,10 +28,10 @@ export const StepStatusPasien: React.FC<Props> = ({ onSelect, selected }) => {
         <button 
           onClick={() => onSelect('Lama')}
           className={`flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all h-[200px] ${
-            selected === 'Lama' ? 'border-blue-600 bg-blue-50/50' : 'border-slate-200 hover:border-blue-300 hover:bg-slate-50'
+            selected === 'Lama' ? 'border-cyan-600 bg-cyan-50/50' : 'border-slate-200 hover:border-cyan-300 hover:bg-slate-50'
           }`}
         >
-          <Users className={`w-12 h-12 mb-4 ${selected === 'Lama' ? 'text-blue-600' : 'text-blue-500'}`} strokeWidth={1.5} />
+          <Users className={`w-12 h-12 mb-4 ${selected === 'Lama' ? 'text-cyan-600' : 'text-cyan-500'}`} strokeWidth={1.5} />
           <h3 className="text-lg font-bold text-slate-900 mb-2">Pasien Lama</h3>
           <p className="text-xs text-slate-500">Sudah memiliki rekam medis</p>
         </button>

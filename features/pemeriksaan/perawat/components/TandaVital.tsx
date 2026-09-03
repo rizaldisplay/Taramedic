@@ -28,7 +28,7 @@ export default function TandaVital() {
   };
 
   return (
-    <div className="w-full max-w-5xl p-6 bg-white rounded-xl border border-gray-200 shadow-sm font-sans">
+    <div className="w-full p-6 bg-white rounded-xl border border-gray-200 shadow-sm font-sans">
       {/* Header Bagian */}
       <div className="flex items-center gap-3 mb-5">
         <span className="flex items-center justify-center w-6 h-6 rounded-md bg-cyan-600 text-white font-bold text-xs">

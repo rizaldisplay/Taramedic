@@ -8,7 +8,11 @@ import { ActionPanel } from '@/features/antrean/ActionPanelKasir';
 export default function AntreanPoliPage() {
   return (
     <DashboardLayout>
-      <AntreanHeader />
+      <AntreanHeader 
+        title="Antrean Kasir"
+        subtitle="Kasir Rawat Jalan"
+        staffName="Petugas Kasir: Budi Santoso"
+      />
       <MetricCards />
       
       <div className="flex gap-6 items-start">

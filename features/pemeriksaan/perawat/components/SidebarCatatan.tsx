@@ -39,7 +39,7 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
   };
 
   return (
-    <div className="lg:col-span-4 flex flex-col gap-5 pb-24 md:pb-28 sticky top-6">
+    <div className="lg:col-span-3 flex flex-col gap-5 pb-24 md:pb-28 sticky top-6">
       {/* Card Informasi Kunjungan */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
