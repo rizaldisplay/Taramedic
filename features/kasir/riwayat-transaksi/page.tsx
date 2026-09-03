@@ -38,7 +38,7 @@ export default function RingkasanFarmasiPage() {
         </div>
 
         {/* Footer Buttons */}
-        <FooterTombol />
+        <FooterTombol textButton={""} />
       </div>
     </div>
   );
