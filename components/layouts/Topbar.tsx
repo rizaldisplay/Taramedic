@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { Monitor, Clock, Bell, ChevronDown, Menu } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { Monitor, Clock, Bell, ChevronDown, Menu } from "lucide-react";
 
 interface TopbarProps {
   onOpenSidebar: () => void;
   // Tambahkan props baru untuk breadcrumb/judul halaman
-  moduleName?: string; 
+  moduleName?: string;
   pageName?: string;
 }
 
-export const Topbar: React.FC<TopbarProps> = ({ 
-  onOpenSidebar, 
-  moduleName = 'EMR',     // Nilai default jika tidak diisi
-  pageName = 'Dashboard'  // Nilai default jika tidak diisi
+export const Topbar: React.FC<TopbarProps> = ({
+  onOpenSidebar,
+  moduleName = "EMR", // Nilai default jika tidak diisi
+  pageName = "Dashboard", // Nilai default jika tidak diisi
 }) => {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
@@ -26,14 +26,23 @@ export const Topbar: React.FC<TopbarProps> = ({
   }, []);
 
   const formatDateTime = (date: Date) => {
-    const dayName = new Intl.DateTimeFormat('id-ID', { weekday: 'long' }).format(date);
+    const dayName = new Intl.DateTimeFormat("id-ID", {
+      weekday: "long",
+    }).format(date);
     const day = date.getDate();
-    const month = new Intl.DateTimeFormat('id-ID', { month: 'long' }).format(date);
+    const month = new Intl.DateTimeFormat("id-ID", { month: "long" }).format(
+      date,
+    );
     const year = date.getFullYear();
-    
-    const time = date.toLocaleTimeString('id-ID', { 
-      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false 
-    }).replace(/\./g, ':');
+
+    const time = date
+      .toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      })
+      .replace(/\./g, ":");
 
     return `${dayName}, ${day} ${month} ${year} ${time} WIB`;
   };
@@ -66,20 +75,25 @@ export const Topbar: React.FC<TopbarProps> = ({
       {/* Kanan: Fitur, Status, Waktu, Notifikasi & Profil */}
       <div className="flex items-center space-x-3 md:space-x-6">
         {/* ... (Bagian kanan tidak ada yang berubah, sama seperti sebelumnya) ... */}
-        
-        <button className="hidden lg:flex items-center text-sm px-3 py-1.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors flex-shrink-0">
+
+        <button
+          onClick={() => window.open("/kiosq-antrian", "_blank")}
+          className="hidden lg:flex items-center text-sm px-3 py-1.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors flex-shrink-0"
+        >
           <Monitor className="w-4 h-4 mr-2 text-slate-500" />
           Public Display
         </button>
-        
+
         <div className="hidden xl:flex items-center text-sm flex-shrink-0">
           <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2"></div>
-          <span className="text-emerald-700 font-medium text-xs">Tersinkronisasi</span>
+          <span className="text-emerald-700 font-medium text-xs">
+            Tersinkronisasi
+          </span>
         </div>
 
         <div className="hidden xl:flex items-center text-slate-500 text-sm flex-shrink-0 w-[300px]">
           <Clock className="w-4 h-4 mr-2" />
-          {currentTime ? formatDateTime(currentTime) : 'Memuat waktu...'}
+          {currentTime ? formatDateTime(currentTime) : "Memuat waktu..."}
         </div>
 
         <div className="relative flex-shrink-0 p-1">
@@ -92,7 +106,9 @@ export const Topbar: React.FC<TopbarProps> = ({
             SR
           </div>
           <div className="hidden md:block text-right mr-2">
-            <div className="text-sm font-semibold text-slate-800 leading-tight">Siti Rahma, A.Md.Kep</div>
+            <div className="text-sm font-semibold text-slate-800 leading-tight">
+              Siti Rahma, A.Md.Kep
+            </div>
             <div className="text-xs text-slate-500">Perawat Poli Anak</div>
           </div>
           <ChevronDown className="w-4 h-4 text-slate-400 hidden md:block" />

@@ -47,7 +47,7 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
           
           {/* SECTION 1: INFORMASI SIP */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Informasi SIP</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Informasi SIP</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               {/* Nomor SIP */}
@@ -67,7 +67,7 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
                   <input 
                     type="text" 
                     placeholder="DD-MM-YYYY" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -82,7 +82,7 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
                   <input 
                     type="text" 
                     placeholder="DD-MM-YYYY" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -114,7 +114,7 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
                   <input 
                     type="text" 
                     placeholder="DD-MM-YYYY" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -126,12 +126,12 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
 
           {/* SECTION 2: TEMPAT PRAKTIK */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Tempat Praktik</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Tempat Praktik</h3>
             
             {/* Info Banner */}
-            <div className="bg-blue-50/60 border border-blue-100 rounded-lg p-3.5 flex gap-3 items-start">
-              <Info size={18} className="text-blue-600 shrink-0 mt-0.5" />
-              <p className="text-xs text-blue-800 leading-relaxed font-medium">
+            <div className="bg-cyan-50/60 border border-cyan-100 rounded-lg p-3.5 flex gap-3 items-start">
+              <Info size={18} className="text-cyan-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-cyan-800 leading-relaxed font-medium">
                 SIP berlaku untuk lokasi/tempat praktik tertentu.
               </p>
             </div>
@@ -162,12 +162,12 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
 
           {/* SECTION 3: LAMPIRAN DOKUMEN */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Lampiran Dokumen</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Lampiran Dokumen</h3>
             
             <div>
               <Label text="Upload File SIP" required />
               <div className="mt-2 border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:bg-slate-50 transition-colors cursor-pointer">
-                <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-2">
+                <div className="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center mb-2">
                   <Paperclip size={20} />
                 </div>
                 <p className="text-sm font-semibold text-slate-800">Klik atau drag & drop file di sini</p>
@@ -188,10 +188,10 @@ export default function AddSipModal({ isOpen, onClose }: AddSipModalProps) {
           </button>
           
           <div className="flex gap-3">
-            <button className="flex items-center gap-2 px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="flex items-center gap-2 px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               <Plus size={16} /> Simpan & Tambah Lagi
             </button>
-            <button className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors">
+            <button className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors">
               <Save size={16} /> Simpan SIP
             </button>
           </div>
@@ -219,7 +219,7 @@ function FormInput({ label, required, placeholder, helperText }: { label: string
       <input 
         type="text" 
         placeholder={placeholder} 
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
       />
       {helperText && <span className="text-[11px] text-slate-400">{helperText}</span>}
     </div>
@@ -232,7 +232,7 @@ function FormSelect({ label, required, placeholder, defaultValue }: { label: str
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {placeholder && <option value="" disabled>{placeholder}</option>}

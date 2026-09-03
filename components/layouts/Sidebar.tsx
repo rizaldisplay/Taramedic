@@ -215,7 +215,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
               subItems={[
                 { label: 'Poli', href: '/antrean/poli' },
                 { label: 'Farmasi', href: '/antrean/farmasi' },
-                { label: 'Kasir', href: '/antrean/kasir' }
+                { label: 'Kasir', href: '/antrean/kasir' },
+                { label: 'Pasien', href: '/kiosq-pendaftaran' }
               ]}
               onNavClick={onClose}
             />

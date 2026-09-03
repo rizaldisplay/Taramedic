@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import {
   Calendar,
   Clock,
+  ExternalLink,
   FileText,
+  History,
   Info,
   MapPin,
   Plus,
@@ -20,10 +22,40 @@ interface InternalNote {
   at: string;
 }
 
-interface SidebarCatatanProps {
-  internalNote: string;
-  setInternalNote: React.Dispatch<React.SetStateAction<string>>;
+interface MedicalHistoryItem {
+  id: string;
+  date: string;
+  diagnosis: string;
+  doctor: string;
 }
+
+interface SidebarCatatanProps {
+  internalNote?: string;
+  setInternalNote?: React.Dispatch<React.SetStateAction<string>>;
+  onViewAllHistory?: () => void;
+}
+
+// --- Mock Data Riwayat Singkat ---
+const initialHistoryItems: MedicalHistoryItem[] = [
+  {
+    id: "1",
+    date: "16/06/2024",
+    diagnosis: "Gastritis",
+    doctor: "dr. Bima, Sp.A",
+  },
+  {
+    id: "2",
+    date: "10/04/2024",
+    diagnosis: "Demam",
+    doctor: "dr. Bima, Sp.A",
+  },
+  {
+    id: "3",
+    date: "02/01/2024",
+    diagnosis: "ISPA",
+    doctor: "dr. Bima, Sp.A",
+  },
+];
 
 // --- Helper Functions ---
 function makeId(): string {
@@ -44,8 +76,7 @@ function formatDateID(date: Date): string {
 }
 
 export default function SidebarCatatan({
-  internalNote,
-  setInternalNote,
+  onViewAllHistory,
 }: SidebarCatatanProps) {
   const [internalNotes, setInternalNotes] = useState<InternalNote[]>([]);
   const [internalNoteDraft, setInternalNoteDraft] = useState("");
@@ -117,7 +148,7 @@ export default function SidebarCatatan({
               <Info className="w-3.5 h-3.5" /> Status Terakhir
             </span>
             <span className="px-2 py-0.5 bg-taramedic-50 text-taramedic-700 font-semibold text-[11px] rounded-md">
-              Pemeriksaan Perawat
+              Pemeriksaan Dokter
             </span>
           </div>
           <div className="flex justify-between items-center">
@@ -172,7 +203,7 @@ export default function SidebarCatatan({
             onChange={(e) => setInternalNoteDraft(e.target.value)}
             maxLength={500}
             placeholder="Tulis catatan internal (tidak tampil di resume medis)..."
-            className="w-full h-24 p-2.5 text-xs bg-slate-50/70 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-taramedic-500/20 focus:border-taramedic resize-none transition-all placeholder:text-slate-400"
+            className="w-full h-20 p-2.5 text-xs bg-slate-50/70 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-taramedic-500/20 focus:border-taramedic resize-none transition-all placeholder:text-slate-400"
           />
           <div className="text-right text-[10px] text-slate-400 font-medium">
             {internalNoteDraft.length} / 500
@@ -189,6 +220,43 @@ export default function SidebarCatatan({
           <Plus className="w-3.5 h-3.5" />
           <span>Tambah Catatan</span>
         </button>
+      </div>
+
+      {/* 3. Card Riwayat Singkat */}
+      <div className="bg-white rounded-xl border border-slate-200 shadow-xs p-4 space-y-3">
+        <div className="flex items-center gap-2 pb-2.5 border-b border-slate-100 text-taramedic font-bold text-xs uppercase tracking-wider">
+          <History className="w-4 h-4" />
+          <span>Riwayat Singkat</span>
+        </div>
+
+        {/* Tabel Riwayat */}
+        <div className="space-y-2.5 text-xs">
+          {initialHistoryItems.map((item) => (
+            <div key={item.id} className="flex justify-between items-center text-[11px]">
+              <span className="text-slate-500 w-24 shrink-0 font-medium">
+                {item.date}
+              </span>
+              <span className="font-semibold text-slate-800 flex-1 px-2 truncate">
+                {item.diagnosis}
+              </span>
+              <span className="text-slate-400 text-right w-24 shrink-0 truncate">
+                {item.doctor}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Tombol Lihat Semua Riwayat */}
+        <div className="pt-2 border-t border-slate-100 text-center">
+          <button
+            type="button"
+            onClick={onViewAllHistory}
+            className="inline-flex items-center justify-center gap-1.5 text-xs font-semibold text-taramedic hover:text-taramedic-700 transition-colors cursor-pointer"
+          >
+            <span>Lihat Semua Riwayat</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
     </div>

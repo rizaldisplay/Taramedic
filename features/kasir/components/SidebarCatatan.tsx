@@ -10,6 +10,9 @@ import {
   ShieldCheck,
   Trash2,
   User,
+  Receipt,
+  ClipboardClock,
+  CreditCard
 } from "lucide-react";
 import { useState } from "react";
 
@@ -19,7 +22,31 @@ interface InternalNote {
   at: string;
 }
 
-export default function SidebarCatatan({ internalNote, setInternalNote }: { internalNote: string; setInternalNote: React.Dispatch<React.SetStateAction<string>> }) {
+interface SidebarCatatanProps {
+  noteTitle?: string;
+  totalBilling?: number;
+  guaranteedAmount?: number;
+  patientAmount?: number;
+  guarantorName?: string;
+}
+
+export default function SidebarCatatan({
+    internalNote,
+    setInternalNote,
+    noteTitle = "CATATAN KASIR",
+    totalBilling = 250000,
+    guaranteedAmount = 250000,
+    patientAmount = 0,
+    guarantorName = "BPJS",
+}: {
+  internalNote: string;
+  setInternalNote: React.Dispatch<React.SetStateAction<string>>;
+  noteTitle?: string;
+  totalBilling?: number;
+  guaranteedAmount?: number;
+  patientAmount?: number;
+  guarantorName?: string;
+}) {
   const [internalNotes, setInternalNotes] = useState<InternalNote[]>([]);
   const [internalNoteDraft, setInternalNoteDraft] = useState("");
 
@@ -103,7 +130,40 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
         </div>
       </div>
 
-      {/* Card Catatan Internal */}
+      {/* 2. Card Ringkasan Pembayaran */}
+      <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
+        <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
+          <CreditCard className="w-4 h-4" />
+          <span>Ringkasan Pembayaran</span>
+        </div>
+
+        <div className="space-y-2.5 text-xs">
+          <div className="flex justify-between items-center">
+            <span className="text-slate-600 font-medium">Total Billing</span>
+            <span className="font-bold text-slate-800">
+              {formatRupiah(totalBilling)}
+            </span>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-slate-600 font-medium">
+              Ditanggung Penjamin ({guarantorName})
+            </span>
+            <span className="font-bold text-slate-800">
+              {formatRupiah(guaranteedAmount)}
+            </span>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 flex justify-between items-center">
+            <span className="text-slate-700 font-bold">Tanggungan Pasien</span>
+            <span className="font-extrabold text-emerald-600 text-sm">
+              {formatRupiah(patientAmount)}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Card Catatan Internal */}
       <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
         <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
           <FileText className="w-4 h-4" />
@@ -159,6 +219,24 @@ export default function SidebarCatatan({ internalNote, setInternalNote }: { inte
           Tambah Catatan
         </button>
       </div>
+
+      {/* 3. Card Riwayat Pembayaran */}
+      <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 space-y-3">
+        <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 text-cyan-600 font-bold text-xs uppercase tracking-wider">
+            <ClipboardClock className="w-4 h-4" />
+            Riwayat Pembayaran
+          </div>
+        </div>
+
+        {/* Empty State */}
+        <div className="py-8 flex flex-col items-center justify-center text-center">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-400 flex items-center justify-center mb-2">
+            <Receipt className="w-5 h-5" />
+          </div>
+          <p className="text-xs text-slate-400">Belum ada riwayat pembayaran</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -178,4 +256,12 @@ function formatDateID(date: Date): string {
     minute: "2-digit",
   });
   return `${datePart} - ${timePart} WIB`;
+}
+
+function formatRupiah(amount: number): string {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(amount).replace("Rp", "Rp ");
 }

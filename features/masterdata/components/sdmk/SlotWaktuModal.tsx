@@ -47,7 +47,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
           
           {/* SECTION 1: INFORMASI HARI & WAKTU */}
           <div className="space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Informasi Hari & Waktu</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Informasi Hari & Waktu</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <FormSelect label="Hari" required defaultValue="Senin" />
@@ -62,7 +62,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
                   type="checkbox" 
                   checked={adaIstirahat}
                   onChange={() => setAdaIstirahat(!adaIstirahat)}
-                  className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" 
+                  className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" 
                 />
                 Istirahat (Opsional)
               </label>
@@ -83,7 +83,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
 
           {/* SECTION 2: PENGATURAN LAYANAN */}
           <div className="space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Pengaturan Layanan</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Pengaturan Layanan</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
@@ -107,16 +107,16 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
               <Label text="Jenis Pasien Dilayani" required />
               <div className="flex flex-wrap gap-6 mt-2">
                 <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                  <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> Umum
+                  <input type="checkbox" defaultChecked className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> Umum
                 </label>
                 <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                  <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> BPJS
+                  <input type="checkbox" defaultChecked className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> BPJS
                 </label>
                 <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                  <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> Asuransi
+                  <input type="checkbox" className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> Asuransi
                 </label>
                 <label className="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                  <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> Perusahaan
+                  <input type="checkbox" className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> Perusahaan
                 </label>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
 
           {/* SECTION 3: POLA BERLAKU */}
           <div className="space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Pola Berlaku</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Pola Berlaku</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
@@ -135,7 +135,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
                   <input 
                     type="text" 
                     defaultValue="27-05-2026" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -149,7 +149,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
                   <input 
                     type="text" 
                     placeholder="DD-MM-YYYY" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -167,7 +167,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
 
           {/* SECTION 4: STATUS */}
           <div className="space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Status</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Status</h3>
             
             <div className="w-full sm:w-1/3">
               <FormSelect label="Status Slot" required defaultValue="Aktif" />
@@ -186,7 +186,7 @@ export default function AddSlotWaktuModal({ isOpen, onClose }: AddSlotWaktuModal
             Batal
           </button>
           
-          <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors">
+          <button className="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors">
             Simpan Slot
           </button>
         </div>
@@ -214,7 +214,7 @@ function FormInputTime({ label, required, defaultValue }: { label: string; requi
         <input 
           type="text" 
           defaultValue={defaultValue} 
-          className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 text-slate-800"
+          className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 text-slate-800"
         />
         <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
           <Clock size={16} />
@@ -232,7 +232,7 @@ function FormInputNumber({ label, required, defaultValue, unit }: { label: strin
         <input 
           type="number" 
           defaultValue={defaultValue} 
-          className="w-full border border-slate-300 rounded-lg pl-3 pr-16 py-2 text-sm outline-none focus:border-blue-500 text-slate-800"
+          className="w-full border border-slate-300 rounded-lg pl-3 pr-16 py-2 text-sm outline-none focus:border-cyan-500 text-slate-800"
         />
         {unit && <span className="absolute inset-y-0 right-3 flex items-center text-xs text-slate-400 pointer-events-none">{unit}</span>}
       </div>
@@ -246,7 +246,7 @@ function FormSelect({ label, required, defaultValue }: { label: string; required
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {defaultValue && <option value={defaultValue}>{defaultValue}</option>}

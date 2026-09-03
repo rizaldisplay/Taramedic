@@ -95,11 +95,11 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">STR (Surat Tanda Registrasi)</h3>
+                    <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">STR (Surat Tanda Registrasi)</h3>
                     <span className="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded">Valid</span>
                   </div>
                   <button className="flex items-center gap-1.5 px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                    <Check size={14} className="text-blue-600" /> Verifikasi STR
+                    <Check size={14} className="text-cyan-600" /> Verifikasi STR
                   </button>
                 </div>
 
@@ -112,7 +112,7 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
                       <input 
                         type="text" 
                         defaultValue="10-01-2023" 
-                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                       />
                       <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                         <Calendar size={16} />
@@ -126,7 +126,7 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
                       <input 
                         type="text" 
                         defaultValue="10-01-2028" 
-                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                       />
                       <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                         <Calendar size={16} />
@@ -146,7 +146,7 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
                       <input 
                         type="text" 
                         defaultValue="15-08-2026" 
-                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                       />
                       <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                         <Calendar size={16} />
@@ -167,16 +167,16 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
               {/* SECTION: SIP (Surat Izin Praktik) */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">SIP (Surat Izin Praktik)</h3>
-                  <button className="flex items-center gap-1.5 px-4 py-2 border border-blue-600 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+                  <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">SIP (Surat Izin Praktik)</h3>
+                  <button className="flex items-center gap-1.5 px-4 py-2 border border-cyan-600 rounded-lg text-xs font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
                     <Plus size={16} /> Tambah SIP
                   </button>
                 </div>
 
                 {/* Info Alert SIP */}
-                <div className="bg-blue-50/60 border border-blue-100 rounded-lg p-3 flex gap-2.5 items-start">
-                  <Info size={16} className="text-blue-600 shrink-0 mt-0.5" />
-                  <p className="text-xs text-blue-800 leading-relaxed">
+                <div className="bg-cyan-50/60 border border-cyan-100 rounded-lg p-3 flex gap-2.5 items-start">
+                  <Info size={16} className="text-cyan-600 shrink-0 mt-0.5" />
+                  <p className="text-xs text-cyan-800 leading-relaxed">
                     SDMK dapat memiliki lebih dari satu SIP sesuai tempat praktik.
                   </p>
                 </div>
@@ -225,7 +225,7 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
                           <td className="px-4 py-4 text-center">
                             <div className="flex items-center justify-center gap-1">
                               <button className="p-1.5 text-slate-500 hover:bg-slate-100 rounded transition-colors"><Eye size={15} /></button>
-                              <button className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"><Edit2 size={15} /></button>
+                              <button className="p-1.5 text-cyan-600 hover:bg-cyan-50 rounded transition-colors"><Edit2 size={15} /></button>
                               <button className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors"><Trash2 size={15} /></button>
                             </div>
                           </td>
@@ -245,15 +245,15 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
 
               {/* SECTION: SERTIFIKAT LAIN */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">SERTIFIKAT LAIN (Opsional)</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">SERTIFIKAT LAIN (Opsional)</h3>
                 
                 <div className="flex gap-3">
                   <input 
                     type="text" 
                     placeholder="Contoh: Sertifikat Kompetensi, ACLS, ATLS, dll." 
-                    className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                    className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                   />
-                  <button className="flex items-center gap-1.5 px-4 py-2 border border-blue-600 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors shrink-0">
+                  <button className="flex items-center gap-1.5 px-4 py-2 border border-cyan-600 rounded-lg text-xs font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors shrink-0">
                     <Plus size={16} /> Tambah Sertifikat
                   </button>
                 </div>
@@ -266,7 +266,7 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
               
               {/* Box: Ringkasan Registrasi */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">RINGKASAN REGISTRASI</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider mb-2">RINGKASAN REGISTRASI</h3>
                 
                 <div className="space-y-3 text-xs">
                   <div className="flex justify-between items-center py-2 border-b border-slate-100">
@@ -293,11 +293,11 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
               </div>
 
               {/* Box: Informasi */}
-              <div className="bg-blue-50/40 border border-blue-100 rounded-xl p-5 shadow-sm space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-blue-800">
-                  <Info size={16} className="text-blue-600" /> Informasi
+              <div className="bg-cyan-50/40 border border-cyan-100 rounded-xl p-5 shadow-sm space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-cyan-800">
+                  <Info size={16} className="text-cyan-600" /> Informasi
                 </div>
-                <p className="text-xs text-blue-900/80 leading-relaxed">
+                <p className="text-xs text-cyan-900/80 leading-relaxed">
                   Pastikan data STR dan SIP selalu valid. TARAMEDIC akan mengingatkan sebelum masa berlaku berakhir.
                 </p>
               </div>
@@ -320,10 +320,10 @@ export default function AddSdmkRegistrasiModal({ isOpen, onClose }: AddSdmkRegis
             <button className="flex items-center gap-2 px-6 py-2.5 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
               <ArrowLeft size={16} /> Kembali
             </button>
-            <button className="px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan & Lanjut
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
               Lanjut ke Penempatan <ArrowRight size={16} />
             </button>
           </div>
@@ -342,7 +342,7 @@ function TabItem({ icon: Icon, label, active, onClick }: { icon: React.ElementTy
       onClick={onClick}
       className={`flex items-center gap-2.5 py-4 px-4 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
         active 
-          ? 'border-blue-600 text-blue-600' 
+          ? 'border-cyan-600 text-cyan-600' 
           : 'border-transparent text-slate-500 hover:text-slate-800'
       }`}
     >
@@ -368,7 +368,7 @@ function FormInput({ label, required, placeholder, defaultValue }: { label: stri
         type="text" 
         placeholder={placeholder} 
         defaultValue={defaultValue}
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
       />
     </div>
   );
@@ -380,7 +380,7 @@ function FormSelect({ label, required, defaultValue }: { label: string; required
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {defaultValue && <option value={defaultValue}>{defaultValue}</option>}

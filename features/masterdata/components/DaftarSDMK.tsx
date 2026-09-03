@@ -164,13 +164,13 @@ export default function SdmkList() {
             </div>
             <input
               type="text"
-              className="block w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-slate-800"
+              className="block w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500 text-slate-800"
               placeholder="Cari nama, NIK, STR, SIP, atau Practitioner IHS Number..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 transition-colors shrink-0">
+          <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 transition-colors shrink-0">
             <Plus size={18} />
             Tambah SDMK
           </button>
@@ -210,7 +210,7 @@ export default function SdmkList() {
           <tbody className="divide-y divide-slate-100">
             {mockSdmkList.map((item) => (
               <tr key={item.id} className="hover:bg-slate-50/70 transition-colors bg-white">
-                <td className="px-6 py-4 text-blue-600 font-medium text-xs">{item.sdmkId}</td>
+                <td className="px-6 py-4 text-cyan-600 font-medium text-xs">{item.sdmkId}</td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-xs shrink-0">
@@ -245,7 +245,7 @@ export default function SdmkList() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center justify-center gap-2">
-                    <button className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors">
+                    <button className="p-1.5 text-slate-400 hover:text-cyan-600 hover:bg-cyan-50 rounded transition-colors">
                       <Eye size={18} />
                     </button>
                     <button className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors">
@@ -267,7 +267,7 @@ export default function SdmkList() {
           <div className="flex items-center gap-1">
             <PaginationButton icon={ChevronsLeft} />
             <PaginationButton icon={ChevronLeft} />
-            <button className="w-8 h-8 flex items-center justify-center bg-blue-600 text-white text-xs font-semibold rounded-md">1</button>
+            <button className="w-8 h-8 flex items-center justify-center bg-cyan-600 text-white text-xs font-semibold rounded-md">1</button>
             <button className="w-8 h-8 flex items-center justify-center text-slate-600 hover:bg-slate-50 text-xs font-semibold rounded-md border border-transparent hover:border-slate-200 transition-colors">2</button>
             <button className="w-8 h-8 flex items-center justify-center text-slate-600 hover:bg-slate-50 text-xs font-semibold rounded-md border border-transparent hover:border-slate-200 transition-colors">3</button>
             <span className="w-8 h-8 flex items-center justify-center text-slate-400 text-xs">...</span>
@@ -279,7 +279,7 @@ export default function SdmkList() {
           <div className="flex items-center gap-2">
             <span className="text-xs text-slate-500">Per halaman</span>
             <div className="relative">
-              <select className="appearance-none bg-white border border-slate-300 rounded-md py-1.5 pl-3 pr-8 text-xs text-slate-700 outline-none focus:border-blue-500">
+              <select className="appearance-none bg-white border border-slate-300 rounded-md py-1.5 pl-3 pr-8 text-xs text-slate-700 outline-none focus:border-cyan-500">
                 <option>10</option>
                 <option>20</option>
                 <option>50</option>
@@ -303,7 +303,7 @@ function FilterSelect({ label, defaultValue }: { label: string; defaultValue: st
     <div className="flex flex-col gap-1 w-full sm:w-auto">
       <label className="text-[10px] font-semibold text-slate-500 uppercase">{label}</label>
       <div className="relative">
-        <select className="w-full sm:w-40 appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-8 text-sm text-slate-700 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+        <select className="w-full sm:w-40 appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-8 text-sm text-slate-700 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500">
           <option>{defaultValue}</option>
         </select>
         <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-slate-400">

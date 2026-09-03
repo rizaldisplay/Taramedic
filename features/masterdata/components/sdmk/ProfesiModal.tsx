@@ -81,7 +81,7 @@ export default function AddSdmkProfesiModal({ isOpen, onClose }: AddSdmkProfesiM
           
           {/* SECTION 1: PROFESI & KOMPETENSI FORM */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Profesi & Kompetensi</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Profesi & Kompetensi</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Kiri */}
@@ -113,19 +113,19 @@ export default function AddSdmkProfesiModal({ isOpen, onClose }: AddSdmkProfesiM
                   <Label text="Status SDMK" required />
                   <div className="flex flex-wrap items-center gap-6 mt-2.5 h-10">
                     <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                       Aktif
                     </label>
                     <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                       Tidak Aktif
                     </label>
                     <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                       Cuti
                     </label>
                     <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                      <input type="radio" name="status_sdmk" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                       Berakhir Kontrak
                     </label>
                   </div>
@@ -136,7 +136,7 @@ export default function AddSdmkProfesiModal({ isOpen, onClose }: AddSdmkProfesiM
 
           {/* SECTION 2: KOMPETENSI TAMBAHAN TABLE */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">
               Kompetensi Tambahan (Sertifikat / Pelatihan / Kompetensi Lain)
             </h3>
 
@@ -163,7 +163,7 @@ export default function AddSdmkProfesiModal({ isOpen, onClose }: AddSdmkProfesiM
                       <td className="px-4 py-3.5 text-slate-600 text-xs">{item.tanggalPeroleh}</td>
                       <td className="px-4 py-3.5 text-slate-600 text-xs">{item.berlakuHingga}</td>
                       <td className="px-4 py-3.5 text-center">
-                        <button className="inline-flex items-center gap-1.5 px-3 py-1 border border-slate-200 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+                        <button className="inline-flex items-center gap-1.5 px-3 py-1 border border-slate-200 rounded-lg text-xs font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
                           <FileIcon size={14} /> Lihat
                         </button>
                       </td>
@@ -180,7 +180,7 @@ export default function AddSdmkProfesiModal({ isOpen, onClose }: AddSdmkProfesiM
 
             {/* Add Button */}
             <div>
-              <button className="flex items-center gap-2 px-4 py-2 border border-blue-600 rounded-xl text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 border border-cyan-600 rounded-xl text-xs font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
                 <Plus size={16} /> Tambah Kompetensi
               </button>
             </div>
@@ -198,10 +198,10 @@ export default function AddSdmkProfesiModal({ isOpen, onClose }: AddSdmkProfesiM
           </button>
           
           <div className="flex gap-3">
-            <button className="px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan & Lanjut
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
               Lanjut ke Registrasi & Perizinan <ArrowRight size={16} />
             </button>
           </div>
@@ -220,7 +220,7 @@ function TabItem({ icon: Icon, label, active, onClick }: { icon: React.ElementTy
       onClick={onClick}
       className={`flex items-center gap-2.5 py-4 px-4 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
         active 
-          ? 'border-blue-600 text-blue-600' 
+          ? 'border-cyan-600 text-cyan-600' 
           : 'border-transparent text-slate-500 hover:text-slate-800'
       }`}
     >
@@ -246,7 +246,7 @@ function FormInput({ label, required, placeholder, defaultValue }: { label: stri
         type="text" 
         placeholder={placeholder} 
         defaultValue={defaultValue}
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
       />
     </div>
   );
@@ -258,7 +258,7 @@ function FormSelect({ label, required, defaultValue, placeholder }: { label: str
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {placeholder && <option value="" disabled>{placeholder}</option>}

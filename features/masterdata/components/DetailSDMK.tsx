@@ -22,7 +22,7 @@ export default function SdmkDetailPanel({ onClose }: SdmkDetailPanelProps) {
   const [activeTab, setActiveTab] = useState<'ringkasan' | 'identitas' | 'profesi' | 'registrasi'>('ringkasan');
 
   return (
-    <div className="w-full max-w-[440px] bg-white rounded-2xl border border-slate-200/80 shadow-sm font-sans flex flex-col h-full overflow-hidden">
+    <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-sm font-sans flex flex-col h-full overflow-hidden">
       
       {/* --- HEADER --- */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0 bg-white">
@@ -40,7 +40,7 @@ export default function SdmkDetailPanel({ onClose }: SdmkDetailPanelProps) {
         
         {/* Profile Card Summary */}
         <div className="flex items-start gap-4 p-4 bg-slate-50/60 border border-slate-100 rounded-2xl">
-          <div className="w-14 h-14 rounded-2xl bg-blue-100 border border-blue-200/60 flex items-center justify-center font-bold text-blue-700 text-base shrink-0 shadow-inner">
+          <div className="w-14 h-14 rounded-2xl bg-cyan-100 border border-cyan-200/60 flex items-center justify-center font-bold text-cyan-700 text-base shrink-0 shadow-inner">
             BS
           </div>
           <div className="flex-1 min-w-0">
@@ -51,7 +51,7 @@ export default function SdmkDetailPanel({ onClose }: SdmkDetailPanelProps) {
               </span>
             </div>
             <p className="text-xs text-slate-400 font-medium mt-0.5">SDMK-00001</p>
-            <div className="mt-2.5 inline-flex items-center bg-blue-50/80 border border-blue-100 text-blue-700 text-[11px] font-semibold px-2.5 py-1 rounded-lg">
+            <div className="mt-2.5 inline-flex items-center bg-cyan-50/80 border border-cyan-100 text-cyan-700 text-[11px] font-semibold px-2.5 py-1 rounded-lg">
               Dokter Spesialis Penyakit Dalam
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function SdmkDetailPanel({ onClose }: SdmkDetailPanelProps) {
             {/* SECTION: IDENTITAS */}
             <section className="space-y-2.5">
               <h4 className="text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Identitas Pribadi
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-600"></span> Identitas Pribadi
               </h4>
               
               <div className="grid grid-cols-2 gap-3.5 bg-slate-50/60 border border-slate-100 rounded-2xl p-4">
@@ -118,7 +118,7 @@ export default function SdmkDetailPanel({ onClose }: SdmkDetailPanelProps) {
             {/* SECTION: PENEMPATAN UTAMA */}
             <section className="space-y-2.5">
               <h4 className="text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Penempatan Utama
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-600"></span> Penempatan Utama
               </h4>
               
               <div className="grid grid-cols-2 gap-3.5 bg-slate-50/60 border border-slate-100 rounded-2xl p-4">
@@ -133,9 +133,9 @@ export default function SdmkDetailPanel({ onClose }: SdmkDetailPanelProps) {
             <section className="space-y-2.5">
               <div className="flex justify-between items-center">
                 <h4 className="text-xs font-bold text-slate-700 flex items-center gap-2 uppercase tracking-wider">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Jadwal Praktik (Minggu Ini)
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-600"></span> Jadwal Praktik (Minggu Ini)
                 </h4>
-                <button className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-0.5 transition-colors">
+                <button className="text-xs font-semibold text-cyan-600 hover:text-cyan-700 flex items-center gap-0.5 transition-colors">
                   Lihat Semua <ChevronRight size={14} />
                 </button>
               </div>
@@ -180,7 +180,7 @@ function TabButton({ label, active, onClick }: { label: string; active: boolean;
     <button 
       onClick={onClick}
       className={`pb-2.5 px-3.5 border-b-2 font-semibold transition-colors shrink-0 ${
-        active ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400 hover:text-slate-600'
+        active ? 'border-cyan-600 text-cyan-600' : 'border-transparent text-slate-400 hover:text-slate-600'
       }`}
     >
       {label}

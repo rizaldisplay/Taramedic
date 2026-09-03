@@ -235,7 +235,7 @@ export default function PemeriksaanDokter() {
               <h3 className="text-[13px] font-semibold text-gray-800">Peta Tubuh</h3>
               <div className="border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center h-full min-h-[250px] bg-slate-50/50">
                 <div className="w-full h-40 bg-white rounded-md border border-dashed border-gray-300 flex items-center justify-center mb-4 shadow-sm">
-                  <span className="text-[11px] text-gray-400 font-medium">SVG Anatomi Tubuh</span>
+                  <img src="/images/Model%20Tubuh.png" alt="Peta Tubuh" className="max-w-full max-h-full object-contain" />
                 </div>
                 
                 <p className="text-[12px] font-semibold text-emerald-600 text-center">

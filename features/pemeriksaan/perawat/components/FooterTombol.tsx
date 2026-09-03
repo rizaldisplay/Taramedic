@@ -1,33 +1,54 @@
 "use client";
 
-import { ArrowRight, FileText } from "lucide-react";
+import React from "react";
+import { ArrowRight, FileText, Trash2, Stethoscope, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
-export default function FooterTombol() {
+interface FooterTombolProps {
+  onSimpanDraft?: () => void;
+  onReset?: () => void;
+  onBatalkanKunjungan?: () => void;
+  onLanjutPemeriksaan?: () => void;
+  isSubmitting?: boolean;
+}
+
+export default function FooterTombol({
+  onSimpanDraft,
+  onReset,
+  onBatalkanKunjungan,
+  onLanjutPemeriksaan,
+  isSubmitting = false,
+}: FooterTombolProps) {
   return (
-    <div className="fixed bottom-0 right-0 left-0 md:left-64 bg-white border-t border-slate-200 p-3 sm:p-4 z-40 transition-all duration-300">
-      {/* 
-        Gunakan flex-col-reverse di mobile agar tombol utama (Kirim) ada di atas tombol sekunder (Draft).
-        Di layar sm (tablet) ke atas, kembali menjadi flex-row (kiri-kanan).
-      */}
-      <div className="max-w-[1440px] mx-auto flex flex-col-reverse sm:flex-row items-center justify-between gap-3 sm:gap-4">
+    <div className="fixed bottom-0 right-0 left-0 lg:left-64 bg-white border-t border-slate-200 p-4 sm:p-5 z-40 shadow-xl transition-all duration-300 font-sans">
+      <div className="max-w-[1440px] mx-auto flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-4">
         
-        {/* Tombol Kiri: Draft */}
-        <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-md border border-slate-300 bg-white text-slate-700 text-xs sm:text-sm font-bold hover:bg-slate-50 transition-colors">
-          <FileText className="w-4 h-4" />
-          Simpan Draft
-        </button>
+        {/* Tombol Sekunder (Kiri) */}
+        <div className="flex flex-col-reverse sm:flex-row items-center gap-3 w-full sm:w-auto">
+          <Button
+            size="md"
+            variant="secondary"
+            leftIcon={<FileText className="w-5 h-5 text-slate-500" />}
+            onClick={onSimpanDraft}
+            className="flex-1 sm:flex-none text-sm font-bold"
+          >
+            Simpan Draft
+          </Button>
+        </div>
 
-        {/* Wrapper Kanan: Action Utama & Deskripsi */}
-        <div className="w-full sm:w-auto flex flex-col items-center sm:items-end w-full">
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 sm:py-2 rounded-md bg-slate-500 hover:bg-slate-600 text-white text-xs sm:text-sm font-bold transition-colors">
-            <span>Selesaikan & Kirim ke Dokter</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-          
-          {/* Teks bantuan: rata tengah di mobile, rata kanan di desktop */}
-          <span className="text-[10px] text-slate-400 mt-1.5 sm:mt-0.5 text-center sm:text-right leading-tight">
-            Pastikan data sudah lengkap sebelum dikirim ke dokter.
-          </span>
+        {/* Tombol Aksi Utama (Kanan) */}
+        <div className="flex flex-row items-center gap-3 w-full sm:w-auto">
+          <Button
+            size="md"
+            variant="primary"
+            leftIcon={<Stethoscope className="w-5 h-5" />}
+            rightIcon={<ArrowRight className="w-5 h-5" />}
+            onClick={onLanjutPemeriksaan}
+            isLoading={isSubmitting}
+            className="flex-1 sm:flex-none text-sm font-bold px-6"
+          >
+            Selesaikan & Kirim Ke Dokter
+          </Button>
         </div>
 
       </div>

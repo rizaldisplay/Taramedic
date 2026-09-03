@@ -6,7 +6,7 @@ import HeaderRincianBilling from "@/features/kasir/components/BPJS/HeaderRincian
 import LayananTindakanDokter from "@/features/kasir/components/BPJS/LayananTindakanDokter";
 import FarmasiObat from "@/features/kasir/components/BPJS/FarmasiObat";
 import FooterRincianBilling from "@/features/kasir/components/BPJS/FooterRincianBilling";
-import SidebarCatatan from "@/features/kasir/components/SidebarCatatan";
+import SidebarPembayaran from "@/features/kasir/components/SidebarPembayaran";
 import FooterTombol from "@/features/kasir/components/FooterTombol";
 
 export default function RingkasanFarmasiPage() {
@@ -43,15 +43,12 @@ export default function RingkasanFarmasiPage() {
           </div>
 
           <div className="lg:col-span-3 flex flex-col gap-5 pb-24 md:pb-28 sticky top-6">
-            <SidebarCatatan
-              internalNote={internalNote}
-              setInternalNote={setInternalNote}
-            />
+            <SidebarPembayaran />
           </div>
         </div>
 
         {/* Footer Buttons */}
-        <FooterTombol />
+        <FooterTombol textButton={""} />
       </div>
     </div>
   );

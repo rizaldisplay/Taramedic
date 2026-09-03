@@ -69,7 +69,7 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
               
               {/* Box 1: Identitas Pribadi */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Identitas Pribadi</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Identitas Pribadi</h3>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {/* NIK */}
@@ -79,7 +79,7 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
                       <input 
                         type="text" 
                         placeholder="Masukkan 16 digit NIK" 
-                        className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                        className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                       />
                       <button className="px-4 py-2 border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
                         Cek NIK
@@ -106,7 +106,7 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
                       <input 
                         type="text" 
                         placeholder="DD-MM-YYYY" 
-                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                        className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                       />
                       <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                         <Calendar size={16} />
@@ -119,11 +119,11 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
                     <Label text="Jenis Kelamin" required />
                     <div className="flex items-center gap-6 mt-2.5 h-10">
                       <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                        <input type="radio" name="gender_add" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                        <input type="radio" name="gender_add" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                         Laki-laki
                       </label>
                       <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                        <input type="radio" name="gender_add" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                        <input type="radio" name="gender_add" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                         Perempuan
                       </label>
                     </div>
@@ -142,7 +142,7 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
 
               {/* Box 2: Alamat Domisili */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Alamat Domisili</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Alamat Domisili</h3>
                 
                 <div className="grid grid-cols-1 gap-5">
                   <FormInput label="Alamat Lengkap" required placeholder="Nama jalan, nomor, RT/RW, kelurahan/desa" />
@@ -169,7 +169,7 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
               
               {/* Box 3: Identitas Sistem */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Identitas Sistem</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Identitas Sistem</h3>
                 <div className="flex flex-col gap-1.5 w-full">
                   <Label text="SDMK ID" />
                   <input 
@@ -183,10 +183,10 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
 
               {/* Box 4: Foto Profil */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Foto Profil</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Foto Profil</h3>
                 
                 <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 flex flex-col items-center justify-center text-center hover:bg-slate-50 transition-colors cursor-pointer">
-                  <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
+                  <div className="w-12 h-12 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center mb-3">
                     <Camera size={22} />
                   </div>
                   <p className="text-sm font-semibold text-slate-800">Upload Foto</p>
@@ -197,7 +197,7 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
 
               {/* Box 5: Kontak Darurat */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Kontak Darurat</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Kontak Darurat</h3>
                 
                 <div className="space-y-4">
                   <FormInput label="Nama Kontak Darurat" required placeholder="Masukkan nama lengkap" />
@@ -221,10 +221,10 @@ export default function AddSdmkIdentitasModal({ isOpen, onClose }: AddSdmkIdenti
           </button>
           
           <div className="flex gap-3">
-            <button className="px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan & Lanjut
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
               Lanjut ke Profesi & Kompetensi <ArrowRight size={16} />
             </button>
           </div>
@@ -243,7 +243,7 @@ function TabItem({ icon: Icon, label, active, onClick }: { icon: React.ElementTy
       onClick={onClick}
       className={`flex items-center gap-2.5 py-4 px-4 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
         active 
-          ? 'border-blue-600 text-blue-600' 
+          ? 'border-cyan-600 text-cyan-600' 
           : 'border-transparent text-slate-500 hover:text-slate-800'
       }`}
     >
@@ -268,7 +268,7 @@ function FormInput({ label, required, placeholder }: { label: string; required?:
       <input 
         type="text" 
         placeholder={placeholder} 
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
       />
     </div>
   );
@@ -280,7 +280,7 @@ function FormSelect({ label, required, placeholder }: { label: string; required?
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-500 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-500 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue=""
         >
           <option value="" disabled>{placeholder}</option>

@@ -10,6 +10,9 @@ import {
   Info 
 } from 'lucide-react';
 
+import ModalObatRacikan from '@/features/pemeriksaan/dokter/components/ModalTambatObatRacikan';
+import ModalObatNonRacikan from '@/features/pemeriksaan/dokter/components/ModalTambahObatNonRacikan';
+
 interface NonRacikanItem {
   id: number;
   nama: string;
@@ -48,6 +51,10 @@ interface RacikanItem {
 }
 
 export default function ResepElektronikComponent() {
+
+  const [isModalRacikanOpen, setIsModalRacikanOpen] = useState(false);
+  const [isModalNonRacikanOpen, setIsModalNonRacikanOpen] = useState(false);
+
   const [nonRacikan, setNonRacikan] = useState<NonRacikanItem[]>([
     {
       id: 1,
@@ -172,6 +179,7 @@ export default function ResepElektronikComponent() {
           <button 
             type="button"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-cyan-200 bg-white text-cyan-600 text-xs font-semibold hover:bg-cyan-50 transition-all cursor-pointer shadow-2xs"
+            onClick={() => setIsModalNonRacikanOpen(true)}
           >
             <Plus size={14} />
             <span>Tambah Obat</span>
@@ -257,6 +265,7 @@ export default function ResepElektronikComponent() {
           <button 
             type="button"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-cyan-200 bg-white text-cyan-600 text-xs font-semibold hover:bg-cyan-50 transition-all cursor-pointer shadow-2xs"
+            onClick={() => setIsModalRacikanOpen(true)}
           >
             <Plus size={14} />
             <span>Tambah Racikan</span>
@@ -347,6 +356,11 @@ export default function ResepElektronikComponent() {
         <span>Resep dibuat sesuai standar peresepan Kemenkes & SATUSEHAT (MedicationRequest).</span>
       </div>
 
+      {/** Modal Obat Racikan */}
+      <ModalObatRacikan isOpen={isModalRacikanOpen} onClose={() => setIsModalRacikanOpen(false)} />
+
+      {/** Modal Obat Non Racikan */}
+      <ModalObatNonRacikan isOpen={isModalNonRacikanOpen} onClose={() => setIsModalNonRacikanOpen(false)} />
     </div>
   );
 }

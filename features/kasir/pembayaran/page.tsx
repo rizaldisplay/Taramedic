@@ -8,7 +8,7 @@ import RingkasanTagihan from "@/features/kasir/components/BPJS/RingkasanTagihan"
 import MetodePembayaran from "@/features/kasir/components/BPJS/MetodePembayaran";
 import DetailPenjamin from "@/features/kasir/components/BPJS/DetailPenjaminan";
 
-import SidebarCatatan from "@/features/kasir/components/SidebarCatatan";
+import SidebarBilling from "@/features/kasir/components/SidebarBilling";
 import FooterTombol from "@/features/kasir/components/FooterTombol";
 
 export default function RingkasanFarmasiPage() {
@@ -48,16 +48,25 @@ export default function RingkasanFarmasiPage() {
 
           {/* --- AREA KANAN / SIDEBAR (3 KOLOM) --- */}
           <div className="lg:col-span-3 flex flex-col gap-6 sticky top-6">
-            <SidebarCatatan
-              internalNote={internalNote}
-              setInternalNote={setInternalNote}
+            <SidebarBilling
+              subtotalLayanan={120000}
+              subtotalObat={18000}
+              diskon={0}
+              biayaTambahan={0}
+              statusPembayaran="Belum Dibayar"
+              noInvoice="INV-20260816-0027"
+              waktuPembayaran="-"
+              kasirName="-"
+              metodePembayaran="-"
+              nominalDibayar={0}
+              statusSatusehat="Belum Sinkron"
             />
           </div>
 
         </div>
 
         {/* Footer Buttons */}
-        <FooterTombol />
+        <FooterTombol textButton={"Bayar Rp 138.000"} />
       </div>
     </div>
   );

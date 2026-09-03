@@ -72,7 +72,7 @@ export default function AddSdmkIntegrasiModal({ isOpen, onClose }: AddSdmkIntegr
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Integrasi SATUSEHAT SDMK</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Integrasi SATUSEHAT SDMK</h3>
                 <p className="text-xs text-slate-500 mt-0.5">Hubungkan data tenaga medis dengan platform SATUSEHAT Kementerian Kesehatan.</p>
               </div>
               <span className={`px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1.5 ${
@@ -109,10 +109,10 @@ export default function AddSdmkIntegrasiModal({ isOpen, onClose }: AddSdmkIntegr
             </div>
 
             <div className="pt-2 flex items-center gap-4">
-              <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold transition-colors">
+              <button className="flex items-center gap-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg text-xs font-semibold transition-colors">
                 Verifikasi IHS ke SATUSEHAT
               </button>
-              <button className="flex items-center gap-1 text-xs font-semibold text-blue-600 hover:underline">
+              <button className="flex items-center gap-1 text-xs font-semibold text-cyan-600 hover:underline">
                 Panduan Mendapatkan Practitioner IHS <ExternalLink size={13} />
               </button>
             </div>
@@ -120,7 +120,7 @@ export default function AddSdmkIntegrasiModal({ isOpen, onClose }: AddSdmkIntegr
 
           {/* SECTION 2: MAP KODE & TERMINOLOGI */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Mapping Terminologi & Layanan</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Mapping Terminologi & Layanan</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <FormSelect 
@@ -138,7 +138,7 @@ export default function AddSdmkIntegrasiModal({ isOpen, onClose }: AddSdmkIntegr
 
           {/* SECTION 3: LOG & RIWAYAT INTEGRASI */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Log Riwayat Pengiriman API</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Log Riwayat Pengiriman API</h3>
             
             <div className="border border-slate-200 rounded-xl overflow-hidden text-xs">
               <div className="bg-slate-50 px-4 py-3 font-semibold text-slate-600 border-b border-slate-200 grid grid-cols-4">
@@ -150,13 +150,13 @@ export default function AddSdmkIntegrasiModal({ isOpen, onClose }: AddSdmkIntegr
               <div className="divide-y divide-slate-100 font-mono text-[11px]">
                 <div className="px-4 py-2.5 grid grid-cols-4 items-center text-slate-700">
                   <span>16-08-2026 08:03:12</span>
-                  <span className="text-blue-600 font-semibold">Practitioner/{'{id}'}</span>
+                  <span className="text-cyan-600 font-semibold">Practitioner/{'{id}'}</span>
                   <span><span className="bg-green-100 text-green-700 px-2 py-0.5 rounded font-sans font-bold">200 OK</span></span>
                   <span className="text-slate-500 font-sans">Data berhasil disinkronkan</span>
                 </div>
                 <div className="px-4 py-2.5 grid grid-cols-4 items-center text-slate-700">
                   <span>16-08-2026 08:01:45</span>
-                  <span className="text-blue-600 font-semibold">Schedule & Slot</span>
+                  <span className="text-cyan-600 font-semibold">Schedule & Slot</span>
                   <span><span className="bg-green-100 text-green-700 px-2 py-0.5 rounded font-sans font-bold">201 Created</span></span>
                   <span className="text-slate-500 font-sans">Jadwal praktik terdaftar</span>
                 </div>
@@ -179,10 +179,10 @@ export default function AddSdmkIntegrasiModal({ isOpen, onClose }: AddSdmkIntegr
             <button className="flex items-center gap-2 px-6 py-2.5 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
               <ArrowLeft size={16} /> Kembali
             </button>
-            <button className="px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan Perubahan
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
               Lanjut ke Catatan <ArrowRight size={16} />
             </button>
           </div>
@@ -201,7 +201,7 @@ function TabItem({ icon: Icon, label, active, onClick }: { icon: React.ElementTy
       onClick={onClick}
       className={`flex items-center gap-2.5 py-4 px-4 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
         active 
-          ? 'border-blue-600 text-blue-600' 
+          ? 'border-cyan-600 text-cyan-600' 
           : 'border-transparent text-slate-500 hover:text-slate-800'
       }`}
     >
@@ -227,7 +227,7 @@ function FormInput({ label, required, placeholder, defaultValue, helperText }: {
         type="text" 
         placeholder={placeholder} 
         defaultValue={defaultValue}
-        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+        className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
       />
       {helperText && <span className="text-[11px] text-slate-400">{helperText}</span>}
     </div>
@@ -240,7 +240,7 @@ function FormSelect({ label, required, defaultValue }: { label: string; required
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {defaultValue && <option value={defaultValue}>{defaultValue}</option>}

@@ -90,13 +90,13 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
           
           {/* SECTION: PENEMPATAN & PERAN (HEADER INFO) */}
           <div className="space-y-3">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Penempatan & Peran</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Penempatan & Peran</h3>
             <p className="text-xs text-slate-500">Kelola penempatan SDMK di fasilitas, unit/poli, lokasi/ruangan, dan peran/jabatan.</p>
             
             {/* Info Banner */}
-            <div className="bg-blue-50/60 border border-blue-100 rounded-lg p-3.5 flex gap-3 items-start">
-              <Info size={18} className="text-blue-600 shrink-0 mt-0.5" />
-              <p className="text-xs text-blue-800 leading-relaxed font-medium">
+            <div className="bg-cyan-50/60 border border-cyan-100 rounded-lg p-3.5 flex gap-3 items-start">
+              <Info size={18} className="text-cyan-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-cyan-800 leading-relaxed font-medium">
                 Satu SDMK dapat memiliki lebih dari satu penempatan di fasilitas yang berbeda atau pada unit/ruangan yang berbeda.
               </p>
             </div>
@@ -104,7 +104,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
 
           {/* SECTION: FORM TAMBAH PENEMPATAN */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Tambah Penempatan</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Tambah Penempatan</h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
               <FormSelect label="Fasyankes" required placeholder="Pilih fasyankes" />
@@ -124,7 +124,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
                   <input 
                     type="text" 
                     placeholder="DD-MM-YYYY" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -139,7 +139,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
                   <input 
                     type="text" 
                     placeholder="DD-MM-YYYY" 
-                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg pl-3 pr-10 py-2 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800"
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                     <Calendar size={16} />
@@ -159,7 +159,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
               <button 
                 type="button" 
                 onClick={() => setIsPjUnit(!isPjUnit)}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isPjUnit ? 'bg-blue-600' : 'bg-slate-300'}`}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isPjUnit ? 'bg-cyan-600' : 'bg-slate-300'}`}
               >
                 <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isPjUnit ? 'translate-x-6' : 'translate-x-1'}`} />
               </button>
@@ -173,7 +173,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
                 rows={3}
                 maxLength={255}
                 placeholder="Masukkan catatan penempatan" 
-                className="w-full border border-slate-300 rounded-lg p-3 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 text-slate-800 resize-none"
+                className="w-full border border-slate-300 rounded-lg p-3 text-sm outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-slate-800 resize-none"
               />
               <div className="flex justify-end">
                 <span className="text-[11px] text-slate-400">0 / 255</span>
@@ -185,7 +185,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
               <button className="px-5 py-2 border border-slate-300 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
                 Batal
               </button>
-              <button className="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-semibold text-white transition-colors">
+              <button className="px-5 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-xs font-semibold text-white transition-colors">
                 Simpan Penempatan
               </button>
             </div>
@@ -194,12 +194,12 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
           {/* SECTION: DAFTAR PENEMPATAN */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Daftar Penempatan</h3>
+              <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Daftar Penempatan</h3>
               <div className="flex items-center gap-3">
                 <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
                   <Filter size={14} /> Filter
                 </button>
-                <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-blue-600 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+                <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-cyan-600 rounded-lg text-xs font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
                   <Plus size={14} /> Tambah Penempatan
                 </button>
               </div>
@@ -246,7 +246,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
                       </td>
                       <td className="px-4 py-3.5 text-center">
                         <div className="flex items-center justify-center gap-1">
-                          <button className="p-1.5 text-blue-600 hover:bg-blue-50 rounded transition-colors"><Edit2 size={15} /></button>
+                          <button className="p-1.5 text-cyan-600 hover:bg-cyan-50 rounded transition-colors"><Edit2 size={15} /></button>
                           <button className="p-1.5 text-red-500 hover:bg-red-50 rounded transition-colors"><Trash2 size={15} /></button>
                         </div>
                       </td>
@@ -263,7 +263,7 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-1">
                   <button className="w-7 h-7 flex items-center justify-center text-slate-400 hover:bg-slate-50 rounded border border-slate-200"><ChevronDown size={14} className="rotate-90" /></button>
-                  <button className="w-7 h-7 flex items-center justify-center bg-blue-600 text-white text-xs font-semibold rounded">1</button>
+                  <button className="w-7 h-7 flex items-center justify-center bg-cyan-600 text-white text-xs font-semibold rounded">1</button>
                   <button className="w-7 h-7 flex items-center justify-center text-slate-400 hover:bg-slate-50 rounded border border-slate-200"><ChevronDown size={14} className="-rotate-90" /></button>
                 </div>
 
@@ -296,10 +296,10 @@ export default function AddSdmkPenempatanModal({ isOpen, onClose }: AddSdmkPenem
             <button className="flex items-center gap-2 px-6 py-2.5 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
               <ArrowLeft size={16} /> Kembali
             </button>
-            <button className="px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan & Lanjut
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
               Lanjut ke Jadwal Praktik <ArrowRight size={16} />
             </button>
           </div>
@@ -318,7 +318,7 @@ function TabItem({ icon: Icon, label, active, onClick }: { icon: React.ElementTy
       onClick={onClick}
       className={`flex items-center gap-2.5 py-4 px-4 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
         active 
-          ? 'border-blue-600 text-blue-600' 
+          ? 'border-cyan-600 text-cyan-600' 
           : 'border-transparent text-slate-500 hover:text-slate-800'
       }`}
     >
@@ -342,7 +342,7 @@ function FormSelect({ label, required, placeholder, defaultValue }: { label: str
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {placeholder && <option value="" disabled>{placeholder}</option>}

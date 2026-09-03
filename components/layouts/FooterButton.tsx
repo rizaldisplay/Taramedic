@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ArrowRight, FileText, Trash2, Stethoscope, RotateCcw } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Button } from "../ui/Button"; // Sesuaikan path komponen Button kamu
 
 interface FooterTombolProps {
   onSimpanDraft?: () => void;
@@ -20,52 +20,48 @@ export default function FooterTombol({
   isSubmitting = false,
 }: FooterTombolProps) {
   return (
-    <div className="fixed bottom-0 right-0 left-0 lg:left-64 bg-white border-t border-slate-200 p-4 sm:p-5 z-40 shadow-xl transition-all duration-300 font-sans">
-      <div className="max-w-[1440px] mx-auto flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-4">
+    <div className="fixed bottom-0 right-0 left-0 lg:left-64 bg-white border-t border-slate-200 p-3 sm:p-4 z-40 shadow-lg transition-all duration-300 font-sans">
+      <div className="max-w-[1440px] mx-auto flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
         
         {/* Tombol Sekunder (Kiri) */}
-        <div className="flex flex-col-reverse sm:flex-row items-center gap-3 w-full sm:w-auto">
+        <div className="flex flex-col-reverse sm:flex-row items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
           <Button
-            size="md"
             variant="secondary"
-            leftIcon={<FileText className="w-5 h-5 text-slate-500" />}
+            leftIcon={<FileText className="w-4 h-4 text-slate-500" />}
             onClick={onSimpanDraft}
-            className="flex-1 sm:flex-none text-sm font-bold"
+            className="flex-1 sm:flex-none"
           >
             Simpan Draft
           </Button>
 
           <Button
-            size="md"
             variant="secondary"
-            leftIcon={<RotateCcw className="w-5 h-5 text-cyan-600" />}
+            leftIcon={<RotateCcw className="w-4 h-4 text-cyan-600" />}
             onClick={onReset}
-            className="flex-1 sm:flex-none text-sm font-bold border-cyan-200 bg-cyan-50/60 text-cyan-700 hover:bg-cyan-100/70"
+            className="flex-1 sm:flex-none border-cyan-200 bg-cyan-50/60 text-cyan-700 hover:bg-cyan-100/70"
           >
             Reset Perubahan
           </Button>
         </div>
 
         {/* Tombol Aksi Utama (Kanan) */}
-        <div className="flex flex-row items-center gap-3 w-full sm:w-auto">
+        <div className="flex flex-row items-center gap-2.5 w-full sm:w-auto">
           <Button
-            size="md"
             variant="danger"
-            leftIcon={<Trash2 className="w-5 h-5" />}
+            leftIcon={<Trash2 className="w-4 h-4" />}
             onClick={onBatalkanKunjungan}
-            className="flex-1 sm:flex-none text-sm font-bold"
+            className="flex-1 sm:flex-none"
           >
             Batalkan Kunjungan
           </Button>
 
           <Button
-            size="md"
             variant="primary"
-            leftIcon={<Stethoscope className="w-5 h-5" />}
-            rightIcon={<ArrowRight className="w-5 h-5" />}
+            leftIcon={<Stethoscope className="w-4 h-4" />}
+            rightIcon={<ArrowRight className="w-4 h-4" />}
             onClick={onLanjutPemeriksaan}
             isLoading={isSubmitting}
-            className="flex-1 sm:flex-none text-sm font-bold px-6"
+            className="flex-1 sm:flex-none"
           >
             Lanjut Pemeriksaan
           </Button>

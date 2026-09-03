@@ -85,7 +85,7 @@ export default function InitialExaminationPage() {
         </div>
 
         {/* Footer Buttons */}
-        <FooterTombol />
+        {/* <FooterTombol /> */}
 
         <ModalDetailPemeriksaanAwal
           isOpen={isModalPemeriksaan} // 👈 Mengontrol modal terbuka / tertutup

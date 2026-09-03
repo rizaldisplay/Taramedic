@@ -15,7 +15,7 @@ import TopHeader from '@/features/pemeriksaan/dokter/components/TopHeaderInfo';
 
 export default function PemeriksaanPage() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali
-  const [activeTab, setActiveTab] = useState('Pemeriksaan Awal');
+  const [activeTab, setActiveTab] = useState('Ringkasan');
 
   // Fungsi untuk me-render komponen berdasarkan tab yang aktif
   const renderContent = () => {

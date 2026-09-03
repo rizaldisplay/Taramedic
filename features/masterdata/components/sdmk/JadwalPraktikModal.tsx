@@ -104,11 +104,11 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
             {/* Info Banner */}
-            <div className="lg:col-span-5 bg-blue-50/60 border border-blue-100 rounded-xl p-4 flex gap-3 items-start">
-              <Info size={18} className="text-blue-600 shrink-0 mt-0.5" />
+            <div className="lg:col-span-5 bg-cyan-50/60 border border-cyan-100 rounded-xl p-4 flex gap-3 items-start">
+              <Info size={18} className="text-cyan-600 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-xs font-bold text-blue-900 uppercase">Informasi</h4>
-                <p className="text-xs text-blue-800 leading-relaxed">
+                <h4 className="text-xs font-bold text-cyan-900 uppercase">Informasi</h4>
+                <p className="text-xs text-cyan-800 leading-relaxed">
                   Jadwal praktik disusun berdasarkan penempatan aktif. Data jadwal akan digunakan untuk ketersediaan layanan, antrean online, dan integrasi SATUSEHAT (Schedule & Slot).
                 </p>
               </div>
@@ -135,7 +135,7 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
                 </div>
               </div>
 
-              <button className="flex items-center gap-1.5 px-3 py-2 border border-blue-200 bg-blue-50/50 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-100 transition-colors shrink-0 ml-4">
+              <button className="flex items-center gap-1.5 px-3 py-2 border border-cyan-200 bg-cyan-50/50 rounded-lg text-xs font-semibold text-cyan-600 hover:bg-cyan-100 transition-colors shrink-0 ml-4">
                 Lihat Penempatan <ExternalLink size={14} />
               </button>
             </div>
@@ -144,7 +144,7 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
 
           {/* SECTION 2: PENGATURAN JADWAL */}
           <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-6">
-            <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Pengaturan Jadwal</h3>
+            <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Pengaturan Jadwal</h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
               
@@ -153,11 +153,11 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
                 <Label text="Tipe Jadwal" required />
                 <div className="flex flex-col gap-2 mt-2.5">
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="tipe_jadwal" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" defaultChecked />
+                    <input type="radio" name="tipe_jadwal" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" defaultChecked />
                     Berulang (Mingguan)
                   </label>
                   <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                    <input type="radio" name="tipe_jadwal" className="w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" />
+                    <input type="radio" name="tipe_jadwal" className="w-4 h-4 text-cyan-600 border-slate-300 focus:ring-cyan-500" />
                     Satu Kali / Khusus
                   </label>
                 </div>
@@ -170,7 +170,7 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
                   <input 
                     type="number" 
                     defaultValue={30} 
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 text-slate-800"
+                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm outline-none focus:border-cyan-500 text-slate-800"
                   />
                   <span className="absolute inset-y-0 right-3 flex items-center text-xs text-slate-400 pointer-events-none">pasien</span>
                 </div>
@@ -187,16 +187,16 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
                 <Label text="Jenis Pasien Dilayani" required />
                 <div className="flex flex-wrap gap-3 mt-2.5">
                   <label className="flex items-center gap-1.5 text-xs font-medium text-slate-700 cursor-pointer">
-                    <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> Umum
+                    <input type="checkbox" defaultChecked className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> Umum
                   </label>
                   <label className="flex items-center gap-1.5 text-xs font-medium text-slate-700 cursor-pointer">
-                    <input type="checkbox" defaultChecked className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> BPJS
+                    <input type="checkbox" defaultChecked className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> BPJS
                   </label>
                   <label className="flex items-center gap-1.5 text-xs font-medium text-slate-700 cursor-pointer">
-                    <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> Asuransi
+                    <input type="checkbox" className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> Asuransi
                   </label>
                   <label className="flex items-center gap-1.5 text-xs font-medium text-slate-700 cursor-pointer">
-                    <input type="checkbox" className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" /> Perusahaan
+                    <input type="checkbox" className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500" /> Perusahaan
                   </label>
                 </div>
               </div>
@@ -216,10 +216,10 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
             <div className="lg:col-span-8 bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Jadwal Mingguan</h3>
+                  <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Jadwal Mingguan</h3>
                   <p className="text-xs text-slate-500 mt-0.5">Atur hari dan rentang waktu praktik sesuai ketersediaan layanan.</p>
                 </div>
-                <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-blue-600 rounded-lg text-xs font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+                <button className="flex items-center gap-1.5 px-3.5 py-1.5 border border-cyan-600 rounded-lg text-xs font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
                   <Plus size={14} /> Tambah Slot Waktu
                 </button>
               </div>
@@ -274,7 +274,7 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
                         </td>
                         <td className="px-3 py-3 text-center">
                           <div className="flex items-center justify-center gap-1">
-                            <button className="p-1 text-blue-600 hover:bg-blue-50 rounded"><Edit2 size={14} /></button>
+                            <button className="p-1 text-cyan-600 hover:bg-cyan-50 rounded"><Edit2 size={14} /></button>
                             <button className="p-1 text-red-500 hover:bg-red-50 rounded"><Trash2 size={14} /></button>
                           </div>
                         </td>
@@ -299,11 +299,11 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
               
               {/* Preview Slot Box */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Preview Slot (Senin)</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Preview Slot (Senin)</h3>
                 
-                <div className="bg-blue-50/60 border border-blue-100 rounded-lg p-3 flex gap-2.5 items-start">
-                  <Info size={15} className="text-blue-600 shrink-0 mt-0.5" />
-                  <p className="text-[11px] text-blue-800 leading-relaxed">
+                <div className="bg-cyan-50/60 border border-cyan-100 rounded-lg p-3 flex gap-2.5 items-start">
+                  <Info size={15} className="text-cyan-600 shrink-0 mt-0.5" />
+                  <p className="text-[11px] text-cyan-800 leading-relaxed">
                     Slot akan dibuat otomatis berdasarkan durasi layanan dan jam praktik.
                   </p>
                 </div>
@@ -319,7 +319,7 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
 
               {/* Ketentuan Box */}
               <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-3">
-                <h3 className="text-xs font-bold text-blue-700 uppercase tracking-wider">Ketentuan</h3>
+                <h3 className="text-xs font-bold text-cyan-700 uppercase tracking-wider">Ketentuan</h3>
                 
                 <ul className="space-y-2 text-xs text-slate-600">
                   <li className="flex items-start gap-2">
@@ -348,7 +348,7 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
           {/* SECTION 4: DASAR REGULASI */}
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-full bg-cyan-50 text-cyan-600 flex items-center justify-center shrink-0">
                 <Shield size={20} />
               </div>
               <div>
@@ -381,10 +381,10 @@ export default function AddSdmkJadwalPraktikModal({ isOpen, onClose }: AddSdmkJa
             <button className="flex items-center gap-2 px-6 py-2.5 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
               <ArrowLeft size={16} /> Kembali
             </button>
-            <button className="px-6 py-2.5 border border-blue-600 rounded-xl text-sm font-semibold text-blue-600 hover:bg-blue-50 transition-colors">
+            <button className="px-6 py-2.5 border border-cyan-600 rounded-xl text-sm font-semibold text-cyan-600 hover:bg-cyan-50 transition-colors">
               Simpan & Lanjut
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
+            <button className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 rounded-xl text-sm font-semibold text-white transition-colors flex items-center gap-2">
               Lanjut ke Integrasi <ArrowRight size={16} />
             </button>
           </div>
@@ -403,7 +403,7 @@ function TabItem({ icon: Icon, label, active, onClick }: { icon: React.ElementTy
       onClick={onClick}
       className={`flex items-center gap-2.5 py-4 px-4 text-xs font-semibold whitespace-nowrap border-b-2 transition-colors ${
         active 
-          ? 'border-blue-600 text-blue-600' 
+          ? 'border-cyan-600 text-cyan-600' 
           : 'border-transparent text-slate-500 hover:text-slate-800'
       }`}
     >
@@ -427,7 +427,7 @@ function FormSelect({ label, required, placeholder, defaultValue }: { label: str
       <Label text={label} required={required} />
       <div className="relative w-full">
         <select 
-          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          className="w-full appearance-none bg-white border border-slate-300 rounded-lg py-2 pl-3 pr-10 text-sm text-slate-800 outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
           defaultValue={defaultValue || ""}
         >
           {placeholder && <option value="" disabled>{placeholder}</option>}
