@@ -55,23 +55,45 @@ const doctorSchedule = [
 ];
 
 export default function QueueBoard() {
-  // State untuk jam digital agar real-time
+  // State untuk jam digital
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
+  // State Logika Antrean
+  const [queueNumber, setQueueNumber] = useState(58);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Effect Jam Digital
   useEffect(() => {
-    setCurrentTime(new Date()); // Set initial time on client
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    setCurrentTime(new Date());
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Format jam dan tanggal (Bahasa Indonesia)
+  // Effect Simulasi Panggilan Antrean (Bisa diganti dengan WebSocket nanti)
+  useEffect(() => {
+    const queueInterval = setInterval(() => {
+      setQueueNumber((prev) => prev + 1); // Naikkan nomor antrean
+      setIsAnimating(true); // Nyalakan animasi
+
+      // Matikan animasi setelah 2.5 detik agar kembali clean
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 2500);
+    }, 10000); // Berganti otomatis setiap 10 detik untuk testing
+
+    return () => clearInterval(queueInterval);
+  }, []);
+
+  // Format jam dan tanggal
   const formattedTime = currentTime
     ? currentTime
-        .toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" })
-        .replace(".", ":")
-    : "--:--";
+        .toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        })
+        .replace(/\./g, ":")
+    : "--:--:--";
 
   const formattedDate = currentTime
     ? currentTime.toLocaleDateString("id-ID", {
@@ -81,6 +103,9 @@ export default function QueueBoard() {
         year: "numeric",
       })
     : "Memuat...";
+
+  // Helper untuk format angka (contoh: 58 -> A058)
+  const formatQueue = (num: number) => `A${String(num).padStart(3, "0")}`;
 
   return (
     <>
@@ -135,14 +160,27 @@ export default function QueueBoard() {
         <main className="flex-1 grid grid-cols-12 gap-6 p-6 min-h-0 bg-[#f4f7f9]">
           {/* Kolom Kiri: Antrean (Span 5) */}
           <div className="col-span-5 flex flex-col gap-6 h-full">
-            {/* Card Sedang Dipanggil */}
-            <div className="flex-1 bg-gradient-to-br from-cyan-500 via-cyan-600 to-blue-700 rounded-[2rem] shadow-xl shadow-cyan-900/10 p-8 flex flex-col items-center justify-center relative overflow-hidden text-white border border-cyan-400/30">
-              {/* Dekorasi Background */}
+            {/* Card Sedang Dipanggil (Animasi Terkontrol) */}
+            <div
+              className={`flex-1 bg-gradient-to-br from-cyan-500 via-cyan-600 to-blue-700 rounded-[2rem] p-8 flex flex-col items-center justify-center relative overflow-hidden text-white border-2 transition-all duration-500 ${
+                isAnimating
+                  ? "border-cyan-300 shadow-[0_0_40px_rgba(6,182,212,0.6)] animate-alert-pulse"
+                  : "border-cyan-400/30 shadow-xl shadow-cyan-900/10"
+              }`}
+            >
+              {/* Efek Sapuan Cahaya Kilat (Hanya muncul saat transisi) */}
+              {isAnimating && (
+                <div className="absolute top-0 left-0 w-[150%] h-full bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none animate-striking-shine z-20"></div>
+              )}
+
+              {/* Dekorasi Background Statis */}
               <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
               <div className="absolute bottom-[-10%] left-[-20%] w-[300px] h-[300px] bg-blue-900/20 rounded-full blur-2xl pointer-events-none"></div>
 
               <div className="flex items-center gap-4 relative z-10">
-                <div className="bg-white text-cyan-600 p-2.5 rounded-full shadow-md">
+                <div
+                  className={`bg-white text-cyan-600 p-2.5 rounded-full shadow-md ${isAnimating ? "animate-bounce" : ""}`}
+                >
                   <Volume2 className="w-6 h-6" />
                 </div>
                 <div className="h-px w-8 bg-white/50"></div>
@@ -152,8 +190,14 @@ export default function QueueBoard() {
                 <div className="h-px w-8 bg-white/50"></div>
               </div>
 
-              <div className="text-[11rem] leading-none font-bold my-4 drop-shadow-2xl relative z-10 tracking-tighter">
-                A058
+              {/* Nomor Antrean (Gunakan key agar animasi re-render saat angka berubah) */}
+              <div
+                key={queueNumber}
+                className={`text-[11rem] leading-none font-bold my-4 relative z-10 tracking-tighter ${
+                  isAnimating ? "animate-pop-number" : "drop-shadow-2xl"
+                }`}
+              >
+                {formatQueue(queueNumber)}
               </div>
 
               <p className="text-lg font-medium tracking-widest uppercase mb-4 relative z-10">
@@ -168,7 +212,7 @@ export default function QueueBoard() {
               </div>
             </div>
 
-            {/* Card Antrean Berikutnya */}
+            {/* Card Antrean Berikutnya Dinamis */}
             <div className="bg-white rounded-[2rem] p-6 shadow-lg shadow-slate-200/50 border border-slate-100 flex flex-col items-center shrink-0">
               <div className="flex items-center gap-4 w-full justify-center mb-6">
                 <div className="h-px flex-1 bg-slate-100"></div>
@@ -179,9 +223,9 @@ export default function QueueBoard() {
               </div>
 
               <div className="flex w-full gap-4">
-                <NextQueueCard number="A059" />
-                <NextQueueCard number="A060" />
-                <NextQueueCard number="A061" />
+                <NextQueueCard number={formatQueue(queueNumber + 1)} />
+                <NextQueueCard number={formatQueue(queueNumber + 2)} />
+                <NextQueueCard number={formatQueue(queueNumber + 3)} />
               </div>
             </div>
           </div>
@@ -421,17 +465,313 @@ function InfoBox({
 function CustomAnimations() {
   return (
     <style>{`
-      @keyframes sweep {
-        0% { left: -100%; }
-        100% { left: 200%; }
+      /* =========================================================
+         PREMIUM UI ANIMATIONS
+         ========================================================= */
+
+      /* ---------------------------------------------------------
+         Shine Sweep
+         Efek cahaya menyapu sekali dari kiri ke kanan
+         --------------------------------------------------------- */
+
+      @keyframes striking-shine {
+        0% {
+          transform: translateX(-160%) skewX(-20deg);
+          opacity: 0;
+        }
+
+        15% {
+          opacity: 0.15;
+        }
+
+        35% {
+          opacity: 0.65;
+        }
+
+        55% {
+          opacity: 0.35;
+        }
+
+        75% {
+          opacity: 0.1;
+        }
+
+        100% {
+          transform: translateX(180%) skewX(-20deg);
+          opacity: 0;
+        }
       }
-      .animate-sweep { animation: sweep 2s ease-in-out; }
-      @keyframes flare-pulse {
-        0% { opacity: 0; transform: translateX(-50%) scaleX(0.5); }
-        50% { opacity: 1; transform: translateX(-50%) scaleX(1.2); }
-        100% { opacity: 0; transform: translateX(-50%) scaleX(0.5); }
+
+      .animate-striking-shine {
+        animation: striking-shine 1.8s
+          cubic-bezier(0.22, 1, 0.36, 1)
+          forwards;
+
+        will-change: transform, opacity;
+
+        pointer-events: none;
       }
-      .animate-flare { animation: flare-pulse 2s ease-in-out; }
+
+
+      /* ---------------------------------------------------------
+         Soft Alert Pulse
+         Pulse lembut untuk notification / alert / important card
+         --------------------------------------------------------- */
+
+      @keyframes alert-pulse {
+        0% {
+          box-shadow:
+            0 0 0 0 rgba(6, 182, 212, 0.45);
+        }
+
+        35% {
+          box-shadow:
+            0 0 0 8px rgba(6, 182, 212, 0.18),
+            0 0 25px rgba(6, 182, 212, 0.15);
+        }
+
+        70% {
+          box-shadow:
+            0 0 0 18px rgba(6, 182, 212, 0),
+            0 0 35px rgba(6, 182, 212, 0.08);
+        }
+
+        100% {
+          box-shadow:
+            0 0 0 0 rgba(6, 182, 212, 0);
+        }
+      }
+
+      .animate-alert-pulse {
+        animation:
+          alert-pulse 1.6s
+          cubic-bezier(0.4, 0, 0.2, 1)
+          2;
+
+        will-change: box-shadow;
+      }
+
+
+      /* ---------------------------------------------------------
+         Pop Number
+         Untuk angka statistik / total transaksi / revenue
+         --------------------------------------------------------- */
+
+      @keyframes pop-number {
+        0% {
+          transform:
+            translateY(8px)
+            scale(0.82);
+
+          opacity: 0;
+
+          filter: blur(4px);
+
+          text-shadow:
+            0 0 0 rgba(255, 255, 255, 0);
+        }
+
+        35% {
+          transform:
+            translateY(-3px)
+            scale(1.08);
+
+          opacity: 1;
+
+          filter: blur(0);
+
+          text-shadow:
+            0 0 25px rgba(255, 255, 255, 0.45),
+            0 0 50px rgba(6, 182, 212, 0.2);
+        }
+
+        60% {
+          transform:
+            translateY(1px)
+            scale(0.99);
+        }
+
+        100% {
+          transform:
+            translateY(0)
+            scale(1);
+
+          opacity: 1;
+
+          filter: blur(0);
+
+          text-shadow:
+            0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+      }
+
+      .animate-pop-number {
+        animation:
+          pop-number 900ms
+          cubic-bezier(0.175, 0.885, 0.32, 1.275)
+          forwards;
+
+        will-change: transform, opacity, filter;
+      }
+
+
+      /* ---------------------------------------------------------
+         Number Glow
+         Glow sangat halus setelah angka muncul
+         --------------------------------------------------------- */
+
+      @keyframes number-glow {
+        0% {
+          text-shadow:
+            0 0 0 rgba(6, 182, 212, 0);
+        }
+
+        40% {
+          text-shadow:
+            0 0 20px rgba(6, 182, 212, 0.35);
+        }
+
+        100% {
+          text-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+      }
+
+      .animate-number-glow {
+        animation:
+          number-glow 1.2s
+          cubic-bezier(0.4, 0, 0.2, 1)
+          forwards;
+      }
+
+
+      /* ---------------------------------------------------------
+         Card Entrance
+         Untuk card dashboard ketika pertama kali muncul
+         --------------------------------------------------------- */
+
+      @keyframes card-enter {
+        0% {
+          opacity: 0;
+          transform:
+            translateY(12px)
+            scale(0.98);
+        }
+
+        100% {
+          opacity: 1;
+          transform:
+            translateY(0)
+            scale(1);
+        }
+      }
+
+      .animate-card-enter {
+        animation:
+          card-enter 500ms
+          cubic-bezier(0.22, 1, 0.36, 1)
+          forwards;
+
+        will-change: transform, opacity;
+      }
+
+
+      /* ---------------------------------------------------------
+         Smooth Float
+         Sangat subtle untuk icon / decorative element
+         --------------------------------------------------------- */
+
+      @keyframes smooth-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      .animate-smooth-float {
+        animation:
+          smooth-float 3s
+          ease-in-out
+          infinite;
+
+        will-change: transform;
+      }
+
+
+      /* ---------------------------------------------------------
+         Success Check
+         Cocok untuk status berhasil
+         --------------------------------------------------------- */
+
+      @keyframes success-pop {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+
+        60% {
+          transform: scale(1.15);
+          opacity: 1;
+        }
+
+        80% {
+          transform: scale(0.96);
+        }
+
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .animate-success-pop {
+        animation:
+          success-pop 600ms
+          cubic-bezier(0.175, 0.885, 0.32, 1.275)
+          forwards;
+      }
+
+
+      /* ---------------------------------------------------------
+         Subtle Hover Lift
+         Untuk card/button
+         --------------------------------------------------------- */
+
+      .animate-hover-lift {
+        transition:
+          transform 250ms cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .animate-hover-lift:hover {
+        transform: translateY(-3px);
+      }
+
+
+      /* ---------------------------------------------------------
+         Reduced Motion
+         Accessibility
+         --------------------------------------------------------- */
+
+      @media (prefers-reduced-motion: reduce) {
+        .animate-striking-shine,
+        .animate-alert-pulse,
+        .animate-pop-number,
+        .animate-number-glow,
+        .animate-card-enter,
+        .animate-smooth-float,
+        .animate-success-pop {
+          animation: none !important;
+        }
+
+        .animate-hover-lift {
+          transition: none !important;
+        }
+      }
     `}</style>
   );
 }

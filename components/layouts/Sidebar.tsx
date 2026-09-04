@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -208,6 +209,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
               href="/dashboard" 
               onNavClick={onClose} 
             />
+
+            <NavItem icon={Users} label="Pendaftaran" href="/pendaftaran" onNavClick={onClose} />
             
             <NavItem 
               icon={ClipboardList} 
@@ -216,7 +219,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
                 { label: 'Poli', href: '/antrean/poli' },
                 { label: 'Farmasi', href: '/antrean/farmasi' },
                 { label: 'Kasir', href: '/antrean/kasir' },
-                { label: 'Pasien', href: '/kiosq-pendaftaran' }
+                { label: 'Mesin Antrean', href: '/kiosq-pendaftaran' }
               ]}
               onNavClick={onClose}
             />
@@ -231,7 +234,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
               onNavClick={onClose}
             />
 
-            <NavItem icon={Users} label="Pendaftaran" href="/pendaftaran" onNavClick={onClose} />
             <NavItem icon={Pill} label="Farmasi" href="/farmasi" onNavClick={onClose} />
             <NavItem icon={Calculator} label="Kasir" href="/kasir" onNavClick={onClose} />
             <NavItem icon={FileText} label="Laporan" href="/laporan" onNavClick={onClose} />

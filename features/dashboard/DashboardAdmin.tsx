@@ -104,15 +104,8 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden font-sans">
-      {/* Sidebar Responsive */}
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-
-      {/* Konten Utama */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Topbar onOpenSidebar={() => setSidebarOpen(true)} />
-
-        <main className="flex-1 overflow-y-auto p-4 md:p-8">
+    <div>
+      <main className="flex-1 overflow-y-auto p-4 md:p-8">
           
           {/* Welcome Banner */}
           <div className="bg-gradient-to-r from-slate-800 to-cyan-900 rounded-2xl p-6 text-white mb-6 shadow-sm">
@@ -257,13 +250,9 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               </div>
-
             </div>
-
           </div>
-
         </main>
-      </div>
     </div>
   );
 }
