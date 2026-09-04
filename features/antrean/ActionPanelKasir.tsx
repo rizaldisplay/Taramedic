@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Volume2,
   Check,
@@ -11,7 +11,63 @@ import {
   AlertTriangle,
   ChevronsRight,
   RefreshCw,
+  ChevronRight,
+  Ticket,
 } from "lucide-react";
+
+// --- Types ---
+interface QueueItem {
+  id: string;
+  number: string;
+  status: string;
+  timeTaken: string;
+  waitTime: string;
+  waitTimeColor: string;
+}
+
+// --- Mock Data ---
+const waitingQueue: QueueItem[] = [
+  {
+    id: "1",
+    number: "A014",
+    status: "Menunggu",
+    timeTaken: "08:42",
+    waitTime: "3 mnt",
+    waitTimeColor: "text-green-500",
+  },
+  {
+    id: "2",
+    number: "A015",
+    status: "Menunggu",
+    timeTaken: "08:44",
+    waitTime: "1 mnt",
+    waitTimeColor: "text-green-500",
+  },
+  {
+    id: "3",
+    number: "A016",
+    status: "Menunggu",
+    timeTaken: "08:46",
+    waitTime: "< 1 mnt",
+    waitTimeColor: "text-green-500",
+  },
+  {
+    id: "4",
+    number: "A017",
+    status: "Menunggu",
+    timeTaken: "08:48",
+    waitTime: "< 1 mnt",
+    waitTimeColor: "text-green-500",
+  },
+  {
+    id: "5",
+    number: "A018",
+    status: "Menunggu",
+    timeTaken: "08:50",
+    waitTime: "< 1 mnt",
+    waitTimeColor: "text-green-500",
+  },
+];
 
 const LastCallItem = ({
   no,
@@ -50,6 +106,10 @@ const LastCallItem = ({
 };
 
 export const ActionPanel = () => {
+  const [activeTab, setActiveTab] = useState<"menunggu" | "terlewati">(
+    "menunggu",
+  );
+
   return (
     <div className="w-[340px] flex-shrink-0 space-y-4">
       {/* Active Call Card */}
@@ -144,6 +204,71 @@ export const ActionPanel = () => {
                 <ChevronsRight size={16} /> LEWATI
               </button>
             </div>
+
+            <div>
+              <button className="w-full flex flex-col items-center justify-center py-2.5 bg-slate-50 border border-slate-100 text-slate-400 rounded-lg cursor-not-allowed mt-2">
+                <div className="flex items-center text-sm font-semibold mb-0.5">
+                  <Lock className="w-4 h-4 mr-2" /> Mulai Pembayaran
+                </div>
+                <div className="text-[10px] text-slate-400">
+                  Tandai hadir terlebih dahulu untuk memulai pembayaran
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex border-b border-gray-200 mb-3 flex-shrink-0">
+            <button
+              onClick={() => setActiveTab("menunggu")}
+              className={`flex-1 pb-2 text-xs font-semibold text-center ${activeTab === "menunggu" ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"}`}
+            >
+              MENUNGGU (16)
+            </button>
+            <button
+              onClick={() => setActiveTab("terlewati")}
+              className={`flex-1 pb-2 text-xs font-semibold text-center ${activeTab === "terlewati" ? "text-cyan-600 border-b-2 border-cyan-600" : "text-gray-500"}`}
+            >
+              TERLEWATI (2)
+            </button>
+          </div>
+
+          {/* Queue List */}
+          {/* Memberikan flex-1 pada list ini agar bisa mengisi sisa ruang dan di-scroll internal jika kepanjangan */}
+          <div className="flex-1 overflow-y-auto pr-1 space-y-1 mb-4 scrollbar-thin scrollbar-thumb-gray-200 custom-scrollbar">
+            {waitingQueue.map((item) => (
+              <div
+                key={item.id}
+                className="flex justify-between items-center p-2 hover:bg-gray-50 rounded-lg border-b border-gray-50 last:border-0"
+              >
+                <div className="flex items-center gap-3">
+                  <Ticket size={18} className="text-gray-400" />
+                  <div>
+                    <p className="text-sm font-bold text-gray-800">
+                      {item.number}
+                    </p>
+                    <p className="text-[10px] text-gray-500 flex items-center gap-1">
+                      <span className="w-1 h-1 rounded-full bg-gray-400"></span>{" "}
+                      {item.status}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-[11px] text-gray-500">
+                    Diambil {item.timeTaken}
+                  </p>
+                  <p
+                    className={`text-[11px] font-medium ${item.waitTimeColor}`}
+                  >
+                    {item.waitTime}
+                  </p>
+                </div>
+              </div>
+            ))}
+
+            <button className="w-full mt-2 text-xs text-cyan-600 font-semibold flex items-center justify-center gap-1 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <ChevronRight size={14} /> LIHAT SEMUA
+            </button>
           </div>
         </div>
       </div>
