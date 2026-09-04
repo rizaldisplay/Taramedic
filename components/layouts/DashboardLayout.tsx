@@ -15,20 +15,43 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const currentPath = path || '/';
 
     // Contoh mapping URL ke teks Topbar (Bisa kamu sesuaikan dengan routing aslimu)
-    if (currentPath.includes('/farmasi')) {
-      return { moduleName: 'Dashboard', pageName: 'Farmasi' };
+    if (currentPath.includes('/pendaftaran')) {
+      return { moduleName: 'Dashboard', pageName: 'Pendaftaran' };
     }
+
+    if (currentPath.includes('/antrean/poli')) {
+      return { moduleName: 'Antrean', pageName: 'Poli' };
+    }
+
+    if (currentPath.includes('/antrean/farmasi')) {
+      return { moduleName: 'Antrean', pageName: 'Farmasi' };
+    }
+
+    if (currentPath.includes('/antrean/kasir')) {
+      return { moduleName: 'Antrean', pageName: 'Kasir' };
+    }
+
     if (currentPath.includes('/emr/perawat')) {
       return { moduleName: 'EMR', pageName: 'Perawat' };
     }
     if (currentPath.includes('/emr/dokter')) {
       return { moduleName: 'EMR', pageName: 'Dokter' };
     }
+
     if (currentPath.includes('/kasir')) {
       return { moduleName: 'Dashboard', pageName: 'Kasir & Transaksi' };
     }
-    if (currentPath.includes('/masterdata/inventaris')) {
-      return { moduleName: 'ERP', pageName: 'Manajemen Stok' };
+
+    if (currentPath.includes('/settings')) {
+      return { moduleName: 'Dashboard', pageName: 'Settings' };
+    }
+
+    if (currentPath.includes('/laporan')) {
+      return { moduleName: 'Dashboard', pageName: 'Laporan' };
+    }
+
+    if (currentPath.includes('/masterdata/sdmk')) {
+      return { moduleName: 'Master Data', pageName: 'SDMK' };
     }
 
     // Default halaman utama atau path yang belum terdaftar
