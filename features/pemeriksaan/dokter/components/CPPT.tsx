@@ -1,7 +1,16 @@
 "use client";
 
 import React from "react";
-import { Plus, Pencil, MoreVertical, Info } from "lucide-react";
+import {
+  Plus,
+  Pencil,
+  MoreVertical,
+  Info,
+  ChevronDown,
+  Calendar,
+  Filter,
+  PlusCircle,
+} from "lucide-react";
 
 // --- Types & Interfaces ---
 type Role = "Perawat" | "Dokter";
@@ -120,113 +129,171 @@ export default function TabCPPT() {
   };
 
   return (
-    <div className="w-full bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <>
       {/* Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-5 pb-3 border-b border-gray-100">
+      {/* 1. Header & Filter Toolbar */}
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between py-4 px-6 bg-white border-b border-gray-100">
         <div>
-          <h2 className="text-[15px] font-bold text-slate-800 uppercase tracking-wide">
-            CPPT (CATATAN PERKEMBANGAN PASIEN TERINTEGRASI)
-          </h2>
-          <p className="text-[12px] text-gray-400 mt-0.5">
-            Dokumentasi perkembangan kondisi dan rencana pelayanan pasien pada
-            kunjungan ini.
+          <h1 className="text-lg font-bold uppercase tracking-wide text-gray-900">
+            CPPT
+          </h1>
+          <p className="text-xs text-gray-500 mt-0.5">
+            Catatan perkembangan pasien terintegrasi.
           </p>
         </div>
-        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-50 text-cyan-600 border border-cyan-100 text-xs font-semibold hover:bg-cyan-100/70 transition-all cursor-pointer">
-          <Plus size={14} />
-          <span>Tambah Entri</span>
-        </button>
+
+        {/* Filter Controls */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Semua Profesi Dropdown */}
+          <button className="flex items-center gap-2 bg-white border border-gray-200 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            <span>Semua Profesi</span>
+            <ChevronDown size={14} className="text-gray-400" />
+          </button>
+
+          {/* Date Picker Range */}
+          <button className="flex items-center gap-2 bg-white border border-gray-200 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            <Calendar size={14} className="text-gray-400" />
+            <span>16/08/2026 – 16/08/2026</span>
+          </button>
+
+          {/* Filter Button */}
+          <button className="flex items-center gap-1.5 bg-white border border-gray-200 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+            <Filter size={14} className="text-gray-400" />
+            <span>Filter</span>
+          </button>
+
+          {/* Action Button */}
+          <button className="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-700 text-white px-3.5 py-1.5 rounded-lg text-sm font-medium shadow-sm transition-colors ml-1">
+            <PlusCircle size={15} />
+            <span>Entri CPPT</span>
+          </button>
+        </div>
       </div>
 
-      {/* Timeline Section */}
-      <div className="relative">
-        {cpptData.map((entry, index) => (
-          <div
-            key={entry.id}
-            className="relative flex flex-col md:flex-row gap-3 md:gap-5 mb-5 last:mb-0"
-          >
-            {/* Meta Info */}
-            <div className="md:w-28 flex-shrink-0 flex flex-wrap md:flex-col items-center md:items-end justify-start gap-2 md:gap-0.5 pt-0.5 text-left md:text-right">
-              <span className="text-xs font-bold text-gray-800">
-                {entry.time}
-              </span>
-              <span className="text-[10px] text-gray-400 font-medium md:mb-1.5">
-                {entry.date}
-              </span>
+      <div className="w-full bg-white rounded-xl border border-gray-200 p-5 shadow-sm space-y-5">
+        {/* Timeline Section */}
+        <div className="relative space-y-5">
+          {cpptData.map((entry, index) => (
+            <div key={entry.id} className="relative flex gap-4 items-start">
+              {/* Timeline Line & Dot Container */}
+              <div className="hidden md:flex flex-col items-center self-stretch shrink-0 pt-1">
+                <div
+                  className={`w-3.5 h-3.5 rounded-full border-2 z-10 shrink-0 ${getTimelineDotStyle(
+                    entry.role,
+                  )}`}
+                />
+                {index !== cpptData.length - 1 && (
+                  <div className="w-0.5 bg-gray-200 flex-1 my-1" />
+                )}
+              </div>
 
-              <span
-                className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${getRoleBadgeStyle(entry.role)}`}
-              >
-                {entry.role}
-              </span>
-              <span className="text-[11px] text-gray-600 font-medium md:mt-0.5">
-                {entry.author}
-              </span>
+              {/* Left Meta Info (Time, Date, Role, Author) */}
+              <div className="w-28 shrink-0 space-y-1 text-left pt-0.5">
+                <div className="text-xs font-bold text-gray-900">
+                  {entry.time}
+                </div>
+                <div className="text-[11px] text-gray-400 font-medium">
+                  {entry.date}
+                </div>
+
+                <div className="pt-1">
+                  <span
+                    className={`inline-block px-2 py-0.5 rounded text-[10px] font-semibold ${getRoleBadgeStyle(
+                      entry.role,
+                    )}`}
+                  >
+                    {entry.role}
+                  </span>
+                </div>
+
+                <div className="text-xs font-medium text-gray-700 pt-0.5 leading-snug">
+                  {entry.author}
+                </div>
+              </div>
+
+              {/* Clean Integrated SOAP Card */}
+              <div className="flex-1 bg-white rounded-xl border border-gray-200/80 shadow-sm flex items-stretch overflow-hidden transition-all hover:border-gray-300">
+                <div className="grid grid-cols-1 md:grid-cols-4 flex-1 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                  {/* S - Subjektif */}
+                  <div className="p-3.5 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-100 text-[11px] font-bold text-sky-600">
+                        S
+                      </span>
+                      <span className="text-xs font-bold text-sky-600">
+                        Subjektif
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-800 leading-relaxed font-medium">
+                      {renderSOAPContent(entry.soap.s)}
+                    </div>
+                  </div>
+
+                  {/* O - Objektif */}
+                  <div className="p-3.5 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-[11px] font-bold text-emerald-600">
+                        O
+                      </span>
+                      <span className="text-xs font-bold text-emerald-600">
+                        Objektif
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-800 leading-relaxed font-medium">
+                      {renderSOAPContent(entry.soap.o)}
+                    </div>
+                  </div>
+
+                  {/* A - Asesmen */}
+                  <div className="p-3.5 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-[11px] font-bold text-purple-600">
+                        A
+                      </span>
+                      <span className="text-xs font-bold text-purple-600">
+                        Asesmen
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-800 leading-relaxed font-medium">
+                      {renderSOAPContent(entry.soap.a)}
+                    </div>
+                  </div>
+
+                  {/* P - Plan */}
+                  <div className="p-3.5 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 text-[11px] font-bold text-amber-700">
+                        P
+                      </span>
+                      <span className="text-xs font-bold text-amber-700">
+                        Plan
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-800 leading-relaxed font-medium">
+                      {renderSOAPContent(entry.soap.p, true)}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Menu (Kebab) Button */}
+                <div className="p-2 border-l border-gray-100 flex items-start bg-gray-50/30">
+                  <button className="p-1.5 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                    <MoreVertical size={16} />
+                  </button>
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
 
-            {/* Timeline Line & Dot (Desktop) */}
-            <div className="hidden md:flex relative flex-col items-center w-5">
-              <div
-                className={`w-3 h-3 rounded-full z-10 mt-1.5 ring-4 ring-white ${getTimelineDotStyle(entry.role)}`}
-              />
-              {index !== cpptData.length - 1 && (
-                <div className="w-px h-full bg-gray-200 absolute top-3" />
-              )}
-            </div>
-
-            {/* SOAP Card */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 text-[12px] text-gray-700">
-              {/* Subjektif */}
-              <div className="flex flex-col gap-1.5 p-2.5 rounded-lg border border-gray-100 bg-gray-50/50">
-                <div className="w-fit bg-cyan-50 text-cyan-600 border border-cyan-100 px-2 py-0.5 rounded font-bold text-[10px]">
-                  S (Subjektif)
-                </div>
-                <div className="text-gray-800">
-                  {renderSOAPContent(entry.soap.s)}
-                </div>
-              </div>
-
-              {/* Objektif */}
-              <div className="flex flex-col gap-1.5 p-2.5 rounded-lg border border-gray-100 bg-gray-50/50">
-                <div className="w-fit bg-emerald-50 text-emerald-600 border border-emerald-100 px-2 py-0.5 rounded font-bold text-[10px]">
-                  O (Objektif)
-                </div>
-                <div className="text-gray-800">
-                  {renderSOAPContent(entry.soap.o)}
-                </div>
-              </div>
-
-              {/* Assessment */}
-              <div className="flex flex-col gap-1.5 p-2.5 rounded-lg border border-gray-100 bg-gray-50/50">
-                <div className="w-fit bg-purple-50 text-purple-600 border border-purple-100 px-2 py-0.5 rounded font-bold text-[10px]">
-                  A (Assessment)
-                </div>
-                <div className="text-gray-800">
-                  {renderSOAPContent(entry.soap.a)}
-                </div>
-              </div>
-
-              {/* Plan */}
-              <div className="flex flex-col gap-1.5 p-2.5 rounded-lg border border-gray-100 bg-gray-50/50">
-                <div className="w-fit bg-amber-50 text-amber-700 border border-amber-200/70 px-2 py-0.5 rounded font-bold text-[10px]">
-                  P (Plan)
-                </div>
-                <div className="text-gray-800">
-                  {renderSOAPContent(entry.soap.p, true)}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        {/* Info Alert Banner */}
+        <div className="flex items-center gap-2.5 rounded-lg border border-sky-100 bg-sky-50/80 px-4 py-2.5 text-xs text-sky-800">
+          <Info size={15} className="text-sky-600 shrink-0" />
+          <span>
+            CPPT akan berlanjut oleh tenaga kesehatan lain sesuai kewenangannya.
+          </span>
+        </div>
       </div>
-
-      {/* Info Alert Footer */}
-      <div className="mt-5 flex items-center gap-2 pt-3 border-t border-gray-100 text-[11px] text-gray-400 font-medium">
-        <Info size={13} className="text-gray-400 shrink-0" />
-        <span>
-          CPPT akan berlanjut oleh tenaga kesehatan lain sesuai kewenangannya.
-        </span>
-      </div>
-    </div>
+    </>
   );
 }
