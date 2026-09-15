@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
 'use client'; // Wajib karena mengakses objek Worker browser
 
 let workerInstance: Worker | null = null;

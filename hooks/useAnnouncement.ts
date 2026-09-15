@@ -1,90 +1,51 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { AnnouncementPayload, AnnouncementSettings } from '@/types/tts';
-import { requestTTS } from '@/services/ttsWorkerService';
+import { useCallback } from 'react';
 
-export const useAnnouncement = (settings: AnnouncementSettings) => {
-    const [queue, setQueue] = useState<AnnouncementPayload[]>([]);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioContextRef = useRef<{ opening?: HTMLAudioElement, closing?: HTMLAudioElement }>({});
+import { useAnnouncementQueue } from '@/hooks/use-announcement-queue';
+import { useAnnouncementSettings } from '@/hooks/use-announcement-settings';
+import { useOfflineTtsStatus } from '@/hooks/use-offline-tts-status';
+import { enqueueAnnouncement as pushToQueue } from '@/lib/announcement/queue';
+import type {
+    Announcement,
+    AnnouncementSettings,
+    RawAnnouncementPayload,
+} from '@/types/announcement';
+import type { OfflineTtsStatusSnapshot } from '@/types/tts';
 
-    // Inisialisasi Audio saat komponen di-mount
-    useEffect(() => {
-        audioContextRef.current = {
-            opening: new Audio('/sounds/opening.mp3'), //[cite: 1]
-            closing: new Audio('/sounds/closing.mp3')  //[cite: 1]
-        };
+interface UseAnnouncementOptions {
+    /** ?autostart=1 untuk kiosk yang menyala sendiri tanpa ada yang mengklik. */
+    autostart?: boolean;
+}
+
+interface UseAnnouncementResult {
+    /** Masukkan panggilan ke antrean FIFO. Duplikat `call_id` otomatis diabaikan. */
+    enqueueAnnouncement: (payload: RawAnnouncementPayload) => void;
+    /** Panggilan yang sedang disuarakan — inilah yang harus ditampilkan di kartu. */
+    currentCall: Announcement | null;
+    unlocked: boolean;
+    queueActive: boolean;
+    unlock: () => Promise<void>;
+    ttsStatus: OfflineTtsStatusSnapshot;
+}
+
+/**
+ * Pembungkus tipis di atas modul antrean. Satu-satunya hook yang perlu dipanggil
+ * komponen layar; sisanya (worker, cache, ducking) dikelola di luar React.
+ */
+export const useAnnouncement = (
+    settings: Partial<Record<keyof AnnouncementSettings, unknown>>,
+    { autostart = false }: UseAnnouncementOptions = {},
+): UseAnnouncementResult => {
+    useAnnouncementSettings(settings);
+
+    const { currentCall, unlocked, queueActive, unlock } = useAnnouncementQueue({ autostart });
+    const ttsStatus = useOfflineTtsStatus();
+
+    // Referensinya stabil, jadi aman dipakai di dependency array useEffect.
+    const enqueueAnnouncement = useCallback((payload: RawAnnouncementPayload) => {
+        pushToQueue(payload, { display: true });
     }, []);
 
-    const playCueTransition = async (audio?: HTMLAudioElement, volume = 1) => {
-        if (!audio) return;
-        audio.volume = volume; //[cite: 1]
-        audio.currentTime = 0; //[cite: 1]
-        await audio.play();
-        return new Promise(resolve => audio.addEventListener('ended', resolve, { once: true })); //[cite: 1]
-    };
-
-    const processQueue = async () => {
-        if (isPlaying || queue.length === 0 || !settings.announcement_enabled) return; //[cite: 1]
-
-        setIsPlaying(true);
-        const currentAnnouncement = queue[0];
-
-        try {
-            for (let i = 0; i < settings.repeat_count; i++) { //[cite: 1]
-                if (settings.opening_enabled) {
-                    await playCueTransition(audioContextRef.current.opening, settings.audio_volume / 100); //[cite: 1]
-                }
-
-                if (settings.voice_mode === 'offline_tts') {
-                    // Memanggil worker offline
-                    const audioBlob = await requestTTS('synthesize', { 
-                        segments: [{ text: currentAnnouncement.message }], 
-                        speed: settings.tts_speed, 
-                        style: settings.tts_style 
-                    }); //[cite: 7]
-                    
-                    const audioUrl = URL.createObjectURL(audioBlob); //[cite: 1]
-                    await playCueTransition(new Audio(audioUrl), settings.audio_volume / 100);
-                    URL.revokeObjectURL(audioUrl); //[cite: 1]
-                } else {
-                    // Logika Web Speech API (Online TTS)[cite: 1]
-                    const utterance = new SpeechSynthesisUtterance(currentAnnouncement.message);
-                    utterance.rate = settings.tts_speed; //[cite: 1]
-                    utterance.pitch = settings.online_pitch; //[cite: 1]
-                    utterance.volume = settings.audio_volume / 100; //[cite: 1]
-                    
-                    await new Promise(resolve => {
-                        utterance.onend = resolve; //[cite: 1]
-                        window.speechSynthesis.speak(utterance); //[cite: 1]
-                    });
-                }
-
-                if (settings.closing_enabled) {
-                    await playCueTransition(audioContextRef.current.closing, settings.audio_volume / 100); //[cite: 1]
-                }
-                
-                if (i < settings.repeat_count - 1 && settings.repeat_pause_ms > 0) {
-                    await new Promise(res => setTimeout(res, settings.repeat_pause_ms)); //[cite: 1]
-                }
-            }
-        } catch (error) {
-            console.error("Gagal memutar audio:", error);
-        } finally {
-            setQueue(prev => prev.slice(1)); // Hapus dari antrian setelah selesai
-            setIsPlaying(false);
-        }
-    };
-
-    // Trigger pemrosesan otomatis jika ada antrian baru
-    useEffect(() => {
-        processQueue();
-    }, [queue, isPlaying]);
-
-    const enqueueAnnouncement = (announcement: AnnouncementPayload) => {
-        setQueue(prev => [...prev, announcement]); //[cite: 1]
-    };
-
-    return { queue, isPlaying, enqueueAnnouncement };
+    return { enqueueAnnouncement, currentCall, unlocked, queueActive, unlock, ttsStatus };
 };

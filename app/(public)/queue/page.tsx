@@ -15,15 +15,20 @@ if (typeof window !== "undefined") {
   window.Pusher = windowPusher;
 }
 
-interface AnnouncementData {
-  title: string;
+// Gunakan interface baru yang sesuai dengan backend Laravel
+export interface AnnouncementPayload {
   message: string;
-  queue_number: string;
-  room: string;
+  ticket_number: string;
+  service_name?: string;
+  service_code?: string;
+  counter_name?: string;
+  counter_code?: string;
+  call_id?: number | null;
+  called_at?: string;
 }
 
 export default function QueueDisplay() {
-  const [announcement, setAnnouncement] = useState<AnnouncementData | null>(null);
+  const [announcement, setAnnouncement] = useState<AnnouncementPayload | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isAudioUnlocked, setIsAudioUnlocked] = useState(false);
   const echoInstance = useRef<Echo<any> | null>(null);
@@ -81,26 +86,25 @@ export default function QueueDisplay() {
     // 3. Subscribe ke channel
     const channel = echo.channel("display-board");
 
-    channel.listen(".display.updated", (data: { announcement: AnnouncementData | null }) => {
+    // Sesuaikan parameter data dengan struktur interface yang baru
+    channel.listen(".display.updated", (data: { announcement: AnnouncementPayload | null }) => {
       console.log("Pembaruan layar diterima:", data);
       
       if (data.announcement) {
         setAnnouncement(data.announcement);
+        
+        // Sesuaikan parameter yang dikirim ke TTS hook
         enqueueAnnouncement({
             message: data.announcement.message,
-            ticket_number: data.announcement.queue_number,
-            counter_name: data.announcement.room
+            ticket_number: data.announcement.ticket_number,
+            counter_name: data.announcement.counter_name || "Loket"
         });
       }
     });
 
     // 4. Cleanup function
     return () => {
-      // Cukup tinggalkan channel saat komponen unmount.
-      // JANGAN gunakan echo.disconnect() di sini agar tidak bertabrakan dengan Strict Mode.
       echo.leaveChannel("display-board");
-      
-      // Hapus event listener koneksi agar tidak menumpuk saat remount
       echo.connector.pusher.connection.unbind('connected');
       echo.connector.pusher.connection.unbind('disconnected');
     };
@@ -135,11 +139,20 @@ export default function QueueDisplay() {
 
       {announcement ? (
         <div className="bg-gray-800 border-2 border-blue-500 p-6 rounded-xl animate-pulse text-center transition-all duration-500">
-          <p className="text-xl text-blue-400 mb-2">{announcement.title}</p>
+          {/* Tampilkan Nama Layanan jika ada, jika tidak kosongkan */}
+          {announcement.service_name && (
+              <p className="text-xl text-blue-400 mb-2">Layanan: {announcement.service_name}</p>
+          )}
+          
           <h2 className="text-7xl font-black text-yellow-400 mb-4 tracking-wider">
-            {announcement.queue_number}
+            {announcement.ticket_number}
           </h2>
-          <p className="text-3xl font-semibold mb-2 text-white">Menuju: {announcement.room}</p>
+          
+          {/* Tampilkan Nama Loket/Ruangan */}
+          <p className="text-3xl font-semibold mb-2 text-white">
+            Menuju: {announcement.counter_name}
+          </p>
+          
           <p className="text-gray-400 text-xl mt-4">{announcement.message}</p>
         </div>
       ) : (

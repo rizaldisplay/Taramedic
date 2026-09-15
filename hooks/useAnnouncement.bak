@@ -1,0 +1,91 @@
+/* eslint-disable react-hooks/set-state-in-effect */
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { AnnouncementPayload, AnnouncementSettings } from '@/types/tts';
+import { requestTTS } from '@/services/ttsWorkerService';
+
+export const useAnnouncement = (settings: AnnouncementSettings) => {
+    const [queue, setQueue] = useState<AnnouncementPayload[]>([]);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioContextRef = useRef<{ opening?: HTMLAudioElement, closing?: HTMLAudioElement }>({});
+
+    // Inisialisasi Audio saat komponen di-mount
+    useEffect(() => {
+        audioContextRef.current = {
+            opening: new Audio('/sounds/opening.mp3'), //[cite: 1]
+            closing: new Audio('/sounds/closing.mp3')  //[cite: 1]
+        };
+    }, []);
+
+    const playCueTransition = async (audio?: HTMLAudioElement, volume = 1) => {
+        if (!audio) return;
+        audio.volume = volume; //[cite: 1]
+        audio.currentTime = 0; //[cite: 1]
+        await audio.play();
+        return new Promise(resolve => audio.addEventListener('ended', resolve, { once: true })); //[cite: 1]
+    };
+
+    const processQueue = async () => {
+        if (isPlaying || queue.length === 0 || !settings.announcement_enabled) return; //[cite: 1]
+
+        setIsPlaying(true);
+        const currentAnnouncement = queue[0];
+
+        try {
+            for (let i = 0; i < settings.repeat_count; i++) { //[cite: 1]
+                if (settings.opening_enabled) {
+                    await playCueTransition(audioContextRef.current.opening, settings.audio_volume / 100); //[cite: 1]
+                }
+
+                if (settings.voice_mode === 'offline_tts') {
+                    // Memanggil worker offline
+                    const audioBlob = await requestTTS('synthesize', { 
+                        segments: [{ text: currentAnnouncement.message }], 
+                        speed: settings.tts_speed, 
+                        style: settings.tts_style 
+                    }); //[cite: 7]
+                    
+                    const audioUrl = URL.createObjectURL(audioBlob); //[cite: 1]
+                    await playCueTransition(new Audio(audioUrl), settings.audio_volume / 100);
+                    URL.revokeObjectURL(audioUrl); //[cite: 1]
+                } else {
+                    // Logika Web Speech API (Online TTS)[cite: 1]
+                    const utterance = new SpeechSynthesisUtterance(currentAnnouncement.message);
+                    utterance.rate = settings.tts_speed; //[cite: 1]
+                    utterance.pitch = settings.online_pitch; //[cite: 1]
+                    utterance.volume = settings.audio_volume / 100; //[cite: 1]
+                    
+                    await new Promise(resolve => {
+                        utterance.onend = resolve; //[cite: 1]
+                        window.speechSynthesis.speak(utterance); //[cite: 1]
+                    });
+                }
+
+                if (settings.closing_enabled) {
+                    await playCueTransition(audioContextRef.current.closing, settings.audio_volume / 100); //[cite: 1]
+                }
+                
+                if (i < settings.repeat_count - 1 && settings.repeat_pause_ms > 0) {
+                    await new Promise(res => setTimeout(res, settings.repeat_pause_ms)); //[cite: 1]
+                }
+            }
+        } catch (error) {
+            console.error("Gagal memutar audio:", error);
+        } finally {
+            setQueue(prev => prev.slice(1)); // Hapus dari antrian setelah selesai
+            setIsPlaying(false);
+        }
+    };
+
+    // Trigger pemrosesan otomatis jika ada antrian baru
+    useEffect(() => {
+        processQueue();
+    }, [queue, isPlaying]);
+
+    const enqueueAnnouncement = (announcement: AnnouncementPayload) => {
+        setQueue(prev => [...prev, announcement]); //[cite: 1]
+    };
+
+    return { queue, isPlaying, enqueueAnnouncement };
+};

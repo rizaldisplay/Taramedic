@@ -1,25 +1,43 @@
-export interface AnnouncementSettings {
-    voice_mode: 'online_tts' | 'offline_tts';
-    announcement_enabled: boolean;
-    audio_volume: number; // 0 - 100
-    repeat_count: number;
-    opening_enabled: boolean;
-    closing_enabled: boolean;
-    cue_gap_ms: number;
-    repeat_pause_ms: number;
-    speak_zero_digits: boolean;
-    tts_speed: number;
-    tts_style: 'calm' | 'expressive' | 'natural';
-    online_pitch: number;
+import type { TtsStyle } from './announcement';
+
+export interface SpeechSegment {
+    text: string;
+    /** Jeda setelah segmen, 0 - 1000 ms. */
+    pauseAfterMs: number;
+    /** 0.7 - 1.1 */
+    speedMultiplier: number;
 }
 
-export interface AnnouncementPayload {
+export type OfflineTtsStatus = 'idle' | 'loading' | 'ready' | 'synthesizing' | 'error';
+
+export interface OfflineTtsStatusSnapshot {
+    status: OfflineTtsStatus;
     message: string;
-    ticket_number: string;
-    service_name?: string;
-    service_code?: string;
-    counter_name?: string;
-    counter_code?: string;
-    call_id?: number | null;
-    called_at?: string;
 }
+
+/** Struktur file <voice>.onnx.json bawaan Piper. */
+export interface PiperVoiceConfig {
+    espeak: { voice: string };
+    inference: {
+        noise_scale: number;
+        length_scale: number;
+        noise_w: number;
+    };
+    audio: { sample_rate: number };
+}
+
+export type OfflineTtsRequest =
+    | { type: 'initialize'; requestId: number }
+    | {
+          type: 'synthesize';
+          requestId: number;
+          segments: SpeechSegment[];
+          speed: number;
+          style: TtsStyle;
+      };
+
+export type OfflineTtsResponse =
+    | { type: 'status'; status: OfflineTtsStatus; detail: string }
+    | { type: 'initialized'; requestId: number }
+    | { type: 'audio'; requestId: number; pcm: ArrayBuffer; sampleRate: number; durationMs: number }
+    | { type: 'error'; requestId: number; message: string };

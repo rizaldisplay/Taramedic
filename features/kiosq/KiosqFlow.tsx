@@ -1,19 +1,20 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { ArrowLeft } from "lucide-react";
 
-import { KiosqStep, StatusPasien, Penjamin } from '@/types/kiosk';
+import { KiosqStep, StatusPasien, Penjamin } from "@/types/kiosk";
 
-import { KiosqHeader } from './KiosqHeader';
-import { KiosqFooter } from './KiosqFooter';
-import { StepperIndicator } from './StepperIndicator';
-import { StepStatusPasien } from './StepStatusPasien';
-import { StepPenjamin } from './StepPenjamin';
-import { StepSuccess } from './StepSuccess';
+import { KiosqHeader } from "./KiosqHeader";
+import { KiosqFooter } from "./KiosqFooter";
+import DisplayAwal from "./DisplayAwal";
+import { StepperIndicator } from "./StepperIndicator";
+import { StepStatusPasien } from "./StepStatusPasien";
+import { StepPenjamin } from "./StepPenjamin";
+import { StepSuccess } from "./StepSuccess";
 
 export const KiosqFlow = () => {
-  const [step, setStep] = useState<KiosqStep>(1);
+  const [step, setStep] = useState<KiosqStep>(0);
   const [status, setStatus] = useState<StatusPasien>(null);
   const [penjamin, setPenjamin] = useState<Penjamin>(null);
   const [countdown, setCountdown] = useState(20);
@@ -50,7 +51,7 @@ export const KiosqFlow = () => {
   };
 
   const handleReset = () => {
-    setStep(1);
+    setStep(0);
     setStatus(null);
     setPenjamin(null);
     setCountdown(20);
@@ -59,17 +60,14 @@ export const KiosqFlow = () => {
   return (
     <div className="h-screen w-screen overflow-hidden bg-slate-50 font-sans select-none">
       <div className="flex h-full w-full flex-col bg-white">
-
         {/* 1. Header Kiosk */}
         <KiosqHeader />
 
         {/* 2. Main Content Wrapper */}
         <main className="flex flex-1 flex-col overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8">
-
           {/* Top Bar Section: Tombol Kembali & Stepper */}
           <div className="mx-auto w-full max-w-5xl shrink-0 mb-4 sm:mb-6">
             <div className="relative flex items-center justify-between min-h-[48px] sm:min-h-[56px]">
-              
               {/* Tombol Kembali (Presisi di Kiri Tanpa Menimpa Stepper) */}
               <div className="w-24 sm:w-32 shrink-0">
                 {step === 2 && (
@@ -93,19 +91,22 @@ export const KiosqFlow = () => {
               </div>
 
               {/* Stepper Indicator (Berada tepat di tengah) */}
-              <div className="flex-1 max-w-xs sm:max-w-md md:max-w-lg mx-auto">
-                <StepperIndicator step={step} />
-              </div>
+              {step > 0 && (
+                <div className="absolute left-1/2 transform -translate-x-1/2">
+                  <StepperIndicator step={step} />
+                </div>
+              )}
 
               {/* Spacer Seimbang di Kanan */}
               <div className="w-24 sm:w-32 shrink-0" />
-
             </div>
           </div>
 
           {/* Step Content Container (Responsive Scrollable Center) */}
           <div className="flex flex-1 items-center justify-center overflow-y-auto min-h-0 py-2 sm:py-4">
             <div className="w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl my-auto">
+              {step === 0 && <DisplayAwal onClickMulai={handleNextStep} />}
+
               {step === 1 && (
                 <StepStatusPasien
                   selected={status}
@@ -136,12 +137,10 @@ export const KiosqFlow = () => {
               )}
             </div>
           </div>
-
         </main>
 
         {/* 3. Footer Kiosk */}
         <KiosqFooter />
-
       </div>
     </div>
   );
