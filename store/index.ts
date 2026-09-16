@@ -1,5 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '@/features/auth/authSlice';
+import queueaReducer from '@/features/pendaftaran/slices/queueSlice';
+import patientReducer from '@/features/pendaftaran/slices/patientSlice';
 // Import slice fitur lain di sini jika ada:
 // import rekamMedisReducer from '@/features/rekam-medis/rekamMedisSlice';
 
@@ -7,6 +9,8 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       auth: authReducer,
+      queue: queueaReducer,
+      patient: patientReducer,
       // rekamMedis: rekamMedisReducer,
     },
     middleware: (getDefaultMiddleware) =>
