@@ -61,7 +61,7 @@ export function PrinterStatusWidget({ className, ...institutionConfig }: Printer
         className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-white/90 transition hover:bg-white/15"
       >
         <span className={`h-2.5 w-2.5 rounded-full ${printer.statusTone}`} aria-hidden />
-        <span className="max-w-[9rem] truncate">{printer.statusLabel}</span>
+        <span className="max-w-36 truncate">{printer.statusLabel}</span>
       </button>
 
       {menuOpen && (

@@ -1,45 +1,69 @@
 'use client';
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircle2, Monitor, Printer, Clock } from "lucide-react";
-import { StatusPasien, Penjamin } from "@/types/kiosk";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store"; // Sesuaikan path
+import { resetKiosk } from "@/features/kiosq/slice/kioskSlice"; // Sesuaikan path
 import { useReceiptPrinter } from "@/hooks/useReceiptPrinter";
 
-interface Props {
-  status: StatusPasien;
-  penjamin: Penjamin;
-  countdown: number;
-  onDone: () => void;
-}
+const INSTITUTION_CONFIG = {
+  institutionName: "Klinik Taramedic",
+  institutionAddress: "Jl. Merdeka No. 10, Jakarta",
+  institutionPhone: "031-1234567",
+};
 
-  const INSTITUTION_CONFIG = {
-    institutionName: "Klinik Taramedic",
-    institutionAddress: "Jl. Merdeka No. 10, Jakarta",
-    institutionPhone: "031-1234567",
-  };
+export const StepSuccess: React.FC = () => {
+  const dispatch = useDispatch();
+  
+  // Ambil data dari Redux Store
+  const { statusPasien, jenisPenjamin, nomorAntrean } = useSelector(
+    (state: RootState) => state.kiosk
+  );
 
-export const StepSuccess: React.FC<Props> = ({
-  status,
-  penjamin,
-  countdown,
-  onDone,
-}) => {
-  const queueCode = penjamin === "BPJS" ? "A081" : "B042";
+  // State lokal untuk Timer
+  const [countdown, setCountdown] = useState(17);
   const printer = useReceiptPrinter(INSTITUTION_CONFIG);
 
-  const handlePrintSample = () => {
+  // Efek Countdown Timer
+  useEffect(() => {
+    // Jika timer habis, reset layar kiosk ke awal
+    if (countdown <= 0) {
+      dispatch(resetKiosk());
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+
+    // Bersihkan interval saat komponen di-unmount
+    return () => clearInterval(timer);
+  }, [countdown, dispatch]);
+
+  // Fungsi saat tombol Selesai diklik manual
+  const handleDone = () => {
+    dispatch(resetKiosk());
+  };
+
+// Fungsi Cetak Tiket Dinamis
+  const handlePrint = () => {
+    if (!printer.isPaired || !nomorAntrean) return;
+
     void printer.printTicket({
-      ticket_number: "A012",
-      service_name: "Pendaftaran Umum",
-      service_code: "A",
-      estimated_wait_minutes: 15,
-      waiting_count: 4,
-      queue_date: new Date().toLocaleDateString("id-ID", {
+      ticket_number: nomorAntrean.ticket_number || "---",
+      service_name: nomorAntrean.service_name || `Pendaftaran ${jenisPenjamin}`,
+      service_code: nomorAntrean.service_code || "A",
+      estimated_wait_minutes: nomorAntrean.estimated_wait_minutes || 0,
+      waiting_count: nomorAntrean.waiting_count || 0,
+      
+      // Gunakan tanggal dari backend jika ada, fallback ke lokal jika kosong
+      queue_date: nomorAntrean.queue_date || new Date().toLocaleDateString("id-ID", {
         day: "2-digit",
         month: "short",
         year: "numeric",
       }),
-      issued_at: new Date().toLocaleTimeString("id-ID", {
+      issued_at: nomorAntrean.issued_at || new Date().toLocaleTimeString("id-ID", {
         hour: "2-digit",
         minute: "2-digit",
       }),
@@ -48,9 +72,9 @@ export const StepSuccess: React.FC<Props> = ({
 
   return (
     <div className="w-full max-w-2xl mx-auto text-center flex flex-col items-center justify-between min-h-[420px] sm:min-h-[480px] animate-in zoom-in-95 duration-300 select-none">
-      {/* Konten Utama (Nomor Antrean & Info) */}
+      
+      {/* Konten Utama */}
       <div className="flex flex-col items-center justify-center my-auto w-full">
-        {/* Success Badge */}
         <div className="w-14 h-14 sm:w-16 sm:h-16 bg-emerald-50 rounded-full flex items-center justify-center mb-3 sm:mb-4 shadow-xs">
           <CheckCircle2 className="w-9 h-9 sm:w-10 sm:h-10 text-emerald-500" />
         </div>
@@ -64,14 +88,14 @@ export const StepSuccess: React.FC<Props> = ({
 
         {/* Kode Antrean Raksasa */}
         <div className="text-6xl sm:text-7xl lg:text-8xl font-black text-cyan-600 tracking-tight my-1 sm:my-2 leading-none drop-shadow-xs">
-          {queueCode}
+          {nomorAntrean?.ticket_number || "..."}
         </div>
 
-        {/* Metadata Penjamin & Status */}
+        {/* Metadata Penjamin & Status (Dari Redux) */}
         <div className="text-xs sm:text-sm font-extrabold text-slate-600 tracking-widest uppercase flex items-center gap-2 mb-6 sm:mb-8 bg-slate-100/80 px-4 py-1.5 rounded-full border border-slate-200/60">
-          <span>{penjamin}</span>
+          <span>{jenisPenjamin}</span>
           <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
-          <span>PASIEN {status}</span>
+          <span>PASIEN {statusPasien}</span>
         </div>
 
         {/* Info Panggilan Monitor */}
@@ -85,11 +109,10 @@ export const StepSuccess: React.FC<Props> = ({
 
       {/* Area Bawah (Tombol Aksi & Countdown Timer) */}
       <div className="w-full pt-4 space-y-3 sm:space-y-4 shrink-0 mt-auto">
-        {/* Tombol Cetak & Selesai */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <button
             type="button"
-            onClick={handlePrintSample}
+            onClick={handlePrint}
             disabled={!printer.isPaired}
             className="
               flex items-center justify-center gap-2
@@ -98,6 +121,7 @@ export const StepSuccess: React.FC<Props> = ({
               font-bold text-sm sm:text-base text-slate-700
               hover:bg-slate-50 hover:border-slate-300
               active:scale-[0.98] transition-all cursor-pointer shadow-xs
+              disabled:opacity-50 disabled:cursor-not-allowed
             "
           >
             <Printer className="w-5 h-5 text-slate-600" />
@@ -106,7 +130,7 @@ export const StepSuccess: React.FC<Props> = ({
 
           <button
             type="button"
-            onClick={onDone}
+            onClick={handleDone}
             className="
               flex items-center justify-center gap-2
               h-12 sm:h-14 px-5 rounded-2xl
@@ -120,7 +144,7 @@ export const StepSuccess: React.FC<Props> = ({
           </button>
 
           {!printer.isPaired && (
-            <p className="max-w-xs text-center text-sm text-white/50">
+            <p className="col-span-1 sm:col-span-2 text-center text-xs sm:text-sm text-slate-500 mt-2">
               Pasangkan printer melalui menu di kanan atas terlebih dahulu.
             </p>
           )}

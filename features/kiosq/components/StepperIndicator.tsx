@@ -1,11 +1,14 @@
 import React from 'react';
-import { KiosqStep } from '@/types/kiosk';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store'; // Sesuaikan dengan path store Anda
 
-interface StepperIndicatorProps {
-  step: KiosqStep;
-}
+export const StepperIndicator: React.FC = () => {
+  // Ambil state step langsung dari Redux
+  const step = useSelector((state: RootState) => state.kiosk.step);
 
-export const StepperIndicator: React.FC<StepperIndicatorProps> = ({ step }) => {
+  // Sembunyikan stepper jika berada di layar awal (0) atau di luar flow
+  if (step === 0 || step > 3) return null;
+
   return (
     <div className="w-full max-w-sm sm:max-w-md mx-auto select-none">
       

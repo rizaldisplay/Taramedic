@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react";
 
-import { PrinterStatusWidget } from "@/features/kiosq/PrinterStatusWidget";
+import { PrinterStatusWidget } from "@/features/kiosq/components/PrinterStatusWidget";
 const INSTITUTION_CONFIG = {
   institutionName: 'Klinik Taramedic',
   institutionAddress: 'Jl. Merdeka No. 10, Jakarta',

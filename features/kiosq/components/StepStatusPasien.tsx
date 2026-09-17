@@ -1,13 +1,21 @@
 import React from 'react';
 import { User, Users } from 'lucide-react';
-import { StatusPasien } from '@/types/kiosk';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store'; // Sesuaikan dengan path root reducer Anda
+import { pilihStatusPasien } from '@/features/kiosq/slice/kioskSlice'; // Sesuaikan dengan path slice
+import { StatusPasien } from '@/types/common';
 
-interface Props {
-  onSelect: (val: StatusPasien) => void;
-  selected: StatusPasien;
-}
+export const StepStatusPasien: React.FC = () => {
+  const dispatch = useDispatch();
+  
+  // Berlangganan ke state statusPasien di dalam Redux
+  const selected = useSelector((state: RootState) => state.kiosk.statusPasien);
 
-export const StepStatusPasien: React.FC<Props> = ({ onSelect, selected }) => {
+  // Fungsi untuk trigger perubahan state
+  const handleSelect = (val: StatusPasien) => {
+    dispatch(pilihStatusPasien(val));
+  };
+
   return (
     <div className="w-full max-w-2xl mx-auto text-center animate-in fade-in slide-in-from-bottom-4 duration-300">
       
@@ -25,7 +33,7 @@ export const StepStatusPasien: React.FC<Props> = ({ onSelect, selected }) => {
         {/* Option: Pasien Baru */}
         <button
           type="button"
-          onClick={() => onSelect('Baru')}
+          onClick={() => handleSelect('Baru')}
           className={`
             group relative flex flex-col items-center justify-center
             p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl border-2 transition-all cursor-pointer
@@ -53,7 +61,7 @@ export const StepStatusPasien: React.FC<Props> = ({ onSelect, selected }) => {
         {/* Option: Pasien Lama */}
         <button
           type="button"
-          onClick={() => onSelect('Lama')}
+          onClick={() => handleSelect('Lama')}
           className={`
             group relative flex flex-col items-center justify-center
             p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl border-2 transition-all cursor-pointer

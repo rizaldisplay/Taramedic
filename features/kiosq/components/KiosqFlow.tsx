@@ -1,9 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ArrowLeft } from "lucide-react";
-
-import { KiosqStep, StatusPasien, Penjamin } from "@/types/kiosk";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store"; // Sesuaikan dengan path store Anda
+import {
+  mulaiKiosk,
+  kembaliKeStepSebelumnya,
+} from "@/features/kiosq/slice/kioskSlice"; // Sesuaikan path
 
 import { KiosqHeader } from "./KiosqHeader";
 import { KiosqFooter } from "./KiosqFooter";
@@ -14,47 +18,17 @@ import { StepPenjamin } from "./StepPenjamin";
 import { StepSuccess } from "./StepSuccess";
 
 export const KiosqFlow = () => {
-  const [step, setStep] = useState<KiosqStep>(0);
-  const [status, setStatus] = useState<StatusPasien>(null);
-  const [penjamin, setPenjamin] = useState<Penjamin>(null);
-  const [countdown, setCountdown] = useState(20);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (step === 3) {
-      timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            handleReset();
-            return 20;
-          }
-
-          return prev - 1;
-        });
-      }, 1000);
-    }
-
-    return () => clearInterval(timer);
-  }, [step]);
-
-  const handleNextStep = () => {
-    if (step < 3) {
-      setStep((prev) => (prev + 1) as KiosqStep);
-    }
-  };
+  const dispatch = useDispatch();
+  
+  // Ambil posisi step saat ini dari Redux (0: Awal, 1: Status, 2: Penjamin, 3: Sukses)
+  const step = useSelector((state: RootState) => state.kiosk.step);
 
   const handlePrevStep = () => {
-    if (step > 1) {
-      setStep((prev) => (prev - 1) as KiosqStep);
-    }
+    dispatch(kembaliKeStepSebelumnya());
   };
 
-  const handleReset = () => {
-    setStep(0);
-    setStatus(null);
-    setPenjamin(null);
-    setCountdown(20);
+  const handleStart = () => {
+    dispatch(mulaiKiosk());
   };
 
   return (
@@ -65,10 +39,12 @@ export const KiosqFlow = () => {
 
         {/* 2. Main Content Wrapper */}
         <main className="flex flex-1 flex-col overflow-hidden px-4 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8">
+          
           {/* Top Bar Section: Tombol Kembali & Stepper */}
           <div className="mx-auto w-full max-w-5xl shrink-0 mb-4 sm:mb-6">
-            <div className="relative flex items-center justify-between min-h-[48px] sm:min-h-[56px]">
-              {/* Tombol Kembali (Presisi di Kiri Tanpa Menimpa Stepper) */}
+            <div className="relative flex items-center justify-between min-h-12 sm:min-h-14">
+              
+              {/* Tombol Kembali (Hanya tampil di Langkah 2 - Pilih Penjamin) */}
               <div className="w-24 sm:w-32 shrink-0">
                 {step === 2 && (
                   <button
@@ -90,10 +66,10 @@ export const KiosqFlow = () => {
                 )}
               </div>
 
-              {/* Stepper Indicator (Berada tepat di tengah) */}
-              {step > 0 && (
+              {/* Stepper Indicator (Berada tepat di tengah, tidak tampil di Display Awal) */}
+              {step > 0 && step < 4 && (
                 <div className="absolute left-1/2 transform -translate-x-1/2">
-                  <StepperIndicator step={step} />
+                  <StepperIndicator />
                 </div>
               )}
 
@@ -104,37 +80,12 @@ export const KiosqFlow = () => {
 
           {/* Step Content Container (Responsive Scrollable Center) */}
           <div className="flex flex-1 items-center justify-center overflow-y-auto min-h-0 py-2 sm:py-4">
-            <div className="w-full max-w-4xl lg:max-w-5xl xl:max-w-6xl my-auto">
-              {step === 0 && <DisplayAwal onClickMulai={handleNextStep} />}
-
-              {step === 1 && (
-                <StepStatusPasien
-                  selected={status}
-                  onSelect={(val) => {
-                    setStatus(val);
-                    handleNextStep();
-                  }}
-                />
-              )}
-
-              {step === 2 && (
-                <StepPenjamin
-                  selected={penjamin}
-                  onSelect={(val) => {
-                    setPenjamin(val);
-                    handleNextStep();
-                  }}
-                />
-              )}
-
-              {step === 3 && (
-                <StepSuccess
-                  status={status}
-                  penjamin={penjamin}
-                  countdown={countdown}
-                  onDone={handleReset}
-                />
-              )}
+            <div className={`w-full flex flex-col ${step === 0 ? 'max-w-full h-full' : 'max-w-4xl lg:max-w-5xl my-auto py-4'}`}>
+              {/* Render komponen tanpa perlu passing props lagi karena sudah connect ke Redux */}
+              {step === 0 && <DisplayAwal onClickMulai={handleStart} />}
+              {step === 1 && <StepStatusPasien />}
+              {step === 2 && <StepPenjamin />}
+              {step === 3 && <StepSuccess />}
             </div>
           </div>
         </main>
