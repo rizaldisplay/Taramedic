@@ -1,26 +1,61 @@
+'use client';
+
 /**
- * app/kiosk/page.tsx — routes to /kiosk
- *
- * Stays a plain (Server Component) page: this is where you'd fetch the
- * institution/settings row from your DB or API. Only serializable data
- * crosses into <KioskPrinterWidget>; the interactive bits (onIdle, the
- * hooks) live entirely on the client side, in KioskPrinterWidget.tsx.
+ * Demo page showing how the pieces fit together — the equivalent of the
+ * Blade view that used to render `x-data="kioskShell(...)"`.
  */
 
-import { KioskPrinterWidget } from '@/features/kiosq/KioskPrinter';
+import { useReceiptPrinter } from '@/hooks/useReceiptPrinter';
+import { PrinterStatusWidget } from '@/features/kiosq/PrinterStatusWidget';
 
-// import { getKioskSettings } from '@/lib/kiosk-settings'; // your own data source
+const INSTITUTION_CONFIG = {
+  institutionName: 'Klinik Sehat Sentosa',
+  institutionAddress: 'Jl. Merdeka No. 10, Surabaya',
+  institutionPhone: '031-1234567',
+};
 
-export default async function KioskPrinterPage() {
-    // const settings = await getKioskSettings();
-    const settings = {
-        institutionName: 'Puskesmas Melati',
-        idleSeconds: 60,
-    };
+export default function PrinterDemoPage() {
+  // A page that only needs to trigger prints (no status UI) can call the
+  // hook directly instead of rendering <PrinterStatusWidget />.
+  const printer = useReceiptPrinter(INSTITUTION_CONFIG);
 
-    return (
-        <main className="flex min-h-dvh items-center justify-end bg-neutral-950 p-4">
-            <KioskPrinterWidget institutionName={settings.institutionName} idleSeconds={settings.idleSeconds} />
-        </main>
-    );
+  const handlePrintSample = () => {
+    void printer.printTicket({
+      ticket_number: 'A012',
+      service_name: 'Pendaftaran Umum',
+      service_code: 'A',
+      estimated_wait_minutes: 15,
+      waiting_count: 4,
+      queue_date: new Date().toLocaleDateString('id-ID', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }),
+      issued_at: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+    });
+  };
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-slate-950 p-8 text-white">
+      <header className="flex w-full max-w-md items-center justify-between rounded-2xl bg-slate-900 px-4 py-3">
+        <span className="font-medium">{INSTITUTION_CONFIG.institutionName}</span>
+        <PrinterStatusWidget {...INSTITUTION_CONFIG} />
+      </header>
+
+      <button
+        type="button"
+        onClick={handlePrintSample}
+        disabled={!printer.isPaired}
+        className="rounded-xl bg-emerald-600 px-5 py-2.5 font-medium transition hover:bg-emerald-500 disabled:opacity-40"
+      >
+        Cetak Tiket Contoh
+      </button>
+
+      {!printer.isPaired && (
+        <p className="max-w-xs text-center text-sm text-white/50">
+          Pasangkan printer melalui menu di kanan atas terlebih dahulu.
+        </p>
+      )}
+    </main>
+  );
 }
