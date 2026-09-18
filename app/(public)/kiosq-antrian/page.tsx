@@ -2,6 +2,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Echo from "laravel-echo";
+import windowPusher from "pusher-js";
+import { useAnnouncement } from "@/hooks/useAnnouncement"; // Impor hook TTS yang dibuat sebelumnya
 import {
   Volume2,
   Monitor,
@@ -53,6 +56,23 @@ const doctorSchedule = [
     img: "/images/dokter4.png",
   },
 ];
+
+declare global {
+  interface Window {
+    Pusher?: typeof windowPusher;
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.Pusher = windowPusher;
+}
+
+interface AnnouncementData {
+  title: string;
+  message: string;
+  queue_number: string;
+  room: string;
+}
 
 export default function QueueBoard() {
   // State untuk jam digital

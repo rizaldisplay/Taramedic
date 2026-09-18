@@ -36,26 +36,26 @@ export const fetchQueueStatus = createAsyncThunk<
     // return response.data;
     
     // Mock Data untuk simulasi:
-    return {
-      menunggu: 16,
-      terlewati: 2,
-      antreanSaatIni: {
-        id: 'q-013',
-        nomorAntrean: 'A013',
-        statusAntrean: 'Di Panggil',
-        waktuAmbil: '08:03:21',
-        waktuPanggil: '08:03:21',
-        estimasiTunggu: null,
-        isPasienBaru: false,
-        waitTimeColor: 'text-green-500',
-        pemanggilanKe: 1,
-      },
-      daftarAntrean: [
-        { id: 'q-014', nomorAntrean: 'A014', statusAntrean: 'Menunggu', waktuAmbil: '08:42', estimasiTunggu: '3 mnt', isPasienBaru: true, waitTimeColor: 'text-green-500', pemanggilanKe: 0 },
-        { id: 'q-015', nomorAntrean: 'A015', statusAntrean: 'Menunggu', waktuAmbil: '08:44', estimasiTunggu: '1 mnt', isPasienBaru: false, waitTimeColor: 'text-green-500', pemanggilanKe: 0 },
-        { id: 'q-016', nomorAntrean: 'A016', statusAntrean: 'Menunggu', waktuAmbil: '08:46', estimasiTunggu: '< 1 mnt', isPasienBaru: true, waitTimeColor: 'text-green-500', pemanggilanKe: 0 },
-      ],
-    };
+    // return {
+    //   menunggu: 16,
+    //   terlewati: 2,
+    //   antreanSaatIni: {
+    //     id: 'q-013',
+    //     nomorAntrean: 'A013',
+    //     statusAntrean: 'Di Panggil',
+    //     waktuAmbil: '08:03:21',
+    //     waktuPanggil: '08:03:21',
+    //     estimasiTunggu: null,
+    //     isPasienBaru: false,
+    //     waitTimeColor: 'text-green-500',
+    //     pemanggilanKe: 1,
+    //   },
+    //   daftarAntrean: [
+    //     { id: 'q-014', nomorAntrean: 'A014', statusAntrean: 'Menunggu', waktuAmbil: '08:42', estimasiTunggu: '3 mnt', isPasienBaru: true, waitTimeColor: 'text-green-500', pemanggilanKe: 0 },
+    //     { id: 'q-015', nomorAntrean: 'A015', statusAntrean: 'Menunggu', waktuAmbil: '08:44', estimasiTunggu: '1 mnt', isPasienBaru: false, waitTimeColor: 'text-green-500', pemanggilanKe: 0 },
+    //     { id: 'q-016', nomorAntrean: 'A016', statusAntrean: 'Menunggu', waktuAmbil: '08:46', estimasiTunggu: '< 1 mnt', isPasienBaru: true, waitTimeColor: 'text-green-500', pemanggilanKe: 0 },
+    //   ],
+    // };
   } catch (err: any) {
     return rejectWithValue(err.message || 'Gagal mengambil data antrean');
   }
