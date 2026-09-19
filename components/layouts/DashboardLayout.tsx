@@ -1,11 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/store';
 import { usePathname } from 'next/navigation';
 import { Sidebar } from './Sidebar';
 import { Topbar } from './Topbar';
+import { hideNotification } from '@/features/notification/notificationSlice';
+import Notification from '@/components/ui/Notification'; // Sesuaikan path
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
 
@@ -59,6 +64,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   };
 
   const { moduleName, pageName } = getPageInfo(pathname);
+  const notif = useSelector((state: RootState) => state.notification);
+
+  useEffect(() => {
+    // Jika notifikasi sedang tampil, jalankan timer
+    if (notif.show) {
+      const timer = setTimeout(() => {
+        dispatch(hideNotification());
+      }, 3000); // 3000 milidetik = 3 detik
+
+      // Fungsi cleanup: membatalkan timer jika komponen ditutup manual
+      // atau jika ada notifikasi baru yang muncul sebelum 3 detik habis
+      return () => clearTimeout(timer);
+    }
+  }, [notif.show, dispatch]); // Ter-trigger setiap kali status notif.show berubah
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden">
@@ -73,6 +92,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           moduleName={moduleName}
           pageName={pageName}
         />
+
+      {/* Toast Notification ditaruh di sini agar selalu ada (fixed) di atas layar */}
+        {notif.show && (
+          <div className="fixed top-20 right-5 z-50">
+            <Notification 
+              title={notif.title}
+              description={notif.message}
+              type={notif.type}
+              onClose={() => dispatch(hideNotification())}
+            />
+          </div>
+        )}
 
         {/* Area Konten Dinamis */}
         <main className="flex-1 overflow-y-auto p-4 md:p-6">

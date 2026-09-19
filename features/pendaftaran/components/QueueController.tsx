@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Settings2,
   Volume2,
@@ -11,38 +12,74 @@ import {
   Ticket,
   ChevronRight,
 } from "lucide-react";
-
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   fetchQueueStatus,
-  panggilBerikutnya,
+  callNextQueue,
   panggilUlang,
   tandaiHadir,
   lewatiAntrean,
   setActiveTab,
   selectNextInQueue,
 } from "../slices/queueSlice";
+import { showNotification } from '@/features/notification/notificationSlice';
+
+import { getEcho } from "@/lib/realtime/echo";
 
 export default function QueueController() {
   const dispatch = useAppDispatch();
-  const {
-    antreanSaatIni,
-    daftarAntrean,
-    menunggu,
-    terlewati,
-    activeTab,
-  } = useAppSelector((state) => state.queue);
-  
+  const { antreanSaatIni, daftarAntrean, daftarTerlewati, menunggu, terlewati, activeTab } = useAppSelector((state) => state.queue);
   const nextTicket = useAppSelector(selectNextInQueue);
 
   useEffect(() => {
     dispatch(fetchQueueStatus());
+
+    const echo = getEcho();
+
+    if (!echo) {
+      return;
+    }
+
+    const channel = echo.channel("queue-board").listen(".queue.updated", () => {
+      console.log("[Queue] 🔄 Antrean diperbarui dari Kiosk");
+
+      dispatch(fetchQueueStatus());
+    });
+
+    return () => {
+      echo.leave("queue-board");
+    };
   }, [dispatch]);
 
   // Filtering data berdasarkan tab yang aktif di Redux State
-  const filteredAntrean = daftarAntrean.filter(
-    (item) => item.statusAntrean === activeTab
-  );
+  // const filteredAntrean = daftarAntrean.filter(
+  //   (item) => item.statusAntrean === activeTab,
+  // );
+  const filteredAntrean = activeTab == 'Menunggu' ? daftarAntrean : daftarTerlewati;
+
+  const handleCallNext = async (counterId: number) => {
+    console.log(counterId)
+
+    try {
+      const result = await dispatch(callNextQueue(counterId)).unwrap();
+      
+      // Panggil notifikasi global!
+      dispatch(showNotification({
+        title: 'Berhasil Dipanggil',
+        message: `Nomor antrean berhasil dipanggil .`,
+        type: 'success'
+      }));
+      
+    } catch (error: any) {
+      // Panggil notifikasi error global!
+      dispatch(showNotification({
+        title: 'Gagal Memanggil',
+        message: typeof error === 'string' ? error : 'Terjadi kesalahan sistem.',
+        type: 'error'
+      }));
+    }
+  };
+
 
   return (
     <div className="w-full h-full flex flex-col p-5 font-sans">
@@ -79,7 +116,7 @@ export default function QueueController() {
       {/* Action Buttons */}
       <div className="flex flex-col gap-2 mb-4 flex-shrink-0">
         <button
-          onClick={() => dispatch(panggilBerikutnya())}
+          onClick={() => handleCallNext(nextTicket?.isPasienBaru ? 1 : 2)}
           className="w-full bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 text-sm font-semibold transition-colors cursor-pointer"
         >
           <Volume2 size={18} /> PANGGIL BERIKUTNYA
@@ -141,7 +178,7 @@ export default function QueueController() {
 
       {/* Queue List */}
       <div className="flex-1 overflow-y-auto pr-1 space-y-1 mb-4 scrollbar-thin scrollbar-thumb-gray-200 custom-scrollbar">
-        {filteredAntrean.length === 0 ? (
+        {filteredAntrean?.length === 0 ? (
           <p className="text-xs text-center text-gray-400 py-4">
             Tidak ada antrean {activeTab.toLowerCase()}
           </p>
@@ -167,7 +204,9 @@ export default function QueueController() {
                 <p className="text-[11px] text-gray-500">
                   Diambil {item.waktuAmbil}
                 </p>
-                <p className={`text-[11px] font-medium ${item.waitTimeColor || "text-green-500"}`}>
+                <p
+                  className={`text-[11px] font-medium ${item.waitTimeColor || "text-green-500"}`}
+                >
                   {item.estimasiTunggu ?? "-"}
                 </p>
               </div>

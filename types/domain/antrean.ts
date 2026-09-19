@@ -17,6 +17,7 @@ interface StatusAntreanHarian {
     terlewati: number;
     antreanSaatIni: ItemAntrean | null;
     daftarAntrean: ItemAntrean[];
+    daftarTerlewati: ItemAntrean[];
 }
 
 export type { ItemAntrean, StatusAntreanHarian };

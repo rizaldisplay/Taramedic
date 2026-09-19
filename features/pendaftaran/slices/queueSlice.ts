@@ -16,6 +16,7 @@ const initialState: QueueState = {
   terlewati: 0,
   antreanSaatIni: null,
   daftarAntrean: [],
+  daftarTerlewati: [],
   activeTab: 'Menunggu',
   loading: false,
   error: null,
@@ -34,6 +35,8 @@ export const fetchQueueStatus = createAsyncThunk<
   try {
     // Ganti dengan API call riil: const response = await api.get('/queue/today');
     // return response.data;
+    const response = await api.get('/counter/0/data');
+    return response.data;
     
     // Mock Data untuk simulasi:
     // return {
@@ -64,15 +67,23 @@ export const fetchQueueStatus = createAsyncThunk<
 // Memanggil antrean berikutnya
 export const callNextQueue = createAsyncThunk<
   ItemAntrean | null,
-  void,
+  number, // 1. Ubah 'void' menjadi 'number' agar menerima argumen saat di-dispatch
   { rejectValue: string }
->('queue/callNext', async (_, { rejectWithValue }) => {
+>('queue/callNext', async (counterId, { rejectWithValue }) => {
   try {
-    // const response = await api.post('/queue/next');
-    // return response.data;
-    return null; // Handle via reducers or return backend updated item
+    // 2. Gunakan template literal (backtick) untuk memasukkan counterId ke dalam URL
+    const response = await api.post(`/counter/${counterId}/call-next`);
+    
+    const resultData = response.data; 
+    
+    console.log(`Data Antrean (Counter ${counterId}):`, resultData); 
+
+    return resultData; 
   } catch (err: any) {
-    return rejectWithValue(err.message || 'Gagal memanggil antrean berikutnya');
+    const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil antrean berikutnya';
+    console.error(`Error Call Next (Counter ${counterId}):`, errorMessage);
+    
+    return rejectWithValue(errorMessage);
   }
 });
 
@@ -175,6 +186,7 @@ export const queueSlice = createSlice({
         state.terlewati = action.payload.terlewati;
         state.antreanSaatIni = action.payload.antreanSaatIni;
         state.daftarAntrean = action.payload.daftarAntrean;
+        state.daftarTerlewati = action.payload.daftarTerlewati;
       })
       .addCase(fetchQueueStatus.rejected, (state, action) => {
         state.loading = false;
@@ -202,6 +214,7 @@ export default queueSlice.reducer;
 
 // Import RootState dari file store utama kamu (sesuaikan path)
 import type { RootState } from '@/store'; 
+import { api } from '@/services/api';
 
 // Selector untuk mengambil 1 item antrean berikutnya yang berstatus 'Menunggu'
 export const selectNextInQueue = (state: RootState): ItemAntrean | null => {

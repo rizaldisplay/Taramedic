@@ -3,6 +3,7 @@ import authReducer from '@/features/auth/authSlice';
 import queueaReducer from '@/features/pendaftaran/slices/queueSlice';
 import patientReducer from '@/features/pendaftaran/slices/patientSlice';
 import kioskReducer from '@/features/kiosq/slice/kioskSlice'
+import notificationReducer from '@/features/notification/notificationSlice'
 // Import slice fitur lain di sini jika ada:
 // import rekamMedisReducer from '@/features/rekam-medis/rekamMedisSlice';
 
@@ -13,6 +14,7 @@ export const makeStore = () => {
       queue: queueaReducer,
       patient: patientReducer,
       kiosk: kioskReducer,
+      notification: notificationReducer,
       // rekamMedis: rekamMedisReducer,
     },
     middleware: (getDefaultMiddleware) =>
