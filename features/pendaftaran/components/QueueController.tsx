@@ -16,11 +16,13 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   fetchQueueStatus,
   callNextQueue,
-  panggilUlang,
-  tandaiHadir,
-  lewatiAntrean,
+  callNextSkipQueue,
+  recallQueue,
+  SkipQueue,
+  startServingQueue,
   setActiveTab,
   selectNextInQueue,
+  selectNextInSkipQueue
 } from "../slices/queueSlice";
 import { showNotification } from '@/features/notification/notificationSlice';
 
@@ -30,6 +32,9 @@ export default function QueueController() {
   const dispatch = useAppDispatch();
   const { antreanSaatIni, daftarAntrean, daftarTerlewati, menunggu, terlewati, activeTab } = useAppSelector((state) => state.queue);
   const nextTicket = useAppSelector(selectNextInQueue);
+  const nextTicketSkip = useAppSelector(selectNextInSkipQueue);
+
+  console.log("skip", nextTicketSkip)
 
   useEffect(() => {
     dispatch(fetchQueueStatus());
@@ -58,8 +63,6 @@ export default function QueueController() {
   const filteredAntrean = activeTab == 'Menunggu' ? daftarAntrean : daftarTerlewati;
 
   const handleCallNext = async (counterId: number) => {
-    console.log(counterId)
-
     try {
       const result = await dispatch(callNextQueue(counterId)).unwrap();
       
@@ -79,6 +82,138 @@ export default function QueueController() {
       }));
     }
   };
+
+  const handleCallSkipNext = async (counterId: number) => {
+    try {
+      const result = await dispatch(callNextSkipQueue(counterId)).unwrap();
+      
+      // Panggil notifikasi global!
+      dispatch(showNotification({
+        title: 'Berhasil Dipanggil',
+        message: `Nomor antrean terlewati berhasil dipanggil .`,
+        type: 'success'
+      }));
+      
+    } catch (error: any) {
+      // Panggil notifikasi error global!
+      dispatch(showNotification({
+        title: 'Gagal Memanggil',
+        message: typeof error === 'string' ? error : 'Terjadi kesalahan sistem.',
+        type: 'error'
+      }));
+    }
+  };
+
+  const normalizeQueueActionPayload = (
+    payload?: { counterId: number; ticketsId?: string } | string
+  ): { counterId: number; ticketsId?: string } => {
+    if (typeof payload === "string") {
+      return { counterId: 1, ticketsId: payload };
+    }
+
+    return payload ?? { counterId: 1, ticketsId: undefined };
+  };
+
+  const handleRecall = async (
+    payload?: { counterId: number; ticketsId?: string } | string
+  ) => {
+    const { counterId, ticketsId } = normalizeQueueActionPayload(payload);
+
+    if (!ticketsId) {
+      dispatch(showNotification({
+        title: 'Gagal Memanggil Ulang',
+        message: 'ID antrean tidak tersedia.',
+        type: 'error'
+      }));
+      return;
+    }
+
+    try {
+      const action = await dispatch(recallQueue({ counterId, ticketsId }));
+
+      // Panggil notifikasi global!
+      dispatch(showNotification({
+        title: 'Berhasil Memanggil Ulang',
+        message: `Nomor antrean berhasil dipanggil ulang.`,
+        type: 'success'
+      }));
+
+    } catch (error: any) {
+      // Panggil notifikasi error global!
+      dispatch(showNotification({
+        title: 'Gagal Memanggil Ulang',
+        message: typeof error === 'string' ? error : 'Terjadi kesalahan sistem.',
+        type: 'error'
+      }));
+    }
+  };
+
+  const handleServing = async (
+    payload?: { counterId: number; ticketsId?: string } | string
+  ) => {
+    const { counterId, ticketsId } = normalizeQueueActionPayload(payload);
+
+    if (!ticketsId) {
+      dispatch(showNotification({
+        title: 'Gagal Memanggil Ulang',
+        message: 'ID antrean tidak tersedia.',
+        type: 'error'
+      }));
+      return;
+    }
+
+    try {
+      const action = await dispatch(startServingQueue({ counterId, ticketsId }));
+
+      // Panggil notifikasi global!
+      dispatch(showNotification({
+        title: 'Berhasil Memanggil Ulang',
+        message: `Nomor antrean berhasil dipanggil ulang.`,
+        type: 'success'
+      }));
+
+    } catch (error: any) {
+      // Panggil notifikasi error global!
+      dispatch(showNotification({
+        title: 'Gagal Memanggil Ulang',
+        message: typeof error === 'string' ? error : 'Terjadi kesalahan sistem.',
+        type: 'error'
+      }));
+    }
+  }
+
+  const handleSkip = async (
+    payload?: { counterId: number; ticketsId?: string } | string
+  ) => {
+    const { counterId, ticketsId } = normalizeQueueActionPayload(payload);
+
+    if (!ticketsId) {
+      dispatch(showNotification({
+        title: 'Gagal Memanggil Ulang',
+        message: 'ID antrean tidak tersedia.',
+        type: 'error'
+      }));
+      return;
+    }
+
+    try {
+      const action = await dispatch(SkipQueue({ counterId, ticketsId }));
+      // Panggil notifikasi global!
+      dispatch(showNotification({
+        title: 'Merubah Status Terlewati',
+        message: `Nomor antrean berhasil diubah menjadi terlewati.`,
+        type: 'success'
+      }));
+
+    } catch (error: any) {
+      // Panggil notifikasi error global!
+      dispatch(showNotification({
+        title: 'Gagal Memanggil Ulang',
+        message: typeof error === 'string' ? error : 'Terjadi kesalahan sistem.',
+        type: 'error'
+      }));
+    }
+  }
 
 
   return (
@@ -116,13 +251,18 @@ export default function QueueController() {
       {/* Action Buttons */}
       <div className="flex flex-col gap-2 mb-4 flex-shrink-0">
         <button
-          onClick={() => handleCallNext(nextTicket?.isPasienBaru ? 1 : 2)}
+          onClick={() => { activeTab == 'Menunggu' ? handleCallNext(nextTicket?.isPasienBaru ? 1 : 2) : handleCallSkipNext(nextTicket?.isPasienBaru ? 1 : 2) } }
           className="w-full bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 text-sm font-semibold transition-colors cursor-pointer"
         >
           <Volume2 size={18} /> PANGGIL BERIKUTNYA
         </button>
         <button
-          onClick={() => dispatch(panggilUlang())}
+          onClick={() =>
+            handleRecall({
+              counterId: antreanSaatIni?.isPasienBaru ? 1 : 2,
+              ticketsId: antreanSaatIni?.id,
+            })
+          }
           className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-lg py-2.5 flex items-center justify-center gap-2 text-sm font-semibold transition-colors cursor-pointer"
         >
           <RefreshCw size={16} /> PANGGIL ULANG
@@ -130,13 +270,21 @@ export default function QueueController() {
 
         <div className="grid grid-cols-2 gap-2 mt-1">
           <button
-            onClick={() => dispatch(tandaiHadir())}
+            onClick={() => handleServing({
+              counterId: antreanSaatIni?.isPasienBaru ? 1 : 2,
+              ticketsId: antreanSaatIni?.id,
+            })
+          }
             className="bg-green-50 hover:bg-green-100 border border-green-200 text-green-600 rounded-lg py-2 flex items-center justify-center gap-2 text-sm font-semibold transition-colors cursor-pointer"
           >
             <Check size={16} /> HADIR
           </button>
           <button
-            onClick={() => dispatch(lewatiAntrean())}
+            onClick={() => handleSkip({
+              counterId: antreanSaatIni?.isPasienBaru ? 1 : 2,
+              ticketsId: antreanSaatIni?.id,
+            })
+          }
             className="bg-orange-50 hover:bg-orange-100 border border-orange-200 text-orange-500 rounded-lg py-2 flex items-center justify-center gap-2 text-sm font-semibold transition-colors cursor-pointer"
           >
             <ChevronsRight size={16} /> LEWATI
@@ -222,7 +370,8 @@ export default function QueueController() {
       </div>
 
       {/* Next Up Section */}
-      <div className="mt-auto flex-shrink-0 pt-2 border-t border-slate-100">
+      { activeTab == 'Menunggu' ?
+        <div className="mt-auto flex-shrink-0 pt-2 border-t border-slate-100">
         <p className="text-xs font-semibold text-cyan-800 mb-2">
           BERIKUTNYA{" "}
           {antreanSaatIni ? `(SETELAH ${antreanSaatIni.nomorAntrean})` : ""}
@@ -249,6 +398,42 @@ export default function QueueController() {
           </div>
         </div>
       </div>
+
+      :
+
+      <div className="mt-auto flex-shrink-0 pt-2 border-t border-slate-100">
+        <p className="text-xs font-semibold text-cyan-800 mb-2">
+          BERIKUTNYA{" "}
+          {antreanSaatIni ? `(SETELAH ${antreanSaatIni.nomorAntrean})` : ""}
+        </p>
+        <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-100">
+          <div>
+            <p className="text-base font-bold text-gray-800">
+              {nextTicketSkip?.nomorAntrean ?? "-"}
+            </p>
+            <p className="text-[10px] text-gray-500 flex items-center gap-1">
+              <span className="w-1 h-1 rounded-full bg-cyan-500"></span>{" "}
+              {nextTicketSkip?.statusAntrean ?? "Tidak ada antrean"}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-[11px] text-gray-500">
+              Diambil {nextTicketSkip?.waktuAmbil ?? "-"}
+            </p>
+            <p
+              className={`text-[11px] font-medium ${nextTicketSkip?.waitTimeColor || "text-green-500"}`}
+            >
+              {nextTicketSkip?.estimasiTunggu ?? "-"}
+            </p>
+          </div>
+        </div>
+      </div>
+      }
+      
     </div>
   );
 }
+function async(arg0: { counterId: any; ticketsId: any; }) {
+  throw new Error("Function not implemented.");
+}
+

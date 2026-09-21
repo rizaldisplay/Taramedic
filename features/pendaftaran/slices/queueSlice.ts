@@ -36,6 +36,9 @@ export const fetchQueueStatus = createAsyncThunk<
     // Ganti dengan API call riil: const response = await api.get('/queue/today');
     // return response.data;
     const response = await api.get('/counter/0/data');
+
+    console.log(response)
+
     return response.data;
     
     // Mock Data untuk simulasi:
@@ -83,6 +86,93 @@ export const callNextQueue = createAsyncThunk<
     const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil antrean berikutnya';
     console.error(`Error Call Next (Counter ${counterId}):`, errorMessage);
     
+    return rejectWithValue(errorMessage);
+  }
+});
+
+export const callNextSkipQueue = createAsyncThunk<
+  ItemAntrean | null,
+  number, // 1. Ubah 'void' menjadi 'number' agar menerima argumen saat di-dispatch
+  { rejectValue: string }
+>('queue/callNext', async (counterId, { rejectWithValue }) => {
+  try {
+    // 2. Gunakan template literal (backtick) untuk memasukkan counterId ke dalam URL
+    const response = await api.post(`/counter/${counterId}/call-next-skip`);
+    
+    const resultData = response.data; 
+    
+    console.log(`Data Antrean (Counter ${counterId}):`, resultData); 
+
+    return resultData; 
+  } catch (err: any) {
+    const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil antrean berikutnya';
+    console.error(`Error Call Next (Counter ${counterId}):`, errorMessage);
+    
+    return rejectWithValue(errorMessage);
+  }
+});
+
+// Memanggil antrean saat ini
+export const recallQueue = createAsyncThunk<
+  ItemAntrean | null,
+  { counterId: number; ticketsId: string },
+  { rejectValue: string }
+>('queue/recallQueue', async ({ counterId, ticketsId }, { rejectWithValue }) => {
+  try {
+    const response = await api.post(`/counter/${counterId}/tickets/${ticketsId}/recall`);
+
+    const resultData = response.data;
+
+    console.log(`Data Antrean (Counter ${counterId}, Ticket ${ticketsId}):`, resultData);
+
+    return resultData;
+  } catch (err: any) {
+    const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil ulang antrean saat ini';
+    console.error(`Error Recall Queue (Counter ${counterId}, Ticket ${ticketsId}):`, errorMessage);
+
+    return rejectWithValue(errorMessage);
+  }
+});
+
+export const SkipQueue = createAsyncThunk<
+  ItemAntrean | null,
+  { counterId: number; ticketsId: string },
+  { rejectValue: string }
+>('queue/skipQueue', async ({ counterId, ticketsId }, { rejectWithValue }) => {
+  try {
+    const response = await api.patch(`/counter/${counterId}/tickets/${ticketsId}/defer`);
+
+    const resultData = response.data;
+
+    console.log(`Data Antrean (Ticket ${ticketsId}):`, resultData);
+
+    return resultData;
+  } catch (err: any) {
+    const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil ulang antrean saat ini';
+    console.error(`Error Skip Queue (Ticket ${ticketsId}):`, errorMessage);
+
+    return rejectWithValue(errorMessage);
+  }
+});
+
+// Melayani antrean saat ini (Hadir)
+export const startServingQueue = createAsyncThunk<
+  ItemAntrean | null,
+  { counterId: number; ticketsId: string },
+  { rejectValue: string }
+>('queue/startServingQueue', async ({ counterId, ticketsId }, { rejectWithValue }) => {
+  try {
+    const response = await api.patch(`/counter/${counterId}/tickets/${ticketsId}/start-serving`);
+
+    const resultData = response.data;
+
+    console.log(`Data Antrean (Ticket ${ticketsId}):`, resultData);
+
+    return resultData;
+  } catch (err: any) {
+    const errorMessage = err.response?.data?.message || err.message || 'Gagal konfirmasi kehadiran antrean saat ini';
+    console.error(`Error Start Serving Queue (Ticket ${ticketsId}):`, errorMessage);
+
     return rejectWithValue(errorMessage);
   }
 });
@@ -220,5 +310,11 @@ import { api } from '@/services/api';
 export const selectNextInQueue = (state: RootState): ItemAntrean | null => {
   return (
     state.queue.daftarAntrean.find((item) => item.statusAntrean === 'Menunggu') || null
+  );
+};
+
+export const selectNextInSkipQueue = (state: RootState): ItemAntrean | null => {
+  return (
+    state.queue.daftarTerlewati.find((item) => item.statusAntrean === 'Menunggu') || null
   );
 };

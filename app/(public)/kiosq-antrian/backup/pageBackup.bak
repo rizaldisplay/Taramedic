@@ -2,8 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useAnnouncement } from "@/hooks/useAnnouncement";
 import { useQueueRealtime } from "@/hooks/use-queue-realtime";
 import type { AnnouncementSettings } from "@/types/announcement";
@@ -145,7 +144,7 @@ interface QueueBoardProps {
   nextQueues?: string[];
 }
 
-function QueueBoard({
+export default function QueueBoard({
   autostart = false,
   nextQueues,
 }: QueueBoardProps) {
@@ -543,21 +542,6 @@ function QueueBoard({
       </div>
     </>
   );
-}
-
-export default function Page() {
-  return (
-    <Suspense fallback={null}>
-      <QueueBoardPage />
-    </Suspense>
-  );
-}
-
-function QueueBoardPage() {
-  const searchParams = useSearchParams();
-  const autostart = searchParams.get("autostart") === "1";
-
-  return <QueueBoard autostart={autostart} />;
 }
 
 // Sub-komponen untuk Kotak Antrean Berikutnya

@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["192.168.18.82"],
+  allowedDevOrigins: ["192.168.1.6"],
       webpack: (config) => {
         config.resolve.fallback = {
             ...config.resolve.fallback,

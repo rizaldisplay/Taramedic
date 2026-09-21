@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useEffect, useState, useRef } from "react";
@@ -17,10 +16,15 @@ if (typeof window !== "undefined") {
 }
 
 interface AnnouncementData {
-  title: string;
+  call_id: number | null;
+  called_at: string | null;
+  counter_code: string;
+  counter_name: string;
   message: string;
-  queue_number: string;
-  room: string;
+  service_code: string;
+  service_name: string;
+  ticket_number: string | null;
+  title?: string;
 }
 
 export default function QueueDisplay() {
@@ -31,7 +35,7 @@ export default function QueueDisplay() {
 
   // Inisialisasi Hook TTS dengan pengaturan standar
   const { enqueueAnnouncement } = useAnnouncement({
-    voice_mode: 'online_tts',
+    voice_mode: 'offline_tts',
     announcement_enabled: true,
     audio_volume: 100,
     repeat_count: 1,
@@ -84,13 +88,19 @@ export default function QueueDisplay() {
 
     channel.listen(".display.updated", (data: { announcement: AnnouncementData | null }) => {
       console.log("Pembaruan layar diterima:", data);
+
+      // FILTER: Hentikan proses jika data dari backend bernilai null
+      if (!data.announcement || !data.announcement.ticket_number) {
+        console.warn("Menerima broadcast kosong dari backend, diabaikan.");
+        return;
+      }
       
       if (data.announcement) {
         setAnnouncement(data.announcement);
         enqueueAnnouncement({
             message: data.announcement.message,
-            ticket_number: data.announcement.queue_number,
-            counter_name: data.announcement.room
+            ticket_number: data.announcement.ticket_number,
+            counter_name: data.announcement.counter_name
         });
       }
     });
@@ -138,9 +148,9 @@ export default function QueueDisplay() {
         <div className="bg-gray-800 border-2 border-blue-500 p-6 rounded-xl animate-pulse text-center transition-all duration-500">
           <p className="text-xl text-blue-400 mb-2">{announcement.title}</p>
           <h2 className="text-7xl font-black text-yellow-400 mb-4 tracking-wider">
-            {announcement.queue_number}
+            {announcement.ticket_number}
           </h2>
-          <p className="text-3xl font-semibold mb-2 text-white">Menuju: {announcement.room}</p>
+          <p className="text-3xl font-semibold mb-2 text-white">Menuju: {announcement.counter_name}</p>
           <p className="text-gray-400 text-xl mt-4">{announcement.message}</p>
         </div>
       ) : (

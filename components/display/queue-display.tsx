@@ -16,7 +16,7 @@ export interface AnnouncementPayload {
 }
 
 const DISPLAY_SETTINGS: Partial<AnnouncementSettings> = {
-    voice_mode: 'offline_tts',
+    voice_mode: 'online_tts',
     announcement_enabled: true,
     audio_volume: 100,
     repeat_count: 1,
