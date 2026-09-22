@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const api = axios.create({
   // baseURL: 'https://test.lemix.id/api',
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://test.lemix.id/api',
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
