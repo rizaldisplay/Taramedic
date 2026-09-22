@@ -42,7 +42,7 @@ const ANIMATION_DURATION_MS = 2500;
 
 // Di luar komponen supaya referensinya stabil (tidak dibuat ulang tiap render)
 const DISPLAY_SETTINGS: Partial<AnnouncementSettings> = {
-  voice_mode: "online_tts",
+  voice_mode: "offline_tts",
   announcement_enabled: true,
   audio_volume: 100,
   repeat_count: 1,

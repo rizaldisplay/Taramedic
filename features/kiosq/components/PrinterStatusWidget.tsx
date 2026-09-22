@@ -14,14 +14,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { InstitutionConfig, PaperWidth } from '@/types/printer';
-import { useReceiptPrinter } from '@/hooks/useReceiptPrinter';
+import { usePrinter } from '@/lib/printer/PrinterContext';
 
 export interface PrinterStatusWidgetProps extends InstitutionConfig {
   className?: string;
 }
 
 export function PrinterStatusWidget({ className, ...institutionConfig }: PrinterStatusWidgetProps) {
-  const printer = useReceiptPrinter(institutionConfig);
+  const printer = usePrinter();
   const [menuOpen, setMenuOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 

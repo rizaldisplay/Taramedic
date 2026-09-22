@@ -5,13 +5,8 @@ import { CheckCircle2, Monitor, Printer, Clock } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store"; // Sesuaikan path
 import { resetKiosk } from "@/features/kiosq/slice/kioskSlice"; // Sesuaikan path
-import { useReceiptPrinter } from "@/hooks/useReceiptPrinter";
+import { usePrinter } from '@/lib/printer/PrinterContext';
 
-const INSTITUTION_CONFIG = {
-  institutionName: "Klinik Taramedic",
-  institutionAddress: "Jl. Merdeka No. 10, Jakarta",
-  institutionPhone: "031-1234567",
-};
 
 export const StepSuccess: React.FC = () => {
   const dispatch = useDispatch();
@@ -23,7 +18,7 @@ export const StepSuccess: React.FC = () => {
 
   // State lokal untuk Timer
   const [countdown, setCountdown] = useState(17);
-  const printer = useReceiptPrinter(INSTITUTION_CONFIG);
+  const printer = usePrinter();
 
   // Efek Countdown Timer
   useEffect(() => {
