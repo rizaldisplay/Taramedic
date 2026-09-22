@@ -28,7 +28,7 @@ export const submitPendaftaranKiosk = createAsyncThunk(
       const state = getState() as RootState;
       const statusPasien = state.kiosk.statusPasien;
 
-      const response = await fetch('http://localhost:8000/api/antrean/daftar', {
+      const response = await fetch('https://test.lemix.id/api/antrean/daftar', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
