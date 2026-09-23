@@ -33,8 +33,21 @@ export default function QueueController() {
   const { antreanSaatIni, daftarAntrean, daftarTerlewati, menunggu, terlewati, activeTab } = useAppSelector((state) => state.queue);
   const nextTicket = useAppSelector(selectNextInQueue);
   const nextTicketSkip = useAppSelector(selectNextInSkipQueue);
+  const [showBadge, setShowBadge] = useState(false);
 
-  console.log("skip", nextTicketSkip)
+  const triggerBadge = () => {
+    const badgeTimer = window.setTimeout(() => {
+      setShowBadge(true);
+
+      const hideTimer = window.setTimeout(() => {
+        setShowBadge(false);
+      }, 5000);
+
+      return () => window.clearTimeout(hideTimer);
+    }, 0);
+
+    return () => window.clearTimeout(badgeTimer);
+  };
 
   useEffect(() => {
     dispatch(fetchQueueStatus());
@@ -52,6 +65,7 @@ export default function QueueController() {
     });
 
     return () => {
+      channel.unsubscribe();
       echo.leave("queue-board");
     };
   }, [dispatch]);
@@ -72,6 +86,8 @@ export default function QueueController() {
         message: `Nomor antrean berhasil dipanggil .`,
         type: 'success'
       }));
+
+      triggerBadge();
       
     } catch (error: any) {
       // Panggil notifikasi error global!
@@ -137,6 +153,8 @@ export default function QueueController() {
         message: `Nomor antrean berhasil dipanggil ulang.`,
         type: 'success'
       }));
+
+      triggerBadge();
 
     } catch (error: any) {
       // Panggil notifikasi error global!
@@ -236,7 +254,7 @@ export default function QueueController() {
           <h1 className="text-5xl font-bold tracking-tight">
             {antreanSaatIni?.nomorAntrean ?? "-"}
           </h1>
-          {antreanSaatIni?.statusAntrean === "Di Panggil" && (
+         {showBadge && (
             <span className="bg-[#ffdb58] text-yellow-900 text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
               <Volume2 size={12} /> Dipanggil
             </span>
