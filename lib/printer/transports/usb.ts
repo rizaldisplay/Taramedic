@@ -2,22 +2,30 @@ import type { PairedDevice } from '@/types/printer';
 import type { PrinterTransport } from './types';
 
 declare global {
+  interface Navigator {
+    usb: USB;
+  }
+
+  interface USBConnectionEvent {
+    device: USBDevice;
+  }
+
   interface USBDevice {
     readonly vendorId: number;
     readonly productId: number;
-    readonly serialNumber?: string;
-    readonly productName?: string;
     readonly manufacturerName?: string;
+    readonly productName?: string;
+    readonly serialNumber?: string;
     readonly opened: boolean;
     readonly configuration: USBConfiguration | null;
     open(): Promise<void>;
     close(): Promise<void>;
     selectConfiguration(configurationValue: number): Promise<void>;
     claimInterface(interfaceNumber: number): Promise<void>;
-    selectAlternateInterface(interfaceNumber: number, alternateSetting: number): Promise<void>;
     releaseInterface(interfaceNumber: number): Promise<void>;
-    transferOut(endpointNumber: number, data: ArrayBufferView): Promise<USBOutTransferResult>;
-    clearHalt(direction: 'in' | 'out', endpointNumber: number): Promise<void>;
+    selectAlternateInterface(interfaceNumber: number, alternateSetting: number): Promise<void>;
+    transferOut(endpointNumber: number, data: BufferSource): Promise<USBOutTransferResult>;
+    clearHalt(direction: USBDirection, endpointNumber: number): Promise<void>;
     forget?(): Promise<void>;
   }
 
@@ -38,27 +46,24 @@ declare global {
 
   interface USBEndpoint {
     readonly endpointNumber: number;
-    readonly direction: 'in' | 'out';
-    readonly type: 'bulk' | 'interrupt' | 'isochronous' | 'control';
+    readonly direction: USBDirection;
+    readonly type: USBTransferType;
   }
+
+  type USBDirection = 'in' | 'out';
+  type USBTransferType = 'bulk' | 'interrupt' | 'isochronous' | 'control';
 
   interface USBOutTransferResult {
-    readonly status: 'ok' | 'stall' | 'babble' | 'overflow' | 'not supported' | 'error';
+    status: USBTransferStatus;
   }
 
-  interface USBConnectionEvent {
-    readonly device: USBDevice;
-  }
-
-  interface Navigator {
-    usb: USB;
-  }
+  type USBTransferStatus = 'ok' | 'stall' | 'babble' | 'overflow' | 'notSupported' | 'transferError';
 
   interface USB {
-    requestDevice(options?: { filters?: USBDeviceFilter[] }): Promise<USBDevice>;
+    requestDevice(options: { filters?: UsbDeviceFilter[] }): Promise<USBDevice>;
     getDevices(): Promise<USBDevice[]>;
-    addEventListener(type: 'disconnect', listener: (event: USBConnectionEvent) => void): void;
-    removeEventListener(type: 'disconnect', listener: (event: USBConnectionEvent) => void): void;
+    addEventListener(type: 'connect' | 'disconnect', listener: (event: USBConnectionEvent) => void): void;
+    removeEventListener(type: 'connect' | 'disconnect', listener: (event: USBConnectionEvent) => void): void;
   }
 }
 
@@ -67,21 +72,22 @@ declare global {
  * thermal murah melaporkan class vendor-specific (0xFF), bukan Printer (0x07).
  * Chrome tetap menyembunyikan perangkat yang dilindungi (keyboard, flashdisk, dll).
  * Untuk mempersempit, isi mis. `[{ vendorId: 0x0416 }, { classCode: 0x07 }]`.
- *
- * Beberapa target build tidak menyediakan tipe WebUSB global `USBDeviceFilter`,
- * jadi kita definisikan bentuk minimalnya di sini agar TypeScript tetap valid.
  */
-type USBDeviceFilter = {
+interface UsbDeviceFilter {
   vendorId?: number;
   productId?: number;
   classCode?: number;
   subclassCode?: number;
   protocolCode?: number;
-};
+  serialNumber?: string;
+}
 
-const USB_FILTERS: USBDeviceFilter[] = [];
+const USB_FILTERS: UsbDeviceFilter[] = [];
 
 const USB_PRINTER_CLASS = 0x07;
+
+/** Kelas yang diblokir WebUSB: audio, HID, mass storage, smart card, video, A/V, wireless. */
+const PROTECTED_CLASSES = new Set([0x01, 0x03, 0x08, 0x0b, 0x0e, 0x10, 0xe0]);
 const CHUNK_SIZE = 16 * 1024;
 
 interface EndpointTarget {
@@ -117,6 +123,10 @@ function findBulkOutEndpoint(device: USBDevice): EndpointTarget | null {
 
   for (const usbInterface of configuration.interfaces) {
     for (const alternate of usbInterface.alternates) {
+      if (PROTECTED_CLASSES.has(alternate.interfaceClass)) {
+        continue; // claimInterface pada kelas ini selalu SecurityError
+      }
+
       for (const endpoint of alternate.endpoints) {
         if (endpoint.direction === 'out' && endpoint.type === 'bulk') {
           targets.push({
@@ -259,6 +269,7 @@ export class UsbTransport implements PrinterTransport {
 
       this.target = target;
     } catch (error) {
+      console.error('[USB printer] gagal membuka perangkat', error);
       await device.close().catch(() => undefined);
       throw error;
     }

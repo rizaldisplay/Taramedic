@@ -7,7 +7,25 @@ export function describePrinterError(error: unknown, transport: PrinterTransport
 
   if (transport === 'usb') {
     if (name === 'SecurityError') {
-      return 'Akses USB ditolak. Gunakan HTTPS dan izinkan perangkat saat diminta.';
+      const detail = message.toLowerCase();
+
+      if (detail.includes('user gesture')) {
+        return 'Dialog USB harus dibuka dari klik langsung. Klik "Pasangkan Printer" sekali lagi.';
+      }
+
+      if (detail.includes('permissions policy') || detail.includes('feature policy')) {
+        return 'Fitur USB diblokir oleh Permissions-Policy atau iframe. Tambahkan header Permissions-Policy: usb=(self), atau atribut allow="usb" pada iframe.';
+      }
+
+      if (detail.includes('protected class')) {
+        return 'Interface USB ini termasuk kelas terlindungi (mis. penyimpanan atau HID) dan tidak boleh dipakai browser.';
+      }
+
+      if (detail.includes('blocklist')) {
+        return 'Perangkat ini masuk daftar blokir WebUSB di Chrome dan tidak bisa dipakai.';
+      }
+
+      return `Akses USB ditolak browser${message ? `: ${message}` : '.'}`;
     }
 
     if (name === 'NetworkError') {
