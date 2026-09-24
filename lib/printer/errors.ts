@@ -1,23 +1,31 @@
-/**
- * Maps low-level Bluetooth/DOM errors to the same user-facing (Indonesian)
- * messages the original receipt-printer.js's friendlyError() produced.
- */
-export function describePrinterError(error: unknown): string {
-  const err = error as { name?: string; message?: string } | null | undefined;
-  const name = err?.name ?? '';
-  const message = String(err?.message ?? '');
+import type { PrinterTransportType } from '@/types/printer';
 
-  if (name === 'NotFoundError') {
-    return 'Printer tidak ditemukan';
+/** Ubah error browser (DOMException dll.) menjadi pesan yang bisa ditindaklanjuti operator. */
+export function describePrinterError(error: unknown, transport: PrinterTransportType): string {
+  const name = error instanceof Error ? error.name : '';
+  const message = error instanceof Error ? error.message : String(error ?? '');
+
+  if (transport === 'usb') {
+    if (name === 'SecurityError') {
+      return 'Akses USB ditolak. Gunakan HTTPS dan izinkan perangkat saat diminta.';
+    }
+
+    if (name === 'NetworkError') {
+      return 'Printer USB tidak bisa dibuka. Tutup aplikasi lain yang memakai printer. Di Windows pasang driver WinUSB (mis. lewat Zadig), di Linux atur udev rule.';
+    }
+
+    if (name === 'NotFoundError') {
+      return 'Printer USB tidak ditemukan. Cek kabel lalu coba lagi.';
+    }
+  } else {
+    if (name === 'NetworkError') {
+      return 'Gagal tersambung ke printer. Pastikan printer menyala dan dekat dengan perangkat.';
+    }
+
+    if (name === 'SecurityError' || name === 'NotAllowedError') {
+      return 'Akses Bluetooth ditolak. Izinkan Bluetooth untuk situs ini.';
+    }
   }
 
-  if (name === 'SecurityError') {
-    return 'Izin ditolak — pakai HTTPS/localhost';
-  }
-
-  if (name === 'NetworkError' || message.includes('no longer in range') || message.includes('Timeout')) {
-    return 'Printer di luar jangkauan / timeout';
-  }
-
-  return message || 'Koneksi Bluetooth gagal';
+  return message || 'Terjadi kesalahan pada printer.';
 }

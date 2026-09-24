@@ -1,502 +1,480 @@
-/* eslint-disable react-hooks/refs */
 'use client';
 
 /**
- * React port of receipt-printer.js's Alpine controller (createReceiptPrinterController).
+ * Hook printer struk kiosk yang mendukung Bluetooth dan USB.
  *
- * Behavioural parity notes:
- * - Pairing, connecting, auto-reconnect-on-visibility, and the "1 silent
- *   retry per page load" throttle are all preserved.
- * - `menuOpen` from the original is UI/presentation state, not printer
- *   state — it now lives in the component that renders the widget
- *   (see PrinterStatusWidget.tsx), not in this hook.
- * - `_device` / `_server` stay as plain refs (not React state), same as
- *   the original kept them as non-reactive instance properties.
+ * Alur kerjanya tidak bergantung pada jenis koneksi: semua operasi
+ * (pair, reconnect, write, disconnect, forget) lewat interface PrinterTransport.
+ * Pengguna memilih jalur lewat `setTransport`, pilihannya disimpan di localStorage
+ * bersama printer terakhir yang dipasangkan untuk masing-masing jalur.
+ *
+ * File ini dibuat baru karena useReceiptPrinter asli tidak ikut diunggah.
+ * Nama field hasil hook mengikuti yang dipakai PrinterStatusWidget.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BluetoothService } from '@/lib/printer/bluetooth-service';
 import { encodeEscPosReceipt } from '@/lib/printer/escpos';
 import { describePrinterError } from '@/lib/printer/errors';
+import { TRANSPORT_LABEL, createTransports } from '@/lib/printer/transports';
 import type {
   InstitutionConfig,
+  PairedDevice,
   PaperWidth,
   PrinterStatus,
+  PrinterTransportType,
   StoredPrinterPrefs,
   Ticket,
 } from '@/types/printer';
 
-const STORAGE_KEY = 'kiosk.blePrinter.v2';
-const ROLE = 'kiosk';
+const STORAGE_KEY = 'kiosk-receipt-printer';
+const RECONNECT_DELAY_MS = 2500;
 
-const STATUS_TONE: Record<PrinterStatus, string> = {
-  connected: 'bg-emerald-500',
-  pairing: 'bg-sky-400 animate-pulse',
-  connecting: 'bg-amber-400 animate-pulse',
-  error: 'bg-rose-500',
+/** Warna titik status. Asumsi latar gelap; ubah di sini bila dipasang di latar terang. */
+export const STATUS_TONE: Record<PrinterStatus, string> = {
   idle: 'bg-white/35',
+  pairing: 'bg-amber-400',
+  connecting: 'bg-amber-400',
+  connected: 'bg-emerald-400',
+  error: 'bg-rose-400',
 };
 
-function readStoredPrefs(): Partial<StoredPrinterPrefs> {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    const legacyId = window.localStorage.getItem(`printer_device_${ROLE}`);
+const DEFAULT_PREFS: StoredPrinterPrefs = {
+  paperWidth: 58,
+  transport: 'bluetooth',
+  devices: {},
+  autoReconnectEnabled: true,
+};
 
-    if (raw) {
-      const parsed = JSON.parse(raw) as Partial<StoredPrinterPrefs>;
-
-      return {
-        paperWidth: parsed.paperWidth === 80 ? 80 : 58,
-        deviceName: parsed.deviceName ?? '',
-        deviceId: parsed.deviceId ?? legacyId ?? '',
-        autoReconnectEnabled: parsed.autoReconnectEnabled !== false,
-      };
-    }
-
-    // Compatibility with POS-style key if ever shared on same origin.
-    if (legacyId) {
-      return { deviceId: legacyId };
-    }
-  } catch {
-    // Ignore malformed/unavailable storage.
-  }
-
-  return {};
-}
-
-function writeStoredPrefs(prefs: StoredPrinterPrefs): void {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-
-    if (prefs.deviceId) {
-      window.localStorage.setItem(`printer_device_${ROLE}`, prefs.deviceId);
-    } else {
-      window.localStorage.removeItem(`printer_device_${ROLE}`);
-    }
-  } catch {
-    // Ignore storage failures (private browsing, quota, etc.).
-  }
-}
-
-function shortText(value: string, max: number): string {
-  const text = String(value || '');
-
-  return text.length > max ? `${text.slice(0, max - 2)}…` : text;
+export interface AutoReconnectOptions {
+  /**
+   * true  = jalan diam-diam (saat halaman dibuka / sambungan putus), tanpa dialog.
+   * false = dipicu klik tombol; jika printer tidak ditemukan, dialog pemilihan dibuka.
+   */
+  silent?: boolean;
 }
 
 export interface UseReceiptPrinterResult {
-  status: PrinterStatus;
-  /** Human-readable status pill text (mirrors statusLabel()/shortName()/shortError()). */
-  statusLabel: string;
-  /** Tailwind classes for a status dot (mirrors statusTone()). */
-  statusTone: string;
-  paperWidth: PaperWidth;
-  deviceName: string;
-  deviceId: string;
-  lastError: string;
-  autoReconnectEnabled: boolean;
+  /** Apakah jalur yang sedang dipilih didukung browser ini. */
   supported: boolean;
+  supportedTransports: Record<PrinterTransportType, boolean>;
+
+  transport: PrinterTransportType;
+  transportLabel: string;
+  setTransport: (transport: PrinterTransportType) => Promise<void>;
+
+  status: PrinterStatus;
+  statusLabel: string;
+  statusTone: string;
+  lastError: string;
+
+  deviceName: string;
   isPaired: boolean;
+  isConnected: boolean;
+
+  paperWidth: PaperWidth;
+  setPaperWidth: (width: PaperWidth) => void;
+
+  autoReconnectEnabled: boolean;
+  toggleAutoReconnect: () => void;
+
   pairPrinter: () => Promise<boolean>;
-  autoReconnect: () => Promise<boolean>;
-  printTicket: (ticket: Ticket) => Promise<boolean>;
-  testPrint: () => Promise<boolean>;
+  autoReconnect: (options?: AutoReconnectOptions) => Promise<boolean>;
   disconnect: () => Promise<void>;
   forgetPrinter: () => Promise<void>;
-  toggleAutoReconnect: () => void;
-  setPaperWidth: (width: PaperWidth) => void;
+
+  printTicket: (ticket: Ticket) => Promise<boolean>;
+  testPrint: () => Promise<boolean>;
 }
 
-export function useReceiptPrinter(config: InstitutionConfig = {}): UseReceiptPrinterResult {
-  const [status, setStatus] = useState<PrinterStatus>('idle');
-  const [paperWidth, setPaperWidthState] = useState<PaperWidth>(58);
-  const [deviceName, setDeviceName] = useState('');
-  const [deviceId, setDeviceId] = useState('');
-  const [lastError, setLastError] = useState('');
-  const [autoReconnectEnabled, setAutoReconnectEnabled] = useState(true);
-  const [supported, setSupported] = useState(false);
-
-  // Source of truth for values async callbacks need to read without going stale.
-  const prefsRef = useRef<StoredPrinterPrefs>({
-    paperWidth: 58,
-    deviceName: '',
-    deviceId: '',
-    autoReconnectEnabled: true,
-  });
-  const lastErrorRef = useRef('');
-  useEffect(() => {
-    lastErrorRef.current = lastError;
-  }, [lastError]);
-
-  // Non-reactive handles — mirror the original controller's `_device` / `_server`.
-  const nativeDeviceRef = useRef<BluetoothDevice | null>(null);
-  const serverRef = useRef<BluetoothRemoteGATTServer | null>(null);
-  const restoreInProgressRef = useRef(false);
-  const reconnectAttemptsRef = useRef(0);
-
-  const serviceRef = useRef<BluetoothService | null>(null);
-  if (!serviceRef.current) {
-    serviceRef.current = new BluetoothService({
-      onDisconnected: (device) => {
-        if (prefsRef.current.deviceId && device.id !== prefsRef.current.deviceId) {
-          return;
-        }
-
-        serverRef.current = null;
-        setStatus('idle');
-        setLastError('Printer terputus.');
-      },
-    });
+function loadPrefs(): StoredPrinterPrefs {
+  if (typeof window === 'undefined') {
+    return DEFAULT_PREFS;
   }
-  const service = serviceRef.current;
 
-  const isReady = useCallback(
-    () => Boolean(nativeDeviceRef.current && serverRef.current?.connected),
-    [],
-  );
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
 
-  const fail = useCallback((message: string) => {
-    setLastError(message);
+    if (!raw) {
+      return DEFAULT_PREFS;
+    }
+
+    const parsed = JSON.parse(raw) as Partial<StoredPrinterPrefs>;
+    const devices = { ...(parsed.devices ?? {}) };
+
+    // Migrasi dari format lama yang hanya mengenal Bluetooth.
+    if (!devices.bluetooth && parsed.deviceId) {
+      devices.bluetooth = { id: parsed.deviceId, name: parsed.deviceName ?? '' };
+    }
+
+    return {
+      paperWidth: parsed.paperWidth === 80 ? 80 : 58,
+      transport: parsed.transport === 'usb' ? 'usb' : 'bluetooth',
+      devices,
+      autoReconnectEnabled: parsed.autoReconnectEnabled !== false,
+    };
+  } catch {
+    return DEFAULT_PREFS;
+  }
+}
+
+function buildTestTicket(): Ticket {
+  const now = new Date();
+
+  return {
+    ticket_number: 'A-001',
+    service_name: 'Tes Cetak',
+    service_code: 'TST',
+    estimated_wait_minutes: 5,
+    waiting_count: 3,
+    queue_date: now.toLocaleDateString('id-ID'),
+    issued_at: now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+  };
+}
+
+export function useReceiptPrinter(config: InstitutionConfig): UseReceiptPrinterResult {
+  const [transports] = useState(createTransports);
+  const [prefs, setPrefs] = useState<StoredPrinterPrefs>(() => loadPrefs());
+  const [status, setStatus] = useState<PrinterStatus>('idle');
+  const [lastError, setLastError] = useState('');
+  const [hydrated, setHydrated] = useState(false);
+
+  const supportedTransports: Record<PrinterTransportType, boolean> = {
+    bluetooth: transports.bluetooth.isSupported(),
+    usb: transports.usb.isSupported(),
+  };
+
+  // Ref agar callback async selalu membaca nilai terbaru tanpa jadi dependency.
+  const prefsRef = useRef(prefs);
+  const configRef = useRef(config);
+  const busyRef = useRef(false);
+  const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoReconnectRef = useRef<(options?: AutoReconnectOptions) => Promise<boolean>>(async () => false);
+  const printQueueRef = useRef<Promise<unknown>>(Promise.resolve());
+
+  useEffect(() => {
+    prefsRef.current = prefs;
+    configRef.current = config;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    } catch {
+      // localStorage bisa penuh atau dinonaktifkan; abaikan.
+    }
+  }, [prefs]);
+
+  const clearReconnectTimer = useCallback(() => {
+    if (reconnectTimerRef.current) {
+      clearTimeout(reconnectTimerRef.current);
+      reconnectTimerRef.current = null;
+    }
+  }, []);
+
+  const rememberDevice = useCallback((type: PrinterTransportType, device: PairedDevice) => {
+    setPrefs((current) => ({ ...current, devices: { ...current.devices, [type]: device } }));
+  }, []);
+
+  const fail = useCallback((type: PrinterTransportType, error: unknown) => {
+    setLastError(describePrinterError(error, type));
     setStatus('error');
   }, []);
 
-  /** Updates local state + the ref + localStorage together, in one place. */
-  const applyPrefs = useCallback(
-    (patch: Partial<StoredPrinterPrefs>, opts: { persist?: boolean } = {}) => {
-      const next: StoredPrinterPrefs = { ...prefsRef.current, ...patch };
-      prefsRef.current = next;
-      setPaperWidthState(next.paperWidth);
-      setDeviceName(next.deviceName);
-      setDeviceId(next.deviceId);
-      setAutoReconnectEnabled(next.autoReconnectEnabled);
-
-      if (opts.persist !== false) {
-        writeStoredPrefs(next);
-      }
-    },
-    [],
-  );
-
-  /**
-   * Restore saved device id via getDevices() then connect — mirrors POS
-   * loadSavedDevices() / the original's loadSavedDeviceAndConnect().
-   */
-  const loadSavedDeviceAndConnect = useCallback(
-    async ({ silent = false }: { silent?: boolean } = {}): Promise<boolean> => {
-      if (restoreInProgressRef.current || !service.isSupported()) {
-        return false;
-      }
-
-      const savedId = prefsRef.current.deviceId;
-
-      if (!savedId) {
-        return false;
-      }
-
-      if (!savedId && !prefsRef.current.autoReconnectEnabled) {
-        return false;
-      }
-
-      if (isReady()) {
-        setStatus('connected');
-
-        return true;
-      }
-
-      restoreInProgressRef.current = true;
-
-      if (!silent) {
-        setStatus('connecting');
-        setLastError('');
-      } else {
-        setStatus((prev) => (prev !== 'connected' ? 'connecting' : prev));
-      }
-
-      try {
-        const permitted = await service.getDevices();
-        const device = permitted.find((item) => item.id === savedId);
-
-        if (!device) {
-          nativeDeviceRef.current = null;
-          serverRef.current = null;
-          setStatus('idle');
-          setLastError('Izin printer hilang. Pasangkan ulang.');
-
-          return false;
+  /** Pasang handler putus-sambung dan jadwalkan sambung ulang otomatis. */
+  const watchDisconnect = useCallback(
+    (type: PrinterTransportType) => {
+      transports[type].setDisconnectHandler(() => {
+        if (prefsRef.current.transport !== type) {
+          return;
         }
 
-        nativeDeviceRef.current = device;
-        applyPrefs({
-          deviceName: device.name || prefsRef.current.deviceName || 'Thermal Printer',
-          deviceId: device.id,
-        });
+        setStatus('idle');
+        clearReconnectTimer();
 
-        // POS limits aggressive auto-reconnect; keep 1 silent attempt per page load unless manual.
-        if (silent && reconnectAttemptsRef.current >= 1) {
-          setStatus('idle');
-          setLastError('Belum terhubung. Tekan Sambungkan.');
-
-          return false;
+        if (prefsRef.current.autoReconnectEnabled) {
+          reconnectTimerRef.current = setTimeout(() => {
+            void autoReconnectRef.current({ silent: true });
+          }, RECONNECT_DELAY_MS);
         }
-
-        reconnectAttemptsRef.current += 1;
-        serverRef.current = await service.connect(device, silent ? 1 : 3);
-        setStatus('connected');
-        setLastError('');
-
-        return true;
-      } catch (error) {
-        serverRef.current = null;
-        setStatus(silent ? 'idle' : 'error');
-        setLastError(
-          silent ? 'Gagal sambung otomatis. Pastikan printer nyala/dekat.' : describePrinterError(error),
-        );
-
-        return false;
-      } finally {
-        restoreInProgressRef.current = false;
-      }
+      });
     },
-    [service, isReady, applyPrefs],
+    [transports, clearReconnectTimer],
   );
 
-  /**
-   * Pair printer (user gesture) — mirrors POS setupPrinter().
-   */
   const pairPrinter = useCallback(async (): Promise<boolean> => {
-    if (!service.isSupported()) {
-      fail('Web Bluetooth tidak tersedia. Gunakan Chrome/Edge.');
+    const type = prefsRef.current.transport;
+    const transport = transports[type];
 
+    if (!transport.isSupported() || busyRef.current) {
       return false;
     }
 
-    setStatus('pairing');
+    busyRef.current = true;
+    clearReconnectTimer();
     setLastError('');
+    setStatus('pairing');
 
     try {
-      const device = await service.requestDevice();
-      nativeDeviceRef.current = device;
-      applyPrefs({
-        deviceName: device.name || 'Thermal Printer',
-        deviceId: device.id || '',
-      });
+      const device = await transport.pair();
 
-      setStatus('connecting');
-      serverRef.current = await service.connect(device, 3);
-      reconnectAttemptsRef.current = 0;
+      if (!device) {
+        setStatus(transport.isConnected() ? 'connected' : 'idle');
+
+        return false;
+      }
+
+      watchDisconnect(type);
+      rememberDevice(type, device);
       setStatus('connected');
-      setLastError('');
 
       return true;
     } catch (error) {
-      const err = error as { name?: string };
-
-      if (err?.name === 'NotFoundError') {
-        setStatus('idle');
-        setLastError('Printer tidak dipilih.');
-
-        return false;
-      }
-
-      fail(describePrinterError(error));
+      fail(type, error);
 
       return false;
+    } finally {
+      busyRef.current = false;
     }
-  }, [service, applyPrefs, fail]);
+  }, [transports, clearReconnectTimer, watchDisconnect, rememberDevice, fail]);
 
-  const autoReconnect = useCallback(async (): Promise<boolean> => {
-    reconnectAttemptsRef.current = 0;
+  const autoReconnect = useCallback(
+    async (options: AutoReconnectOptions = {}): Promise<boolean> => {
+      const type = prefsRef.current.transport;
+      const transport = transports[type];
+      const saved = prefsRef.current.devices[type];
 
-    return loadSavedDeviceAndConnect({ silent: false });
-  }, [loadSavedDeviceAndConnect]);
-
-  const ensureConnection = useCallback(async (): Promise<BluetoothRemoteGATTServer> => {
-    if (isReady() && serverRef.current) {
-      return serverRef.current;
-    }
-
-    if (!nativeDeviceRef.current && prefsRef.current.deviceId) {
-      const ok = await loadSavedDeviceAndConnect({ silent: false });
-
-      if (!ok || !serverRef.current) {
-        throw new Error(lastErrorRef.current || 'Printer belum siap');
-      }
-
-      return serverRef.current;
-    }
-
-    if (!nativeDeviceRef.current) {
-      throw new Error('Printer belum dipasangkan');
-    }
-
-    setStatus('connecting');
-    serverRef.current = await service.connect(nativeDeviceRef.current, 3);
-    setStatus('connected');
-    setLastError('');
-
-    return serverRef.current;
-  }, [isReady, loadSavedDeviceAndConnect, service]);
-
-  const printTicket = useCallback(
-    async (ticket: Ticket): Promise<boolean> => {
-      if (!ticket?.ticket_number) {
+      if (!transport.isSupported() || busyRef.current) {
         return false;
       }
 
-      try {
-        const server = await ensureConnection();
-        const payload = await encodeEscPosReceipt(ticket, {
-          paperWidth,
-          institutionName: config.institutionName,
-          institutionAddress: config.institutionAddress,
-          institutionPhone: config.institutionPhone,
-          receiptSettings: config.receiptSettings,
-        });
-
-        await service.print(server, payload);
+      if (transport.isConnected()) {
         setStatus('connected');
-        setLastError('');
 
         return true;
-      } catch (error) {
-        serverRef.current = null;
-        fail(describePrinterError(error));
+      }
 
+      if (!saved) {
         return false;
       }
-    },
-    [
-      ensureConnection,
-      service,
-      paperWidth,
-      config.institutionName,
-      config.institutionAddress,
-      config.institutionPhone,
-      config.receiptSettings,
-      fail,
-    ],
-  );
 
-  const testPrint = useCallback((): Promise<boolean> => {
-    return printTicket({
-      ticket_number: 'RPP001',
-      service_code: 'T',
-      service_name: 'Tes Printer',
-      estimated_wait_minutes: 0,
-      waiting_count: 0,
-      issued_at: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
-      queue_date: new Date().toLocaleDateString('id-ID', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      }),
-    });
-  }, [printTicket]);
+      busyRef.current = true;
+      setLastError('');
+      setStatus('connecting');
 
-  const disconnect = useCallback(async (): Promise<void> => {
-    service.disconnect(nativeDeviceRef.current);
-    serverRef.current = null;
-    setStatus('idle');
-    setLastError('');
-  }, [service]);
+      let found = false;
 
-  const forgetPrinter = useCallback(async (): Promise<void> => {
-    service.disconnect(nativeDeviceRef.current);
-    nativeDeviceRef.current = null;
-    serverRef.current = null;
-    reconnectAttemptsRef.current = 0;
-    setLastError('');
-    setStatus('idle');
-    applyPrefs({ deviceName: '', deviceId: '' });
-  }, [service, applyPrefs]);
+      try {
+        const device = await transport.reconnect(saved);
 
-  const toggleAutoReconnect = useCallback(() => {
-    const next = !prefsRef.current.autoReconnectEnabled;
-    applyPrefs({ autoReconnectEnabled: next });
+        if (device) {
+          watchDisconnect(type);
+          rememberDevice(type, device);
+          setStatus('connected');
+          found = true;
+        } else {
+          setStatus('idle');
+        }
+      } catch (error) {
+        fail(type, error);
 
-    if (next) {
-      void loadSavedDeviceAndConnect({ silent: true });
-    }
-  }, [applyPrefs, loadSavedDeviceAndConnect]);
-
-  const setPaperWidth = useCallback(
-    (width: PaperWidth) => {
-      applyPrefs({ paperWidth: width === 80 ? 80 : 58 });
-    },
-    [applyPrefs],
-  );
-
-  // Mirrors the original controller's init(): load prefs, attempt a silent
-  // restore, and re-attempt on tab focus.
-  useEffect(() => {
-    setSupported(service.isSupported());
-
-    const stored = readStoredPrefs();
-    applyPrefs(
-      {
-        paperWidth: stored.paperWidth ?? 58,
-        deviceName: stored.deviceName ?? '',
-        deviceId: stored.deviceId ?? '',
-        autoReconnectEnabled: stored.autoReconnectEnabled ?? true,
-      },
-      { persist: false },
-    );
-
-    void loadSavedDeviceAndConnect({ silent: true });
-
-    const handleVisibility = () => {
-      if (document.visibilityState === 'visible' && prefsRef.current.autoReconnectEnabled) {
-        void loadSavedDeviceAndConnect({ silent: true });
+        return false;
+      } finally {
+        busyRef.current = false;
       }
-    };
 
-    document.addEventListener('visibilitychange', handleVisibility);
+      if (found) {
+        return true;
+      }
 
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibility);
-    };
-    // Intentionally run once on mount, same as the original's init().
+      // Klik manual tapi izin/perangkat hilang: buka dialog pemilihan.
+      return options.silent ? false : pairPrinter();
+    },
+    [transports, watchDisconnect, rememberDevice, fail, pairPrinter],
+  );
+
+  useEffect(() => {
+    autoReconnectRef.current = autoReconnect;
+  }, [autoReconnect]);
+
+  // Sambung otomatis saat halaman dibuka dan saat jalur diganti.
+  useEffect(() => {
+    if (!hydrated || !prefsRef.current.autoReconnectEnabled) {
+      return;
+    }
+
+    if (prefsRef.current.devices[prefs.transport]) {
+      void autoReconnectRef.current({ silent: true });
+    }
+
+    return clearReconnectTimer;
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated, prefs.transport]);
+
+  const disconnect = useCallback(async () => {
+    clearReconnectTimer();
+
+    try {
+      await transports[prefsRef.current.transport].disconnect();
+    } catch {
+      // sudah putus
+    }
+
+    setLastError('');
+    setStatus('idle');
+  }, [transports, clearReconnectTimer]);
+
+  const forgetPrinter = useCallback(async () => {
+    const type = prefsRef.current.transport;
+    const saved = prefsRef.current.devices[type];
+
+    clearReconnectTimer();
+
+    try {
+      await transports[type].forget(saved);
+    } catch {
+      // izin browser mungkin sudah tercabut
+    }
+
+    setPrefs((current) => {
+      const devices = { ...current.devices };
+      delete devices[type];
+
+      return { ...current, devices };
+    });
+    setLastError('');
+    setStatus('idle');
+  }, [transports, clearReconnectTimer]);
+
+  const setTransport = useCallback(
+    async (next: PrinterTransportType) => {
+      const current = prefsRef.current.transport;
+
+      if (next === current || busyRef.current) {
+        return;
+      }
+
+      clearReconnectTimer();
+
+      try {
+        await transports[current].disconnect();
+      } catch {
+        // sudah putus
+      }
+
+      setPrefs((value) => ({ ...value, transport: next }));
+      setLastError('');
+      setStatus('idle');
+    },
+    [transports, clearReconnectTimer],
+  );
+
+  const setPaperWidth = useCallback((width: PaperWidth) => {
+    setPrefs((current) => ({ ...current, paperWidth: width }));
   }, []);
 
+  const toggleAutoReconnect = useCallback(() => {
+    setPrefs((current) => ({ ...current, autoReconnectEnabled: !current.autoReconnectEnabled }));
+  }, []);
+
+  /** Cetak berurutan: tiket yang datang bersamaan antre, tidak saling menimpa. */
+  const printTicket = useCallback(
+    (ticket: Ticket): Promise<boolean> => {
+      const job = async (): Promise<boolean> => {
+        const type = prefsRef.current.transport;
+        const transport = transports[type];
+
+        try {
+          if (!transport.isConnected()) {
+            const restored = prefsRef.current.autoReconnectEnabled
+              ? await autoReconnectRef.current({ silent: true })
+              : false;
+
+            if (!restored) {
+              throw new Error('Printer belum tersambung.');
+            }
+          }
+
+          const bytes = await encodeEscPosReceipt(ticket, {
+            ...configRef.current,
+            paperWidth: prefsRef.current.paperWidth,
+          });
+
+          await transport.write(bytes);
+          setLastError('');
+          setStatus('connected');
+
+          return true;
+        } catch (error) {
+          fail(type, error);
+
+          return false;
+        }
+      };
+
+      const run = printQueueRef.current.then(job, job);
+      printQueueRef.current = run;
+
+      return run;
+    },
+    [transports, fail],
+  );
+
+  const testPrint = useCallback(() => printTicket(buildTestTicket()), [printTicket]);
+
+  const transport = prefs.transport;
+  const saved = prefs.devices[transport];
+  const deviceName = saved?.name ?? '';
+  const isPaired = Boolean(saved);
+  const transportLabel = TRANSPORT_LABEL[transport];
+
   const statusLabel = (() => {
-    if (status === 'connected') {
-      return shortText(deviceName, 16) || 'Terhubung';
+    switch (status) {
+      case 'pairing':
+        return 'Memilih printer…';
+      case 'connecting':
+        return 'Menyambung…';
+      case 'connected':
+        return `${deviceName || 'Printer'} (${transportLabel})`;
+      case 'error':
+        return 'Printer bermasalah';
+      default:
+        return isPaired ? 'Printer terputus' : 'Printer belum siap';
     }
-
-    if (status === 'pairing') {
-      return 'Pilih printer...';
-    }
-
-    if (status === 'connecting') {
-      return 'Menghubungkan...';
-    }
-
-    if (status === 'error') {
-      return shortText(lastError || 'Error', 24);
-    }
-
-    return deviceId ? 'Tidak terhubung' : 'Belum dipasang';
   })();
 
   return {
+    supported: supportedTransports[transport],
+    supportedTransports,
+
+    transport,
+    transportLabel,
+    setTransport,
+
     status,
     statusLabel,
-    statusTone: STATUS_TONE[status] ?? 'bg-white/35',
-    paperWidth,
-    deviceName,
-    deviceId,
+    statusTone: STATUS_TONE[status],
     lastError,
-    autoReconnectEnabled,
-    supported,
-    isPaired: Boolean(deviceId),
+
+    deviceName,
+    isPaired,
+    isConnected: status === 'connected',
+
+    paperWidth: prefs.paperWidth,
+    setPaperWidth,
+
+    autoReconnectEnabled: prefs.autoReconnectEnabled,
+    toggleAutoReconnect,
+
     pairPrinter,
     autoReconnect,
-    printTicket,
-    testPrint,
     disconnect,
     forgetPrinter,
-    toggleAutoReconnect,
-    setPaperWidth,
+
+    printTicket,
+    testPrint,
   };
 }

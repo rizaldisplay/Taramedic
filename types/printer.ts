@@ -7,6 +7,16 @@ export type PaperWidth = 58 | 80;
 
 export type PrinterStatus = 'idle' | 'pairing' | 'connecting' | 'connected' | 'error';
 
+/** Jalur koneksi ke printer thermal. */
+export type PrinterTransportType = 'bluetooth' | 'usb';
+
+/** Perangkat yang sudah dipasangkan (disimpan per jenis koneksi). */
+export interface PairedDevice {
+  /** Bluetooth: BluetoothDevice.id. USB: `usb:<vendorId>:<productId>:<serial>`. */
+  id: string;
+  name: string;
+}
+
 /** Toggle/label overrides for the printed receipt layout (all optional; defaults live in escpos.ts). */
 export interface ReceiptSettings {
   show_institution_name?: boolean;
@@ -63,7 +73,14 @@ export interface EncodeReceiptOptions extends InstitutionConfig {
 /** Shape persisted to localStorage under STORAGE_KEY (see useReceiptPrinter). */
 export interface StoredPrinterPrefs {
   paperWidth: PaperWidth;
-  deviceName: string;
-  deviceId: string;
+  /** Jalur koneksi yang sedang dipilih. */
+  transport: PrinterTransportType;
+  /** Printer terakhir yang dipasangkan, terpisah untuk Bluetooth dan USB. */
+  devices: Partial<Record<PrinterTransportType, PairedDevice>>;
   autoReconnectEnabled: boolean;
+
+  /** @deprecated Format lama (hanya Bluetooth). Dibaca sekali untuk migrasi, tidak ditulis lagi. */
+  deviceName?: string;
+  /** @deprecated Lihat `deviceName`. */
+  deviceId?: string;
 }

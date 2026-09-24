@@ -24,6 +24,7 @@ declare global {
   }
 
   interface BluetoothRemoteGATTCharacteristic extends EventTarget {
+    [x: string]: any;
     readonly uuid: string;
     readonly service?: BluetoothRemoteGATTService;
     writeValue(value: BufferSource): Promise<void>;
@@ -36,6 +37,7 @@ declare global {
   }
 
   interface BluetoothRemoteGATTServer {
+    getPrimaryServices: any;
     readonly device: BluetoothDevice;
     readonly connected: boolean;
     connect(): Promise<BluetoothRemoteGATTServer>;
