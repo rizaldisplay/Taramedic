@@ -6,6 +6,7 @@ import { ItemAntrean, StatusAntreanHarian } from '@/types/domain/antrean'; // Ad
 // 1. Initial State Interface & Data
 // ----------------------------------------------------------------------
 export interface QueueState extends StatusAntreanHarian {
+  loket: number | null;
   activeTab: 'Menunggu' | 'Terlewati';
   loading: boolean;
   error: string | null;
@@ -17,6 +18,7 @@ const initialState: QueueState = {
   antreanSaatIni: null,
   daftarAntrean: [],
   daftarTerlewati: [],
+  loket: null,
   activeTab: 'Menunggu',
   loading: false,
   error: null,
@@ -75,7 +77,7 @@ export const callNextQueue = createAsyncThunk<
 >('queue/callNext', async (counterId, { rejectWithValue }) => {
   try {
     // 2. Gunakan template literal (backtick) untuk memasukkan counterId ke dalam URL
-    const response = await api.post(`/counter/${counterId}/call-next`);
+    const response = await api.post(`/counter/${counterId}/call-next`, { loket: counterId });
     
     const resultData = response.data; 
     

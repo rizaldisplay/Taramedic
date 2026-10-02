@@ -3,6 +3,7 @@ import { StatusAntrean } from '../common';
 interface ItemAntrean {
     id: string;
     nomorAntrean: string;
+    nomorLoket: number;
     statusAntrean: StatusAntrean;
     waktuAmbil: string;
     waktuPanggil?: string | null;
