@@ -14,6 +14,7 @@ import {
   AlertTriangle,
   ArrowRight,
   X,
+  CheckCircle,
 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
@@ -92,9 +93,9 @@ export default function QueueController() {
   const filteredAntrean =
     activeTab == "Menunggu" ? daftarAntrean : daftarTerlewati;
 
-  const handleCallNext = async (counterId: number) => {
+  const handleCallNext = async (selectedLoket: number, selectedTicket: number) => {
     try {
-      await dispatch(callNextQueue(counterId)).unwrap();
+      await dispatch(callNextQueue({ selectedLoket, selectedTicket })).unwrap();
 
       dispatch(
         showNotification({
@@ -117,9 +118,9 @@ export default function QueueController() {
     }
   };
 
-  const handleCallSkipNext = async (counterId: number) => {
+  const handleCallSkipNext = async (selectedLoket: number, selectedTicket: number) => {
     try {
-      await dispatch(callNextSkipQueue(counterId)).unwrap();
+      await dispatch(callNextSkipQueue({ selectedLoket, selectedTicket })).unwrap();
 
       dispatch(
         showNotification({
@@ -141,19 +142,19 @@ export default function QueueController() {
   };
 
   const normalizeQueueActionPayload = (
-    payload?: { counterId: number; ticketsId?: string } | string,
-  ): { counterId: number; ticketsId?: string } => {
+    payload?: { counterId: number; ticketsId?: string, loketId?: number } | string,
+  ): { counterId: number; ticketsId?: string, loketId?: number } => {
     if (typeof payload === "string") {
-      return { counterId: selectedLoket, ticketsId: payload };
+      return { counterId: selectedLoket, ticketsId: payload, loketId: selectedLoket };
     }
 
-    return payload ?? { counterId: selectedLoket, ticketsId: undefined };
+    return payload ?? { counterId: selectedLoket, ticketsId: undefined, loketId: selectedLoket };
   };
 
   const handleRecall = async (
-    payload?: { counterId: number; ticketsId?: string } | string,
+    payload?: { counterId: number; ticketsId?: string; loketId?: number } | string,
   ) => {
-    const { counterId, ticketsId } = normalizeQueueActionPayload(payload);
+    const { counterId, ticketsId, loketId } = normalizeQueueActionPayload(payload);
 
     if (!ticketsId) {
       dispatch(
@@ -167,7 +168,9 @@ export default function QueueController() {
     }
 
     try {
-      await dispatch(recallQueue({ counterId, ticketsId }));
+      await dispatch(
+        recallQueue({ counterId, ticketsId, loketId: loketId ?? counterId }),
+      ).unwrap();
 
       dispatch(
         showNotification({
@@ -286,6 +289,7 @@ export default function QueueController() {
     handleRecall({
       counterId: selectedLoket,
       ticketsId: antreanSaatIni.id,
+      loketId: selectedLoket,
     });
   };
 
@@ -301,6 +305,9 @@ export default function QueueController() {
       ticketsId: antreanSaatIni.id,
     });
   };
+
+  console.log("selectedLoket:", selectedLoket);
+  console.log('selectedTicket:', selectedTicket);
 
   return (
     <div className="w-full h-full flex flex-col p-5 font-sans">
@@ -327,6 +334,11 @@ export default function QueueController() {
           {showBadge && (
             <span className="bg-[#ffdb58] text-yellow-900 text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
               <Volume2 size={12} /> Dipanggil
+            </span>
+          )}
+          {String(antreanSaatIni?.statusAntrean) === "Sedang Dilayani" && (
+            <span className="bg-[#4ade80] text-green-900 text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
+              <CheckCircle size={12} /> Sedang Dilayani
             </span>
           )}
         </div>
@@ -370,8 +382,11 @@ export default function QueueController() {
           <button
             onClick={() => {
               activeTab == "Menunggu"
-                ? handleCallNext(selectedLoket)
-                : handleCallSkipNext(selectedLoket);
+                ? handleCallNext(
+                    selectedLoket,
+                    Number(selectedTicket?.id || 0),
+                  )
+                : handleCallSkipNext(selectedLoket, Number(selectedTicket?.id || 0));
             }}
             className="w-full bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 text-sm font-semibold transition-colors cursor-pointer"
           >

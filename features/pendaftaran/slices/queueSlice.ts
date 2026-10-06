@@ -12,6 +12,11 @@ export interface QueueState extends StatusAntreanHarian {
   error: string | null;
 }
 
+interface CallNextPayload {
+  selectedLoket: number;
+  selectedTicket: number; // Ubah ke 'string' jika tiketnya hanya berupa teks tunggal
+}
+
 const initialState: QueueState = {
   menunggu: 0,
   terlewati: 0,
@@ -72,21 +77,23 @@ export const fetchQueueStatus = createAsyncThunk<
 // Memanggil antrean berikutnya
 export const callNextQueue = createAsyncThunk<
   ItemAntrean | null,
-  number, // 1. Ubah 'void' menjadi 'number' agar menerima argumen saat di-dispatch
+  CallNextPayload, // 1. Ubah 'void' menjadi 'number' agar menerima argumen saat di-dispatch
   { rejectValue: string }
->('queue/callNext', async (counterId, { rejectWithValue }) => {
+>('queue/callNext', async ({ selectedLoket, selectedTicket }, { rejectWithValue }) => {
   try {
+    console.log('selectedLoket:', selectedLoket);
+    console.log('selectedTicket:', selectedTicket);
     // 2. Gunakan template literal (backtick) untuk memasukkan counterId ke dalam URL
-    const response = await api.post(`/counter/${counterId}/call-next`, { loket: counterId });
+    const response = await api.post(`/counter/${selectedLoket}/call-next`, { loket: selectedLoket, ticket: selectedTicket });
     
     const resultData = response.data; 
     
-    console.log(`Data Antrean (Counter ${counterId}):`, resultData); 
+    console.log(`Data Antrean (Counter ${selectedLoket}):`, resultData); 
 
     return resultData; 
   } catch (err: any) {
     const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil antrean berikutnya';
-    console.error(`Error Call Next (Counter ${counterId}):`, errorMessage);
+    console.error(`Error Call Next (Counter ${selectedLoket}):`, errorMessage);
     
     return rejectWithValue(errorMessage);
   }
@@ -94,21 +101,21 @@ export const callNextQueue = createAsyncThunk<
 
 export const callNextSkipQueue = createAsyncThunk<
   ItemAntrean | null,
-  number, // 1. Ubah 'void' menjadi 'number' agar menerima argumen saat di-dispatch
+  CallNextPayload, // 1. Ubah 'void' menjadi 'number' agar menerima argumen saat di-dispatch
   { rejectValue: string }
->('queue/callNext', async (counterId, { rejectWithValue }) => {
+>('queue/callNext', async ({ selectedLoket, selectedTicket }, { rejectWithValue }) => {
   try {
     // 2. Gunakan template literal (backtick) untuk memasukkan counterId ke dalam URL
-    const response = await api.post(`/counter/${counterId}/call-next-skip`);
+    const response = await api.post(`/counter/${selectedLoket}/call-next-skip`);
     
     const resultData = response.data; 
     
-    console.log(`Data Antrean (Counter ${counterId}):`, resultData); 
+    console.log(`Data Antrean (Counter ${selectedLoket}):`, resultData); 
 
     return resultData; 
   } catch (err: any) {
     const errorMessage = err.response?.data?.message || err.message || 'Gagal memanggil antrean berikutnya';
-    console.error(`Error Call Next (Counter ${counterId}):`, errorMessage);
+    console.error(`Error Call Next (Counter ${selectedLoket}):`, errorMessage);
     
     return rejectWithValue(errorMessage);
   }
@@ -117,11 +124,14 @@ export const callNextSkipQueue = createAsyncThunk<
 // Memanggil antrean saat ini
 export const recallQueue = createAsyncThunk<
   ItemAntrean | null,
-  { counterId: number; ticketsId: string },
+  { counterId: number; ticketsId: string, loketId: number },
   { rejectValue: string }
->('queue/recallQueue', async ({ counterId, ticketsId }, { rejectWithValue }) => {
+>('queue/recallQueue', async ({ counterId, ticketsId, loketId }, { rejectWithValue }) => {
+  console.log(`Recall Queue - Counter: ${counterId}, Ticket: ${ticketsId}`);
   try {
-    const response = await api.post(`/counter/${counterId}/tickets/${ticketsId}/recall`);
+    const response = await api.post(`/counter/${counterId}/tickets/${ticketsId}/recall`, {
+      loket: loketId,
+    });
 
     const resultData = response.data;
 

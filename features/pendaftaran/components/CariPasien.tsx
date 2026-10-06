@@ -106,8 +106,9 @@ import DetailPasienModal from "@/features/pendaftaran/components/DetailPasienMod
 export default function PatientSearch() {
   const dispatch = useAppDispatch();
   // Ambil state dari Redux Toolkit
-  const { searchQuery, searchResults, selectedPatient, pagination, loading } =
-    useAppSelector((state) => state.patient);
+  const { searchQuery, searchResults, selectedPatient, pagination, loading } = useAppSelector((state) => state.patient);
+  const { antreanSaatIni } = useAppSelector((state) => state.queue);
+  const isAntreanSedangDilayani = String(antreanSaatIni?.statusAntrean ?? "") === "Sedang Dilayani";
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [isRegistrasiModalOpen, setIsRegistrasiModalOpen] =
@@ -197,7 +198,8 @@ export default function PatientSearch() {
         {/* Action Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <button
-            className="flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left cursor-pointer"
+            disabled={!isAntreanSedangDilayani}
+            className={`flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left ${!isAntreanSedangDilayani ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
             onClick={() => setIsRegistrasiModalOpen(true)}
           >
             <div className="text-green-500 bg-green-50 p-1.5 rounded-md flex-shrink-0">
