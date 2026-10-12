@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Search,
   Info,
@@ -26,80 +26,6 @@ import {
   setPerPage,
 } from "../slices/patientSlice"; // Sesuaikan path slice
 
-// --- Types ---
-interface PatientData {
-  id: string;
-  noRm: string;
-  name: string;
-  genderAge: string;
-  nik: string;
-  insurance: "BPJS" | "UMUM";
-  lastVisitDate: string;
-  lastVisitPoli: string;
-  satusehatStatus: "Terhubung" | "Belum Terhubung";
-  isActive?: boolean;
-}
-
-// --- Mock Data ---
-const mockPatients: PatientData[] = [
-  {
-    id: "1",
-    noRm: "RM000036",
-    name: "Rizka Amalia",
-    genderAge: "P / 8 th",
-    nik: "3271••••••••9012",
-    insurance: "BPJS",
-    lastVisitDate: "11-08-2026",
-    lastVisitPoli: "Poli Anak",
-    satusehatStatus: "Terhubung",
-    isActive: true,
-  },
-  {
-    id: "2",
-    noRm: "RM000112",
-    name: "Raka Pratama",
-    genderAge: "L / 7 th",
-    nik: "3271••••••••9012",
-    insurance: "BPJS",
-    lastVisitDate: "03-08-2026",
-    lastVisitPoli: "Poli Anak",
-    satusehatStatus: "Terhubung",
-  },
-  {
-    id: "3",
-    noRm: "RM000205",
-    name: "Rizka A.",
-    genderAge: "P / 7 th",
-    nik: "3271••••••••9012",
-    insurance: "UMUM",
-    lastVisitDate: "25-07-2026",
-    lastVisitPoli: "Poli Umum",
-    satusehatStatus: "Belum Terhubung",
-  },
-  {
-    id: "4",
-    noRm: "RM000278",
-    name: "Riska Amelia",
-    genderAge: "P / 7 th",
-    nik: "3271••••••••9012",
-    insurance: "BPJS",
-    lastVisitDate: "10-07-2026",
-    lastVisitPoli: "Poli Anak",
-    satusehatStatus: "Terhubung",
-  },
-  {
-    id: "5",
-    noRm: "RM000321",
-    name: "Rizka Amalia",
-    genderAge: "P / 7 th",
-    nik: "-",
-    insurance: "UMUM",
-    lastVisitDate: "-",
-    lastVisitPoli: "-",
-    satusehatStatus: "Belum Terhubung",
-  },
-];
-
 import RegisterPasienModal from "@/features/pendaftaran/components/RegistrasiPasienModal";
 import DetailPasienModal from "@/features/pendaftaran/components/DetailPasienModal";
 
@@ -114,32 +40,34 @@ export default function PatientSearch() {
   const [isRegistrasiModalOpen, setIsRegistrasiModalOpen] =
     useState<boolean>(false);
 
-  // Handler tombol pencarian
+  // Kunci parameter pencarian terakhir yang dikirim, supaya Enter/tombol (langsung)
+  // dan debounce tidak mengirim request yang sama dua kali.
+  const lastSearchKey = useRef<string | null>(null);
+
+  const runSearch = useCallback(
+    (query: string, page: number, limit: number) => {
+      lastSearchKey.current = `${query}|${page}|${limit}`;
+      dispatch(searchPatients({ query, page, limit }));
+    },
+    [dispatch],
+  );
+
+  // Tombol / Enter: cari langsung dari halaman 1
   const handleSearch = () => {
-    dispatch(setPage(1)); // Reset halaman ke 1 saat pencarian baru
-    dispatch(
-      searchPatients({
-        query: searchQuery,
-        page: 1,
-        limit: pagination.perPage,
-      }),
-    );
+    dispatch(setPage(1));
+    runSearch(searchQuery, 1, pagination.perPage);
   };
 
-  // Opsional: Jika ingin pencarian otomatis (Debounce) saat mengetik
+  // Otomatis (debounce 400ms) saat query / halaman / jumlah per halaman berubah
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(
-        searchPatients({
-          query: searchQuery,
-          page: pagination.currentPage,
-          limit: pagination.perPage,
-        }),
-      );
-    }, 400); // Tunggu 400ms setelah user selesai mengetik
+      const key = `${searchQuery}|${pagination.currentPage}|${pagination.perPage}`;
+      if (lastSearchKey.current === key) return;
+      runSearch(searchQuery, pagination.currentPage, pagination.perPage);
+    }, 400);
 
     return () => clearTimeout(timer);
-  }, [dispatch, searchQuery, pagination.currentPage, pagination.perPage]);
+  }, [searchQuery, pagination.currentPage, pagination.perPage, runSearch]);
 
   // Hitung batas pagination untuk label info
   const startData = (pagination.currentPage - 1) * pagination.perPage + 1;
@@ -364,6 +292,8 @@ export default function PatientSearch() {
                             Lihat Data Lengkap <ExternalLink size={12} />
                           </button>
                           <button
+                            disabled={isSelected}
+                            onClick={() => dispatch(selectPatient(patient))}
                             className={`text-[10px] text-left cursor-pointer ${
                               isSelected
                                 ? "text-gray-400 cursor-not-allowed"
@@ -407,18 +337,16 @@ export default function PatientSearch() {
             </button>
 
             <button
+              disabled={pagination.currentPage >= pagination.lastPage}
               onClick={() => dispatch(setPage(pagination.currentPage + 1))}
-              className="p-1.5 border border-gray-200 rounded text-gray-500 hover:bg-gray-50"
+              className="p-1.5 border border-gray-200 rounded text-gray-500 hover:bg-gray-50 disabled:opacity-40"
             >
               <ChevronRight size={14} />
             </button>
             <button
-              onClick={() =>
-                dispatch(
-                  setPage(Math.ceil(pagination.totalData / pagination.perPage)),
-                )
-              }
-              className="p-1.5 border border-gray-200 rounded text-gray-500 hover:bg-gray-50"
+              disabled={pagination.currentPage >= pagination.lastPage}
+              onClick={() => dispatch(setPage(pagination.lastPage))}
+              className="p-1.5 border border-gray-200 rounded text-gray-500 hover:bg-gray-50 disabled:opacity-40"
             >
               <ChevronsRight size={14} />
             </button>
@@ -478,11 +406,16 @@ export default function PatientSearch() {
       <DetailPasienModal
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
+        patientId={selectedPatient?.id ?? null}
       />
 
       <RegisterPasienModal
         isOpen={isRegistrasiModalOpen}
         onClose={() => setIsRegistrasiModalOpen(false)}
+        ticketId={antreanSaatIni?.id != null ? String(antreanSaatIni.id) : undefined}
+        onSaved={() =>
+          runSearch(searchQuery, pagination.currentPage, pagination.perPage)
+        }
       />
     </div>
   );

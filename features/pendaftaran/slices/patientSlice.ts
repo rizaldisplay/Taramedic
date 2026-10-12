@@ -1,189 +1,220 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// src/features/pendaftaran/slices/patientSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Pasien, HasilPencarianPasien } from '@/types/domain/pasien'; // Sesuaikan path import
+import { api } from '@/services/api';
+import type { ApiRejectValue, PendaftaranForm } from '@/types/domain/pendaftaran';
+import type {
+  PaginationMeta,
+  PatientDetail,
+  PatientListItem,
+  PatientSearchParams,
+  PatientSearchResult,
+} from '@/types/domain/pasien';
+import { flattenFieldErrors, toPendaftaranPayload } from '../utils/pendaftaranHelpers';
 
 // ----------------------------------------------------------------------
-// 1. Initial State Interface & Data
+// 1. State
 // ----------------------------------------------------------------------
 export interface PatientState {
   searchQuery: string;
-  searchResults: HasilPencarianPasien[];
-  selectedPatient: Pasien | null;
-  pagination: {
-    currentPage: number;
-    perPage: number;
-    totalData: number;
-  };
+  searchResults: PatientListItem[];
+  /** Pasien yang dipilih: dipakai panel "Data Pasien" & pendaftaran kunjungan */
+  selectedPatient: PatientListItem | null;
+  pagination: PaginationMeta;
   loading: boolean;
   error: string | null;
+  /** Hanya response dari request pencarian terakhir yang dipakai (hindari balapan debounce) */
+  currentSearchRequestId: string | null;
+
+  /** Data lengkap untuk modal detail / ubah data */
+  detail: {
+    data: PatientDetail | null;
+    loading: boolean;
+    error: string | null;
+  };
 }
 
 const initialState: PatientState = {
   searchQuery: '',
   searchResults: [],
   selectedPatient: null,
-  pagination: {
-    currentPage: 1,
-    perPage: 5,
-    totalData: 0,
-  },
+  pagination: { currentPage: 1, perPage: 10, totalData: 0, lastPage: 1 },
   loading: false,
   error: null,
+  currentSearchRequestId: null,
+  detail: { data: null, loading: false, error: null },
 };
 
+const getErrorMessage = (err: any, fallback: string): string =>
+  err.response?.data?.message || err.message || fallback;
+
 // ----------------------------------------------------------------------
-// 2. Async Thunk (Pencarian Pasien ke Backend)
+// 2. Async Thunks
 // ----------------------------------------------------------------------
+
+// Cari pasien (nama / NIK / No. RM / No. HP), berhalaman
 export const searchPatients = createAsyncThunk<
-  { data: HasilPencarianPasien[]; total: number },
-  { query: string; page?: number; limit?: number },
+  PatientSearchResult,
+  PatientSearchParams,
   { rejectValue: string }
->('patient/searchPatients', async ({ query, page = 1, limit = 5 }, { rejectWithValue }) => {
+>('patient/search', async ({ query, page, limit }, { rejectWithValue }) => {
   try {
-    // Master Mock Data
-    const allMockPatients: HasilPencarianPasien[] = [
-      {
-        nomorRM: 'RM000036',
-        namaLengkap: 'Rizka Amalia',
-        jenisKelamin: 'P',
-        tanggalLahir: '02-03-2016',
-        usiaString: '8 th',
-        nik: '3271000000009012',
-        noTelepon: '081500000000',
-        penjaminUtama: 'BPJS',
-        alamat: 'Jl. Melati No. 12, Bandung',
-        status: 'Baru',
-        tanggalKunjunganTerakhir: '11-08-2026',
-        poliKunjunganTerakhir: 'Poli Anak',
-        satuSehat: {
-          statusTerhubung: true,
-          ihsNumber: 'PXXXXXXXXX',
-          nikDukcapil: '3271000000009012',
-          terakhirSinkron: '16-08-2026 07:58 WIB',
-        },
-      },
-      {
-        nomorRM: 'RM000112',
-        namaLengkap: 'Raka Pratama',
-        jenisKelamin: 'L',
-        tanggalLahir: '10-05-2017',
-        usiaString: '7 th',
-        nik: '3271000000009012',
-        noTelepon: '081200000000',
-        penjaminUtama: 'BPJS',
-        alamat: 'Jl. Mawar No. 4, Bandung',
-        status: 'Lama',
-        tanggalKunjunganTerakhir: '03-08-2026',
-        poliKunjunganTerakhir: 'Poli Anak',
-      },
-      {
-        nomorRM: 'RM000205',
-        namaLengkap: 'Rizka A.',
-        jenisKelamin: 'P',
-        tanggalLahir: '14-11-2017',
-        usiaString: '7 th',
-        nik: '3271000000001102',
-        noTelepon: '081300000000',
-        penjaminUtama: 'BPJS',
-        alamat: 'Jl. Anggrek No. 8, Bandung',
-        status: 'Baru',
-        tanggalKunjunganTerakhir: '25-07-2026',
-        poliKunjunganTerakhir: 'Poli Umum',
-      },
-    ];
-
-    // Filter berdasarkan Nama, NIK, atau No RM
-    const cleanQuery = query.toLowerCase().trim();
-    const filtered = cleanQuery
-      ? allMockPatients.filter(
-          (p) =>
-            p.namaLengkap.toLowerCase().includes(cleanQuery) ||
-            p.nomorRM.toLowerCase().includes(cleanQuery) ||
-            p.nik.includes(cleanQuery)
-        )
-      : allMockPatients;
-
-    return {
-      data: filtered,
-      total: filtered.length,
-    };
+    const response = await api.get('/patients', {
+      params: { query: query.trim(), page, limit },
+    });
+    return response.data;
   } catch (err: any) {
-    return rejectWithValue(err.message || 'Gagal mencari data pasien');
+    const errorMessage = getErrorMessage(err, 'Gagal mencari data pasien');
+    console.error('Error Search Patients:', errorMessage);
+    return rejectWithValue(errorMessage);
+  }
+});
+
+// Data ringkas satu pasien. select = true -> jadikan pasien terpilih.
+export const fetchPatientSummary = createAsyncThunk<
+  PatientListItem,
+  { id: number; select?: boolean },
+  { rejectValue: string }
+>('patient/fetchSummary', async ({ id }, { rejectWithValue }) => {
+  try {
+    const response = await api.get(`/patients/${id}/summary`);
+    return response.data;
+  } catch (err: any) {
+    return rejectWithValue(getErrorMessage(err, 'Gagal memuat data pasien'));
+  }
+});
+
+// Data lengkap satu pasien (modal detail & ubah data)
+export const fetchPatientDetail = createAsyncThunk<PatientDetail, number, { rejectValue: string }>(
+  'patient/fetchDetail',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await api.get(`/patients/${id}`);
+      return response.data;
+    } catch (err: any) {
+      const errorMessage = getErrorMessage(err, 'Gagal memuat data lengkap pasien');
+      console.error(`Error Fetch Patient Detail (${id}):`, errorMessage);
+      return rejectWithValue(errorMessage);
+    }
+  },
+);
+
+// Ubah data pasien. No. RM & No. IHS tidak bisa diubah (diabaikan backend).
+export const updatePatient = createAsyncThunk<
+  PatientDetail,
+  { id: number; data: PendaftaranForm },
+  { rejectValue: ApiRejectValue }
+>('patient/update', async ({ id, data }, { rejectWithValue }) => {
+  try {
+    const response = await api.put(`/patients/${id}`, toPendaftaranPayload(data));
+    return response.data;
+  } catch (err: any) {
+    const body = err.response?.data;
+    const message = body?.message || err.message || 'Gagal menyimpan perubahan data pasien';
+    console.error(`Error Update Patient (${id}):`, message);
+    return rejectWithValue({ message, fieldErrors: flattenFieldErrors(body?.errors) });
   }
 });
 
 // ----------------------------------------------------------------------
-// 3. Patient Slice Definition
+// 3. Slice
 // ----------------------------------------------------------------------
 export const patientSlice = createSlice({
   name: 'patient',
   initialState,
   reducers: {
-    // Set query pencarian
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
+      state.pagination.currentPage = 1;
     },
-
-    // Memilih pasien dari hasil pencarian (menampilkan detail di Card Kanan)
-    selectPatient: (state, action: PayloadAction<Pasien | null>) => {
+    setPage: (state, action: PayloadAction<number>) => {
+      state.pagination.currentPage = Math.max(1, action.payload);
+    },
+    setPerPage: (state, action: PayloadAction<number>) => {
+      state.pagination.perPage = action.payload;
+      state.pagination.currentPage = 1;
+    },
+    selectPatient: (state, action: PayloadAction<PatientListItem>) => {
       state.selectedPatient = action.payload;
     },
-
-    // Reset pasien yang dipilih
     clearSelectedPatient: (state) => {
       state.selectedPatient = null;
     },
-
-    // Pengaturan Halaman Paginasi
-    setPage: (state, action: PayloadAction<number>) => {
-      state.pagination.currentPage = action.payload;
-    },
-
-    setPerPage: (state, action: PayloadAction<number>) => {
-      state.pagination.perPage = action.payload;
+    clearDetail: (state) => {
+      state.detail = { data: null, loading: false, error: null };
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(searchPatients.pending, (state) => {
+      // ---- Pencarian ----
+      .addCase(searchPatients.pending, (state, action) => {
         state.loading = true;
         state.error = null;
+        state.currentSearchRequestId = action.meta.requestId;
       })
       .addCase(searchPatients.fulfilled, (state, action) => {
-        state.loading = false;
-        state.searchResults = action.payload.data;
-        state.pagination.totalData = action.payload.total;
+        if (state.currentSearchRequestId !== action.meta.requestId) return; // response basi
 
-        // Auto selection pasien pertama jika belum ada yang dipilih
-        if (!state.selectedPatient && action.payload.data.length > 0) {
-          state.selectedPatient = action.payload.data[0];
+        const { data, meta } = action.payload;
+        state.loading = false;
+        state.currentSearchRequestId = null;
+        state.searchResults = data;
+        state.pagination = { ...meta };
+
+        // Halaman melewati batas (data berkurang): mundur ke halaman terakhir -> memicu pencarian ulang
+        if (meta.lastPage >= 1 && meta.currentPage > meta.lastPage) {
+          state.pagination.currentPage = meta.lastPage;
         }
       })
       .addCase(searchPatients.rejected, (state, action) => {
+        if (state.currentSearchRequestId !== action.meta.requestId) return;
+
         state.loading = false;
-        state.error = action.payload || 'Gagal memuat hasil pencarian';
+        state.currentSearchRequestId = null;
+        state.error = action.payload || 'Terjadi kesalahan saat mencari pasien';
+      })
+
+      // ---- Ringkasan pasien ----
+      .addCase(fetchPatientSummary.fulfilled, (state, action) => {
+        const item = action.payload;
+
+        const index = state.searchResults.findIndex((p) => p.id === item.id);
+        if (index !== -1) state.searchResults[index] = item;
+
+        if (action.meta.arg.select || state.selectedPatient?.id === item.id) {
+          state.selectedPatient = item;
+        }
+      })
+
+      // ---- Detail lengkap ----
+      .addCase(fetchPatientDetail.pending, (state, action) => {
+        state.detail.loading = true;
+        state.detail.error = null;
+        if (state.detail.data?.id !== action.meta.arg) state.detail.data = null;
+      })
+      .addCase(fetchPatientDetail.fulfilled, (state, action) => {
+        state.detail.loading = false;
+        state.detail.data = action.payload;
+      })
+      .addCase(fetchPatientDetail.rejected, (state, action) => {
+        state.detail.loading = false;
+        state.detail.error = action.payload || 'Gagal memuat data lengkap pasien';
+      })
+
+      // ---- Ubah pasien ----
+      .addCase(updatePatient.fulfilled, (state, action) => {
+        state.detail.data = action.payload;
       });
   },
 });
 
 export const {
   setSearchQuery,
-  selectPatient,
-  clearSelectedPatient,
   setPage,
   setPerPage,
+  selectPatient,
+  clearSelectedPatient,
+  clearDetail,
 } = patientSlice.actions;
 
 export default patientSlice.reducer;
-
-// ----------------------------------------------------------------------
-// 4. Selectors
-// ----------------------------------------------------------------------
-import type { RootState } from '@/store';
-
-export const selectSelectedPatient = (state: RootState) => 
-  (state as RootState & { patient: PatientState }).patient.selectedPatient;
-export const selectPatientSearchResults = (state: RootState) =>
-  (state as RootState & { patient: PatientState }).patient.searchResults;
-export const selectSatuSehatStatus = (state: RootState) =>
-  (state as RootState & { patient: PatientState }).patient.selectedPatient?.satuSehat;

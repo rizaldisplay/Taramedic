@@ -1,29 +1,77 @@
-import { JenisKelamin, JenisPenjamin, StatusPasien } from '../common';
+// src/types/domain/pasien.ts
+import type { JenisKelamin, Pendaftaran } from './pendaftaran';
 
-interface IntegrasiSatuSehat {
+interface SatuSehatInfo {
   statusTerhubung: boolean;
-  ihsNumber: string;          // "PXXXXXXXXX"
-  nikDukcapil: string;
-  terakhirSinkron: string;    // "16-08-2026 07:58 WIB"
+  ihsNumber: string | null;
+  /** Sudah diformat backend, mis. "16-08-2026 07:58 WIB" */
+  lastSyncAt: string | null;
 }
 
-interface Pasien {
-  nomorRM: string;            // Nomor Rekam Medis, contoh: "RM000036"
+/** Satu baris hasil pencarian + data ringkas untuk panel "Data Pasien". Semua teks siap tampil. */
+interface PatientListItem {
+  id: number;
+  nomorRM: string;
   namaLengkap: string;
+  inisial: string;
   jenisKelamin: JenisKelamin;
-  tanggalLahir: string;       // "DD-MM-YYYY" (02-03-2016)
-  usiaString: string;         // Contoh: "8 th"
-  nik: string;                // "3271********9012"
-  noTelepon: string;          // "0815********"
-  penjaminUtama: JenisPenjamin;
-  alamat: string;
-  status: StatusPasien;
-  satuSehat?: IntegrasiSatuSehat;
+  /** mis. "8 Tahun" */
+  usiaString: string;
+  /** DD-MM-YYYY */
+  tanggalLahir: string;
+  /** Sudah disamarkan, mis. "3271••••••••9012" */
+  nik: string;
+  nomorHP: string;
+  alamatRingkas: string;
+  isActive: boolean;
+  /** "BPJS" | "UMUM" | "ASURANSI" */
+  penjaminUtama: string;
+  penjaminLabel: string;
+  tanggalKunjunganTerakhir: string | null;
+  poliKunjunganTerakhir: string | null;
+  satuSehat: SatuSehatInfo;
 }
 
-interface HasilPencarianPasien extends Pasien {
-  tanggalKunjunganTerakhir?: string; // "11-08-2026"
-  poliKunjunganTerakhir?: string;    // "Poli Anak"
+/** Data lengkap (tidak disamarkan) untuk modal detail & ubah data. tanggalLahir = YYYY-MM-DD. */
+interface PatientDetail extends Pendaftaran {
+  wilayahNama: {
+    provinsi: string;
+    kabupatenKota: string;
+    kecamatan: string;
+    desaKelurahan: string;
+  };
+  isActive: boolean;
+  nikTerverifikasi: boolean;
+  satuSehat: SatuSehatInfo;
+  tanggalRegistrasi: string;
+  terakhirDiperbarui: string;
+  dibuatOleh: string;
+  sumberRegistrasi: string;
 }
 
-export type { Pasien, HasilPencarianPasien };
+interface PaginationMeta {
+  currentPage: number;
+  perPage: number;
+  totalData: number;
+  lastPage: number;
+}
+
+interface PatientSearchParams {
+  query: string;
+  page: number;
+  limit: number;
+}
+
+interface PatientSearchResult {
+  data: PatientListItem[];
+  meta: PaginationMeta;
+}
+
+export type {
+  SatuSehatInfo,
+  PatientListItem,
+  PatientDetail,
+  PaginationMeta,
+  PatientSearchParams,
+  PatientSearchResult,
+};
