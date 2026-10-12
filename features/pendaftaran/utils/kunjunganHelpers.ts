@@ -1,24 +1,24 @@
 // Lokasi: src/features/pendaftaran/utils/kunjunganHelpers.ts
-import type { KunjunganForm, KunjunganFormErrors } from '@/types/domain/kunjungan';
+import type { VisitForm, VisitFormErrors } from '@/types/domain/kunjungan';
 
-export const initialKunjunganForm: KunjunganForm = {
+export const initialKunjunganForm: VisitForm = {
   poliId: '',
   dokterId: '',
   jenisLayanan: '',
   caraMasuk: '',
-  penjaminId: '',
+  penjamin: '',
   jenisPembayaran: '',
   prioritas: 'NORMAL',
   loketId: '',
   lokasiId: '',
 };
 
-const FIELD_LABEL: Record<keyof KunjunganForm, string> = {
+const FIELD_LABEL: Record<keyof VisitForm, string> = {
   poliId: 'Poli/Unit Tujuan',
   dokterId: 'Dokter / Nakes',
   jenisLayanan: 'Jenis Layanan',
   caraMasuk: 'Cara Masuk',
-  penjaminId: 'Penjamin',
+  penjamin: 'Penjamin',
   jenisPembayaran: 'Jenis Pembayaran',
   prioritas: 'Prioritas',
   loketId: 'Loket Pendaftaran',
@@ -26,12 +26,12 @@ const FIELD_LABEL: Record<keyof KunjunganForm, string> = {
 };
 
 /** Nama field form -> nama field di API (snake_case) */
-const FORM_TO_API: Record<keyof KunjunganForm, string> = {
+const FORM_TO_API: Record<keyof VisitForm, string> = {
   poliId: 'poli_id',
   dokterId: 'dokter_id',
   jenisLayanan: 'jenis_layanan',
   caraMasuk: 'cara_masuk',
-  penjaminId: 'penjamin_id',
+  penjamin: 'penjamin_id',
   jenisPembayaran: 'jenis_pembayaran',
   prioritas: 'prioritas',
   loketId: 'loket_id',
@@ -40,23 +40,23 @@ const FORM_TO_API: Record<keyof KunjunganForm, string> = {
 
 const API_TO_FORM = Object.fromEntries(
   Object.entries(FORM_TO_API).map(([form, api]) => [api, form]),
-) as Record<string, keyof KunjunganForm>;
+) as Record<string, keyof VisitForm>;
 
 /** Semua field wajib diisi */
-export const validateKunjungan = (form: KunjunganForm): KunjunganFormErrors => {
-  const errors: KunjunganFormErrors = {};
-  (Object.keys(FIELD_LABEL) as (keyof KunjunganForm)[]).forEach((field) => {
+export const validateKunjungan = (form: VisitForm): VisitFormErrors => {
+  const errors: VisitFormErrors = {};
+  (Object.keys(FIELD_LABEL) as (keyof VisitForm)[]).forEach((field) => {
     if (!form[field]) errors[field] = `${FIELD_LABEL[field]} wajib dipilih`;
   });
   return errors;
 };
 
-export const toKunjunganPayload = (form: KunjunganForm, tiketId?: string) => ({
+export const toKunjunganPayload = (form: VisitForm, tiketId?: string) => ({
   poli_id: Number(form.poliId),
   dokter_id: Number(form.dokterId),
   jenis_layanan: form.jenisLayanan,
   cara_masuk: form.caraMasuk,
-  penjamin_id: Number(form.penjaminId),
+  penjamin_id: Number(form.penjamin),
   jenis_pembayaran: form.jenisPembayaran,
   prioritas: form.prioritas,
   loket_id: Number(form.loketId),
@@ -67,8 +67,8 @@ export const toKunjunganPayload = (form: KunjunganForm, tiketId?: string) => ({
 /** Error validasi Laravel { poli_id: ['...'] } -> { poliId: '...' } */
 export const flattenKunjunganErrors = (
   errors?: Record<string, string[] | string>,
-): KunjunganFormErrors => {
-  const result: KunjunganFormErrors = {};
+): VisitFormErrors => {
+  const result: VisitFormErrors = {};
   if (!errors) return result;
   Object.entries(errors).forEach(([key, value]) => {
     const field = API_TO_FORM[key];
