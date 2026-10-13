@@ -7,6 +7,7 @@ import notificationReducer from '@/features/notification/notificationSlice';
 import registrasiPasienReducer from '@/features/pendaftaran/slices/registrationSlice';
 import visitReducer from '@/features/pendaftaran/slices/visitSlice';
 import sdmkReducer from '@/features/masterdata/master-sdmk/slices/sdmkSlice';
+import unitPoliReducer from '@/features/masterdata/master-organisasi/unit-poli/slices/unitPoliSlice';
 // Import slice fitur lain di sini jika ada:
 // import rekamMedisReducer from '@/features/rekam-medis/rekamMedisSlice';
 
@@ -21,6 +22,7 @@ export const makeStore = () => {
       registration: registrasiPasienReducer,
       visit: visitReducer,
       sdmk: sdmkReducer,
+      unitPoli: unitPoliReducer,
       // rekamMedis: rekamMedisReducer,
     },
     middleware: (getDefaultMiddleware) =>

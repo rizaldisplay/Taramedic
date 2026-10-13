@@ -55,7 +55,7 @@ export default function DaftarSDMK() {
           </thead>
           <tbody className="divide-y divide-slate-100">
             {listLoading && items.length === 0 && (
-              <tr><td colSpan={6} className="py-12 text-center text-slate-400"><Loader2 className="inline animate-spin mr-2" size={16} />Memuat...</td></tr>
+              <tr><td colSpan={6} className="py-12 text-center text-slate-400"><Loader2 className="inline animate-spin mr-2 text-cyan-600" size={16} />Memuat...</td></tr>
             )}
             {listError && <tr><td colSpan={6} role="alert" className="py-8 text-center text-red-500 text-xs">{listError}</td></tr>}
             {!listLoading && !listError && items.length === 0 && <tr><td colSpan={6} className="py-12 text-center text-xs text-slate-400">Tidak ada SDMK yang cocok.</td></tr>}

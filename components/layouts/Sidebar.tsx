@@ -430,16 +430,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
               icon={MapPin}
               label="Master Organisasi"
               subItems={[
-                { label: "Unit & Poli", href: "/masterdata/unit-poli" },
+                { label: "Unit & Poli", href: "/masterdata/organisasi/unit-poli" },
                 {
                   label: "Lokasi Pelayanan",
-                  href: "/masterdata/lokasi-pelayanan",
+                  href: "/masterdata/organisasi/lokasi-pelayanan",
                 },
                 {
                   label: "Referensi Provider",
-                  href: "/masterdata/referensi-provider",
+                  href: "/masterdata/organisasi/referensi-provider",
                 },
-                { label: "Loket / Counter", href: "/masterdata/loket-counter" },
+                { label: "Loket / Counter", href: "/masterdata/organisasi/loket-counter" },
               ]}
               onNavClick={onClose}
               isCollapsed={isCollapsed}
