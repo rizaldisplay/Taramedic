@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import TopHeader from '@/features/kasir/components/TopHeaderInfo';
+import LoketCounterPage from '@/features/masterdata/master-organisasi/loket-counter/page';
 
 export default function PemeriksaanPage() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali
@@ -10,7 +10,7 @@ export default function PemeriksaanPage() {
 
   // Fungsi untuk me-render komponen berdasarkan tab yang aktif
   const renderContent = () => {
-        return <div className="p-4">Tampilan Sedang dikembangkan</div>;
+    return <LoketCounterPage />;
   };
 
   return (

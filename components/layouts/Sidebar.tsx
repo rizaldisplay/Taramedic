@@ -435,10 +435,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   label: "Lokasi Pelayanan",
                   href: "/masterdata/organisasi/lokasi-pelayanan",
                 },
-                {
-                  label: "Referensi Provider",
-                  href: "/masterdata/organisasi/referensi-provider",
-                },
                 { label: "Loket / Counter", href: "/masterdata/organisasi/loket-counter" },
               ]}
               onNavClick={onClose}
