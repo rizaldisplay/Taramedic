@@ -1,6 +1,6 @@
 'use client';
-// Lokasi: src/features/masterdata/components/lokasi/FormLokasi.tsx
-import React, { useEffect, useMemo } from 'react';
+// Loket: src/features/masterdata/components/loket-counter/FormLoket.tsx
+import React, { useEffect } from 'react';
 import { Check, Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { showNotification } from '@/features/notification/notificationSlice';
@@ -22,7 +22,7 @@ export default function FormLoket() {
     e.preventDefault();
     dispatch(saveLoket()).unwrap()
       .then(() => dispatch(showNotification({
-        title: 'Tersimpan', message: edit ? 'Loket / counter berhasil diperbarui.' : 'Loket pelayanan berhasil ditambahkan.', type: 'success',
+        title: 'Tersimpan', message: edit ? 'Loket / counter berhasil diperbarui.' : 'Loket / counter berhasil ditambahkan.', type: 'success',
       })))
       .catch((err: { message: string }) => {
         dispatch(showNotification({ title: 'Gagal Menyimpan', message: err.message, type: 'error' }));
@@ -41,17 +41,17 @@ export default function FormLoket() {
 
       <div className="p-5 space-y-4">
         <div className="grid grid-cols-2 gap-3">
-          <FormInput label="Kode" required value={form.kode} onChange={set('kode')} error={errors.kode}
-            placeholder="GEDUNG-UTAMA" maxLength={30} />
+          <FormInput label="Kode" required value={form.code} onChange={set('code')} error={errors.code}
+            placeholder="LOKET-1" maxLength={30} />
           <FormInput label="Nama" required value={form.nama} onChange={set('nama')} error={errors.nama}
             placeholder="Nama loket/counter" maxLength={100} />
         </div>
 
-        <FormSelect label="Tipe" required value={form.tipe} onChange={set('tipe')} options={OPSI_TIPE}
+        <FormSelect label="Tipe" required value={form.tipe} onChange={set('tipe')} options={options?.tipe ?? OPSI_TIPE}
           placeholder="Pilih tipe" error={errors.tipe} />
 
         <div className="flex flex-col gap-1.5">
-          <Label text="Deskripsi" htmlFor="loket/counter-deskripsi" />
+          <Label text="Deskripsi" htmlFor="loket-deskripsi" />
           <textarea id="loket-deskripsi" rows={3} value={form.deskripsi} maxLength={255}
             onChange={(e) => set('deskripsi')(e.target.value)} placeholder="Keterangan atau aturan penggunaan..."
             aria-invalid={!!errors.deskripsi} data-sdmk-error={errors.deskripsi ? 'true' : undefined}

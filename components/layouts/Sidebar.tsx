@@ -408,7 +408,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               icon={Tablets}
               label="Master Farmasi"
               subItems={[
-                { label: "Produk Obat / KFA", href: "/masterdata/produk-obat" },
+                { label: "Produk Obat / KFA", href: "/masterdata/farmasi/produk-obat-kfa" },
                 { label: "Tarif Obat", href: "/masterdata/tarif-obat" },
                 {
                   label: "Formularium & Restriksi",

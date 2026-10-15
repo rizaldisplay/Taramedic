@@ -1,5 +1,5 @@
 'use client';
-// Lokasi: src/features/masterdata/components/lokasi/DaftarLokasi.tsx
+// Loket: src/features/masterdata/components/loket-counter/DaftarLoket.tsx
 import React, { useEffect, useState } from 'react';
 import { Loader2, Plus, Search } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -13,7 +13,7 @@ import type { LoketItem, StatusLoket, TipeLoket } from '@/types/domain/loketCoun
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-export default function DaftarLokasi() {
+export default function DaftarLoket() {
   const dispatch = useAppDispatch();
   const {
     items, meta, ringkasan, listLoading, listError, search, statusFilter, tipeFilter, page, perPage, togglingId, editingId,
@@ -44,7 +44,7 @@ export default function DaftarLokasi() {
   const offset = (meta.currentPage - 1) * meta.perPage;
 
   return (
-    <section className="bg-white rounded-xl border border-slate-200 shadow-sm" aria-labelledby="judul-lokasi">
+    <section className="bg-white rounded-xl border border-slate-200 shadow-sm" aria-labelledby="judul-loket">
       <div className="p-5 flex items-center justify-between gap-4 border-b border-slate-200">
         <h3 id="judul-loket" className="text-lg font-bold text-[#0b2756]">Loket / Counter</h3>
         <div className="flex items-center gap-4">
@@ -92,11 +92,11 @@ export default function DaftarLokasi() {
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-semibold text-sm text-slate-800">{x.nama}</span>
-                <span className="text-xs text-slate-400">{x.kode}</span>
+                <span className="text-xs text-slate-400">{x.code}</span>
                 <span className="px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100 text-[11px] font-semibold">{x.tipe}</span>
               </div>
               <p className="text-xs text-slate-400 mt-1 truncate">
-                {x.deskripsi ? ` · ${x.deskripsi}` : ''}
+                {x.deskripsi || 'Tanpa keterangan'}
               </p>
             </div>
             <StatusBadge status={x.status} />

@@ -1,14 +1,13 @@
-// Lokasi: src/types/domain/lokasiPelayanan.ts
-// Master data Lokasi Pelayanan (lokasi fisik pelayanan, terpisah dari unit klinis). Bisa berjenjang: Gedung > Lantai > Ruang.
+// Loket: src/types/domain/loketCounter.ts
+// Master data Loket / Counter pelayanan (pendaftaran, poli, farmasi, kasir).
 
 export type TipeLoket = 'Ruang Pendaftaran' | 'Ruang Poli' | 'Ruang Farmasi' | 'Ruang Kasir';
 export type StatusLoket = 'Aktif' | 'Nonaktif';
 
 export interface LoketForm {
-  kode: string;
+  code: string;
   nama: string;
   tipe: TipeLoket | '';
-  counterId: string;
   deskripsi: string;
   status: StatusLoket;
 }
@@ -17,11 +16,9 @@ export type LoketErrors = Partial<Record<keyof LoketForm, string>>;
 
 export interface LoketItem {
   id: number;
-  kode: string;
+  code: string;
   nama: string;
   tipe: TipeLoket;
-  counterId: string | null;
-  counterNama: string | null;
   deskripsi: string | null;
   status: StatusLoket;
 }
@@ -33,5 +30,5 @@ export interface LoketListResponse {
 }
 
 export interface LoketOptions {
-  counter: { value: string; label: string }[];
+  tipe: { value: TipeLoket; label: string }[];
 }

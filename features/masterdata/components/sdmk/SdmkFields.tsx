@@ -44,7 +44,7 @@ export function FormInput({
     <div className="flex flex-col gap-1.5 w-full">
       <Label text={label} required={required} htmlFor={id} />
       <input
-        id={id} type={type} value={value} disabled={disabled} placeholder={placeholder} maxLength={maxLength}
+        id={id} type={type} value={value ?? ''} disabled={disabled} placeholder={placeholder} maxLength={maxLength}
         inputMode={inputMode} onBlur={onBlur} onChange={(e) => onChange(e.target.value)}
         aria-invalid={!!error} aria-describedby={error ? `${id}-err` : undefined} data-sdmk-error={error ? 'true' : undefined}
         className={inputCls(error, disabled)}
@@ -64,7 +64,7 @@ export function FormSelect({
       <Label text={label} required={required} htmlFor={id} />
       <div className="relative w-full">
         <select
-          id={id} value={value} disabled={disabled || loading} onChange={(e) => onChange(e.target.value)}
+          id={id} value={value ?? ''} disabled={disabled || loading} onChange={(e) => onChange(e.target.value)}
           aria-invalid={!!error} aria-describedby={error ? `${id}-err` : undefined} data-sdmk-error={error ? 'true' : undefined}
           className={`${inputCls(error, disabled || loading)} appearance-none pr-10 ${value ? '' : 'text-slate-500'}`}
         >
@@ -89,7 +89,7 @@ export function DateField({
       <Label text={label} required={required} htmlFor={id} />
       <div className="relative w-full">
         <input
-          id={id} type="text" inputMode="numeric" placeholder="DD-MM-YYYY" maxLength={10} value={value} disabled={disabled}
+          id={id} type="text" inputMode="numeric" placeholder="DD-MM-YYYY" maxLength={10} value={value ?? ''} disabled={disabled}
           onChange={(e) => onChange(maskTanggal(e.target.value))}
           aria-invalid={!!error} aria-describedby={error ? `${id}-err` : undefined} data-sdmk-error={error ? 'true' : undefined}
           className={`${inputCls(error, disabled)} pr-10`}
@@ -110,7 +110,7 @@ export function TimeField({
     <div className="flex flex-col gap-1.5 w-full">
       {!compact && <Label text={label} required={required} htmlFor={id} />}
       <input
-        id={id} type="time" value={value} disabled={disabled} aria-label={label} onChange={(e) => onChange(e.target.value)}
+        id={id} type="time" value={value ?? ''} disabled={disabled} aria-label={label} onChange={(e) => onChange(e.target.value)}
         aria-invalid={!!error} data-sdmk-error={error ? 'true' : undefined} className={inputCls(error, disabled)}
       />
       {!compact && <FieldError id={`${id}-err`} error={error} />}
@@ -127,7 +127,7 @@ export function NumberField({
       <Label text={label} required={required} htmlFor={id} />
       <div className="relative">
         <input
-          id={id} type="text" inputMode="numeric" value={value} disabled={disabled}
+          id={id} type="text" inputMode="numeric" value={value ?? ''} disabled={disabled}
           onChange={(e) => { const v = e.target.value.replace(/\D/g, ''); onChange(max !== undefined && Number(v) > max ? String(max) : v); }}
           aria-invalid={!!error} data-sdmk-error={error ? 'true' : undefined} className={`${inputCls(error, disabled)} ${unit ? 'pr-16' : ''}`}
         />

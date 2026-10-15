@@ -21,16 +21,17 @@ import {
   validateLoket,
 } from "../utils/loketCounterHelpers";
 
+
 // ---------------------------------------------------------------- State
 export interface LoketState {
   items: LoketItem[];
-  meta: LoketListResponse["meta"];
-  ringkasan: LoketListResponse["ringkasan"];
+  meta: LoketListResponse['meta'];
+  ringkasan: LoketListResponse['ringkasan'];
   listLoading: boolean;
   listError: string | null;
   search: string;
-  statusFilter: StatusLoket | "";
-  tipeFilter: TipeLoket | "";
+  statusFilter: StatusLoket | '';
+  tipeFilter: TipeLoket | '';
   page: number;
   perPage: number;
 
@@ -45,21 +46,13 @@ export interface LoketState {
 
 const initialState: LoketState = {
   items: [],
-  meta: {
-    currentPage: 1,
-    lastPage: 1,
-    perPage: 10,
-    total: 0,
-  },
-  ringkasan: {
-    aktif: 0,
-    total: 0,
-  },
+  meta: { currentPage: 1, lastPage: 1, perPage: 10, total: 0 },
+  ringkasan: { aktif: 0, total: 0 },
   listLoading: false,
   listError: null,
-  search: "",
-  statusFilter: "",
-  tipeFilter: "",
+  search: '',
+  statusFilter: '',
+  tipeFilter: '',
   page: 1,
   perPage: 10,
   options: null,
@@ -91,7 +84,6 @@ const toReject = (err: unknown, fallback: string): ApiRejectValue => {
   return { message, fieldErrors };
 };
 
-
 // ---------------------------------------------------------------- Thunks
 let listRequestId = 0;
 
@@ -108,13 +100,13 @@ export const fetchLoket = createAsyncThunk<LoketListResponse & { requestId: numb
         },
       });
       return { ...res.data, requestId };
-    } catch (err) { return rejectWithValue(toReject(err, 'Gagal memuat Lokasi Pelayanan')); }
+    } catch (err) { return rejectWithValue(toReject(err, 'Gagal memuat Loket / Counter')); }
   },
 );
 
-/** Pilihan induk & fasyankes. Dimuat sekali; { force: true } memuat ulang (setelah ada lokasi baru/berubah). */
+/** Pilihan tipe loket. Dimuat sekali; { force: true } memuat ulang. */
 export const fetchLoketOptions = createAsyncThunk<LoketOptions, { force?: boolean } | void, ThunkCfg>(
-  'lokasiCounter/fetchOptions',
+  'loketCounter/fetchOptions',
   async (_, { rejectWithValue }) => {
     try { return (await api.get('/loket-counter/options')).data; }
     catch (err) { return rejectWithValue(toReject(err, 'Gagal memuat pilihan loket')); }
@@ -126,42 +118,40 @@ export const saveLoket = createAsyncThunk<LoketItem, void, ThunkCfg>(
   'loketCounter/save',
   async (_, { getState, dispatch, rejectWithValue }) => {
     const s = sel(getState);
-    const errors = validateLoket(s.form, s.options);
+    const errors = validateLoket(s.form);
     if (Object.keys(errors).length) {
       return rejectWithValue({ message: 'Data belum lengkap. Periksa kolom yang ditandai merah.', fieldErrors: errors as Record<string, string> });
     }
     try {
       const body = toPayload(s.form);
-      const res = s.editingId ? await api.put(`/loket-counter/${s.editingId}`, body) : await api.post('/lokasi-pelayanan', body);
+      console.log(body)
+      const res = s.editingId ? await api.put(`/loket-counter/${s.editingId}`, body) : await api.post('/loket-counter', body);
       dispatch(fetchLoket());
-      dispatch(fetchLoketOptions({ force: true }));
       return res.data;
-    } catch (err) { return rejectWithValue(toReject(err, 'Gagal menyimpan Lokasi Pelayanan')); }
+    } catch (err) { return rejectWithValue(toReject(err, 'Gagal menyimpan Loket / Counter')); }
   },
 );
 
 export const toggleLoketStatus = createAsyncThunk<LoketItem, LoketItem, ThunkCfg>(
-  'lokasiPelayanan/toggleStatus',
+  'loketCounter/toggleStatus',
   async (item, { dispatch, rejectWithValue }) => {
     try {
       const status: StatusLoket = item.status === 'Aktif' ? 'Nonaktif' : 'Aktif';
-      const res = await api.put(`/lokasi-pelayanan/${item.id}/status`, { status });
+      const res = await api.put(`/loket-counter/${item.id}/status`, { status });
       dispatch(fetchLoket());
-      dispatch(fetchLoketOptions({ force: true }));
       return res.data;
     } catch (err) { return rejectWithValue(toReject(err, 'Gagal mengubah status')); }
   },
 );
 
-
 // ---------------------------------------------------------------- Slice
 const loketSlice = createSlice({
-  name: 'lokasiPelayanan',
+  name: 'loketCounter',
   initialState,
   reducers: {
     setField(s, a: PayloadAction<{ field: keyof LoketForm; value: string }>) {
       const { field, value } = a.payload;
-      (s.form as Record<string, unknown>)[field] = field === 'kode' ? normalisasiKode(value) : value;
+      (s.form as Record<string, unknown>)[field] = field === 'code' ? normalisasiKode(value) : value;
       delete s.errors[field];
     },
     startEdit(s, a: PayloadAction<LoketItem>) { s.editingId = a.payload.id; s.form = itemToForm(a.payload); s.errors = {}; },
@@ -170,6 +160,24 @@ const loketSlice = createSlice({
     setStatusFilter(s, a: PayloadAction<StatusLoket | ''>) { s.statusFilter = a.payload; s.page = 1; },
     setTipeFilter(s, a: PayloadAction<TipeLoket | ''>) { s.tipeFilter = a.payload; s.page = 1; },
     setPage(s, a: PayloadAction<number>) { s.page = a.payload; },
+  },
+  extraReducers: (b) => {
+    b.addCase(fetchLoket.pending, (s) => { s.listLoading = true; s.listError = null; })
+      .addCase(fetchLoket.fulfilled, (s, a) => {
+        if (a.payload.requestId !== listRequestId) return; // respons basi
+        s.listLoading = false; s.items = a.payload.data; s.meta = a.payload.meta; s.ringkasan = a.payload.ringkasan;
+      })
+      .addCase(fetchLoket.rejected, (s, a) => { s.listLoading = false; s.listError = a.payload?.message ?? 'Gagal memuat Loket / Counter'; });
+
+    b.addCase(fetchLoketOptions.fulfilled, (s, a) => { s.options = a.payload; });
+
+    b.addCase(saveLoket.pending, (s) => { s.saving = true; })
+      .addCase(saveLoket.fulfilled, (s) => { s.saving = false; s.editingId = null; s.form = initialLoket; s.errors = {}; })
+      .addCase(saveLoket.rejected, (s, a) => { s.saving = false; s.errors = (a.payload?.fieldErrors ?? {}) as LoketErrors; });
+
+    b.addCase(toggleLoketStatus.pending, (s, a) => { s.togglingId = a.meta.arg.id; })
+      .addCase(toggleLoketStatus.fulfilled, (s) => { s.togglingId = null; })
+      .addCase(toggleLoketStatus.rejected, (s) => { s.togglingId = null; });
   },
 });
 
