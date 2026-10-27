@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { api } from '@/services/api';
 import Cookies from 'js-cookie';
@@ -10,16 +11,16 @@ export interface User {
   name: string;
   username: string;
   email: string;
-  role: string;
+  roles: string[]; // [UPDATE] Menyesuaikan dengan backend (array of role slugs)
 }
 
 export interface AuthState {
   user: User | null;
-  userIdForOtp: number | null;     // Disimpan setelah Step 1 (Login Password) berhasil
-  maskedPhone: string | null;      // Nomor telepon ter-mask untuk tampilan UI Form OTP
+  userIdForOtp: number | null;
+  maskedPhone: string | null;
   accessToken: string | null;
   refreshToken: string | null;
-  step: 'LOGIN' | 'OTP';           // Mengontrol tampilan form di UI (Form Password vs Form OTP)
+  step: 'LOGIN' | 'OTP';
   loading: boolean;
   error: string | null;
   isAuthenticated: boolean;
@@ -49,7 +50,13 @@ export interface AuthSuccessResponse {
   };
 }
 
-// --- Initial State ---
+// Response login sekarang bisa dua jenis (Dengan OTP atau Langsung Token)
+export interface LoginResponse {
+  status: boolean;
+  message: string;
+  is_2fa?: boolean; 
+  data: any; 
+}
 
 const initialState: AuthState = {
   user: null,
@@ -63,17 +70,12 @@ const initialState: AuthState = {
   isAuthenticated: !!Cookies.get('access_token'),
 };
 
-// --- Async Thunks ---
-
-/**
- * Step 1: Login dengan Username & Password -> Trigger WhatsApp OTP
- */
 export const loginCredentials = createAsyncThunk(
   'auth/loginCredentials',
   async (credentials: LoginPayload, { rejectWithValue }) => {
     try {
-      const response = await api.post('/auth/login', credentials);
-      return response.data; // Expected response: { status: true, data: { user_id, phone_number } }
+      const response = await api.post<LoginResponse>('/auth/login', credentials);
+      return response.data;
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
         return rejectWithValue(err.response.data.message || 'Kredensial tidak valid');
@@ -83,9 +85,6 @@ export const loginCredentials = createAsyncThunk(
   }
 );
 
-/**
- * Step 2: Verifikasi OTP -> Menerbitkan Access Token & Refresh Token
- */
 export const verifyOtp = createAsyncThunk(
   'auth/verifyOtp',
   async (payload: VerifyOtpPayload, { rejectWithValue }) => {
@@ -101,9 +100,6 @@ export const verifyOtp = createAsyncThunk(
   }
 );
 
-/**
- * Step 3: Logout Pengguna
- */
 export const logoutUser = createAsyncThunk(
   'auth/logoutUser',
   async (_, { getState, dispatch }) => {
@@ -112,31 +108,26 @@ export const logoutUser = createAsyncThunk(
       await api.post('/auth/logout', {
         refresh_token: state.auth.refreshToken,
       });
-    } catch (err) {
-      // Mengabaikan error logout API jika token memang sudah kadaluwarsa
-    } finally {
+    } catch (err) {} 
+    finally {
       dispatch(authSlice.actions.resetAuth());
     }
   }
 );
 
-// --- Auth Slice ---
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Kembali ke form Login (Username/Password) dari form OTP
     resetToLoginStep: (state) => {
       state.step = 'LOGIN';
       state.userIdForOtp = null;
       state.maskedPhone = null;
       state.error = null;
     },
-    // Clear error message
     clearError: (state) => {
       state.error = null;
     },
-    // Reset seluruh state auth & hapus cookie
     resetAuth: (state) => {
       state.user = null;
       state.userIdForOtp = null;
@@ -161,9 +152,23 @@ const authSlice = createSlice({
       })
       .addCase(loginCredentials.fulfilled, (state, action) => {
         state.loading = false;
-        state.step = 'OTP'; // Pindah tampilan ke form input OTP
-        state.userIdForOtp = action.payload.data.user_id;
-        state.maskedPhone = action.payload.data.phone_number;
+        
+        // [UPDATE] Cek apakah user wajib OTP atau tidak
+        if (action.payload.is_2fa) {
+          state.step = 'OTP'; 
+          state.userIdForOtp = action.payload.data.user_id;
+          state.maskedPhone = action.payload.data.phone_number;
+        } else {
+          // Jika tidak 2FA, token langsung diberikan oleh backend
+          const { user, authorization } = action.payload.data;
+          state.isAuthenticated = true;
+          state.user = user;
+          state.accessToken = authorization.access_token;
+          state.refreshToken = authorization.refresh_token;
+
+          Cookies.set('access_token', authorization.access_token, { expires: 1, path: '/' });
+          Cookies.set('refresh_token', authorization.refresh_token, { expires: 30, path: '/' });
+        }
       })
       .addCase(loginCredentials.rejected, (state, action) => {
         state.loading = false;
@@ -177,14 +182,12 @@ const authSlice = createSlice({
       })
       .addCase(verifyOtp.fulfilled, (state, action: PayloadAction<AuthSuccessResponse>) => {
         const { user, authorization } = action.payload.data;
-
         state.loading = false;
         state.isAuthenticated = true;
         state.user = user;
         state.accessToken = authorization.access_token;
         state.refreshToken = authorization.refresh_token;
 
-        // Simpan token ke Cookies agar dibaca oleh Next.js middleware & Axios interceptor
         Cookies.set('access_token', authorization.access_token, { expires: 1, path: '/' });
         Cookies.set('refresh_token', authorization.refresh_token, { expires: 30, path: '/' });
       })

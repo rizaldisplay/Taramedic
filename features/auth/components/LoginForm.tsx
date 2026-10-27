@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/aria-unsupported-elements */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React, { useState } from 'react';
@@ -13,8 +16,11 @@ import {
   User,
   AlertCircle
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { loginCredentials, clearError } from '../authSlice';
+import "../auth-login.css";
+
 
 export default function LoginForm() {
   const [username, setUsername] = useState('');
@@ -22,48 +28,26 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useAppDispatch();
+  const router = useRouter(); // [UPDATE] Inisialisasi router
   const { loading, error } = useAppSelector((state) => state.auth);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch(clearError());
-    dispatch(loginCredentials({ username, password }));
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+      dispatch(clearError());
+      
+      // [UPDATE] Tunggu (await) dispatch selesai untuk mengecek responnya
+      const resultAction = await dispatch(loginCredentials({ username, password }));
+      
+      if (loginCredentials.fulfilled.match(resultAction)) {
+        // Jika login berhasil tapi TIDAK ada flag is_2fa (berarti 2FA mati / langsung login)
+        if (!resultAction.payload.is_2fa) {
+          router.push('/dashboard');
+        }
+      }
   };
 
   return (
-    <div className="w-full max-w-[480px] rounded-[2rem] bg-white p-8 sm:p-10 shadow-2xl shadow-cyan-900/10 border border-slate-100 flex flex-col justify-between relative overflow-hidden">
-      {/* Aksen Garis Atas */}
-      <div className="card-logo">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-          <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z" fill="#fff" />
-        </svg>
-      </div>
-
-      <div>
-        {/* Logo Mobile / Top Section */}
-        <div className="mb-8 flex flex-col items-center">
-          <div className="bg-gradient-to-br from-cyan-500 to-cyan-600 p-4 rounded-2xl shadow-lg shadow-cyan-500/30 mb-6 mt-2">
-            <img
-              src="/logo/03%20Taramedic%20Logo%20-%20Full%20Putih%20Main%20Center.png"
-              alt="Logo Taramedic"
-              className="h-10 sm:h-12 w-auto object-contain"
-            />
-          </div>
-
-          {/* Greeting */}
-          <div className="text-center">
-            <p className="text-xs font-bold text-cyan-600 uppercase tracking-widest mb-2">
-              Selamat Datang
-            </p>
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-              Masuk ke Sistem
-            </h3>
-            <p className="text-sm text-slate-500 mt-2">
-              Silakan masukkan kredensial Anda untuk melanjutkan
-            </p>
-          </div>
-        </div>
-
+    <div className="">
         {/* Pesan Error */}
         {error && (
           <div className="mb-6 flex items-start gap-3 rounded-xl bg-red-50 p-4 text-sm text-red-600 border border-red-100 animate-in fade-in slide-in-from-top-2">
@@ -73,13 +57,13 @@ export default function LoginForm() {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="taramedic-login__form">
           {/* Username Input */}
           <div>
-            <label className="block text-sm font-semibold text-slate-800 mb-2">
+            <label className="taramedic-login__label">
               Username
             </label>
-            <div className="relative group">
+            <div className="taramedic-login__input-wrap">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <User className="w-5 h-5 text-slate-400 group-focus-within:text-cyan-600 transition-colors" />
               </div>
@@ -88,7 +72,7 @@ export default function LoginForm() {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/50 pl-11 pr-4 py-3.5 text-sm text-slate-900 focus:bg-white focus:border-cyan-600 focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all placeholder:text-slate-400"
+                className="taramedic-login__input"
                 placeholder="Masukkan username"
               />
             </div>
@@ -96,10 +80,10 @@ export default function LoginForm() {
 
           {/* Password Input */}
           <div>
-            <label className="block text-sm font-semibold text-slate-800 mb-2">
+            <label className="taramedic-login__label">
               Password
             </label>
-            <div className="relative group">
+            <div className="taramedic-login__input-wrap">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Lock className="w-5 h-5 text-slate-400 group-focus-within:text-cyan-600 transition-colors" />
               </div>
@@ -108,7 +92,7 @@ export default function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full rounded-xl border border-slate-200 bg-slate-50/50 pl-11 pr-12 py-3.5 text-sm text-slate-900 focus:bg-white focus:border-cyan-600 focus:outline-none focus:ring-4 focus:ring-cyan-600/10 transition-all placeholder:text-slate-400"
+                className="taramedic-login__input"
                 placeholder="Masukkan password"
               />
               <button
@@ -140,7 +124,6 @@ export default function LoginForm() {
             )}
           </button>
         </form>
-      </div>
 
       {/* Footer Support */}
       <div className="mt-10 text-center">
@@ -155,7 +138,7 @@ export default function LoginForm() {
           <SupportCard icon={BookOpen} title="Panduan Pengguna" value="Lihat dokumentasi" />
         </div>
 
-        <p className="text-slate-400 text-xs font-medium">© 2026 TaraMedic. All rights reserved.</p>
+        <p className="text-slate-400 text-xs font-medium">PT Padat Karya Teknologi . All rights reserved.</p>
       </div>
     </div>
   );
