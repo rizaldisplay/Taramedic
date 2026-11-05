@@ -30,7 +30,7 @@ import {
   WILAYAH_CHILD,
   WILAYAH_ENDPOINT,
   WILAYAH_FIELD,
-} from "@/features/pendaftaran/utils/pendaftaranHelpers";
+} from "@/features/administrasi/pendaftaran-rajal/utils/pendaftaranHelpers";
 import {
   fromServer,
   flattenErrors,

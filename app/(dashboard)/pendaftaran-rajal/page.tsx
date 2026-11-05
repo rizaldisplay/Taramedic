@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import PendaftaranPage from '@/features/pendaftaran/page';
-import TopHeader from '@/features/pemeriksaan/perawat/components/TopHeaderInfo';
+import PendaftaranPage from '@/features/administrasi/pendaftaran-rajal/page';
 
-export default function PemeriksaanPage() {
+export default function PendaftaranRajal() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali
   const [activeTab, setActiveTab] = useState('Pemeriksaan Awal');
 

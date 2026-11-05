@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '@/features/auth/authSlice';
-import queueaReducer from '@/features/pendaftaran/slices/queueSlice';
-import patientReducer from '@/features/pendaftaran/slices/patientSlice';
+import queueaReducer from '@/features/administrasi/pendaftaran-rajal/slices/queueSlice';
+import patientReducer from '@/features/administrasi/pendaftaran-rajal/slices/patientSlice';
 import kioskReducer from '@/features/kiosq/slice/kioskSlice';
 import notificationReducer from '@/features/notification/notificationSlice';
-import registrasiPasienReducer from '@/features/pendaftaran/slices/registrationSlice';
-import visitReducer from '@/features/pendaftaran/slices/visitSlice';
+import registrasiPasienReducer from '@/features/administrasi/pendaftaran-rajal/slices/registrationSlice';
+import visitReducer from '@/features/administrasi/pendaftaran-rajal/slices/visitSlice';
 import sdmkReducer from '@/features/masterdata/master-sdmk/slices/sdmkSlice';
 import unitPoliReducer from '@/features/masterdata/master-organisasi/unit-poli/slices/unitPoliSlice';
 import LokasiPelayananReducer from '@/features/masterdata/master-organisasi/lokasi-pelayanan/slices/lokasiPelayananSlice';

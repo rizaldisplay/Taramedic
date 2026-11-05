@@ -17,6 +17,8 @@ import {
   Loader2,
 } from "lucide-react";
 
+
+import { DatePeriodFilter } from './DatePeriodFilter'
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   searchPatients,
@@ -26,8 +28,10 @@ import {
   setPerPage,
 } from "../slices/patientSlice"; // Sesuaikan path slice
 
-import RegisterPasienModal from "@/features/pendaftaran/components/RegistrasiPasienModal";
-import DetailPasienModal from "@/features/pendaftaran/components/DetailPasienModal";
+import RegisterPasienModal from "./RegistrasiPasienModal";
+import DetailPasienModal from "./DetailPasienModal";
+
+type ListPeriodPreset = React.ComponentProps<typeof DatePeriodFilter>["preset"];
 
 export default function PatientSearch() {
   const dispatch = useAppDispatch();
@@ -37,6 +41,10 @@ export default function PatientSearch() {
   const isAntreanSedangDilayani = String(antreanSaatIni?.statusAntrean ?? "") === "Sedang Dilayani";
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
+  const [periodPreset, setPeriodPreset] = useState<ListPeriodPreset>('today');
+  const updatePeriodPreset = (preset: ListPeriodPreset) => {
+    setPeriodPreset(preset);
+  };
   const [isRegistrasiModalOpen, setIsRegistrasiModalOpen] =
     useState<boolean>(false);
 
@@ -85,32 +93,50 @@ export default function PatientSearch() {
         </h2>
 
         {/* Search Bar */}
-        <div className="flex gap-3 mb-4">
+        <div className="flex flex-col sm:flex-row items-stretch gap-3 mb-6">
+
+          {/* Input Pencarian */}
           <div className="relative flex-1">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search size={18} className="text-gray-400" />
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Search size={18} className="text-slate-400" strokeWidth={2.5} />
             </div>
             <input
               type="text"
-              className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500"
+              // Menggunakan min-h-[52px] agar tingginya sama persis dengan DatePeriodFilter
+              className="block w-full h-full min-h-[52px] pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium text-slate-900 placeholder-slate-400 shadow-sm transition-all focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:border-cyan-500"
               placeholder="Cari berdasarkan Nama, NIK, No. RM..."
               value={searchQuery}
               onChange={(e) => dispatch(setSearchQuery(e.target.value))}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
           </div>
-          <button
-            onClick={handleSearch}
-            disabled={loading}
-            className="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 transition-colors flex-shrink-0 disabled:opacity-50 cursor-pointer"
-          >
-            {loading ? (
-              <Loader2 size={16} className="animate-spin" />
-            ) : (
-              <Search size={16} />
-            )}
-            <span className="hidden sm:inline">Cari Pasien</span>
-          </button>
+
+          {/* Filter Periode */}
+          <div className="flex-shrink-0">
+            <DatePeriodFilter
+              preset={periodPreset}
+              onPresetChange={updatePeriodPreset}
+              ariaLabel="Periode Kunjungan"
+              testIdPrefix="registration"
+              presetTestId="select-registration-period"
+              variant="dropdown"
+            />
+          </div>
+
+          {/* Tombol Cari (Saya rapikan juga styling-nya jika nanti ingin diaktifkan) */}
+          {/* <button
+    onClick={handleSearch}
+    disabled={loading}
+    className="h-full min-h-[52px] bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-2.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors flex-shrink-0 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+  >
+    {loading ? (
+      <Loader2 size={18} className="animate-spin" strokeWidth={2.5} />
+    ) : (
+      <Search size={18} strokeWidth={2.5} />
+    )}
+    <span className="hidden sm:inline">Cari Pasien</span>
+  </button> */}
+
         </div>
 
         {/* Info Alert */}
@@ -222,17 +248,15 @@ export default function PatientSearch() {
                     <tr
                       key={patient.nomorRM}
                       onClick={() => dispatch(selectPatient(patient))}
-                      className={`hover:bg-cyan-50/30 transition-colors cursor-pointer ${
-                        isSelected ? "bg-cyan-50/20" : "bg-white"
-                      }`}
+                      className={`hover:bg-cyan-50/30 transition-colors cursor-pointer ${isSelected ? "bg-cyan-50/20" : "bg-white"
+                        }`}
                     >
                       <td className="px-4 py-4 text-center">
                         <div
-                          className={`w-3.5 h-3.5 rounded-full border-2 mx-auto ${
-                            isSelected
-                              ? "border-cyan-600 bg-cyan-600"
-                              : "border-gray-300"
-                          }`}
+                          className={`w-3.5 h-3.5 rounded-full border-2 mx-auto ${isSelected
+                            ? "border-cyan-600 bg-cyan-600"
+                            : "border-gray-300"
+                            }`}
                         />
                       </td>
                       <td className="px-4 py-4 text-gray-600 text-xs">
@@ -249,11 +273,10 @@ export default function PatientSearch() {
                       </td>
                       <td className="px-4 py-4">
                         <span
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                            patient.penjaminUtama === "BPJS"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-cyan-100 text-cyan-700"
-                          }`}
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${patient.penjaminUtama === "BPJS"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-cyan-100 text-cyan-700"
+                            }`}
                         >
                           {patient.penjaminUtama}
                         </span>
@@ -294,11 +317,10 @@ export default function PatientSearch() {
                           <button
                             disabled={isSelected}
                             onClick={() => dispatch(selectPatient(patient))}
-                            className={`text-[10px] text-left cursor-pointer ${
-                              isSelected
-                                ? "text-gray-400 cursor-not-allowed"
-                                : "text-gray-500 hover:text-gray-700"
-                            }`}
+                            className={`text-[10px] text-left cursor-pointer ${isSelected
+                              ? "text-gray-400 cursor-not-allowed"
+                              : "text-gray-500 hover:text-gray-700"
+                              }`}
                           >
                             Gunakan untuk
                             <br />

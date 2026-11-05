@@ -3,9 +3,9 @@ import type {
   FormErrors, Hari, IdentitasForm, JadwalHariForm, JadwalSettingForm, KompetensiForm,
   PenempatanForm, ProfesiForm, SdmkTabKey, SipForm, SlotForm, StrForm, IntegrasiForm,
 } from '@/types/domain/sdmk';
-import { isoToTanggal, parseTanggal, tanggalToIso } from '@/features/pendaftaran/utils/pendaftaranHelpers';
+import { isoToTanggal, parseTanggal, tanggalToIso } from '@/features/administrasi/pendaftaran-rajal/utils/pendaftaranHelpers';
 
-export { maskTanggal, parseTanggal, tanggalToIso, isoToTanggal } from '@/features/pendaftaran/utils/pendaftaranHelpers';
+export { maskTanggal, parseTanggal, tanggalToIso, isoToTanggal } from '@/features/administrasi/pendaftaran-rajal/utils/pendaftaranHelpers';
 
 export const TABS: { key: SdmkTabKey; label: string }[] = [
   { key: 'identitas', label: 'Identitas' },

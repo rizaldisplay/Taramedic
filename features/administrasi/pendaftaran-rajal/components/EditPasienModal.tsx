@@ -14,7 +14,7 @@ import {
 } from '../slices/registrationSlice';
 import { fetchPatientDetail, fetchPatientSummary, updatePatient } from '../slices/patientSlice';
 import { validatePendaftaran } from '../utils/pendaftaranHelpers';
-import PasienForm, { focusFirstError } from '@/features/pendaftaran/components/PasienForm';
+import PasienForm, { focusFirstError } from './PasienForm';
 
 interface EditPatientModalProps {
   isOpen: boolean;

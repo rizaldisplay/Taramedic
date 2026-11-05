@@ -67,7 +67,7 @@ const MENU_SECTIONS: NavSection[] = [
         icon: ClipboardList,
         label: "Administrasi",
         subItems: [
-          { label: "Pendaftaran Rajal", href: "/pendaftaran" },
+          { label: "Pendaftaran Rajal", href: "/pendaftaran-rajal" },
           { label: "Penjadwalan Kunjungan", href: "/penjadwalan-kunjungan" },
           { label: "Rujukan Pasien", href: "/rujukan" },
         ],
