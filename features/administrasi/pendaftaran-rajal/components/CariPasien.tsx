@@ -17,8 +17,7 @@ import {
   Loader2,
 } from "lucide-react";
 
-
-import { DatePeriodFilter } from './DatePeriodFilter'
+import { DatePeriodFilter } from "./DatePeriodFilter";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   searchPatients,
@@ -36,12 +35,14 @@ type ListPeriodPreset = React.ComponentProps<typeof DatePeriodFilter>["preset"];
 export default function PatientSearch() {
   const dispatch = useAppDispatch();
   // Ambil state dari Redux Toolkit
-  const { searchQuery, searchResults, selectedPatient, pagination, loading } = useAppSelector((state) => state.patient);
+  const { searchQuery, searchResults, selectedPatient, pagination, loading } =
+    useAppSelector((state) => state.patient);
   const { antreanSaatIni } = useAppSelector((state) => state.queue);
-  const isAntreanSedangDilayani = String(antreanSaatIni?.statusAntrean ?? "") === "Sedang Dilayani";
+  const isAntreanSedangDilayani =
+    String(antreanSaatIni?.statusAntrean ?? "") === "Sedang Dilayani";
 
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
-  const [periodPreset, setPeriodPreset] = useState<ListPeriodPreset>('today');
+  const [periodPreset, setPeriodPreset] = useState<ListPeriodPreset>("today");
   const updatePeriodPreset = (preset: ListPeriodPreset) => {
     setPeriodPreset(preset);
   };
@@ -94,7 +95,6 @@ export default function PatientSearch() {
 
         {/* Search Bar */}
         <div className="flex flex-col sm:flex-row items-stretch gap-3 mb-6">
-
           {/* Input Pencarian */}
           <div className="relative flex-1">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -136,7 +136,6 @@ export default function PatientSearch() {
     )}
     <span className="hidden sm:inline">Cari Pasien</span>
   </button> */}
-
         </div>
 
         {/* Info Alert */}
@@ -151,7 +150,7 @@ export default function PatientSearch() {
 
         {/* Action Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          <button
+          {/* <button
             disabled={!isAntreanSedangDilayani}
             className={`flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left ${!isAntreanSedangDilayani ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
             onClick={() => setIsRegistrasiModalOpen(true)}
@@ -165,6 +164,49 @@ export default function PatientSearch() {
               </p>
               <p className="text-[10px] text-gray-500 truncate">
                 (Aktif setelah HADIR)
+              </p>
+            </div>
+          </button> */}
+          <button className="flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left cursor-pointer">
+            <div className="text-cyan-600 bg-cyan-50 p-1.5 rounded-md flex-shrink-0">
+              <ClipboardList size={20} />
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-sm font-bold text-cyan-600 truncate">
+                Total Pasien Terdaftar
+              </p>
+              <p className="text-[20px] text-gray-500 truncate">
+                1 pasien
+              </p>
+            </div>
+          </button>
+
+          <button className="flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left cursor-pointer">
+            <div className="text-cyan-600 bg-cyan-50 p-1.5 rounded-md flex-shrink-0">
+              <ClipboardList size={20} />
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-sm font-bold text-cyan-600 truncate">
+                Pasien Aktif
+              </p>
+              <p className="text-[20px] text-gray-500 truncate">
+                10 pasien
+              </p>
+            </div>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <button className="flex items-center gap-3 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition-colors bg-white w-full text-left cursor-pointer">
+            <div className="text-cyan-600 bg-cyan-50 p-1.5 rounded-md flex-shrink-0">
+              <ClipboardList size={20} />
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-sm font-bold text-cyan-600 truncate">
+                Riwayat Kunjungan
+              </p>
+              <p className="text-[10px] text-gray-500 truncate">
+                Lihat riwayat kunjungan
               </p>
             </div>
           </button>
@@ -248,15 +290,17 @@ export default function PatientSearch() {
                     <tr
                       key={patient.nomorRM}
                       onClick={() => dispatch(selectPatient(patient))}
-                      className={`hover:bg-cyan-50/30 transition-colors cursor-pointer ${isSelected ? "bg-cyan-50/20" : "bg-white"
-                        }`}
+                      className={`hover:bg-cyan-50/30 transition-colors cursor-pointer ${
+                        isSelected ? "bg-cyan-50/20" : "bg-white"
+                      }`}
                     >
                       <td className="px-4 py-4 text-center">
                         <div
-                          className={`w-3.5 h-3.5 rounded-full border-2 mx-auto ${isSelected
-                            ? "border-cyan-600 bg-cyan-600"
-                            : "border-gray-300"
-                            }`}
+                          className={`w-3.5 h-3.5 rounded-full border-2 mx-auto ${
+                            isSelected
+                              ? "border-cyan-600 bg-cyan-600"
+                              : "border-gray-300"
+                          }`}
                         />
                       </td>
                       <td className="px-4 py-4 text-gray-600 text-xs">
@@ -273,10 +317,11 @@ export default function PatientSearch() {
                       </td>
                       <td className="px-4 py-4">
                         <span
-                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${patient.penjaminUtama === "BPJS"
-                            ? "bg-green-100 text-green-700"
-                            : "bg-cyan-100 text-cyan-700"
-                            }`}
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                            patient.penjaminUtama === "BPJS"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-cyan-100 text-cyan-700"
+                          }`}
                         >
                           {patient.penjaminUtama}
                         </span>
@@ -317,10 +362,11 @@ export default function PatientSearch() {
                           <button
                             disabled={isSelected}
                             onClick={() => dispatch(selectPatient(patient))}
-                            className={`text-[10px] text-left cursor-pointer ${isSelected
-                              ? "text-gray-400 cursor-not-allowed"
-                              : "text-gray-500 hover:text-gray-700"
-                              }`}
+                            className={`text-[10px] text-left cursor-pointer ${
+                              isSelected
+                                ? "text-gray-400 cursor-not-allowed"
+                                : "text-gray-500 hover:text-gray-700"
+                            }`}
                           >
                             Gunakan untuk
                             <br />
@@ -434,7 +480,9 @@ export default function PatientSearch() {
       <RegisterPasienModal
         isOpen={isRegistrasiModalOpen}
         onClose={() => setIsRegistrasiModalOpen(false)}
-        ticketId={antreanSaatIni?.id != null ? String(antreanSaatIni.id) : undefined}
+        ticketId={
+          antreanSaatIni?.id != null ? String(antreanSaatIni.id) : undefined
+        }
         onSaved={() =>
           runSearch(searchQuery, pagination.currentPage, pagination.perPage)
         }

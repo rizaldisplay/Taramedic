@@ -22,12 +22,6 @@ export default function PendaftaranWorkspace() {
           Padding X sejajar dengan Header. Gap-6 memberi jarak vertikal yang konsisten.
       ========================================= */}
       <main className="flex-1 flex flex-col px-4 md:px-6 lg:px-0 py-6 pb-24 md:pb-28 gap-6">
-        
-        {/* Section Card (Statistik) */}
-        <section>
-          <Card />
-        </section>
-
         {/* Section Grid 3 Kolom */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
