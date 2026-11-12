@@ -19,6 +19,7 @@ export interface PatientState {
   searchQuery: string;
   searchResults: PatientListItem[];
   /** Pasien yang dipilih: dipakai panel "Data Pasien" & pendaftaran kunjungan */
+  isPanelOpen: boolean;
   selectedPatient: PatientListItem | null;
   pagination: PaginationMeta;
   loading: boolean;
@@ -38,6 +39,7 @@ const initialState: PatientState = {
   searchQuery: '',
   searchResults: [],
   selectedPatient: null,
+  isPanelOpen: false,
   pagination: { currentPage: 1, perPage: 10, totalData: 0, lastPage: 1 },
   loading: false,
   error: null,
@@ -136,6 +138,13 @@ export const patientSlice = createSlice({
     },
     selectPatient: (state, action: PayloadAction<PatientListItem>) => {
       state.selectedPatient = action.payload;
+      state.isPanelOpen = true;
+    },
+    togglePatientPanel: (state, action: PayloadAction<boolean | undefined>) => {
+      state.isPanelOpen = action.payload ?? !state.isPanelOpen;
+    },
+    closePatientPanel: (state) => {
+      state.isPanelOpen = false;
     },
     clearSelectedPatient: (state) => {
       state.selectedPatient = null;
@@ -208,11 +217,15 @@ export const patientSlice = createSlice({
   },
 });
 
+
+
 export const {
   setSearchQuery,
   setPage,
   setPerPage,
   selectPatient,
+  togglePatientPanel,
+  closePatientPanel,
   clearSelectedPatient,
   clearDetail,
 } = patientSlice.actions;

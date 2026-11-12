@@ -69,7 +69,7 @@ const MENU_SECTIONS: NavSection[] = [
         subItems: [
           { label: "Pendaftaran Rajal", href: "/pendaftaran-rajal" },
           { label: "Penjadwalan Kunjungan", href: "/penjadwalan-kunjungan" },
-          { label: "Rujukan Pasien", href: "/rujukan" },
+          { label: "Rujukan Pasien", href: "/rujukan-pasien" },
         ],
       },
       {
@@ -77,9 +77,7 @@ const MENU_SECTIONS: NavSection[] = [
         icon: Ticket,
         label: "Antrean Publik",
         subItems: [
-          { label: "Poli", href: "/antrean/poli" },
-          { label: "Farmasi", href: "/antrean/farmasi" },
-          { label: "Kasir", href: "/antrean/kasir" },
+          { label: "Layar Antrean", href: "/antrean/kasir" },
           { label: "Mesin Antrean", href: "/kiosq-pendaftaran" },
         ],
       },

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import { IncomingReferralSection } from '@/features/administrasi/rujukan-pasien/page';
+import RujukanPasienWorkspace from '@/features/administrasi/rujukan-pasien/page';
 
 export default function RujukanPasien() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali
@@ -10,7 +10,7 @@ export default function RujukanPasien() {
 
   // Fungsi untuk me-render komponen berdasarkan tab yang aktif
   const renderContent = () => {
-    return <IncomingReferralSection />;
+    return <RujukanPasienWorkspace />;
   };
 
   return (

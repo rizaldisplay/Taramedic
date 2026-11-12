@@ -1,18 +1,14 @@
 'use client';
-// Lokasi: src/features/masterdata/components/sdmk/sdmkHeader.tsx
+
 import React from 'react';
 import { History, List } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { fetchHistory, openHistory } from '@/features/masterdata/master-sdmk/slices/sdmkSlice';
 
-// Modal sebaiknya tidak di-render di dalam Header untuk menghindari re-render yang tidak perlu.
-// Pindahkan <SdmkHistoryModal /> ke tingkat halaman (page level) atau root layout.
-// import SdmkHistoryModal from '@/features/masterdata/components/sdmk/SdmkHistoryModal';
-
 interface HeaderProps {
   title?: string;
   subtitle?: string;
-  description?: string; // Mengganti 'staffName' agar lebih semantik sesuai default value-nya
+  description?: string;
   historyButtonText?: string;
   auditButtonText?: string;
   onHistoryClick?: () => void;
@@ -20,7 +16,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Pendaftaran Rajal', // Disesuaikan dengan konteks file SDMK
+  title = 'Pendaftaran Rajal',
   subtitle = '',
   description = 'Kelola pendaftaran pasien untuk kunjungan rawat jalan.',
   historyButtonText = 'Riwayat Pendaftaran',
@@ -30,40 +26,69 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const dispatch = useAppDispatch();
 
-  // Handler dengan fallback: gunakan props onClick jika dilempar dari parent, 
-  // jika tidak, gunakan dispatch Redux bawaan.
   const handleHistoryClick = () => {
     if (onHistoryClick) return onHistoryClick();
-    dispatch(openHistory('history'));
-    dispatch(fetchHistory('history'));
+    try {
+      dispatch(openHistory('history'));
+      dispatch(fetchHistory('history'));
+    } catch {
+      // Fallback jika tidak berada dalam slice SDMK
+    }
   };
 
   const handleAuditClick = () => {
     if (onAuditClick) return onAuditClick();
-    dispatch(openHistory('audit'));
-    dispatch(fetchHistory('audit'));
+    try {
+      dispatch(openHistory('audit'));
+      dispatch(fetchHistory('audit'));
+    } catch {
+      // Fallback jika tidak berada dalam slice SDMK
+    }
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-6 p-4 md:p-6 lg:p-8 bg-white border-b border-slate-200 shadow-sm rounded-t-2xl">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-1">{title}</h2>
-        <div className="flex flex-wrap items-center text-sm text-slate-600">
-          <span className="font-semibold text-slate-800 mr-2">{subtitle}</span>
-          <span className="mr-2">•</span>
+    <header className="w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-1">
+      {/* Judul & Deskripsi Halaman */}
+      <div className="flex flex-col gap-1">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-none">
+          {title}
+        </h1>
+
+        <div className="flex flex-wrap items-center text-xs md:text-sm text-slate-500 mt-1">
+          {subtitle && (
+            <>
+              <span className="font-semibold text-slate-800">{subtitle}</span>
+              <span className="mx-2 text-slate-300">•</span>
+            </>
+          )}
           <span>{description}</span>
         </div>
       </div>
 
-      {/* Tombol Aksi yang sebelumnya hilang kini diimplementasikan */}
-      <div className="flex items-center gap-3">
-        <input
-          type="date"
-          // value={selectedDate} // Hapus komentar ini dan hubungkan dengan state jika diperlukan
-          // onChange={(e) => handleDateChange(e.target.value)} 
-          className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg shadow-sm hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-colors cursor-pointer"
-        />
+      {/* Tombol Aksi - Rata Bawah (items-end) sejajar garis maya batas kanan card 3 */}
+      <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
+        {auditButtonText && (
+          <button
+            type="button"
+            onClick={handleAuditClick}
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-100/80 transition-all shadow-2xs cursor-pointer active:scale-[0.98]"
+          >
+            <List className="w-4 h-4 text-slate-500" />
+            <span>{auditButtonText}</span>
+          </button>
+        )}
+
+        {historyButtonText && (
+          <button
+            type="button"
+            onClick={handleHistoryClick}
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm font-semibold text-white bg-cyan-600 rounded-xl hover:bg-cyan-700 transition-all shadow-xs cursor-pointer active:scale-[0.98]"
+          >
+            <History className="w-4 h-4" />
+            <span>{historyButtonText}</span>
+          </button>
+        )}
       </div>
-    </div>
+    </header>
   );
 };

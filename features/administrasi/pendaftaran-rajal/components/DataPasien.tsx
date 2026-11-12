@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
-// src/features/pendaftaran/components/DataPasien.tsx
 
 import React, { useEffect, useMemo, useState } from 'react';
 import {
@@ -16,11 +15,12 @@ import {
   ChevronDown,
   Pencil,
   Loader2,
+  PanelRightClose,
 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { showNotification } from '@/features/notification/notificationSlice';
 import type { VisitForm } from '@/types/domain/kunjungan';
-import { fetchPatientSummary } from '../slices/patientSlice';
+import { fetchPatientSummary, closePatientPanel } from '../slices/patientSlice';
 import {
   fetchVisitOptions,
   registerVisit,
@@ -42,40 +42,37 @@ const toOptions = (items: string[] = []): SelectOption[] =>
 export default function PatientRegistrationPanel() {
   const dispatch = useAppDispatch();
   const selectedPatient = useAppSelector((state) => state.patient.selectedPatient);
-  const { antreanSaatIni, loket: queueLoket } = useAppSelector((state) => state.queue);
+  const { antreanSaatIni } = useAppSelector((state) => state.queue);
   const { options, optionsLoading, optionsError, form, errors, submitting } = useAppSelector(
     (state) => state.visit,
   );
 
-  console.log("form opsi" + JSON.stringify(form))
-
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
 
-  // Pendaftaran hanya boleh setelah pasien ditandai HADIR (antrean sedang dilayani)
-  // dan sebuah pasien sudah dipilih / dipakai untuk pendaftaran.
+  // Pendaftaran diaktifkan jika pasien sudah dipilih dan status antrean sedang dilayani
   const isAntreanSedangDilayani =
+    String(antreanSaatIni?.statusAntrean ?? '').toLowerCase().includes('dilayani') ||
     String(antreanSaatIni?.statusAntrean ?? '') === 'Sedang Dilayani';
+
   const canRegister = Boolean(selectedPatient) && isAntreanSedangDilayani;
 
-  // Muat opsi dropdown sekali
   useEffect(() => {
     if (!options) dispatch(fetchVisitOptions());
   }, [options, dispatch]);
 
-  // Isi otomatis loket sesuai loket yang sedang dipakai di modul antrean
+  // Sinkronisasi otomatis Loket dari antrean aktif
   useEffect(() => {
     if (
       options &&
       form.loketId === '' &&
-      queueLoket != null &&
-      options.loket.some((l) => l.id === queueLoket)
+      antreanSaatIni?.nomorLoket != null &&
+      options.loket.some((l) => l.id === antreanSaatIni.nomorLoket)
     ) {
-      dispatch(setVisitField({ field: 'loketId', value: String(queueLoket) }));
+      dispatch(setVisitField({ field: 'loketId', value: String(antreanSaatIni.nomorLoket) }));
     }
-  }, [options, form.loketId, queueLoket, dispatch]);
+  }, [options, form.loketId, antreanSaatIni?.nomorLoket, dispatch]);
 
-  // Jam di "Informasi Pendaftaran" (diisi setelah mount agar tidak beda dengan hasil SSR)
   useEffect(() => {
     const initialTimer = setTimeout(() => setNow(new Date()), 0);
     const timer = setInterval(() => setNow(new Date()), 30_000);
@@ -93,9 +90,15 @@ export default function PatientRegistrationPanel() {
     [options, form.poliId],
   );
 
+  // Handling perubah nilai select + Reset Dokter jika Poli berubah
   const onSelect =
-    (field: keyof VisitForm) => (e: React.ChangeEvent<HTMLSelectElement>) =>
-      dispatch(setVisitField({ field, value: e.target.value }));
+    (field: keyof VisitForm) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const val = e.target.value;
+      dispatch(setVisitField({ field, value: val }));
+      if (field === 'poliId') {
+        dispatch(setVisitField({ field: 'dokterId', value: '' }));
+      }
+    };
 
   const handleRegister = async () => {
     if (!selectedPatient) return;
@@ -132,7 +135,6 @@ export default function PatientRegistrationPanel() {
       );
 
       dispatch(resetVisitForm());
-      // Segarkan "kunjungan terakhir" & penjamin pasien
       dispatch(fetchPatientSummary({ id: selectedPatient.id }));
     } catch (error: any) {
       dispatch(
@@ -155,11 +157,26 @@ export default function PatientRegistrationPanel() {
   const formDisabled = !canRegister || submitting;
 
   return (
-    <div className="w-full h-full flex flex-col gap-6 p-6 font-sans overflow-y-auto custom-scrollbar">
-      {/* SECTION: DATA PASIEN */}
+    <div className="w-full h-full flex flex-col gap-5 p-5 font-sans overflow-y-auto custom-scrollbar">
+      {/* HEADER PANEL & TOMBOL HIDE */}
+      <div className="flex items-center justify-between pb-3 border-b border-gray-100 shrink-0">
+        <h2 className="text-xs font-bold text-gray-800 tracking-wide uppercase">
+          Detail Pasien & Pendaftaran Kunjungan
+        </h2>
+        <button
+          type="button"
+          onClick={() => dispatch(closePatientPanel())}
+          title="Sembunyikan Panel"
+          className="p-1 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+        >
+          <PanelRightClose size={18} />
+        </button>
+      </div>
+
+      {/* Section Data Pasien */}
       <section className="shrink-0">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-bold text-gray-800 tracking-wide uppercase">Data Pasien</h2>
+          <h3 className="text-xs font-bold text-gray-700 tracking-wide uppercase">Data Pasien</h3>
           {selectedPatient && (
             <button
               type="button"
@@ -173,9 +190,8 @@ export default function PatientRegistrationPanel() {
 
         {selectedPatient ? (
           <>
-            {/* Profile Header */}
             <div className="flex items-center gap-4 mb-5">
-              <div className="w-14 h-14 rounded-full border border-gray-200 bg-gray-50 flex items-center justify-center text-gray-600 text-xl font-medium tracking-wider shrink-0">
+              <div className="w-14 h-14 rounded-full border border-gray-200 bg-gray-50 flex items-center justify-center text-gray-600 text-xl font-medium shrink-0">
                 {selectedPatient.inisial}
               </div>
               <div>
@@ -184,9 +200,7 @@ export default function PatientRegistrationPanel() {
                   <span className="text-sm text-gray-600 font-medium">{selectedPatient.nomorRM}</span>
                   <span
                     className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                      selectedPatient.isActive
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-gray-200 text-gray-600'
+                      selectedPatient.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'
                     }`}
                   >
                     {selectedPatient.isActive ? 'Aktif' : 'Nonaktif'}
@@ -195,7 +209,6 @@ export default function PatientRegistrationPanel() {
               </div>
             </div>
 
-            {/* Profile Details */}
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <User size={16} className="text-gray-400 mt-0.5 shrink-0" />
@@ -207,37 +220,28 @@ export default function PatientRegistrationPanel() {
               </div>
               <InfoRow icon={<LockKeyhole size={16} />} label="NIK" value={selectedPatient.nik} />
               <InfoRow icon={<Phone size={16} />} label="No. HP" value={selectedPatient.nomorHP} />
-              <InfoRow
-                icon={<Shield size={16} />}
-                label="Penjamin"
-                value={selectedPatient.penjaminLabel}
-              />
-              <InfoRow
-                icon={<MapPin size={16} />}
-                label="Alamat"
-                value={selectedPatient.alamatRingkas}
-                relaxed
-              />
+              <InfoRow icon={<Shield size={16} />} label="Penjamin" value={selectedPatient.penjaminLabel} />
+              <InfoRow icon={<MapPin size={16} />} label="Alamat" value={selectedPatient.alamatRingkas} relaxed />
             </div>
           </>
         ) : (
           <div className="border border-dashed border-gray-300 rounded-lg p-6 text-center">
             <p className="text-xs font-semibold text-gray-600">Belum ada pasien dipilih</p>
             <p className="text-[11px] text-gray-400 mt-1">
-              Cari pasien lalu pilih baris atau gunakan tombol &quot;Gunakan untuk Pendaftaran&quot;.
+              Pilih baris pasien pada tabel untuk mengaktifkan formulir pendaftaran.
             </p>
           </div>
         )}
       </section>
 
-      {/* SECTION: SATUSEHAT */}
+      {/* Section SATUSEHAT */}
       {selectedPatient && (
         <section className="border border-gray-200 rounded-xl p-4 shrink-0">
           <div className="flex items-center gap-3 mb-3">
-            <h3 className="text-sm font-bold text-gray-800 tracking-wide">SATUSEHAT</h3>
-            {selectedPatient.satuSehat.statusTerhubung ? (
+            <h3 className="text-xs font-bold text-gray-800 tracking-wide uppercase">SATUSEHAT</h3>
+            {selectedPatient.satuSehat?.statusTerhubung ? (
               <span className="bg-green-50 text-green-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-green-100">
-                Patient Terhubung
+                Terhubung
               </span>
             ) : (
               <span className="bg-orange-50 text-orange-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-orange-100">
@@ -249,35 +253,31 @@ export default function PatientRegistrationPanel() {
             <div>
               <p className="text-[10px] text-gray-500 mb-0.5">Patient IHS Number</p>
               <p className="text-xs font-semibold text-gray-800 break-all">
-                {selectedPatient.satuSehat.ihsNumber ?? '-'}
+                {selectedPatient.satuSehat?.ihsNumber ?? '-'}
               </p>
             </div>
             <div className="text-right shrink-0 ml-2">
-              <p className="text-[10px] text-gray-500 mb-0.5">Last successful sync</p>
+              <p className="text-[10px] text-gray-500 mb-0.5">Last Sync</p>
               <p className="text-xs font-medium text-gray-800 flex items-center gap-1 justify-end">
-                {selectedPatient.satuSehat.lastSyncAt ?? '-'}
-                {selectedPatient.satuSehat.lastSyncAt && (
-                  <CheckCircle2 size={14} className="text-green-500" />
-                )}
+                {selectedPatient.satuSehat?.lastSyncAt ?? '-'}
+                {selectedPatient.satuSehat?.lastSyncAt && <CheckCircle2 size={14} className="text-green-500" />}
               </p>
             </div>
           </div>
         </section>
       )}
 
-      {/* SECTION: DAFTARKAN KUNJUNGAN */}
+      {/* Section Form Daftarkan Kunjungan */}
       <section className="flex-1 flex flex-col shrink-0">
-        <h2 className="text-sm font-bold text-gray-800 tracking-wide uppercase mb-3">
+        <h2 className="text-xs font-bold text-gray-800 tracking-wide uppercase mb-3">
           Daftarkan Kunjungan
         </h2>
 
-        {/* Warning Alert */}
         {!canRegister && (
           <div className="bg-amber-50 border border-amber-100 rounded-lg p-3 flex gap-2 items-start mb-4">
             <AlertTriangle size={16} className="text-amber-500 shrink-0 mt-0.5" />
             <p className="text-[11px] text-amber-800 leading-relaxed">
-              Proses pendaftaran hanya dapat dilakukan setelah pasien ditandai HADIR dan pasien
-              digunakan untuk pendaftaran.
+              Proses pendaftaran hanya dapat dilakukan setelah antrean ditandai HADIR dan pasien telah dipilih.
             </p>
           </div>
         )}
@@ -288,14 +288,13 @@ export default function PatientRegistrationPanel() {
             <button
               type="button"
               onClick={() => dispatch(fetchVisitOptions())}
-              className="text-[11px] font-semibold text-red-700 underline"
+              className="text-[11px] font-semibold text-red-700 underline cursor-pointer"
             >
               Coba lagi
             </button>
           </div>
         )}
 
-        {/* Form Grid */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <FormSelect
             label="Poli/Unit Tujuan"
@@ -403,7 +402,6 @@ export default function PatientRegistrationPanel() {
           </div>
         </div>
 
-        {/* Submit Button */}
         <button
           type="button"
           onClick={handleRegister}
@@ -425,7 +423,7 @@ export default function PatientRegistrationPanel() {
           )}
         </button>
 
-        {/* SECTION: INFORMASI PENDAFTARAN */}
+        {/* Audit Log / Informasi Pendaftaran */}
         <div className="mt-8 pt-6 border-t border-gray-100">
           <h3 className="text-xs font-bold text-gray-800 mb-3 uppercase tracking-wide">
             Informasi Pendaftaran
@@ -433,7 +431,7 @@ export default function PatientRegistrationPanel() {
           <div className="grid grid-cols-[120px_10px_1fr] gap-y-2 text-xs mb-4">
             <div className="text-gray-500">Petugas Pendaftaran</div>
             <div className="text-gray-500">:</div>
-            <div className="font-semibold text-gray-800">{options?.petugas.nama ?? '-'}</div>
+            <div className="font-semibold text-gray-800">{options?.petugas?.nama ?? '-'}</div>
 
             <div className="text-gray-500">Loket Pendaftaran</div>
             <div className="text-gray-500">:</div>
@@ -448,7 +446,7 @@ export default function PatientRegistrationPanel() {
             type="button"
             onClick={() => dispatch(resetVisitForm())}
             disabled={submitting}
-            className="w-full flex items-center justify-center gap-2 py-2.5 border border-red-200 text-red-500 hover:bg-red-50 rounded-lg text-xs font-bold transition-colors disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-2.5 border border-red-200 text-red-500 hover:bg-red-50 rounded-lg text-xs font-bold transition-colors disabled:opacity-50 cursor-pointer"
           >
             <Trash2 size={16} /> Kosongkan Formulir
           </button>
@@ -464,7 +462,6 @@ export default function PatientRegistrationPanel() {
   );
 }
 
-// --- Sub-components ---
 function InfoRow({
   icon,
   label,
