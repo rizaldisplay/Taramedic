@@ -16,10 +16,10 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Pendaftaran Rajal',
+  title = 'Layar Antrean',
   subtitle = '',
-  description = 'Kelola pendaftaran pasien untuk kunjungan rawat jalan.',
-  historyButtonText = 'Riwayat Pendaftaran',
+  description = 'Atur tampilan monitor per unit layanan. Perubahan hanya berlaku pada unit yang dipilih.',
+  historyButtonText = 'Buka Layar Antrean',
   auditButtonText = 'Audit Trail',
   onHistoryClick,
   onAuditClick,

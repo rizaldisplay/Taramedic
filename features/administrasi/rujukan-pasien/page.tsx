@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Header } from './components/Header';
+import TabRujukan from './components/TabRujukan';
 
 export default function RujukanPasienWorkspace() {
   return (
@@ -10,12 +11,7 @@ export default function RujukanPasienWorkspace() {
       <div className="w-full max-w-[1920px] px-4 md:px-6 lg:px-8 py-6 flex flex-col gap-6">
         {/* Header Utama */}
         <Header />
-
-        {/* Grid 3 Kolom */}
-        <main className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pb-24 md:pb-28">
-          {/* Kolom Kiri: Kontroler Antrean */}
-
-        </main>
+       <TabRujukan />
       </div>
     </div>
   );

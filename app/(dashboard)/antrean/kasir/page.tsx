@@ -1,9 +1,9 @@
 import React from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import { AntreanHeader } from '@/features/antrean/AntreanHeader';
-import { MetricCards } from '@/features/antrean/MetricCards';
-import { QueueTable } from '@/features/antrean/QueueTabelKasir';
-import { ActionPanel } from '@/features/antrean/ActionPanelKasir';
+import { AntreanHeader } from '@/features/antrean-publik/AntreanHeader';
+import { MetricCards } from '@/features/antrean-publik/MetricCards';
+import { QueueTable } from '@/features/antrean-publik/QueueTabelKasir';
+import { ActionPanel } from '@/features/antrean-publik/ActionPanelKasir';
 
 export default function AntreanPoliPage() {
   return (

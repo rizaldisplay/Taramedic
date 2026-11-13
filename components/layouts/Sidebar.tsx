@@ -77,7 +77,7 @@ const MENU_SECTIONS: NavSection[] = [
         icon: Ticket,
         label: "Antrean Publik",
         subItems: [
-          { label: "Layar Antrean", href: "/antrean/kasir" },
+          { label: "Layar Antrean", href: "/layar-antrean" },
           { label: "Mesin Antrean", href: "/kiosq-pendaftaran" },
         ],
       },
@@ -86,8 +86,9 @@ const MENU_SECTIONS: NavSection[] = [
         icon: Activity,
         label: "Pelayanan Klinis",
         subItems: [
-          { label: "Perawat", href: "/emr/perawat" },
-          { label: "Dokter", href: "/emr/dokter" },
+          { label: "Poli Rawat Jalan", href: "/poli-rawat-jalan" },
+          { label: "Pemeriksaan Perawat", href: "/pemeriksaan-perawat" },
+          { label: "Pemeriksaan Dokter", href: "/pemeriksaan-dokter" },
         ],
       },
       { id: "farmasi-layanan", icon: Pill, label: "Farmasi", href: "/farmasi" },
