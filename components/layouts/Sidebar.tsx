@@ -25,12 +25,22 @@ import {
   Stethoscope,
   Tablets,
   User,
+  UserRoundPlus,
   ShieldCheck,
   MapPin,
   Ticket,
   Search,
   CheckCircle2,
-  PackageCheck
+  PackageCheck,
+  ClipboardCheck,
+  ShoppingCart,
+  Box,
+  FileChartColumn,
+  Hospital,
+  Building,
+  Scan,
+  FlaskConical,
+
 } from "lucide-react";
 
 interface SubNavItem {
@@ -96,32 +106,84 @@ const MENU_SECTIONS: NavSection[] = [
     ],
   },
   {
-    sectionTitle: "Manajemen & Logistik",
+    sectionTitle: "Manajemen Persetujuan",
     items: [
       {
         id: "otorasi",
-        icon: CheckCircle2,
-        label: "Otorisasi & Approval",
+        icon: ClipboardCheck,
+        label: "Pusat Persetujuan",
         subItems: [
-          { label: "Pusat Persetujuan", href: "/otorasi/persetujuan" },
-          { label: "Alur Persetujuan", href: "/otorasi/alur" },
+          { label: "Kotak Persetujuan", href: "/kotak-persetujuan" },
+          { label: "Alur Persetujuan", href: "/alur-persetujuan" },
+        ],
+      },
+    ],
+  },
+  {
+    sectionTitle: "Logistik & Pengadaan",
+    items: [
+      {
+        id: "logistik-pembelian-pengadaan",
+        icon: ShoppingCart,
+        label: "Pembelian & Pengadaan",
+        subItems: [
+          { label: "Pemasok & Mapping", href: "/pemasok-mapping" },
+          { label: "Permintaan Pengadaan", href: "/permintaan-pengadaan" },
+          { label: "Pesanan Pembelian", href: "/pesanan-pembelian" },
+          { label: "Penerimaan", href: "/penerimaan" },
+          { label: "Retur Pemasok", href: "/retur-pemasok" },
+          { label: "Faktur Pemasok", href: "/faktur-pemasok" },
+          { label: "Pembayaran", href: "/pembayaran" },
         ],
       },
       {
-        id: "logistik",
-        icon: PackageCheck,
-        label: "Logistik & Pengadaan",
+        id: "logistik-persediaan",
+        icon: Box,
+        label: "Persediaan",
         subItems: [
-          { label: "Pembelian", href: "/logistik/pembelian" },
-          { label: "Persediaan / Stok", href: "/logistik/persediaan" },
+          { label: "Dashboard", href: "/persediaan-dashboard" },
+          { label: "Obat", href: "/persediaan-obat" },
+          { label: "Alkes & BMHP", href: "/persediaan-alkes-bhp" },
+          { label: "Alat Reuseable", href: "/persediaan-alat-reuseable" },
+          { label: "Saldo & Batch", href: "/persediaan-saldo-batch" },
+          { label: "Transaksi Stok", href: "/transaksi-stok" },
+          { label: "Persetujuan Opname", href: "/persetujuan-opname" },
+          { label: "Gudang", href: "/persediaan-gudang" },
         ],
       },
-      { id: "laporan", icon: FileText, label: "Laporan Klinik", href: "/laporan" },
+    ],
+  },
+  {
+    sectionTitle: "Manajemen Klinik",
+    items: [
+      { id: "laporan", icon: FileChartColumn, label: "Laporan", href: "/laporan" },
+      { id: "informasi-klinik", icon: Building, label: "Informasi Klinik", href: "/informasi-klinik" },
+      {
+        id: "organisasi",
+        icon: Hospital,
+        label: "Organisasi",
+        subItems: [
+          { label: "Unit & poli", href: "/unit-poli" },
+          { label: "Lokasi Pelayanan", href: "/lokasi-pelayanan" },
+          { label: "Loket Pelayanan", href: "/loket-pelayanan" },
+        ],
+      },
+      {
+        id: "sdmk",
+        icon: User,
+        label: "SDMK",
+        subItems: [
+          { label: "Data SDMK", href: "/data-sdmk" },
+          { label: "Divisi & Jabatan", href: "/divisi-jabatan" },
+        ],
+      },
     ],
   },
   {
     sectionTitle: "Data Master & Referensi",
     items: [
+      { id: "master-data-pasien", icon: UserRoundPlus, label: "Master Data Pasien", href: "/master-data-pasien" },
+      { id: "master-radiologi", icon: Scan, label: "Master Data Radiologi", href: "/master-radiologi" },
       {
         id: "master-klinis",
         icon: UsersRound,
@@ -132,19 +194,11 @@ const MENU_SECTIONS: NavSection[] = [
           { label: "Referensi Klinis", href: "/masterdata/referensi-klinis" },
         ],
       },
+      { id: "master-laboratorium", icon: FlaskConical, label: "Master Laboratorium", href: "/master-laboratorium" },
       {
-        id: "master-layanan",
-        icon: Stethoscope,
-        label: "Master Layanan & Tindakan",
-        subItems: [
-          { label: "Layanan", href: "/masterdata/layanan" },
-          { label: "Tindakan & Prosedur", href: "/masterdata/tindakan" },
-        ],
-      },
-      {
-        id: "master-farmasi",
+        id: "master-data-farmasi",
         icon: Tablets,
-        label: "Master Farmasi",
+        label: "Master Data Farmasi",
         subItems: [
           { label: "Produk Obat / KFA", href: "/masterdata/farmasi/produk-obat-kfa" },
           { label: "Tarif Obat", href: "/masterdata/farmasi/tarif-obat" },
@@ -154,24 +208,23 @@ const MENU_SECTIONS: NavSection[] = [
           { label: "Obat Khusus", href: "/masterdata/obat-khusus" },
         ],
       },
-      {
-        id: "master-organisasi",
-        icon: MapPin,
-        label: "Master Organisasi",
-        subItems: [
-          { label: "Unit & Poli", href: "/masterdata/organisasi/unit-poli" },
-          { label: "Lokasi Pelayanan", href: "/masterdata/organisasi/lokasi-pelayanan" },
-          { label: "Loket / Counter", href: "/masterdata/organisasi/loket-counter" },
-        ],
-      },
-      { id: "master-sdmk", icon: User, label: "Master SDMK", href: "/masterdata/sdmk" },
+      // { id: "master-sdmk", icon: User, label: "Master SDMK", href: "/masterdata/sdmk" },
     ],
   },
   {
     sectionTitle: "Pengaturan Sistem",
     items: [
-      { id: "pengguna", icon: ShieldCheck, label: "Pengguna & Hak Akses", href: "/masterdata/pengguna-hak-akses" },
-      { id: "settings", icon: Settings, label: "Pengaturan Sistem", href: "/settings" },
+      { id: "pengguna", icon: ShieldCheck, label: "Pengguna & Hak Akses", href: "/pengguna-hak-akses" },
+      {
+        id: "settings",
+        icon: Settings,
+        label: "Pengaturan",
+        subItems: [
+          { label: "Printer & Thermal", href: "/settings/printer-thermal" },
+          { label: "Metode Pembayaran", href: "/settings/metode-pembayaran" },
+          { label: "Manajemen Perangkat Publik", href: "/settings/manajemen-perangkat-publik" },
+        ],
+      },
     ],
   },
 ];
