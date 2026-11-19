@@ -2,7 +2,11 @@
 
 import React from 'react';
 import { Header } from './components/Header';
+<<<<<<< HEAD
 import Body from './components/PersediaanAlatReuseable';
+=======
+import Body from './components/';
+>>>>>>> a73e591d0c8ca39182825f03702a9b9ca376bfa0
 
 
 export default function RujukanPasienWorkspace() {
