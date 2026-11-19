@@ -123,7 +123,7 @@ const VISIT_STATUS_META: Record<
   menunggu: {
     label: 'Menunggu',
     dotClass: 'bg-[#009bb8]',
-    pillClass: 'bg-[#f0f9fb] border border-cyan-200/80 text-[#008ba6]',
+    pillClass: 'bg-[#edf7fc] border border-[#b8e6ef] text-[#008ba6]',
   },
   sedang_diproses: {
     label: 'Sedang diproses',
@@ -158,7 +158,7 @@ const BILLING_STATUS_META: Record<
   sebagian: {
     label: 'Dibayar sebagian',
     textClass: 'text-[#008ba6]',
-    badgeClass: 'bg-[#f0f9fb] border border-cyan-200/80 text-[#008ba6]',
+    badgeClass: 'bg-[#edf7fc] border border-[#b8e6ef] text-[#008ba6]',
   },
   lunas: {
     label: 'Lunas',
@@ -201,13 +201,11 @@ export default function DaftarKunjunganKasir({
   const [pageSize, setPageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Daftar opsi Poli dinamis
   const poliOptions = useMemo(() => {
     const unique = Array.from(new Set(visits.map((v) => v.poli)));
     return unique.length > 0 ? unique : ['Poli Umum'];
   }, [visits]);
 
-  // Hitung badge pada setiap tab
   const tabCounts = useMemo(() => {
     const semua = visits.length;
     const tagihan_susulan = visits.filter((v) => v.isTagihanSusulan).length;
@@ -230,7 +228,6 @@ export default function DaftarKunjunganKasir({
     };
   }, [visits]);
 
-  // Filter & Urutkan daftar kunjungan
   const filteredVisits = useMemo(() => {
     const todayStr = new Date().toISOString().slice(0, 10);
 
@@ -302,7 +299,6 @@ export default function DaftarKunjunganKasir({
     });
   }, [visits, activeTab, poliFilter, dateFilter, searchQuery, sortBy]);
 
-  // Pagination
   const totalItems = filteredVisits.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const safePage = Math.min(currentPage, totalPages);
@@ -315,7 +311,6 @@ export default function DaftarKunjunganKasir({
   const startItemNumber = totalItems === 0 ? 0 : (safePage - 1) * pageSize + 1;
   const endItemNumber = Math.min(safePage * pageSize, totalItems);
 
-  // Kunjungan terpilih di sidebar kanan
   const selectedVisit = useMemo(() => {
     return (
       visits.find((v) => v.id === selectedVisitId) ??
@@ -324,7 +319,6 @@ export default function DaftarKunjunganKasir({
     );
   }, [visits, selectedVisitId, filteredVisits]);
 
-  // Antrean berikutnya yang berstatus menunggu
   const waitingQueueList = useMemo(() => {
     return visits.filter(
       (v) => v.id !== selectedVisit?.id && v.status === 'menunggu',
@@ -419,13 +413,13 @@ export default function DaftarKunjunganKasir({
         {/* KOLOM KIRI: DAFTAR KUNJUNGAN */}
         <section className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.03)] overflow-hidden">
           {/* Header Section */}
-          <div className="px-5 pt-5 pb-4 flex flex-wrap items-start justify-between gap-3">
+          <div className="px-5 py-4 border-b border-slate-200/80 flex flex-wrap items-start justify-between gap-3">
             <div>
-              <h2 className="text-base sm:text-[17px] font-bold text-[#0f3d56]">
+              <h1 className="text-base sm:text-lg font-extrabold text-[#0f3d56]">
                 Daftar Kunjungan
-              </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Tanggal Pelayanan Hari Ini &amp; Tagihan Susulan · Antrean
+              </h1>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Tanggal Pelayanan Hari Ini &amp; Tagihan Susulan &middot; Antrean
                 Operasional Hari Ini
               </p>
             </div>
@@ -433,22 +427,21 @@ export default function DaftarKunjunganKasir({
             <button
               type="button"
               onClick={() => void handleReloadClick()}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 active:bg-slate-100 text-xs font-semibold text-slate-600 transition-colors cursor-pointer shrink-0"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 active:bg-slate-100 text-xs font-bold text-[#0f3d56] transition-colors cursor-pointer shrink-0"
             >
               <RefreshCw
-                className={`w-3.5 h-3.5 text-slate-500 ${
-                  isReloading ? 'animate-spin text-[#008ba6]' : ''
-                }`}
+                className={`w-3.5 h-3.5 text-slate-500 ${isReloading ? 'animate-spin text-[#008ba6]' : ''
+                  }`}
               />
               <span>Muat Ulang</span>
             </button>
           </div>
 
           {/* Baris Search & 3 Filter Dropdown */}
-          <div className="px-5 pb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.9fr_0.9fr] gap-3 items-end">
+          <div className="px-5 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.9fr_0.9fr] gap-3 items-end text-xs">
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
@@ -457,7 +450,7 @@ export default function DaftarKunjunganKasir({
                   setCurrentPage(1);
                 }}
                 placeholder="Cari Pasien, RM, atau Antrean"
-                className="w-full pl-10 pr-8 py-2.5 bg-white border border-slate-200 rounded-lg text-xs sm:text-[13px] text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all"
+                className="w-full pl-9 pr-8 py-2.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all"
               />
               {searchQuery && (
                 <button
@@ -478,12 +471,12 @@ export default function DaftarKunjunganKasir({
             <div>
               <label
                 htmlFor="filter-tanggal-pelayanan"
-                className="block text-xs font-bold text-slate-600 mb-1.5"
+                className="block text-[11px] font-bold text-[#0f3d56] mb-1.5"
               >
                 Tanggal Pelayanan
               </label>
               <div className="relative">
-                <Calendar className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Calendar className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <select
                   id="filter-tanggal-pelayanan"
                   value={dateFilter}
@@ -491,14 +484,14 @@ export default function DaftarKunjunganKasir({
                     setDateFilter(e.target.value as DatePeriodFilter);
                     setCurrentPage(1);
                   }}
-                  className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-10 pr-9 py-2.5 text-xs sm:text-[13px] font-semibold text-slate-700 focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all cursor-pointer"
+                  className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-9 pr-8 py-2.5 text-xs font-semibold text-[#0f3d56] focus:outline-none focus:border-[#009bb8] transition-all cursor-pointer"
                 >
                   <option value="today">Hari Ini</option>
                   <option value="all">Semua Tanggal</option>
                   <option value="7days">7 Hari Terakhir</option>
                   <option value="this_month">Bulan Ini</option>
                 </select>
-                <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
 
@@ -506,7 +499,7 @@ export default function DaftarKunjunganKasir({
             <div>
               <label
                 htmlFor="filter-poli-kasir"
-                className="block text-xs font-bold text-slate-600 mb-1.5"
+                className="block text-[11px] font-bold text-[#0f3d56] mb-1.5"
               >
                 Poli
               </label>
@@ -518,7 +511,7 @@ export default function DaftarKunjunganKasir({
                     setPoliFilter(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-3.5 pr-9 py-2.5 text-xs sm:text-[13px] font-semibold text-slate-700 focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all cursor-pointer"
+                  className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-3.5 pr-8 py-2.5 text-xs font-semibold text-[#0f3d56] focus:outline-none focus:border-[#009bb8] transition-all cursor-pointer"
                 >
                   <option value="all">Semua Poli</option>
                   {poliOptions.map((poli) => (
@@ -527,7 +520,7 @@ export default function DaftarKunjunganKasir({
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
 
@@ -535,7 +528,7 @@ export default function DaftarKunjunganKasir({
             <div>
               <label
                 htmlFor="filter-urutkan-kasir"
-                className="block text-xs font-bold text-slate-600 mb-1.5"
+                className="block text-[11px] font-bold text-[#0f3d56] mb-1.5"
               >
                 Urutkan
               </label>
@@ -547,14 +540,14 @@ export default function DaftarKunjunganKasir({
                     setSortBy(e.target.value as SortByOption);
                     setCurrentPage(1);
                   }}
-                  className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-3.5 pr-9 py-2.5 text-xs sm:text-[13px] font-semibold text-slate-700 focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all cursor-pointer"
+                  className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-3.5 pr-8 py-2.5 text-xs font-semibold text-[#0f3d56] focus:outline-none focus:border-[#009bb8] transition-all cursor-pointer"
                 >
                   <option value="nomor_antrean">Nomor Antrean</option>
                   <option value="terbaru">Terbaru</option>
                   <option value="terlama">Terlama</option>
                   <option value="nama_asc">Nama Pasien (A-Z)</option>
                 </select>
-                <ChevronDown className="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
             </div>
           </div>
@@ -579,19 +572,17 @@ export default function DaftarKunjunganKasir({
                     setActiveTab(tab.key);
                     setCurrentPage(1);
                   }}
-                  className={`relative pb-3 pt-1 inline-flex items-center gap-2 text-xs sm:text-[13px] whitespace-nowrap transition-colors cursor-pointer ${
-                    isActive
-                      ? 'text-[#008ba6] font-bold'
-                      : 'text-slate-500 font-semibold hover:text-slate-700'
-                  }`}
+                  className={`relative pb-3 pt-1 inline-flex items-center gap-2 text-xs whitespace-nowrap transition-colors cursor-pointer ${isActive
+                      ? 'text-[#008ba6] font-extrabold'
+                      : 'text-slate-500 font-semibold hover:text-[#0f3d56]'
+                    }`}
                 >
                   <span>{tab.label}</span>
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${
-                      isActive
-                        ? 'bg-cyan-100/80 text-[#007b94]'
+                    className={`px-2 py-0.5 rounded-full text-[11px] font-bold tabular-nums ${isActive
+                        ? 'bg-[#e6f6f9] text-[#008ba6]'
                         : 'bg-slate-100 text-slate-500'
-                    }`}
+                      }`}
                   >
                     {count}
                   </span>
@@ -607,13 +598,13 @@ export default function DaftarKunjunganKasir({
           {/* Tabel Daftar Kunjungan */}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[820px]">
-              <thead className="bg-slate-50 border-b border-slate-200 text-[11px] font-semibold tracking-wider text-slate-500">
-                <tr className="divide-x divide-slate-200/60">
-                  <th className="px-4 py-3 text-center">Antrean / pasien</th>
-                  <th className="px-4 py-3 text-center">Poli / layanan</th>
-                  <th className="px-4 py-3 text-center">Billing</th>
-                  <th className="px-4 py-3 text-center">Penjamin</th>
-                  <th className="px-4 py-3 text-center">Status / waktu</th>
+              <thead className="bg-slate-50/70 border-b border-slate-200/80 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <tr className="divide-x divide-slate-200/70">
+                  <th className="px-4 py-3.5 text-center">Antrean / pasien</th>
+                  <th className="px-4 py-3.5 text-center">Poli / layanan</th>
+                  <th className="px-4 py-3.5 text-center">Billing</th>
+                  <th className="px-4 py-3.5 text-center">Penjamin</th>
+                  <th className="px-4 py-3.5 text-center">Status / waktu</th>
                 </tr>
               </thead>
 
@@ -622,7 +613,7 @@ export default function DaftarKunjunganKasir({
                   <tr>
                     <td
                       colSpan={5}
-                      className="py-14 px-4 text-center text-slate-500"
+                      className="py-14 px-4 text-center text-slate-400"
                     >
                       Tidak ada data kunjungan yang cocok dengan pencarian atau
                       filter.
@@ -639,11 +630,10 @@ export default function DaftarKunjunganKasir({
                       <tr
                         key={visit.id}
                         onClick={() => setSelectedVisitId(visit.id)}
-                        className={`divide-x divide-slate-100 transition-colors cursor-pointer ${
-                          isSelected
-                            ? 'bg-[#f0f9fb]/45 border-l-[3px] border-l-[#009bb8]'
-                            : 'hover:bg-slate-50/90'
-                        }`}
+                        className={`divide-x divide-slate-200/70 transition-colors cursor-pointer ${isSelected
+                            ? 'bg-[#edf7fc]/65'
+                            : 'bg-white hover:bg-slate-50/80'
+                          }`}
                       >
                         {/* Kolom 1: Antrean / Pasien + Tagihan Susulan + Buka Billing */}
                         <td className="px-4 py-4 align-top">
@@ -652,16 +642,16 @@ export default function DaftarKunjunganKasir({
                               <p className="text-xs font-extrabold text-[#0f3d56] leading-tight">
                                 {visit.nomorAntrean}
                               </p>
-                              <p className="text-[10px] text-slate-500 mt-0.5">
+                              <p className="text-[10px] text-slate-500 mt-0.5 tabular-nums">
                                 {visit.tanggalLabel}
                               </p>
                             </div>
 
                             <div className="min-w-0">
-                              <p className="font-bold text-slate-800 truncate">
+                              <p className="font-bold text-[#0f3d56] truncate">
                                 {visit.namaPasien}
                               </p>
-                              <p className="text-[11px] text-slate-400 mt-0.5">
+                              <p className="text-[11px] font-mono text-slate-400 mt-0.5">
                                 {visit.noRM}
                               </p>
                             </div>
@@ -669,8 +659,8 @@ export default function DaftarKunjunganKasir({
 
                           {visit.isTagihanSusulan && (
                             <div className="mt-2.5">
-                              <span className="inline-block rounded-xl bg-amber-50/90 border border-amber-200/70 px-3 py-1 text-[11px] font-semibold text-amber-800 leading-snug">
-                                Tagihan susulan ·{' '}
+                              <span className="inline-block rounded-lg bg-amber-50 border border-amber-200/80 px-2.5 py-1 text-[11px] font-semibold text-amber-800 leading-snug">
+                                Tagihan susulan &middot;{' '}
                                 {visit.tanggalTagihanSusulan ||
                                   visit.tanggalLabel}
                               </span>
@@ -695,7 +685,7 @@ export default function DaftarKunjunganKasir({
 
                         {/* Kolom 2: Poli / Layanan */}
                         <td className="px-4 py-4 align-middle whitespace-nowrap">
-                          <p className="font-bold text-slate-800">
+                          <p className="font-bold text-[#0f3d56]">
                             {visit.poli}
                           </p>
                           <p className="text-[11px] text-slate-500 mt-0.5">
@@ -708,20 +698,18 @@ export default function DaftarKunjunganKasir({
 
                         {/* Kolom 3: Billing */}
                         <td className="px-4 py-4 align-middle whitespace-nowrap">
-                          <p
-                            className={`font-bold ${billingBadge.textClass}`}
-                          >
+                          <p className={`font-bold ${billingBadge.textClass}`}>
                             {billingBadge.label}
                           </p>
                           <p className="text-[11px] text-slate-400 mt-0.5">
-                            {visit.jumlahItemBilling} item ·{' '}
+                            {visit.jumlahItemBilling} item &middot;{' '}
                             {visit.catatanBilling || 'tanpa catatan'}
                           </p>
                         </td>
 
                         {/* Kolom 4: Penjamin */}
                         <td className="px-4 py-4 align-middle whitespace-nowrap">
-                          <p className="font-bold text-slate-800">
+                          <p className="font-bold text-[#0f3d56]">
                             {visit.penjamin}
                           </p>
                           <p className="text-[11px] text-slate-400 mt-0.5">
@@ -732,7 +720,7 @@ export default function DaftarKunjunganKasir({
                         {/* Kolom 5: Status / Waktu */}
                         <td className="px-4 py-4 align-middle whitespace-nowrap">
                           <span
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold ${statusBadge.pillClass}`}
+                            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${statusBadge.pillClass}`}
                           >
                             <span
                               className={`w-1.5 h-1.5 rounded-full ${statusBadge.dotClass}`}
@@ -753,11 +741,11 @@ export default function DaftarKunjunganKasir({
           </div>
 
           {/* Footer Pagination */}
-          <div className="px-5 py-3.5 border-t border-slate-200/80 bg-white flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+          <div className="px-5 py-3.5 border-t border-slate-100 bg-white flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
             <div className="flex flex-wrap items-center gap-3">
-              <span>
+              <span className="tabular-nums">
                 <strong className="font-semibold text-slate-700">
-                  {startItemNumber}–{endItemNumber}
+                  {startItemNumber}&ndash;{endItemNumber}
                 </strong>{' '}
                 dari{' '}
                 <strong className="font-semibold text-slate-700">
@@ -816,11 +804,10 @@ export default function DaftarKunjunganKasir({
                       key={page}
                       type="button"
                       onClick={() => setCurrentPage(page)}
-                      className={`w-8 h-8 rounded-lg border text-xs font-bold transition-colors cursor-pointer ${
-                        isCurrent
-                          ? 'bg-[#f0f9fb] border-[#009bb8] text-[#008ba6]'
+                      className={`w-8 h-8 rounded-lg border text-xs font-bold transition-colors cursor-pointer ${isCurrent
+                          ? 'bg-[#e6f6f9] border-[#009bb8] text-[#008ba6]'
                           : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
-                      }`}
+                        }`}
                     >
                       {page}
                     </button>
@@ -859,7 +846,7 @@ export default function DaftarKunjunganKasir({
             <>
               {/* Header Kunjungan Terpilih */}
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] font-extrabold tracking-wider uppercase text-slate-500">
+                <span className="text-[11px] font-bold tracking-wider uppercase text-slate-400">
                   KUNJUNGAN TERPILIH
                 </span>
                 <span
@@ -877,7 +864,7 @@ export default function DaftarKunjunganKasir({
                 <p className="text-xs font-extrabold text-[#0f3d56] leading-tight">
                   {selectedVisit.nomorAntrean}
                 </p>
-                <p className="text-[10px] text-slate-500 mt-0.5">
+                <p className="text-[10px] text-slate-500 mt-0.5 tabular-nums">
                   {selectedVisit.tanggalLabel}
                 </p>
               </div>
@@ -885,24 +872,23 @@ export default function DaftarKunjunganKasir({
               {/* Info Pasien & Avatar */}
               <div className="mt-3 flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-[#0f3d56] truncate">
+                  <p className="text-sm font-extrabold text-[#0f3d56] truncate">
                     {selectedVisit.namaPasien}
                   </p>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    {selectedVisit.noRM} · {selectedVisit.poli}
+                    {selectedVisit.noRM} &middot; {selectedVisit.poli}
                   </p>
-                  <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                    {selectedVisit.dokter} · {selectedVisit.layanan}
+                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                    {selectedVisit.dokter} &middot; {selectedVisit.layanan}
                   </p>
                 </div>
 
-                <div className="w-10 h-10 rounded-full bg-[#f0f9fb] border border-cyan-100 text-[#008ba6] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#edf7fc] border border-[#b8e6ef] text-[#008ba6] flex items-center justify-center shrink-0">
                   <User className="w-5 h-5 stroke-[1.8]" />
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="border-t border-slate-100 my-4" />
+              <div className="border-t border-slate-200/70 my-4" />
 
               {/* Ringkasan Billing */}
               <div>
@@ -914,7 +900,7 @@ export default function DaftarKunjunganKasir({
                     </span>
                   </div>
                   <span
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold ${selectedBillingMeta.badgeClass}`}
+                    className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${selectedBillingMeta.badgeClass}`}
                   >
                     {selectedBillingMeta.label}
                   </span>
@@ -945,12 +931,11 @@ export default function DaftarKunjunganKasir({
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="border-t border-slate-100 my-4" />
+              <div className="border-t border-slate-200/70 my-4" />
 
               {/* Status Panggilan */}
               <div>
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-600">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#0f3d56]">
                   <Megaphone className="w-4 h-4 text-[#008ba6] shrink-0" />
                   <span>
                     {selectedVisit.waktuPanggilan
@@ -969,8 +954,7 @@ export default function DaftarKunjunganKasir({
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="border-t border-slate-100 my-3.5" />
+              <div className="border-t border-slate-200/70 my-3.5" />
 
               {/* Loket Kasir */}
               <div>
@@ -986,7 +970,7 @@ export default function DaftarKunjunganKasir({
                     id="pilih-loket-kasir"
                     value={selectedLoketId}
                     onChange={(e) => setSelectedLoketId(e.target.value)}
-                    className="w-full appearance-none bg-white border border-slate-200 rounded-xl pl-3.5 pr-9 py-2.5 text-xs sm:text-[13px] font-bold text-[#0f3d56] focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all cursor-pointer"
+                    className="w-full appearance-none bg-white border border-slate-200 rounded-lg pl-3.5 pr-9 py-2.5 text-xs font-bold text-[#0f3d56] focus:outline-none focus:border-[#009bb8] focus:ring-2 focus:ring-[#009bb8]/15 transition-all cursor-pointer"
                   >
                     <option value="">Pilih Loket Kasir</option>
                     {counters.map((counter) => (
@@ -1000,9 +984,8 @@ export default function DaftarKunjunganKasir({
 
                 <div className="flex items-center gap-2 mt-2 text-xs font-semibold">
                   <span
-                    className={`w-2 h-2 rounded-full shrink-0 ${
-                      selectedCounter ? 'bg-[#009bb8]' : 'bg-emerald-500'
-                    }`}
+                    className={`w-2 h-2 rounded-full shrink-0 ${selectedCounter ? 'bg-[#009bb8]' : 'bg-emerald-500'
+                      }`}
                   />
                   <span
                     className={
@@ -1016,8 +999,7 @@ export default function DaftarKunjunganKasir({
                 </div>
               </div>
 
-              {/* Divider */}
-              <div className="border-t border-slate-100 my-3.5" />
+              <div className="border-t border-slate-200/70 my-3.5" />
 
               {/* Tombol Panggil Pasien & Daftarkan Kedatangan */}
               <div>
@@ -1025,11 +1007,10 @@ export default function DaftarKunjunganKasir({
                   type="button"
                   disabled={!selectedCounter}
                   onClick={handleCallPatientClick}
-                  className={`w-full py-2.5 px-4 rounded-xl text-xs sm:text-[13px] font-bold inline-flex items-center justify-center gap-2 transition-all ${
-                    !selectedCounter
+                  className={`w-full py-2.5 px-4 rounded-lg text-xs font-bold inline-flex items-center justify-center gap-2 transition-all ${!selectedCounter
                       ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                      : 'bg-[#009bb8] hover:bg-[#00859e] active:bg-[#007389] text-white shadow-xs cursor-pointer'
-                  }`}
+                      : 'bg-[#009bb8] hover:bg-[#00859e] active:bg-[#007389] text-white shadow-2xs cursor-pointer'
+                    }`}
                 >
                   <Megaphone className="w-4 h-4 shrink-0" />
                   <span>Panggil pasien</span>
@@ -1044,7 +1025,7 @@ export default function DaftarKunjunganKasir({
                 <button
                   type="button"
                   onClick={handleRegisterArrivalClick}
-                  className="w-full mt-2.5 py-2.5 px-4 rounded-xl bg-[#009bb8] hover:bg-[#00859e] active:bg-[#007389] text-white text-xs sm:text-[13px] font-bold inline-flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
+                  className="w-full mt-2.5 py-2.5 px-4 rounded-lg bg-[#009bb8] hover:bg-[#00859e] active:bg-[#007389] text-white text-xs font-bold inline-flex items-center justify-center gap-2 shadow-2xs transition-colors cursor-pointer"
                 >
                   <UserCheck className="w-4 h-4 shrink-0" />
                   <span>Daftarkan kedatangan</span>
@@ -1057,8 +1038,7 @@ export default function DaftarKunjunganKasir({
             </div>
           )}
 
-          {/* Divider */}
-          <div className="border-t border-slate-100 my-4" />
+          <div className="border-t border-slate-200/70 my-4" />
 
           {/* Antrean Berikutnya */}
           <div>
@@ -1066,7 +1046,7 @@ export default function DaftarKunjunganKasir({
               <span className="text-xs font-bold text-[#0f3d56]">
                 Antrean Berikutnya
               </span>
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-slate-400 tabular-nums">
                 {waitingQueueList.length} Pasien Menunggu
               </span>
             </div>
@@ -1082,17 +1062,17 @@ export default function DaftarKunjunganKasir({
                     key={item.id}
                     type="button"
                     onClick={() => setSelectedVisitId(item.id)}
-                    className="w-full text-left rounded-xl border border-slate-200/90 hover:border-[#009bb8]/50 bg-[#f8fafc] hover:bg-[#f0f9fb]/60 px-3.5 py-2.5 flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full text-left rounded-xl border border-slate-200/90 hover:border-[#009bb8] bg-white hover:bg-[#edf7fc]/50 px-3.5 py-2.5 flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <div>
                       <p className="text-xs font-extrabold text-[#008ba6]">
-                        {item.nomorAntrean} ·{' '}
+                        {item.nomorAntrean} &middot;{' '}
                         <span className="text-[#0f3d56]">
                           {item.namaPasien}
                         </span>
                       </p>
-                      <p className="text-[11px] text-slate-400 mt-0.5">
-                        {item.noRM} · {formatRupiah(item.totalTagihan)}
+                      <p className="text-[11px] text-slate-400 mt-0.5 tabular-nums">
+                        {item.noRM} &middot; {formatRupiah(item.totalTagihan)}
                       </p>
                     </div>
                     <span className="text-[11px] font-bold text-[#008ba6]">
@@ -1104,8 +1084,7 @@ export default function DaftarKunjunganKasir({
             )}
           </div>
 
-          {/* Divider */}
-          <div className="border-t border-slate-100 my-4" />
+          <div className="border-t border-slate-200/70 my-4" />
 
           {/* Riwayat Panggilan */}
           <div>
@@ -1133,7 +1112,7 @@ export default function DaftarKunjunganKasir({
                       <span className="font-extrabold text-[#008ba6]">
                         {log.nomorAntrean}
                       </span>
-                      <span className="ml-2 font-semibold text-slate-700">
+                      <span className="ml-2 font-bold text-[#0f3d56]">
                         {log.namaPasien}
                       </span>
                       <p className="text-[10px] text-slate-400 mt-0.5">

@@ -80,7 +80,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }, [notif.show, dispatch]); // Ter-trigger setiap kali status notif.show berubah
 
   return (
-    <div className="flex h-screen bg-slate-50 overflow-hidden">
+    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden transition-colors duration-200">
       {/* Sidebar dengan sistem Drawer untuk Mobile */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
@@ -106,7 +106,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         )}
 
         {/* Area Konten Dinamis */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 text-slate-900 dark:text-slate-100">
           {children}
         </main>
       </div>

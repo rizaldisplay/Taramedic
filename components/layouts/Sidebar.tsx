@@ -305,7 +305,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
       <aside
         className={`
           fixed lg:static inset-y-0 left-0 z-50
-          bg-white border-r border-slate-200/80 
+          bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800
           flex flex-col justify-between flex-shrink-0 h-screen select-none
           transform transition-all duration-300 ease-in-out
           ${isOpen ? "translate-x-0 w-64" : "-translate-x-full lg:translate-x-0"}
@@ -315,13 +315,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         {/* Toggle Expand/Collapse Button (Desktop) */}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="hidden lg:flex absolute -right-3.5 top-7 w-7 h-7 bg-white border border-slate-200 rounded-full items-center justify-center z-50 text-slate-500 hover:text-cyan-600 hover:border-cyan-300 shadow-sm transition-all"
+          className="hidden lg:flex absolute -right-3.5 top-7 w-7 h-7 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full items-center justify-center z-50 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-300 dark:hover:border-cyan-500 shadow-sm transition-all"
         >
           {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
         </button>
 
         {/* Top Header Logo */}
-        <div className={`h-16 flex items-center border-b border-slate-100 shrink-0 ${isCollapsed ? "justify-center px-0" : "justify-between px-5"}`}>
+        <div className={`h-16 flex items-center border-b border-slate-100 dark:border-slate-800 shrink-0 ${isCollapsed ? "justify-center px-0" : "justify-between px-5"}`}>
           <Link href="/dashboard" className="flex items-center">
             <img
               src={
@@ -330,12 +330,21 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
                   : "/logo/06%20Taramedic%20Logo%20-%20Biru%20Full%20Horizontal.png"
               }
               alt="Logo Taramedic"
-              className="h-9 w-auto object-contain transition-all"
+              className="h-9 w-auto object-contain transition-all dark:hidden"
+            />
+            <img
+              src={
+                isCollapsed
+                  ? "/logo/03%20Taramedic%20Logo%20-%20Full%20Putih%20Main%20Center.png"
+                  : "/logo/04%20Taramedic%20Logo%20-%20Full%20Putih%20Horizontal.png"
+              }
+              alt="Logo Taramedic"
+              className="h-9 w-auto object-contain transition-all hidden dark:block"
             />
           </Link>
           <button
             onClick={onClose}
-            className={`lg:hidden text-slate-400 hover:text-slate-600 p-1 ${isCollapsed ? "hidden" : ""}`}
+            className={`lg:hidden text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 p-1 ${isCollapsed ? "hidden" : ""}`}
           >
             <X className="w-5 h-5" />
           </button>
@@ -345,18 +354,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         {!isCollapsed && (
           <div className="px-4 pt-3 pb-1">
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Cari menu..."
-                className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white text-slate-700 placeholder-slate-400 transition-all"
+                className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-md focus:outline-none focus:ring-1 focus:ring-cyan-500 focus:bg-white dark:focus:bg-slate-800 text-slate-700 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition-all"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 text-xs"
                 >
                   ×
                 </button>
@@ -368,7 +377,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         {/* Scrollable Navigation Menu */}
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-4 custom-scrollbar">
           {filteredSections.length === 0 ? (
-            <div className="text-center py-6 text-xs text-slate-400">
+            <div className="text-center py-6 text-xs text-slate-400 dark:text-slate-500">
               Menu tidak ditemukan
             </div>
           ) : (
@@ -376,11 +385,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
               <div key={idx} className="space-y-1">
                 {/* Section Title */}
                 {section.sectionTitle && !isCollapsed && (
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-1.5">
+                  <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-3 mb-1.5">
                     {section.sectionTitle}
                   </div>
                 )}
-                {isCollapsed && idx > 0 && <div className="border-t border-slate-100 my-2 mx-2" />}
+                {isCollapsed && idx > 0 && <div className="border-t border-slate-100 dark:border-slate-800 my-2 mx-2" />}
 
                 {/* Section Items */}
                 {section.items.map((item) => {
@@ -404,11 +413,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
                             title={isCollapsed ? item.label : undefined}
                             className={`flex items-center px-3 py-2 rounded-lg transition-colors cursor-pointer ${
                               isActive
-                                ? "bg-cyan-50 text-cyan-700 font-semibold"
-                                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                                ? "bg-cyan-50 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-400 font-semibold"
+                                : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-slate-200"
                             } ${isCollapsed ? "justify-center px-0" : ""}`}
                           >
-                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-cyan-600" : "text-slate-400"} ${!isCollapsed ? "mr-3" : ""}`} />
+                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-slate-500"} ${!isCollapsed ? "mr-3" : ""}`} />
                             {!isCollapsed && <span className="text-xs leading-tight flex-1">{item.label}</span>}
                           </div>
                         </Link>
@@ -418,18 +427,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
                           title={isCollapsed ? item.label : undefined}
                           className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition-colors ${
                             isActive
-                              ? "bg-cyan-50/80 text-cyan-700 font-semibold"
-                              : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                              ? "bg-cyan-50/80 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-400 font-semibold"
+                              : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-slate-900 dark:hover:text-slate-200"
                           } ${isCollapsed ? "justify-center px-0" : ""}`}
                         >
                           <div className={`flex items-center ${isCollapsed ? "justify-center w-full" : ""}`}>
-                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-cyan-600" : "text-slate-400"} ${!isCollapsed ? "mr-3" : ""}`} />
+                            <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-cyan-600 dark:text-cyan-400" : "text-slate-400 dark:text-slate-500"} ${!isCollapsed ? "mr-3" : ""}`} />
                             {!isCollapsed && <span className="text-xs leading-tight">{item.label}</span>}
                           </div>
                           {hasSub && !isCollapsed && (
                             <ChevronDown
-                              className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 shrink-0 ${
-                                isOpen ? "rotate-180 text-cyan-600" : ""
+                              className={`w-3.5 h-3.5 text-slate-400 dark:text-slate-500 transition-transform duration-200 shrink-0 ${
+                                isOpen ? "rotate-180 text-cyan-600 dark:text-cyan-400" : ""
                               }`}
                             />
                           )}
@@ -438,7 +447,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
 
                       {/* Sub Items Accordion */}
                       {hasSub && !isCollapsed && isOpen && (
-                        <div className="ml-4 pl-3 border-l border-slate-200/80 my-1 space-y-1">
+                        <div className="ml-4 pl-3 border-l border-slate-200/80 dark:border-slate-800 my-1 space-y-1">
                           {item.subItems?.map((sub, subIdx) => {
                             const isSubActive = pathname === sub.href || pathname.startsWith(`${sub.href}/`);
                             return (
@@ -446,8 +455,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
                                 <div
                                   className={`px-3 py-1.5 rounded-md text-xs transition-colors cursor-pointer block ${
                                     isSubActive
-                                      ? "bg-cyan-50 font-semibold text-cyan-700"
-                                      : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+                                      ? "bg-cyan-50 dark:bg-cyan-950/60 font-semibold text-cyan-700 dark:text-cyan-400"
+                                      : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/70 hover:text-slate-800 dark:hover:text-slate-200"
                                   }`}
                                 >
                                   {sub.label}
@@ -466,22 +475,22 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         </div>
 
         {/* Bottom User / Logout Section */}
-        <div className="p-3 border-t border-slate-100 shrink-0 bg-white">
+        <div className="p-3 border-t border-slate-100 dark:border-slate-800 shrink-0 bg-white dark:bg-slate-900">
           <button
             onClick={handleLogout}
             title={isCollapsed ? "Logout" : undefined}
-            className={`w-full flex items-center px-3 py-2 rounded-lg text-slate-600 hover:bg-red-50 hover:text-red-600 transition-colors group ${
+            className={`w-full flex items-center px-3 py-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-600 dark:hover:text-red-400 transition-colors group ${
               isCollapsed ? "justify-center px-0" : ""
             }`}
           >
-            <LogOut className={`w-4 h-4 text-slate-400 group-hover:text-red-500 transition-colors shrink-0 ${!isCollapsed ? "mr-3" : ""}`} />
+            <LogOut className={`w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-red-500 transition-colors shrink-0 ${!isCollapsed ? "mr-3" : ""}`} />
             {!isCollapsed && <span className="text-xs font-medium">Keluar / Logout</span>}
           </button>
 
           {!isCollapsed && (
-            <div className="mt-2 px-3 text-[10px] text-slate-400 flex justify-between items-center">
+            <div className="mt-2 px-3 text-[10px] text-slate-400 dark:text-slate-500 flex justify-between items-center">
               <span>© 2026 Taramedic</span>
-              <span className="bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded font-mono">v1.0.0</span>
+              <span className="bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded font-mono">v1.0.0</span>
             </div>
           )}
         </div>
