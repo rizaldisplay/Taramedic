@@ -143,11 +143,11 @@ const MENU_SECTIONS: NavSection[] = [
         subItems: [
           { label: "Dashboard", href: "/persediaan-dashboard" },
           { label: "Obat", href: "/persediaan-obat" },
-          { label: "Alkes & BMHP", href: "/persediaan-alkes-bhp" },
+          { label: "Alkes & BMHP", href: "/persediaan-alkes-bmhp" },
           { label: "Alat Reuseable", href: "/persediaan-alat-reuseable" },
           { label: "Saldo & Batch", href: "/persediaan-saldo-batch" },
-          { label: "Transaksi Stok", href: "/transaksi-stok" },
-          { label: "Persetujuan Opname", href: "/persetujuan-opname" },
+          { label: "Transaksi Stok", href: "/persediaan-transaksi-stok" },
+          { label: "Persetujuan Opname", href: "/persediaan-persetujuan-opname" },
           { label: "Gudang", href: "/persediaan-gudang" },
         ],
       },
@@ -163,9 +163,9 @@ const MENU_SECTIONS: NavSection[] = [
         icon: Hospital,
         label: "Organisasi",
         subItems: [
-          { label: "Unit & poli", href: "/unit-poli" },
-          { label: "Lokasi Pelayanan", href: "/lokasi-pelayanan" },
-          { label: "Loket Pelayanan", href: "/loket-pelayanan" },
+          { label: "Unit & poli", href: "/organisasi-unit-poli" },
+          { label: "Lokasi Pelayanan", href: "/organisasi-lokasi-pelayanan" },
+          { label: "Loket Pelayanan", href: "/organisasi-loket-pelayanan" },
         ],
       },
       {
@@ -173,7 +173,7 @@ const MENU_SECTIONS: NavSection[] = [
         icon: User,
         label: "SDMK",
         subItems: [
-          { label: "Data SDMK", href: "/data-sdmk" },
+          { label: "Data SDMK", href: "/sdmk" },
           { label: "Divisi & Jabatan", href: "/divisi-jabatan" },
         ],
       },

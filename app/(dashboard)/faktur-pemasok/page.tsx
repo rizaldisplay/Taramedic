@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import Penerimaan from '@/features/logistik-pengadaan/pembelian-pengadaan/permintaan-pengadaan/page';
+import FakturPemasok from '@/features/logistik-pengadaan/pembelian-pengadaan/faktur-pemasok/page';
 
 export default function KasirWorkspace() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali
@@ -10,7 +10,7 @@ export default function KasirWorkspace() {
 
   // Fungsi untuk me-render komponen berdasarkan tab yang aktif
   const renderContent = () => {
-    return <Penerimaan />;
+    return <FakturPemasok />;
   };
 
   return (

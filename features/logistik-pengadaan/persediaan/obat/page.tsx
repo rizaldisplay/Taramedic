@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Header } from './components/Header';
-import Body from './components/FakturPemasok';
+import Body from './components/PersediaanObat';
 
 
 export default function RujukanPasienWorkspace() {

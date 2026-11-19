@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import SDMK from '@/features/masterdata/master-sdmk/page';
-import TopHeader from '@/features/pemeriksaan/perawat/components/TopHeaderInfo';
+import DivisiJabatanPage from '@/features/sdmk/divisi-jabatan/page';
 
 export default function PemeriksaanPage() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali
@@ -11,7 +10,7 @@ export default function PemeriksaanPage() {
 
   // Fungsi untuk me-render komponen berdasarkan tab yang aktif
   const renderContent = () => {
-    return <SDMK />;
+    return <DivisiJabatanPage />;
   };
 
   return (
