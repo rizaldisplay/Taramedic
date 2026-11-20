@@ -7,7 +7,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // 2. Daftar route terproteksi yang membutuhkan autentikasi
-  const isProtectedRoute = pathname.startsWith('/dashboard') || 
+  const isProtectedRoute = pathname.startsWith('/dashboards') || 
                            pathname.startsWith('/rekam-medis') ||
                            pathname.startsWith('/devices') ||
                            pathname.startsWith('/audit-logs');

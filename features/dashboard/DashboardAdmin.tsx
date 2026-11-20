@@ -1,258 +1,455 @@
 'use client';
 
-import React, { useState } from 'react';
-import { 
-  Users, 
-  DollarSign, 
-  Building2, 
-  TrendingUp, 
-  Bell, 
-  Search, 
-  Menu, 
-  X, 
-  LayoutDashboard,
-  ClipboardList,
-  Database,
-  Settings,
-  UserCheck,
-  ShieldAlert
+import React, { useMemo } from 'react';
+import {
+  ArrowRight,
+  Banknote,
+  CheckCircle2,
+  Clock,
+  HeartPulse,
+  Pill,
+  Receipt,
+  Stethoscope,
+  Users,
 } from 'lucide-react';
 
-// --- KOMPONEN SIDEBAR KHUSUS ADMIN ---
-const Sidebar = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => (
-  <>
-    {isOpen && <div onClick={onClose} className="fixed inset-0 bg-slate-900/50 z-40 lg:hidden" />}
-    <aside className={`
-      fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 
-      flex flex-col justify-between flex-shrink-0 transition-transform duration-300 ease-in-out
-      ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-    `}>
-      <div>
-        <div className="h-16 flex items-center justify-between px-6 border-b border-slate-100">
-          <img src="/logo/06%20Taramedic%20Logo%20-%20Biru%20Full%20Horizontal.png" alt="Logo" className="h-10 w-auto object-contain" />
-          <button onClick={onClose} className="lg:hidden text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>
-        </div>
-        <nav className="p-4 space-y-1">
-          <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3">MENU UTAMA</div>
-          <div className="flex items-center px-4 py-2.5 rounded-lg bg-cyan-50 text-cyan-700 font-medium cursor-pointer mx-2">
-            <LayoutDashboard className="w-5 h-5 mr-3 text-cyan-600" />
-            <span className="text-sm">Dashboard Admin</span>
-          </div>
-          <div className="flex items-center px-4 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 cursor-pointer mx-2">
-            <ClipboardList className="w-5 h-5 mr-3 text-slate-400" />
-            <span className="text-sm">Monitoring Operasional</span>
-          </div>
-          <div className="flex items-center px-4 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 cursor-pointer mx-2">
-            <Users className="w-5 h-5 mr-3 text-slate-400" />
-            <span className="text-sm">Manajemen Pengguna</span>
-          </div>
+export interface DailyVisitPoint {
+  dateKey: string;
+  label: string; // Contoh: 'Sab, 14'
+  count: number;
+}
 
-          <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3 mt-6">SISTEM & MASTER</div>
-          <div className="flex items-center px-4 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 cursor-pointer mx-2">
-            <Database className="w-5 h-5 mr-3 text-slate-400" />
-            <span className="text-sm">Master Data Klinik</span>
-          </div>
-          <div className="flex items-center px-4 py-2.5 rounded-lg text-slate-600 hover:bg-slate-50 cursor-pointer mx-2">
-            <Settings className="w-5 h-5 mr-3 text-slate-400" />
-            <span className="text-sm">Pengaturan Sistem</span>
-          </div>
-        </nav>
-      </div>
-      <div className="pb-4">
-        <div className="px-6 text-xs text-slate-400 border-t border-slate-100 pt-4">
-          <p>© 2026 Taramedic</p>
-          <p>Role: Administrator Sistem</p>
-        </div>
-      </div>
-    </aside>
-  </>
-);
+export interface ClinicDashboardData {
+  kunjunganTercatat: number;
+  antreanPoli: number;
+  sedangDilayani: number;
+  selesaiDiPoli: number;
+  pembayaranPasienNominal: number;
+  transaksiLunasHariIni: number;
+  kunjungan7Hari: DailyVisitPoint[];
+  antreanHariIni: {
+    aktifDiPendaftaran: number;
+    menungguDiPoli: number;
+    sedangDilayaniDiPoli: number;
+  };
+  handoffDokter: {
+    menunggu: number;
+    sedangDitangani: number;
+  };
+  farmasi: {
+    dalamTahapTelaah: number;
+    sedangDisiapkan: number;
+    siapDiserahkan: number;
+    diserahkanHariIni: number;
+  };
+  kasir: {
+    antreanAktif: number;
+  };
+}
 
-// --- KOMPONEN TOPBAR ---
-const Topbar = ({ onOpenSidebar }: { onOpenSidebar: () => void }) => (
-  <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 md:px-6 flex-shrink-0 z-10 w-full">
-    <div className="flex items-center space-x-3">
-      <button onClick={onOpenSidebar} className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
-        <Menu className="w-5 h-5" />
-      </button>
-      <div className="flex items-center text-sm text-slate-600">
-        <span className="hidden sm:inline font-medium text-slate-800">Portal</span>
-        <span className="hidden sm:mx-2 sm:inline text-slate-400">/</span>
-        <span className="font-semibold sm:font-normal text-slate-800">Dashboard Admin</span>
-      </div>
-    </div>
-    <div className="flex items-center space-x-4">
-      <div className="relative">
-        <Bell className="w-5 h-5 text-slate-500 cursor-pointer hover:text-slate-700" />
-        <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
-      </div>
-      <div className="flex items-center border-l border-slate-200 pl-4">
-        <div className="w-8 h-8 rounded-full bg-cyan-600 text-white flex items-center justify-center font-bold text-xs mr-2">
-          AD
-        </div>
-        <div className="hidden md:block text-right">
-          <div className="text-sm font-semibold text-slate-800">Admin Taramedic</div>
-          <div className="text-xs text-slate-500">IT & Operational Manager</div>
-        </div>
-      </div>
-    </div>
-  </header>
-);
+const DEFAULT_DASHBOARD_DATA: ClinicDashboardData = {
+  kunjunganTercatat: 0,
+  antreanPoli: 0,
+  sedangDilayani: 0,
+  selesaiDiPoli: 0,
+  pembayaranPasienNominal: 0,
+  transaksiLunasHariIni: 0,
+  kunjungan7Hari: [
+    { dateKey: '2026-11-14', label: 'Sab, 14', count: 0 },
+    { dateKey: '2026-11-15', label: 'Min, 15', count: 0 },
+    { dateKey: '2026-11-16', label: 'Sen, 16', count: 0 },
+    { dateKey: '2026-11-17', label: 'Sel, 17', count: 0 },
+    { dateKey: '2026-11-18', label: 'Rab, 18', count: 0 },
+    { dateKey: '2026-11-19', label: 'Kam, 19', count: 0 },
+    { dateKey: '2026-11-20', label: 'Jum, 20', count: 0 },
+  ],
+  antreanHariIni: {
+    aktifDiPendaftaran: 0,
+    menungguDiPoli: 0,
+    sedangDilayaniDiPoli: 0,
+  },
+  handoffDokter: {
+    menunggu: 0,
+    sedangDitangani: 0,
+  },
+  farmasi: {
+    dalamTahapTelaah: 0,
+    sedangDisiapkan: 0,
+    siapDiserahkan: 0,
+    diserahkanHariIni: 0,
+  },
+  kasir: {
+    antreanAktif: 0,
+  },
+};
 
-// --- HALAMAN UTAMA DASHBOARD ADMIN ---
-export default function AdminDashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+function formatRupiah(nominal: number): string {
+  return `Rp ${nominal.toLocaleString('id-ID')}`;
+}
+
+export default function DashboardOperasionalKlinik({
+  data = DEFAULT_DASHBOARD_DATA,
+  onNavigateAntrean,
+  onNavigateEmrDokter,
+  onNavigateFarmasi,
+  onNavigateKasir,
+}: {
+  data?: ClinicDashboardData;
+  onNavigateAntrean?: () => void;
+  onNavigateEmrDokter?: () => void;
+  onNavigateFarmasi?: () => void;
+  onNavigateKasir?: () => void;
+}) {
+  const maxDailyVisits = useMemo(() => {
+    const maxVal = Math.max(...data.kunjungan7Hari.map((d) => d.count), 0);
+    return maxVal > 0 ? maxVal : 1;
+  }, [data.kunjungan7Hari]);
+
+  const topKpiCards = [
+    {
+      title: 'Kunjungan tercatat',
+      value: String(data.kunjunganTercatat),
+      subtitle: 'Antrean klinik hari ini · WIB',
+      icon: Users,
+      iconBadgeClass: 'bg-[#edf7fc] text-[#0077b6]',
+      cornerTintClass: 'bg-[#edf7fc]/85',
+    },
+    {
+      title: 'Antrean poli',
+      value: String(data.antreanPoli),
+      subtitle: 'Belum mulai dilayani',
+      icon: Clock,
+      iconBadgeClass: 'bg-amber-50 text-amber-600',
+      cornerTintClass: 'bg-[#edf7fc]/85',
+    },
+    {
+      title: 'Sedang dilayani',
+      value: String(data.sedangDilayani),
+      subtitle: 'Di seluruh poli',
+      icon: HeartPulse,
+      iconBadgeClass: 'bg-teal-50 text-teal-600',
+      cornerTintClass: 'bg-[#edf7fc]/85',
+    },
+    {
+      title: 'Selesai di poli',
+      value: String(data.selesaiDiPoli),
+      subtitle: 'Diselesaikan hari ini · WIB',
+      icon: CheckCircle2,
+      iconBadgeClass: 'bg-emerald-50 text-emerald-600',
+      cornerTintClass: 'bg-[#edf7fc]/85',
+    },
+    {
+      title: 'Pembayaran pasien',
+      value: formatRupiah(data.pembayaranPasienNominal),
+      subtitle: `${data.transaksiLunasHariIni} transaksi lunas tercatat hari ini`,
+      icon: Banknote,
+      iconBadgeClass: 'bg-[#e6f6f9] text-[#008ba6]',
+      cornerTintClass: 'bg-[#edf7fc]/85',
+    },
+  ];
 
   return (
-    <div>
-      <main className="flex-1 overflow-y-auto p-4 md:p-8">
-          
-          {/* Welcome Banner */}
-          <div className="bg-gradient-to-r from-slate-800 to-cyan-900 rounded-2xl p-6 text-white mb-6 shadow-sm">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-              <div>
-                <h1 className="text-2xl font-bold">Panel Kontrol Utama Klinik 🏥</h1>
-                <p className="text-slate-300 text-sm mt-1">Semua sistem modul EMR, Kasir, dan Antrean hari ini berjalan normal dan tersinkronisasi.</p>
+    <div className="w-full h-full font-sans text-slate-700 space-y-5">
+      {/* =====================================================================
+          1. BARIS 5 KARTU METRIK UTAMA HARI INI
+         ===================================================================== */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        {topKpiCards.map((card) => {
+          const Icon = card.icon;
+
+          return (
+            <div
+              key={card.title}
+              className="relative overflow-hidden bg-white rounded-xl border border-slate-200/90 px-4 py-4 shadow-[0_1px_2px_rgba(15,23,42,0.02)] flex flex-col justify-between min-h-[122px]"
+            >
+              {/* Dekorasi lengkungan sudut kanan bawah sesuai acuan */}
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none w-16 h-16 rounded-full ${card.cornerTintClass} absolute -bottom-5 -right-5`}
+              />
+
+              <div className="flex items-start justify-between gap-2 relative z-10">
+                <p className="text-xs font-bold text-slate-500">{card.title}</p>
+                <span
+                  className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${card.iconBadgeClass}`}
+                >
+                  <Icon className="w-4 h-4" />
+                </span>
               </div>
-              <button className="bg-cyan-500 hover:bg-cyan-600 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition-colors">
-                Unduh Laporan Harian
+
+              <div className="mt-3 relative z-10">
+                <p className="text-xl sm:text-2xl font-extrabold text-[#0f3d56] tabular-nums tracking-tight leading-none">
+                  {card.value}
+                </p>
+                <p className="text-[11px] text-slate-400 mt-2">
+                  {card.subtitle}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* =====================================================================
+          2. GRAFIK KUNJUNGAN TERCATAT (7 HARI) & RINGKASAN ANTREAN HARI INI
+         ===================================================================== */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_1fr] gap-4 items-stretch">
+        {/* Kartu Kiri: Grafik Batang Kunjungan Tercatat 7 Hari */}
+        <section className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.02)] flex flex-col">
+          <div className="px-5 pt-4 pb-3.5 border-b border-slate-100 flex items-start justify-between gap-3">
+            <div>
+              <h2 className="text-sm font-extrabold text-[#0f3d56]">
+                Kunjungan Tercatat
+              </h2>
+              <p className="text-[11px] text-slate-400 mt-0.5">
+                Per hari selama tujuh hari terakhir, berdasarkan tanggal
+                operasional antrean.
+              </p>
+            </div>
+            <span className="text-[11px] font-medium text-slate-400 shrink-0">
+              7 Hari
+            </span>
+          </div>
+
+          <div className="px-6 pt-6 pb-5 flex-1 flex flex-col justify-end min-h-[210px]">
+            <div className="grid grid-cols-7 gap-3 items-end h-36">
+              {data.kunjungan7Hari.map((day) => {
+                const heightPercent =
+                  day.count === 0
+                    ? 0
+                    : Math.max(12, Math.round((day.count / maxDailyVisits) * 100));
+
+                return (
+                  <div
+                    key={day.dateKey}
+                    className="flex flex-col items-center justify-end h-full group"
+                  >
+                    {day.count > 0 && (
+                      <span className="text-[10px] font-bold text-[#0f3d56] mb-1 tabular-nums">
+                        {day.count}
+                      </span>
+                    )}
+
+                    <div className="w-full flex items-end justify-center flex-1">
+                      <div
+                        title={`${day.label}: ${day.count} kunjungan`}
+                        style={
+                          day.count > 0
+                            ? { height: `${heightPercent}%` }
+                            : undefined
+                        }
+                        className={`w-7 sm:w-8 rounded-t-[3px] transition-all ${
+                          day.count > 0
+                            ? 'bg-[#3db8b0] group-hover:bg-[#008ba6]'
+                            : 'h-[5px] bg-[#3db8b0]'
+                        }`}
+                      />
+                    </div>
+
+                    <span className="text-[11px] text-slate-400 mt-2.5 whitespace-nowrap">
+                      {day.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Kartu Kanan: Antrean Hari Ini */}
+        <section className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.02)] flex flex-col justify-between">
+          <div>
+            <div className="px-5 pt-4 pb-3.5 border-b border-slate-100">
+              <h2 className="text-sm font-extrabold text-[#0f3d56]">
+                Antrean Hari Ini
+              </h2>
+              <p className="text-[11px] text-slate-400 mt-0.5">
+                Tahap pendaftaran dan poli dihitung terpisah.
+              </p>
+            </div>
+
+            <div className="px-5 py-4 space-y-3.5 text-xs">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-slate-500">Aktif di pendaftaran</span>
+                <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                  {data.antreanHariIni.aktifDiPendaftaran}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-slate-500">Menunggu di poli</span>
+                <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                  {data.antreanHariIni.menungguDiPoli}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-slate-500">Sedang dilayani di poli</span>
+                <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                  {data.antreanHariIni.sedangDilayaniDiPoli}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-5 py-3.5 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={onNavigateAntrean}
+              className="inline-flex items-center gap-1 text-xs font-bold text-[#0077b6] hover:text-[#005f92] transition-colors cursor-pointer"
+            >
+              <span>Buka Antrean</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </section>
+      </div>
+
+      {/* =====================================================================
+          3. PEMANTAUAN LINTAS MODUL (HANDOFF DOKTER, FARMASI, KASIR)
+         ===================================================================== */}
+      <div className="space-y-3 pt-1">
+        <div>
+          <h2 className="text-sm font-extrabold text-[#0f3d56]">
+            Pemantauan Lintas Modul
+          </h2>
+          <p className="text-[11px] text-slate-400 mt-0.5">
+            Buka modul terkait untuk melihat rincian dan menindaklanjuti.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+          {/* Kartu 1: Handoff dokter */}
+          <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.02)] flex flex-col justify-between">
+            <div>
+              <div className="px-5 py-3.5 border-b border-slate-100 flex items-center gap-2">
+                <Stethoscope className="w-4 h-4 text-[#008ba6] shrink-0" />
+                <h3 className="text-xs font-extrabold text-[#0f3d56]">
+                  Handoff dokter
+                </h3>
+              </div>
+
+              <div className="px-5 py-4 space-y-3.5 text-xs">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Menunggu</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.handoffDokter.menunggu}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Sedang ditangani</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.handoffDokter.sedangDitangani}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-5 py-3.5 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={onNavigateEmrDokter}
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#0077b6] hover:text-[#005f92] transition-colors cursor-pointer"
+              >
+                <span>Buka EMR dokter</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
 
-          {/* Statistik Utama (Grid Responsive) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold text-slate-400 uppercase">Total Kunjungan Hari Ini</p>
-                <h3 className="text-2xl font-bold text-slate-800 mt-1">128 Pasien</h3>
+          {/* Kartu 2: Farmasi */}
+          <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.02)] flex flex-col justify-between">
+            <div>
+              <div className="px-5 py-3.5 border-b border-slate-100 flex items-center gap-2">
+                <Pill className="w-4 h-4 text-[#008ba6] shrink-0" />
+                <h3 className="text-xs font-extrabold text-[#0f3d56]">
+                  Farmasi
+                </h3>
               </div>
-              <div className="w-12 h-12 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center">
-                <Users className="w-6 h-6" />
+
+              <div className="px-5 py-4 space-y-3.5 text-xs">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Dalam tahap telaah</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.farmasi.dalamTahapTelaah}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Sedang disiapkan</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.farmasi.sedangDisiapkan}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Siap diserahkan</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.farmasi.siapDiserahkan}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Diserahkan hari ini</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.farmasi.diserahkanHariIni}
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold text-slate-400 uppercase">Pendapatan Kasir</p>
-                <h3 className="text-2xl font-bold text-slate-800 mt-1">Rp 14.5 Juta</h3>
-              </div>
-              <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
-                <DollarSign className="w-6 h-6" />
-              </div>
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold text-slate-400 uppercase">Poli Aktif Berjalan</p>
-                <h3 className="text-2xl font-bold text-slate-800 mt-1">6 Poli</h3>
-              </div>
-              <div className="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center">
-                <Building2 className="w-6 h-6" />
-              </div>
-            </div>
-
-            <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold text-slate-400 uppercase">Status Server</p>
-                <h3 className="text-2xl font-bold text-emerald-600 mt-1">Optimal</h3>
-              </div>
-              <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6" />
-              </div>
+            <div className="px-5 py-3.5 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={onNavigateFarmasi}
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#0077b6] hover:text-[#005f92] transition-colors cursor-pointer"
+              >
+                <span>Buka Farmasi</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
 
-          {/* Bagian Bawah: Log Aktivitas Staf & Pengaturan Masterdata */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
-            {/* Tabel Log Aktivitas Terbaru (2 Kolom) */}
-            <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-              <div className="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                <h2 className="font-bold text-slate-800">Aktivitas & Kinerja Modul Klinik</h2>
-                <div className="relative w-full sm:w-64">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                  <input 
-                    type="text" 
-                    placeholder="Cari aktivitas / user..." 
-                    className="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-cyan-500"
-                  />
-                </div>
+          {/* Kartu 3: Kasir */}
+          <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.02)] flex flex-col justify-between">
+            <div>
+              <div className="px-5 py-3.5 border-b border-slate-100 flex items-center gap-2">
+                <Receipt className="w-4 h-4 text-[#008ba6] shrink-0" />
+                <h3 className="text-xs font-extrabold text-[#0f3d56]">Kasir</h3>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-sm">
-                  <thead>
-                    <tr className="bg-slate-50 text-slate-400 uppercase text-[10px] tracking-wider">
-                      <th className="py-3 px-6">Waktu</th>
-                      <th className="py-3 px-6">Pengguna</th>
-                      <th className="py-3 px-6">Modul / Tindakan</th>
-                      <th className="py-3 px-6 text-right">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-600">
-                    <tr className="hover:bg-slate-50/50">
-                      <td className="py-3 px-6 text-slate-500 text-xs">19:12 WIB</td>
-                      <td className="py-3 px-6 font-medium text-slate-800">Fauzan (Apoteker)</td>
-                      <td className="py-3 px-6">Dispensing Resep #RSP-8821</td>
-                      <td className="py-3 px-6 text-right"><span className="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Sukses</span></td>
-                    </tr>
-                    <tr className="hover:bg-slate-50/50">
-                      <td className="py-3 px-6 text-slate-500 text-xs">19:05 WIB</td>
-                      <td className="py-3 px-6 font-medium text-slate-800">dr. Andi Pratama</td>
-                      <td className="py-3 px-6">Simpan Rekam Medis EMR Pasien</td>
-                      <td className="py-3 px-6 text-right"><span className="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Sukses</span></td>
-                    </tr>
-                    <tr className="hover:bg-slate-50/50">
-                      <td className="py-3 px-6 text-slate-500 text-xs">18:50 WIB</td>
-                      <td className="py-3 px-6 font-medium text-slate-800">Siti Rahma (Perawat)</td>
-                      <td className="py-3 px-6">Input TTV Pasien #RM-00921</td>
-                      <td className="py-3 px-6 text-right"><span className="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Sukses</span></td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="px-5 py-4 space-y-3.5 text-xs">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-slate-500">Antrean aktif</span>
+                  <span className="font-extrabold text-[#0f3d56] tabular-nums">
+                    {data.kasir.antreanAktif}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Sidebar Kanan: Pintasan Administrasi & Info Sistem (1 Kolom) */}
-            <div className="space-y-6">
-              
-              {/* Kontrol Cepat Masterdata */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-                <h3 className="font-bold text-slate-800 mb-4">Pintasan Kelola Sistem</h3>
-                <div className="space-y-2">
-                  <button className="w-full text-left px-4 py-2.5 bg-slate-50 hover:bg-cyan-50 hover:text-cyan-700 text-slate-700 rounded-xl text-sm font-medium transition-colors flex items-center justify-between">
-                    <span>Tambah Data Dokter Baru</span>
-                    <span className="text-xs text-slate-400">→</span>
-                  </button>
-                  <button className="w-full text-left px-4 py-2.5 bg-slate-50 hover:bg-cyan-50 hover:text-cyan-700 text-slate-700 rounded-xl text-sm font-medium transition-colors flex items-center justify-between">
-                    <span>Kelola Tarif Layanan & Poli</span>
-                    <span className="text-xs text-slate-400">→</span>
-                  </button>
-                  <button className="w-full text-left px-4 py-2.5 bg-slate-50 hover:bg-cyan-50 hover:text-cyan-700 text-slate-700 rounded-xl text-sm font-medium transition-colors flex items-center justify-between">
-                    <span>Backup Database Otomatis</span>
-                    <span className="text-xs text-slate-400">→</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Status Keamanan & Lisensi */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-                <h3 className="font-bold text-slate-800 mb-3">Informasi Lisensi</h3>
-                <div className="p-4 bg-cyan-50/50 rounded-xl border border-cyan-100 text-sm space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Status SaaS:</span>
-                    <span className="font-semibold text-cyan-800">Aktif (Enterprise)</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Masa Berlaku:</span>
-                    <span className="font-semibold text-slate-800">Desember 2026</span>
-                  </div>
-                </div>
-              </div>
+            <div className="px-5 py-3.5 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={onNavigateKasir}
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#0077b6] hover:text-[#005f92] transition-colors cursor-pointer"
+              >
+                <span>Buka Kasir</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
-        </main>
+        </div>
+      </div>
+
+      {/* =====================================================================
+          4. CATATAN KAKI (FOOTNOTE)
+         ===================================================================== */}
+      <p className="text-[11px] text-slate-400 pt-1">
+        Pembayaran pasien hanya mencakup transaksi Kasir berstatus lunas pada
+        hari ini. Klaim dan penyelesaian penjamin tidak termasuk.
+      </p>
     </div>
   );
 }

@@ -40,7 +40,7 @@ import {
   Building,
   Scan,
   FlaskConical,
-
+  Microscope,
 } from "lucide-react";
 
 interface SubNavItem {
@@ -102,6 +102,8 @@ const MENU_SECTIONS: NavSection[] = [
         ],
       },
       { id: "farmasi-layanan", icon: Pill, label: "Farmasi", href: "/farmasi" },
+      { id: "laboratorium-layanan", icon: FlaskConical, label: "Laboratorium", href: "/laboratorium" },
+      { id: "radiologi-layanan", icon: Microscope, label: "Radiologi", href: "/radiologi" },
       { id: "kasir-layanan", icon: Calculator, label: "Kasir", href: "/kasir" },
     ],
   },
@@ -128,12 +130,13 @@ const MENU_SECTIONS: NavSection[] = [
         label: "Pembelian & Pengadaan",
         subItems: [
           { label: "Pemasok & Mapping", href: "/pemasok-mapping" },
-          { label: "Permintaan Pengadaan", href: "/permintaan-pengadaan" },
-          { label: "Pesanan Pembelian", href: "/pesanan-pembelian" },
+          { label: "Permintaan Pengadaan (PR)", href: "/permintaan-pengadaan" },
+          { label: "Pesanan Pembelian (PO)", href: "/pesanan-pembelian" },
           { label: "Penerimaan", href: "/penerimaan" },
           { label: "Retur Pemasok", href: "/retur-pemasok" },
           { label: "Faktur Pemasok", href: "/faktur-pemasok" },
           { label: "Pembayaran", href: "/pembayaran" },
+          { label: "Umur Utang Pemasok", href: "/umur-utang-pemasok" },
         ],
       },
       {
@@ -183,15 +186,14 @@ const MENU_SECTIONS: NavSection[] = [
     sectionTitle: "Data Master & Referensi",
     items: [
       { id: "master-data-pasien", icon: UserRoundPlus, label: "Master Data Pasien", href: "/master-data-pasien" },
-      { id: "master-radiologi", icon: Scan, label: "Master Data Radiologi", href: "/master-radiologi" },
+      { id: "master-radiologi", icon: Scan, label: "Master Data Radiologi", href: "/master-data-radiologi" },
       {
         id: "master-klinis",
         icon: UsersRound,
         label: "Master Klinis",
         subItems: [
-          { label: "Diagnosis", href: "/masterdata/diagnosis" },
-          { label: "Kategori Diagnosis", href: "/masterdata/kategori-diagnosis" },
-          { label: "Referensi Klinis", href: "/masterdata/referensi-klinis" },
+          { label: "Diagnosis", href: "/master-data-klinis-diagnosis" },
+          { label: "Referensi Klinis", href: "/master-data-klinis-referensi" },
         ],
       },
       { id: "master-laboratorium", icon: FlaskConical, label: "Master Laboratorium", href: "/master-laboratorium" },
