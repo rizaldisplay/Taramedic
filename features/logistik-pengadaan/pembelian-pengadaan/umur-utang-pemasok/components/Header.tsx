@@ -16,9 +16,9 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Rujukan Pasien',
+  title = 'Umur Utang Pemasok',
   subtitle = '',
-  description = 'Catat rujukan masuk dan siapkan rujukan keluar dari EMR.',
+  description = 'Satu rekam operasional untuk pengadaan, stok tertelusur, kewajiban pemasok, dan persetujuan.',
   historyButtonText = 'Riwayat Rujukan',
   auditButtonText = 'Audit Trail',
   onHistoryClick,

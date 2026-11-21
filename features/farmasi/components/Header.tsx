@@ -78,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         )} */}
 
-        {historyButtonText && (
+        {/* {historyButtonText && (
           <button
             type="button"
             onClick={handleHistoryClick}
@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
             <History className="w-4 h-4" />
             <span>{historyButtonText}</span>
           </button>
-        )}
+        )} */}
       </div>
     </header>
   );

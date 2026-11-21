@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Dasbor',
+  title = 'Dasboard',
   subtitle = '',
   description = 'Ringkasan lintas modul tanpa data identitas pasien.',
   dateLabel = 'Jumat, 20 November 2026',

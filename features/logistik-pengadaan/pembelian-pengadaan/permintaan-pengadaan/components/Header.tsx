@@ -16,9 +16,9 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Rujukan Pasien',
+  title = 'Permintaan Pengadaan',
   subtitle = '',
-  description = 'Catat rujukan masuk dan siapkan rujukan keluar dari EMR.',
+  description = 'Satu rekam operasional untuk pengadaan, stok tertelusur, kewajiban pemasok, dan persetujuan.',
   historyButtonText = 'Riwayat Rujukan',
   auditButtonText = 'Audit Trail',
   onHistoryClick,
@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Tombol Aksi - Rata Bawah (items-end) sejajar garis maya batas kanan card 3 */}
-      <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
+      {/* <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
         {auditButtonText && (
           <button
             type="button"
@@ -88,7 +88,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span>{historyButtonText}</span>
           </button>
         )}
-      </div>
+      </div> */}
     </header>
   );
 };
