@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
-import Penerimaan from '@/features/logistik-pengadaan/pembelian-pengadaan/permintaan-pengadaan/page';
+import Penerimaan from '@/features/logistik-pengadaan/pembelian-pengadaan/penerimaan/page';
 
 export default function KasirWorkspace() {
   // Pindahkan state ke sini. Set default tab yang terbuka pertama kali

@@ -41,6 +41,7 @@ import {
   Scan,
   FlaskConical,
   Microscope,
+  CircleDollarSign
 } from "lucide-react";
 
 interface SubNavItem {
@@ -197,6 +198,8 @@ const MENU_SECTIONS: NavSection[] = [
           { label: "Referensi Klinis", href: "/master-data-klinis-referensi" },
         ],
       },
+      { id: "master-tindakan", icon: Stethoscope, label: "Master Tindakan", href: "/master-data-tindakan" },
+      { id: "master-layanan", icon: CircleDollarSign, label: "Master Layanan", href: "/master-data-layanan" },
       { id: "master-laboratorium", icon: FlaskConical, label: "Master Laboratorium", href: "/master-data-laboratorium" },
       {
         id: "master-data-farmasi",
@@ -205,10 +208,10 @@ const MENU_SECTIONS: NavSection[] = [
         subItems: [
           { label: "Produk Obat / KFA", href: "/masterdata/farmasi/produk-obat-kfa" },
           { label: "Tarif Obat", href: "/masterdata/farmasi/tarif-obat" },
-          { label: "Formularium & Restriksi", href: "/masterdata/formularium" },
-          { label: "Racikan", href: "/masterdata/racikan" },
-          { label: "Obat Khusus", href: "/masterdata/obat-khusus" },
-          { label: "Referensi Farmasi", href: "/masterdata/referensi-farmasi" },
+          { label: "Formularium & Restriksi", href: "/master-data-formularium-restriksi " },
+          { label: "Racikan", href: "/master-data-racikan" },
+          { label: "Obat Khusus", href: "/master-data-obat-khusus" },
+          { label: "Referensi Farmasi", href: "/master-data-referensi-farmasi" },
         ],
       },
       // { id: "master-sdmk", icon: User, label: "Master SDMK", href: "/masterdata/sdmk" },

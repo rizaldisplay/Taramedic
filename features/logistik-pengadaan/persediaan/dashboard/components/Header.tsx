@@ -1,48 +1,45 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { History, List } from 'lucide-react';
-import { useAppDispatch } from '@/store/hooks';
-import { fetchHistory, openHistory } from '@/features/masterdata/master-sdmk/slices/sdmkSlice';
+import React, { useState } from "react";
+import { History, List, RefreshCw } from "lucide-react";
+import { useAppDispatch } from "@/store/hooks";
+import {
+  fetchHistory,
+  openHistory,
+} from "@/features/masterdata/master-sdmk/slices/sdmkSlice";
 
 interface HeaderProps {
   title?: string;
   subtitle?: string;
   description?: string;
-  historyButtonText?: string;
-  auditButtonText?: string;
-  onHistoryClick?: () => void;
-  onAuditClick?: () => void;
+  lastUpdatedLabel?: string;
+  refreshButtonText?: string;
+  isRefreshing?: boolean;
+  onRefresh?: () => Promise<void> | void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Dashboard',
-  subtitle = '',
-  description = 'Ringkasan stok consumable, nilai estimasi, aktivitas terbaru, dan akses cepat ke pekerjaan inventori.',
-  historyButtonText = 'Riwayat Rujukan',
-  auditButtonText = 'Audit Trail',
-  onHistoryClick,
-  onAuditClick,
+  title = "Dashboard",
+  subtitle = "",
+  description = "Ringkasan stok consumable, nilai estimasi, aktivitas terbaru, dan akses cepat ke pekerjaan inventori.",
+  lastUpdatedLabel = 'Diperbarui 15:53 WIB',
+  refreshButtonText = 'Perbarui Data',
+  isRefreshing: externalRefreshing = false,
+  onRefresh,
 }) => {
   const dispatch = useAppDispatch();
+  const [internalRefreshing, setInternalRefreshing] = useState(false);
 
-  const handleHistoryClick = () => {
-    if (onHistoryClick) return onHistoryClick();
-    try {
-      dispatch(openHistory('history'));
-      dispatch(fetchHistory('history'));
-    } catch {
-      // Fallback jika tidak berada dalam slice SDMK
-    }
-  };
+  const refreshing = externalRefreshing || internalRefreshing;
 
-  const handleAuditClick = () => {
-    if (onAuditClick) return onAuditClick();
+  const handleRefreshClick = async () => {
     try {
-      dispatch(openHistory('audit'));
-      dispatch(fetchHistory('audit'));
-    } catch {
-      // Fallback jika tidak berada dalam slice SDMK
+      setInternalRefreshing(true);
+      await onRefresh?.();
+    } finally {
+      setTimeout(() => {
+        setInternalRefreshing(false);
+      }, 350);
     }
   };
 
@@ -67,27 +64,19 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Tombol Aksi - Rata Bawah (items-end) sejajar garis maya batas kanan card 3 */}
       <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
-        {auditButtonText && (
-          <button
-            type="button"
-            onClick={handleAuditClick}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-100/80 transition-all shadow-2xs cursor-pointer active:scale-[0.98]"
-          >
-            <List className="w-4 h-4 text-slate-500" />
-            <span>{auditButtonText}</span>
-          </button>
-        )}
-
-        {historyButtonText && (
-          <button
-            type="button"
-            onClick={handleHistoryClick}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm font-semibold text-white bg-cyan-600 rounded-xl hover:bg-cyan-700 transition-all shadow-xs cursor-pointer active:scale-[0.98]"
-          >
-            <History className="w-4 h-4" />
-            <span>{historyButtonText}</span>
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => void handleRefreshClick()}
+          disabled={refreshing}
+          className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-[#0f3d56] bg-white border border-slate-200/90 rounded-lg hover:bg-slate-50 active:bg-slate-100 disabled:opacity-60 transition-colors shadow-[0_1px_2px_rgba(15,23,42,0.03)] cursor-pointer shrink-0"
+        >
+          <RefreshCw
+            className={`w-3.5 h-3.5 text-slate-500 transition-transform ${
+              refreshing ? "animate-spin text-[#008ba6]" : ""
+            }`}
+          />
+          <span>{refreshButtonText}</span>
+        </button>
       </div>
     </header>
   );

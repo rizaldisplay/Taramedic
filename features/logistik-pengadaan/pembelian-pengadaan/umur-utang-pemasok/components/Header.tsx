@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Tombol Aksi - Rata Bawah (items-end) sejajar garis maya batas kanan card 3 */}
-      <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
+      {/* <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
         {auditButtonText && (
           <button
             type="button"
@@ -88,7 +88,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span>{historyButtonText}</span>
           </button>
         )}
-      </div>
+      </div> */}
     </header>
   );
 };

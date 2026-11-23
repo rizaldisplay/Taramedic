@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { History, List } from 'lucide-react';
+import { History, List, Plus } from 'lucide-react';
 import { useAppDispatch } from '@/store/hooks';
 import { fetchHistory, openHistory } from '@/features/masterdata/master-sdmk/slices/sdmkSlice';
 
@@ -9,35 +9,21 @@ interface HeaderProps {
   title?: string;
   subtitle?: string;
   description?: string;
-  historyButtonText?: string;
-  auditButtonText?: string;
-  onHistoryClick?: () => void;
-  onAuditClick?: () => void;
+  addSDMKButtonText?: string;
+  onAddSDMKClick?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Rujukan Pasien',
+  title = 'Data SDMK',
   subtitle = '',
-  description = 'Catat rujukan masuk dan siapkan rujukan keluar dari EMR.',
-  historyButtonText = 'Riwayat Rujukan',
-  auditButtonText = 'Audit Trail',
-  onHistoryClick,
-  onAuditClick,
+  description = 'Kelola tenaga medis, tenaga kesehatan, dan tenaga pendukung di fasilitas.',
+  addSDMKButtonText = 'Tambah SDMK',
+  onAddSDMKClick,
 }) => {
   const dispatch = useAppDispatch();
 
-  const handleHistoryClick = () => {
-    if (onHistoryClick) return onHistoryClick();
-    try {
-      dispatch(openHistory('history'));
-      dispatch(fetchHistory('history'));
-    } catch {
-      // Fallback jika tidak berada dalam slice SDMK
-    }
-  };
-
-  const handleAuditClick = () => {
-    if (onAuditClick) return onAuditClick();
+  const handleAddSDMKClick = () => {
+    if (onAddSDMKClick) return onAddSDMKClick();
     try {
       dispatch(openHistory('audit'));
       dispatch(fetchHistory('audit'));
@@ -67,25 +53,14 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Tombol Aksi - Rata Bawah (items-end) sejajar garis maya batas kanan card 3 */}
       <div className="flex items-center gap-3 shrink-0 self-start sm:self-end">
-        {auditButtonText && (
+        {addSDMKButtonText && (
           <button
             type="button"
-            onClick={handleAuditClick}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-100/80 transition-all shadow-2xs cursor-pointer active:scale-[0.98]"
-          >
-            <List className="w-4 h-4 text-slate-500" />
-            <span>{auditButtonText}</span>
-          </button>
-        )}
-
-        {historyButtonText && (
-          <button
-            type="button"
-            onClick={handleHistoryClick}
+            onClick={handleAddSDMKClick}
             className="inline-flex items-center gap-2 px-4 py-2.5 text-xs md:text-sm font-semibold text-white bg-cyan-600 rounded-xl hover:bg-cyan-700 transition-all shadow-xs cursor-pointer active:scale-[0.98]"
           >
-            <History className="w-4 h-4" />
-            <span>{historyButtonText}</span>
+            <Plus className="w-4 h-4" />
+            <span>{addSDMKButtonText}</span>
           </button>
         )}
       </div>

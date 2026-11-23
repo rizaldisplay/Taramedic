@@ -16,7 +16,7 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  title = 'Pemeriksaan Dokter',
+  title = 'Lokasi Pelayanan',
   subtitle = '',
   description = 'Kelola pemeriksaan, klarifikasi resep, dan rencana kontrol pasien dalam satu workspace.',
   historyButtonText = 'Buka Layar Antrean',

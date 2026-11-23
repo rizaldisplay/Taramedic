@@ -543,7 +543,7 @@ export default function SaldoDanBatch({
   return (
     <div className="w-full h-full font-sans text-slate-700 space-y-3.5">
       {/* 1. BARIS TAB NAVIGASI UTAMA MODUL INVENTARIS */}
-      <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.03)] px-4 sm:px-5">
+      {/* <div className="bg-white rounded-xl border border-slate-200/90 shadow-[0_1px_2px_rgba(15,23,42,0.03)] px-4 sm:px-5">
         <div
           role="tablist"
           aria-label="Navigasi Modul Inventaris"
@@ -579,7 +579,7 @@ export default function SaldoDanBatch({
             );
           })}
         </div>
-      </div>
+      </div> */}
 
       {/* 2. KONTEN UTAMA SALDO & BATCH */}
       {activeMainTab === 'saldo_batch' ? (
