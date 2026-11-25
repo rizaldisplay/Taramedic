@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import SDMK from '@/features/sdmk/data-sdmk/page';
 import TopHeader from '@/features/pemeriksaan/perawat/components/TopHeaderInfo';
 
@@ -15,8 +14,8 @@ export default function PemeriksaanPage() {
   };
 
   return (
-    <DashboardLayout>        
-          {renderContent()}
-    </DashboardLayout>
+    <>        
+      {renderContent()}
+    </>
   );
 }

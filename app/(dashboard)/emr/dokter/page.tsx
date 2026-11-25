@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import Ringkasan from '@/features/pemeriksaan/dokter/ringkasan/page';
 import Anamnesis from '@/features/pemeriksaan/dokter/anamnesis/page';
 import Pemeriksaan from '@/features/pemeriksaan/dokter/pemeriksaan/page';
@@ -42,7 +41,7 @@ export default function PemeriksaanPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
         {/* Kirim state dan setter-nya ke header sebagai props */}
         <TopHeader activeTab={activeTab} onTabChange={setActiveTab} />
         
@@ -50,6 +49,6 @@ export default function PemeriksaanPage() {
         <div className="mt-4 md:mt-6">
           {renderContent()}
         </div>
-    </DashboardLayout>
+    </>
   );
 }

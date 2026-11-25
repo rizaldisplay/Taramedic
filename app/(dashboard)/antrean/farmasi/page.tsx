@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { AntreanHeader } from '@/features/antrean-publik/AntreanHeader';
 import { MetricCards } from '@/features/antrean-publik/MetricCardFarmasi';
 import { QueueTable } from '@/features/antrean-publik/QueueTabelFarmasi';
@@ -7,7 +6,7 @@ import { ActionPanel } from '@/features/antrean-publik/ActionPanelFarmasi';
 
 export default function AntreanPoliPage() {
   return (
-    <DashboardLayout>
+    <>
       <AntreanHeader 
         title="Antrean Farmasi"
         subtitle="Farmasi Rawat Jalan"
@@ -19,6 +18,6 @@ export default function AntreanPoliPage() {
         <QueueTable />
         <ActionPanel />
       </div>
-    </DashboardLayout>
+    </>
   );
 }

@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import TindakanKlinisPage from '@/features/pelayanan-klinis/tindakan-klinis/page';
 
 export default function TindakanKlinisWorkspace() {
@@ -14,8 +13,8 @@ export default function TindakanKlinisWorkspace() {
   };
 
   return (
-    <DashboardLayout>        
-          {renderContent()}
-    </DashboardLayout>
+    <>        
+      {renderContent()}
+    </>
   );
 }

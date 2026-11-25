@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import RujukanPasienWorkspace from '@/features/administrasi/rujukan-pasien/page';
 
 export default function RujukanPasien() {
@@ -14,8 +13,8 @@ export default function RujukanPasien() {
   };
 
   return (
-    <DashboardLayout>        
-          {renderContent()}
-    </DashboardLayout>
+    <>        
+      {renderContent()}
+    </>
   );
 }

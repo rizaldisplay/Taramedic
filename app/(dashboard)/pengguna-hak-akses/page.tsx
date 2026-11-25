@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import PenggunaHakAksesPage from '@/features/pengguna-hak-akses/page';
 
 export default function PenggunaHakAksesWorkspace() {
@@ -14,11 +13,11 @@ export default function PenggunaHakAksesWorkspace() {
   };
 
   return (
-    <DashboardLayout>   
+    <>   
         {/* Area Konten Dinamis */}
         <div className="mt-4 md:mt-6">
           {renderContent()}
         </div>
-    </DashboardLayout>
+    </>
   );
 }

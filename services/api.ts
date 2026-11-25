@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export const api = axios.create({
   // baseURL: 'https://test.lemix.id/api',
@@ -11,9 +12,10 @@ export const api = axios.create({
 
 // Auto Inject Bearer Token jika ada di localStorage
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if(typeof window !== 'undefined'){
+    const token= Cookies.get('access_token');
+    if(token) config.headers.Authorization = `Bearer${token}`;
   }
+  
   return config;
 });

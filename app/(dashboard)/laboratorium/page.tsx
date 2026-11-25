@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import LaboratoriumPage from '@/features/laboratorium/page';
 
 export default function LaboratoriumWorkspace() {
@@ -14,11 +13,11 @@ export default function LaboratoriumWorkspace() {
   };
 
   return (
-    <DashboardLayout>   
+    <>   
         {/* Area Konten Dinamis */}
         <div className="mt-4 md:mt-6">
           {renderContent()}
         </div>
-    </DashboardLayout>
+    </>
   );
 }

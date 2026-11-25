@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import DivisiJabatanPage from '@/features/sdmk/divisi-jabatan/page';
 
 export default function PemeriksaanPage() {
@@ -14,8 +13,8 @@ export default function PemeriksaanPage() {
   };
 
   return (
-    <DashboardLayout>        
-          {renderContent()}
-    </DashboardLayout>
+    <>        
+      {renderContent()}
+    </>
   );
 }

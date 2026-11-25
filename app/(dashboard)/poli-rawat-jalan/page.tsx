@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import PoliRawatJalanPage from '@/features/pelayanan-klinis/poli-rawat-jalan/page';
 
 export default function PoliRawatJalanWorkspace() {
@@ -14,11 +13,11 @@ export default function PoliRawatJalanWorkspace() {
   };
 
   return (
-    <DashboardLayout>   
+    <>   
         {/* Area Konten Dinamis */}
         <div className="mt-4 md:mt-6">
           {renderContent()}
         </div>
-    </DashboardLayout>
+    </>
   );
 }

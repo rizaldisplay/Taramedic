@@ -1,7 +1,6 @@
 'use client'; // Jangan lupa tambahkan ini karena kita menggunakan useState
 
 import React, { useState } from 'react';
-import DashboardLayout from '@/components/layouts/DashboardLayout';
 import PenjadwalanPage from '@/features/administrasi/penjadwalan-kunjungan/page';
 
 export default function PendaftaranRajal() {
@@ -14,8 +13,8 @@ export default function PendaftaranRajal() {
   };
 
   return (
-    <DashboardLayout>        
-          {renderContent()}
-    </DashboardLayout>
+    <>        
+      {renderContent()}
+    </>
   );
 }
